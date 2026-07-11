@@ -20,15 +20,15 @@ export declare class LessonsController {
         createdAt: Date;
         description: string | null;
         duration: number;
+        isFeatured: boolean;
+        categoryId: string | null;
         title: string;
         audioUrl: string | null;
         videoUrl: string | null;
         thumbnailUrl: string | null;
         topic: string | null;
-        isFeatured: boolean;
         isNew: boolean;
         isHot: boolean;
-        categoryId: string | null;
     })[]>;
     getMyStats(user: {
         id: string;
@@ -59,19 +59,19 @@ export declare class LessonsController {
             createdAt: Date;
             description: string | null;
             duration: number;
+            isFeatured: boolean;
+            categoryId: string | null;
             title: string;
             audioUrl: string | null;
             videoUrl: string | null;
             thumbnailUrl: string | null;
             topic: string | null;
-            isFeatured: boolean;
             isNew: boolean;
             isHot: boolean;
-            categoryId: string | null;
         };
     } & {
-        id: string;
         status: import("@prisma/client").$Enums.HistoryStatus;
+        id: string;
         userId: string;
         lessonId: string;
         progressPercentage: number;
@@ -102,11 +102,11 @@ export declare class LessonsController {
         transcripts: {
             id: string;
             orderIndex: number;
+            lessonId: string;
             englishText: string;
             vietnamese: string;
             startTime: number;
             endTime: number;
-            lessonId: string;
         }[];
     } & {
         id: string;
@@ -114,14 +114,14 @@ export declare class LessonsController {
         createdAt: Date;
         description: string | null;
         duration: number;
+        isFeatured: boolean;
+        categoryId: string | null;
         title: string;
         audioUrl: string | null;
         videoUrl: string | null;
         thumbnailUrl: string | null;
         topic: string | null;
-        isFeatured: boolean;
         isNew: boolean;
         isHot: boolean;
-        categoryId: string | null;
     }) | null>;
 }

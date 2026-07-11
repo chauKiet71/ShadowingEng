@@ -11,57 +11,57 @@ export declare class AuthService {
     constructor(prisma: PrismaService, jwtService: JwtService);
     register(dto: RegisterDto): Promise<{
         user: Omit<{
-            id: string;
+            isPremium: boolean;
+            status: import("@prisma/client").$Enums.UserStatus;
             email: string;
             fullName: string;
+            id: string;
             avatarUrl: string | null;
             role: import("@prisma/client").$Enums.UserRole;
-            status: import("@prisma/client").$Enums.UserStatus;
             xp: number;
             level: number;
             streakDays: number;
-            isPremium: boolean;
         }, "status">;
         accessToken: string;
     }>;
     login(dto: LoginDto): Promise<{
         user: Omit<{
-            id: string;
+            isPremium: boolean;
+            status: import("@prisma/client").$Enums.UserStatus;
             email: string;
             fullName: string;
+            id: string;
             avatarUrl: string | null;
             role: import("@prisma/client").$Enums.UserRole;
-            status: import("@prisma/client").$Enums.UserStatus;
             xp: number;
             level: number;
             streakDays: number;
-            isPremium: boolean;
         }, "status">;
         accessToken: string;
     }>;
     getProfile(userId: string): Promise<Omit<{
-        id: string;
+        isPremium: boolean;
+        status: import("@prisma/client").$Enums.UserStatus;
         email: string;
         fullName: string;
+        id: string;
         avatarUrl: string | null;
         role: import("@prisma/client").$Enums.UserRole;
-        status: import("@prisma/client").$Enums.UserStatus;
         xp: number;
         level: number;
         streakDays: number;
-        isPremium: boolean;
     }, "status">>;
     updateAvatar(userId: string, file: UploadedAvatarFile): Promise<Omit<{
-        id: string;
+        isPremium: boolean;
+        status: import("@prisma/client").$Enums.UserStatus;
         email: string;
         fullName: string;
+        id: string;
         avatarUrl: string | null;
         role: import("@prisma/client").$Enums.UserRole;
-        status: import("@prisma/client").$Enums.UserStatus;
         xp: number;
         level: number;
         streakDays: number;
-        isPremium: boolean;
     }, "status">>;
     private signToken;
     private sanitizeUser;

@@ -23,15 +23,15 @@ export declare class LessonsService {
         createdAt: Date;
         description: string | null;
         duration: number;
+        isFeatured: boolean;
+        categoryId: string | null;
         title: string;
         audioUrl: string | null;
         videoUrl: string | null;
         thumbnailUrl: string | null;
         topic: string | null;
-        isFeatured: boolean;
         isNew: boolean;
         isHot: boolean;
-        categoryId: string | null;
     })[]>;
     findOne(id: string): Promise<({
         category: {
@@ -48,11 +48,11 @@ export declare class LessonsService {
         transcripts: {
             id: string;
             orderIndex: number;
+            lessonId: string;
             englishText: string;
             vietnamese: string;
             startTime: number;
             endTime: number;
-            lessonId: string;
         }[];
     } & {
         id: string;
@@ -60,15 +60,15 @@ export declare class LessonsService {
         createdAt: Date;
         description: string | null;
         duration: number;
+        isFeatured: boolean;
+        categoryId: string | null;
         title: string;
         audioUrl: string | null;
         videoUrl: string | null;
         thumbnailUrl: string | null;
         topic: string | null;
-        isFeatured: boolean;
         isNew: boolean;
         isHot: boolean;
-        categoryId: string | null;
     }) | null>;
     getHistory(userId: string, status?: string): Promise<({
         lesson: {
@@ -89,19 +89,19 @@ export declare class LessonsService {
             createdAt: Date;
             description: string | null;
             duration: number;
+            isFeatured: boolean;
+            categoryId: string | null;
             title: string;
             audioUrl: string | null;
             videoUrl: string | null;
             thumbnailUrl: string | null;
             topic: string | null;
-            isFeatured: boolean;
             isNew: boolean;
             isHot: boolean;
-            categoryId: string | null;
         };
     } & {
-        id: string;
         status: import("@prisma/client").$Enums.HistoryStatus;
+        id: string;
         userId: string;
         lessonId: string;
         progressPercentage: number;

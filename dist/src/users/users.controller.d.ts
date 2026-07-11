@@ -11,35 +11,26 @@ export declare class UsersController {
     }>;
     findAll(page?: string, limit?: string, status?: UserStatus, isPremium?: string, search?: string): Promise<{
         users: {
-            id: string;
-            email: string;
-            fullName: string;
-            avatarUrl: string | null;
-            status: import("@prisma/client").$Enums.UserStatus;
-            isPremium: boolean;
-            lastActivity: Date | null;
-            createdAt: Date;
             package: {
                 name: string;
             } | null;
+            isPremium: boolean;
+            status: import("@prisma/client").$Enums.UserStatus;
+            email: string;
+            fullName: string;
+            id: string;
+            avatarUrl: string | null;
+            lastActivity: Date | null;
+            createdAt: Date;
         }[];
         total: number;
         page: number;
         limit: number;
     }>;
     getProfile(id: string): Promise<{
-        id: string;
-        email: string;
-        fullName: string;
-        avatarUrl: string | null;
-        xp: number;
-        level: number;
-        streakDays: number;
-        isPremium: boolean;
-        createdAt: Date;
         package: {
-            id: string;
             status: import("@prisma/client").$Enums.PackageStatus;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
             name: string;
@@ -58,5 +49,14 @@ export declare class UsersController {
             benefits: import("@prisma/client/runtime/client").JsonValue | null;
             limits: import("@prisma/client/runtime/client").JsonValue | null;
         } | null;
+        isPremium: boolean;
+        email: string;
+        fullName: string;
+        id: string;
+        avatarUrl: string | null;
+        xp: number;
+        level: number;
+        streakDays: number;
+        createdAt: Date;
     } | null>;
 }
