@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  LOCKED
+}
+
+enum LessonLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum HistoryStatus {
+  LEARNING
+  COMPLETED
+}
+
+enum PackageStatus {
+  ACTIVE
+  PAUSED
+}
+
+enum DurationUnit {
+  DAY
+  MONTH
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String?
+  fullName      String    @map("full_name")
+  avatarUrl     String?   @map("avatar_url")
+  role          UserRole  @default(USER)
+  status        UserStatus @default(ACTIVE)
+  xp            Int       @default(0)
+  level         Int       @default(1)
+  streakDays    Int       @default(0) @map("streak_days")
+  isPremium     Boolean   @default(false) @map("is_premium")
+  packageId     String?   @map("package_id")
+  package       Package?  @relation(fields: [packageId], references: [id])
+  googleId      String?   @unique @map("google_id")
+  lastActivity  DateTime? @map("last_activity")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  histories     UserLessonHistory[]
+  favorites     UserFavorite[]
+  categoryFavs  CategoryFavorite[]
+
+  @@map("users")
+}
+
+model PasswordReset {
+  id         String   @id @default(uuid())
+  email      String
+  codeHash   String   @map("code_hash")
+  resetToken String?  @unique @map("reset_token")
+  expiresAt  DateTime @map("expires_at")
+  verified   Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([email])
+  @@map("password_resets")
+}
+
+model Package {
+  id            String        @id @default(uuid())
+  name          String
+  description   String?
+  price         Int
+  duration      String
+  durationUnit  DurationUnit  @default(MONTH) @map("duration_unit")
+  days          Int           @default(0)
+  months        Int           @default(1)
+  monthlyPrice  Int           @map("monthly_price")
+  originalPrice Int?          @map("original_price")
+  badge         String?
+  sortOrder     Int           @default(0) @map("sort_order")
+  icon          String        @default("crown")
+  status        PackageStatus @default(ACTIVE)
+  isVisible     Boolean       @default(true) @map("is_visible")
+  benefits      Json?
+  limits        Json?
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  users         User[]
+
+  @@map("packages")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  icon        String
+  iconColor   String   @map("icon_color")
+  imageUrl    String?  @map("image_url")
+  lessonCount Int      @default(0) @map("lesson_count")
+  isPopular   Boolean  @default(false) @map("is_popular")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  lessons     Lesson[]
+  favorites   CategoryFavorite[]
+
+  @@map("categories")
+}
+
+model Lesson {
+  id           String      @id @default(uuid())
+  title        String
+  description  String?
+  audioUrl     String?     @map("audio_url")
+  videoUrl     String?     @map("video_url")
+  thumbnailUrl String?     @map("thumbnail_url")
+  duration     Int         @default(0)
+  level        LessonLevel @default(INTERMEDIATE)
+  topic        String?
+  categoryId   String?     @map("category_id")
+  category     Category?   @relation(fields: [categoryId], references: [id])
+  isFeatured   Boolean     @default(false) @map("is_featured")
+  isNew        Boolean     @default(false) @map("is_new")
+  isHot        Boolean     @default(false) @map("is_hot")
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  transcripts  Transcript[]
+  histories    UserLessonHistory[]
+  favorites    UserFavorite[]
+
+  @@map("lessons")
+}
+
+model Transcript {
+  id          String @id @default(uuid())
+  lessonId    String @map("lesson_id")
+  lesson      Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  orderIndex  Int    @map("order_index")
+  englishText String @map("english_text")
+  vietnamese  String
+  startTime   Float  @map("start_time")
+  endTime     Float  @map("end_time")
+
+  @@map("transcripts")
+}
+
+model UserLessonHistory {
+  id                 String        @id @default(uuid())
+  userId             String        @map("user_id")
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId           String        @map("lesson_id")
+  lesson             Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  progressPercentage Int           @default(0) @map("progress_percentage")
+  status             HistoryStatus @default(LEARNING)
+  listenedSeconds    Int           @default(0) @map("listened_seconds")
+  isFavorite         Boolean       @default(false) @map("is_favorite")
+  lastListenedAt     DateTime      @default(now()) @map("last_listened_at")
+
+  @@unique([userId, lessonId])
+  @@map("user_lesson_history")
+}
+
+model UserFavorite {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String   @map("lesson_id")
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, lessonId])
+  @@map("user_favorites")
+}
+
+model CategoryFavorite {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, categoryId])
+  @@map("category_favorites")
+}
