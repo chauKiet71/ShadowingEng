@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
-  ChevronLeft, Bookmark, MoreHorizontal, RotateCcw, RotateCw,
+  ChevronLeft, Bookmark, RotateCcw, RotateCw, Turtle,
   Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
 } from 'lucide-react';
 import {
@@ -17,12 +17,15 @@ import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { resolveLessonPhonetics } from '../lib/phonetic';
 
-function speakSentence(text: string) {
+const NORMAL_PLAYBACK_RATE = 1;
+const SLOW_PLAYBACK_RATE = 0.75;
+
+function speakSentence(text: string, slow = false) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
-  utterance.rate = 0.9;
+  utterance.rate = slow ? 0.7 : 0.9;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -74,6 +77,7 @@ export default function LessonPage() {
   const [showTranslation, setShowTranslation] = useState(true);
   const [showPhonetic, setShowPhonetic] = useState(true);
   const [isLooping, setIsLooping] = useState(false);
+  const [isSlowPlayback, setIsSlowPlayback] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(lesson?.duration ?? 0);
@@ -115,9 +119,19 @@ export default function LessonPage() {
     prevActiveIndexRef.current = -1;
     transcriptRef.current?.scrollTo({ top: 0, behavior: 'auto' });
     setIsLooping(false);
+    setIsSlowPlayback(false);
     setShowTranslation(true);
     setShowPhonetic(true);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = NORMAL_PLAYBACK_RATE;
+    }
   }, [lesson?.id]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
+  }, [isSlowPlayback]);
 
   useEffect(() => {
     const container = transcriptRef.current;
@@ -176,6 +190,7 @@ export default function LessonPage() {
       if (audio.duration && Number.isFinite(audio.duration)) {
         setDuration(audio.duration);
       }
+      audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
     };
     const onError = () => {
       setIsPlaying(false);
@@ -196,7 +211,7 @@ export default function LessonPage() {
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('error', onError);
     };
-  }, [lesson, updateListeningProgress, markLessonCompleted]);
+  }, [lesson, isSlowPlayback, updateListeningProgress, markLessonCompleted]);
 
   useEffect(() => {
     if (!lesson) navigate('/', { replace: true });
@@ -213,9 +228,10 @@ export default function LessonPage() {
       audio.pause();
     } else {
       try {
+        audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
         await audio.play();
       } catch {
-        speakSentence(lesson?.sentences[activeIndex]?.english ?? '');
+        speakSentence(lesson?.sentences[activeIndex]?.english ?? '', isSlowPlayback);
       }
     }
   };
@@ -244,10 +260,21 @@ export default function LessonPage() {
     setCurrentTime(sentence.time_start);
 
     if (wasPaused) {
+      audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
       void audio.play().catch(() => {
-        speakSentence(sentence.english);
+        speakSentence(sentence.english, isSlowPlayback);
       });
     }
+  };
+
+  const toggleSlowPlayback = () => {
+    setIsSlowPlayback((prev) => {
+      const next = !prev;
+      if (audioRef.current) {
+        audioRef.current.playbackRate = next ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
+      }
+      return next;
+    });
   };
 
   const toggleLoop = async () => {
@@ -532,7 +559,13 @@ export default function LessonPage() {
                 activeClass: 'text-green-600',
                 action: () => void toggleLoop(),
               },
-              { icon: MoreHorizontal, label: 'Khác', active: false },
+              {
+                icon: Turtle,
+                label: 'Nghe chậm',
+                active: isSlowPlayback,
+                activeClass: 'text-amber-600',
+                action: toggleSlowPlayback,
+              },
             ].map(({ icon: Icon, label, action, active, activeClass }) => (
               <button
                 key={label}
