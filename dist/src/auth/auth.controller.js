@@ -20,6 +20,8 @@ const password_reset_service_1 = require("./password-reset.service");
 const auth_dto_1 = require("./dto/auth.dto");
 const password_reset_dto_1 = require("./dto/password-reset.dto");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
+const google_auth_guard_1 = require("./google-auth.guard");
+const google_oauth_filter_1 = require("./google-oauth.filter");
 const current_user_decorator_1 = require("./current-user.decorator");
 let AuthController = class AuthController {
     authService;
@@ -33,6 +35,12 @@ let AuthController = class AuthController {
     }
     login(dto) {
         return this.authService.login(dto);
+    }
+    googleAuth() {
+    }
+    googleAuthCallback(req, res) {
+        const token = req.user.accessToken;
+        return res.redirect(`/xac-thuc-google?token=${encodeURIComponent(token)}`);
     }
     me(user) {
         return this.authService.getProfile(user.id);
@@ -71,6 +79,23 @@ __decorate([
     __metadata("design:paramtypes", [auth_dto_1.LoginDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Get)('google'),
+    (0, common_1.UseGuards)(google_auth_guard_1.GoogleAuthGuard),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "googleAuth", null);
+__decorate([
+    (0, common_1.Get)('google/callback'),
+    (0, common_1.UseGuards)(google_auth_guard_1.GoogleAuthGuard),
+    (0, common_1.UseFilters)(google_oauth_filter_1.GoogleOAuthExceptionFilter),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "googleAuthCallback", null);
 __decorate([
     (0, common_1.Get)('me'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

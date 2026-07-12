@@ -1,3 +1,4 @@
+import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 interface UploadedAvatarFile {
     buffer: Buffer;
@@ -6,6 +7,11 @@ interface UploadedAvatarFile {
 import { PasswordResetService } from './password-reset.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { ForgotPasswordDto, VerifyResetCodeDto, ResendResetCodeDto, ResetPasswordDto } from './dto/password-reset.dto';
+interface GoogleAuthRequest extends Request {
+    user: {
+        accessToken: string;
+    };
+}
 export declare class AuthController {
     private authService;
     private passwordResetService;
@@ -40,6 +46,8 @@ export declare class AuthController {
         }, "status">;
         accessToken: string;
     }>;
+    googleAuth(): void;
+    googleAuthCallback(req: GoogleAuthRequest, res: Response): void;
     me(user: {
         id: string;
     }): Promise<Omit<{

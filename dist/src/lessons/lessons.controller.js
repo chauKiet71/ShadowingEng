@@ -15,12 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LessonsController = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const admin_guard_1 = require("../auth/admin.guard");
 const current_user_decorator_1 = require("../auth/current-user.decorator");
 const lessons_service_1 = require("./lessons.service");
+const lesson_access_service_1 = require("./lesson-access.service");
+const update_lesson_access_dto_1 = require("./dto/update-lesson-access.dto");
 let LessonsController = class LessonsController {
     lessonsService;
-    constructor(lessonsService) {
+    lessonAccessService;
+    constructor(lessonsService, lessonAccessService) {
         this.lessonsService = lessonsService;
+        this.lessonAccessService = lessonAccessService;
+    }
+    getAccessMap() {
+        return this.lessonAccessService.getAccessMap();
+    }
+    setAccess(lessonId, dto) {
+        return this.lessonAccessService.setLocked(lessonId, dto.isLocked);
     }
     findAll(featured, categoryId) {
         return this.lessonsService.findAll({
@@ -42,6 +53,21 @@ let LessonsController = class LessonsController {
     }
 };
 exports.LessonsController = LessonsController;
+__decorate([
+    (0, common_1.Get)('access'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], LessonsController.prototype, "getAccessMap", null);
+__decorate([
+    (0, common_1.Put)('access/:lessonId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, admin_guard_1.AdminGuard),
+    __param(0, (0, common_1.Param)('lessonId')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_lesson_access_dto_1.UpdateLessonAccessDto]),
+    __metadata("design:returntype", void 0)
+], LessonsController.prototype, "setAccess", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('featured')),
@@ -82,6 +108,7 @@ __decorate([
 ], LessonsController.prototype, "findOne", null);
 exports.LessonsController = LessonsController = __decorate([
     (0, common_1.Controller)('lessons'),
-    __metadata("design:paramtypes", [lessons_service_1.LessonsService])
+    __metadata("design:paramtypes", [lessons_service_1.LessonsService,
+        lesson_access_service_1.LessonAccessService])
 ], LessonsController);
 //# sourceMappingURL=lessons.controller.js.map

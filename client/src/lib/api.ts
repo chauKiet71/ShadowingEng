@@ -177,6 +177,20 @@ export const api = {
   getMyLessonStats() {
     return request<LessonHistoryStats>('/lessons/me/stats');
   },
+
+  getLessonAccessMap() {
+    return request<Record<string, boolean>>('/lessons/access');
+  },
+
+  setLessonAccess(lessonId: string, isLocked: boolean) {
+    return request<{ lessonId: string; isLocked: boolean; updatedAt: string }>(
+      `/lessons/access/${encodeURIComponent(lessonId)}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ isLocked }),
+      },
+    );
+  },
 };
 
 export interface AdminUserRow {

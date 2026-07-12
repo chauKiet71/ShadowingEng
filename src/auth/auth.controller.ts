@@ -6,10 +6,14 @@ import {
   Body,
   UseGuards,
   UseInterceptors,
+  UseFilters,
   UploadedFile,
   BadRequestException,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 
 interface UploadedAvatarFile {
@@ -25,7 +29,13 @@ import {
   ResetPasswordDto,
 } from './dto/password-reset.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { GoogleAuthGuard } from './google-auth.guard';
+import { GoogleOAuthExceptionFilter } from './google-oauth.filter';
 import { CurrentUser } from './current-user.decorator';
+
+interface GoogleAuthRequest extends Request {
+  user: { accessToken: string };
+}
 
 @Controller('auth')
 export class AuthController {
@@ -42,6 +52,22 @@ export class AuthController {
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
+  }
+
+  @Get('google')
+  @UseGuards(GoogleAuthGuard)
+  googleAuth() {
+    // Passport xử lý redirect sang Google
+  }
+
+  @Get('google/callback')
+  @UseGuards(GoogleAuthGuard)
+  @UseFilters(GoogleOAuthExceptionFilter)
+  googleAuthCallback(@Req() req: GoogleAuthRequest, @Res() res: Response) {
+    const token = req.user.accessToken;
+    return res.redirect(
+      `/xac-thuc-google?token=${encodeURIComponent(token)}`,
+    );
   }
 
   @Get('me')

@@ -1,4 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
+import type { Profile } from 'passport-google-oauth20';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 interface UploadedAvatarFile {
@@ -25,6 +26,21 @@ export declare class AuthService {
         accessToken: string;
     }>;
     login(dto: LoginDto): Promise<{
+        user: Omit<{
+            isPremium: boolean;
+            status: import("@prisma/client").$Enums.UserStatus;
+            email: string;
+            fullName: string;
+            id: string;
+            avatarUrl: string | null;
+            role: import("@prisma/client").$Enums.UserRole;
+            xp: number;
+            level: number;
+            streakDays: number;
+        }, "status">;
+        accessToken: string;
+    }>;
+    loginWithGoogle(profile: Profile): Promise<{
         user: Omit<{
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;

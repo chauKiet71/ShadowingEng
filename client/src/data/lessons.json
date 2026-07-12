@@ -3,108 +3,100 @@
     "id": "lesson-01",
     "categoryId": "1",
     "title": "Du lịch nước ngoài",
-    "description": "Những câu hữu ích khi đi du lịch nước ngoài",
+    "description": "Kể về chuyến du lịch nước ngoài cùng gia đình",
     "thumbnailUrl": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 59,
+    "duration": 30,
     "level": "INTERMEDIATE",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "1-1",
-        "english": "Traveling abroad is one of the best ways to learn English.",
-        "phonetic": "/ˈtrævəlɪŋ əˈbrɔːd ɪz wʌn ɒv ðə best weɪz tuː lɜːn ˈɪŋɡlɪʃ/",
-        "vietnamese": "Du lịch nước ngoài là một trong những cách tốt nhất để học tiếng Anh.",
+        "english": "I love traveling to new countries.",
+        "phonetic": "",
+        "vietnamese": "Tôi thích đi du lịch đến những quốc gia mới.",
         "time_start": 0,
-        "time_end": 5
+        "time_end": 1.24
       },
       {
         "id": "1-2",
-        "english": "Before I leave, I always check my passport and visa.",
-        "phonetic": "/bɪˈfɔːr aɪ liːv aɪ ˈɔːlweɪz tʃek maɪ ˈpɑːspɔːt ænd ˈviːzə/",
-        "vietnamese": "Trước khi đi, tôi luôn kiểm tra hộ chiếu và visa.",
-        "time_start": 5,
-        "time_end": 9.5
+        "english": "Every year, I go on a trip with my family.",
+        "phonetic": "",
+        "vietnamese": "Mỗi năm, tôi đi chơi cùng gia đình.",
+        "time_start": 1.24,
+        "time_end": 4.09
       },
       {
         "id": "1-3",
-        "english": "At the airport, I arrive three hours before departure.",
-        "phonetic": "/æt ði ˈeəpɔːt aɪ əˈraɪv θriː ˈaʊərz bɪˈfɔː dɪˈpɑːtʃər/",
-        "vietnamese": "Ở sân bay, tôi đến trước giờ khởi hành ba tiếng.",
-        "time_start": 9.5,
-        "time_end": 14.5
+        "english": "First, we choose a beautiful place.",
+        "phonetic": "",
+        "vietnamese": "Đầu tiên, chúng tôi chọn một nơi đẹp.",
+        "time_start": 4.09,
+        "time_end": 6.1
       },
       {
         "id": "1-4",
-        "english": "I print my boarding pass or save it on my phone.",
-        "phonetic": "/aɪ prɪnt maɪ ˈbɔːdɪŋ pɑːs ɔːr seɪv ɪt ɒn maɪ fəʊn/",
-        "vietnamese": "Tôi in thẻ lên máy bay hoặc lưu trên điện thoại.",
-        "time_start": 14.5,
-        "time_end": 19
+        "english": "Then, we buy our plane tickets online.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, chúng tôi mua vé máy bay trên mạng.",
+        "time_start": 6.1,
+        "time_end": 8.2
       },
       {
         "id": "1-5",
-        "english": "Security checks can take a long time during holidays.",
-        "phonetic": "/sɪˈkjʊərəti tʃeks kæn teɪk ə lɒŋ taɪm ˈdjʊərɪŋ ˈhɒlədeɪz/",
-        "vietnamese": "Kiểm tra an ninh có thể mất nhiều thời gian vào dịp lễ.",
-        "time_start": 19,
-        "time_end": 24
+        "english": "I always pack my suitcase two days before the trip.",
+        "phonetic": "",
+        "vietnamese": "Tôi luôn đóng vali hai ngày trước chuyến đi.",
+        "time_start": 8.2,
+        "time_end": 11.17
       },
       {
         "id": "1-6",
-        "english": "On the plane, I ask the flight attendant for water politely.",
-        "phonetic": "/ɒn ðə pleɪn aɪ ɑːsk ðə flaɪt əˈtendənt fɔː ˈwɔːtər pəˈlaɪtli/",
-        "vietnamese": "Trên máy bay, tôi lịch sự xin tiếp viên nước uống.",
-        "time_start": 24,
-        "time_end": 29
+        "english": "I put in my clothes, shoes, and a camera.",
+        "phonetic": "",
+        "vietnamese": "Tôi cho quần áo, giày và máy ảnh vào.",
+        "time_start": 11.17,
+        "time_end": 14.03
       },
       {
         "id": "1-7",
-        "english": "When I land, I follow the signs to immigration.",
-        "phonetic": "/wen aɪ lænd aɪ ˈfɒləʊ ðə saɪnz tuː ˌɪmɪˈɡreɪʃn/",
-        "vietnamese": "Khi hạ cánh, tôi đi theo biển báo đến khu nhập cảnh.",
-        "time_start": 29,
-        "time_end": 33.5
+        "english": "When I travel abroad, I like to try new food and meet new people.",
+        "phonetic": "",
+        "vietnamese": "Khi đi nước ngoài, tôi thích thử món mới và gặp người mới.",
+        "time_start": 14.03,
+        "time_end": 17.27
       },
       {
         "id": "1-8",
-        "english": "The officer asks why I am visiting this country.",
-        "phonetic": "/ði ˈɒfɪsər ɑːsks waɪ aɪ æm ˈvɪzɪtɪŋ ðɪs ˈkʌntri/",
-        "vietnamese": "Nhân viên hỏi tại sao tôi đến quốc gia này.",
-        "time_start": 33.5,
-        "time_end": 38
+        "english": "Sometimes, the language is different, but I can use my phone to translate.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi ngôn ngữ khác, nhưng tôi dùng điện thoại để dịch.",
+        "time_start": 17.27,
+        "time_end": 22.05
       },
       {
         "id": "1-9",
-        "english": "I answer that I am here for sightseeing and culture.",
-        "phonetic": "/aɪ ˈɑːnsər ðæt aɪ æm hɪər fɔː ˈsaɪtsiːɪŋ ænd ˈkʌltʃər/",
-        "vietnamese": "Tôi trả lời rằng tôi đến để tham quan và tìm hiểu văn hóa.",
-        "time_start": 38,
-        "time_end": 43
+        "english": "Traveling is very exciting.",
+        "phonetic": "",
+        "vietnamese": "Du lịch rất thú vị.",
+        "time_start": 22.05,
+        "time_end": 23.28
       },
       {
         "id": "1-10",
-        "english": "Then I take a train from the airport to the city center.",
-        "phonetic": "/ðen aɪ teɪk ə treɪn frɒm ði ˈeəpɔːt tuː ðə ˈsɪti ˈsentər/",
-        "vietnamese": "Sau đó tôi đi tàu từ sân bay vào trung tâm thành phố.",
-        "time_start": 43,
-        "time_end": 48
+        "english": "I can see famous places and take a lot of beautiful photos.",
+        "phonetic": "",
+        "vietnamese": "Tôi có thể xem địa danh nổi tiếng và chụp nhiều ảnh đẹp.",
+        "time_start": 23.28,
+        "time_end": 27.12
       },
       {
         "id": "1-11",
-        "english": "I use a map app to find my hotel quickly.",
-        "phonetic": "/aɪ juːz ə mæp æp tuː faɪnd maɪ həʊˈtel ˈkwɪkli/",
-        "vietnamese": "Tôi dùng ứng dụng bản đồ để tìm khách sạn nhanh chóng.",
-        "time_start": 48,
-        "time_end": 53
-      },
-      {
-        "id": "1-12",
-        "english": "Every trip teaches me new words and confidence.",
-        "phonetic": "/ˈevri trɪp ˈtiːtʃɪz miː njuː wɜːdz ænd ˈkɒnfɪdəns/",
-        "vietnamese": "Mỗi chuyến đi dạy tôi từ mới và sự tự tin.",
-        "time_start": 53,
-        "time_end": 59
+        "english": "I always feel very happy when I explore a new country.",
+        "phonetic": "",
+        "vietnamese": "Tôi luôn cảm thấy rất vui khi khám phá một đất nước mới.",
+        "time_start": 27.12,
+        "time_end": 30.2
       }
     ]
   },
@@ -112,92 +104,124 @@
     "id": "lesson-02",
     "categoryId": "1",
     "title": "Tại sân bay",
-    "description": "Giao tiếp tại sân bay quốc tế",
+    "description": "Trải nghiệm làm thủ tục và lên máy bay tại sân bay",
     "thumbnailUrl": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 28,
     "level": "BEGINNER",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "2-1",
-        "english": "Today we will learn useful English about at the airport.",
+        "english": "Today, I am at the airport.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về At the Airport.",
+        "vietnamese": "Hôm nay, tôi đang ở sân bay.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 1.25
       },
       {
         "id": "2-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I am going to London.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi đang đi London.",
+        "time_start": 1.25,
+        "time_end": 3
       },
       {
         "id": "2-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "First, I go to the check-in desk.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Đầu tiên, tôi đến quầy làm thủ tục.",
+        "time_start": 3,
+        "time_end": 4.24
       },
       {
         "id": "2-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "I give the woman my passport and my ticket.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Tôi đưa hộ chiếu và vé cho nhân viên.",
+        "time_start": 4.24,
+        "time_end": 7
       },
       {
         "id": "2-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "She takes my big suitcase.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Cô ấy nhận vali lớn của tôi.",
+        "time_start": 7,
+        "time_end": 8.21
       },
       {
         "id": "2-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "Next, I go through security.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Tiếp theo, tôi qua cửa an ninh.",
+        "time_start": 8.21,
+        "time_end": 10.11
       },
       {
         "id": "2-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "I take off my jacket and put my bag in a tray.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Tôi cởi áo khoác và đặt túi vào khay.",
+        "time_start": 10.11,
+        "time_end": 13.05
       },
       {
         "id": "2-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "After that, I wait in the departure lounge.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Sau đó, tôi chờ ở khu ga đi.",
+        "time_start": 13.05,
+        "time_end": 15.24
       },
       {
         "id": "2-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "The airport is very big and busy.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Sân bay rất lớn và đông đúc.",
+        "time_start": 15.24,
+        "time_end": 17.24
       },
       {
         "id": "2-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "There are many shops and cafes.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Có nhiều cửa hàng và quán cà phê.",
+        "time_start": 17.24,
+        "time_end": 19.27
+      },
+      {
+        "id": "2-11",
+        "english": "I buy a coffee and read a book.",
+        "phonetic": "",
+        "vietnamese": "Tôi mua cà phê và đọc sách.",
+        "time_start": 19.27,
+        "time_end": 21.27
+      },
+      {
+        "id": "2-12",
+        "english": "Finally, I look at the big screen.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi nhìn màn hình lớn.",
+        "time_start": 21.27,
+        "time_end": 24
+      },
+      {
+        "id": "2-13",
+        "english": "It says my flight is ready.",
+        "phonetic": "",
+        "vietnamese": "Màn hình báo chuyến bay của tôi đã sẵn sàng.",
+        "time_start": 24,
+        "time_end": 25.25
+      },
+      {
+        "id": "2-14",
+        "english": "I walk to the gate and get on the plane.",
+        "phonetic": "",
+        "vietnamese": "Tôi đi đến cổng và lên máy bay.",
+        "time_start": 25.25,
+        "time_end": 28.03
       }
     ]
   },
@@ -205,92 +229,116 @@
     "id": "lesson-03",
     "categoryId": "1",
     "title": "Đặt phòng khách sạn",
-    "description": "Đặt phòng khách sạn bằng tiếng Anh",
+    "description": "Hội thoại đặt phòng khách sạn qua điện thoại",
     "thumbnailUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 30.03,
     "level": "BEGINNER",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "3-1",
-        "english": "Today we will learn useful English about booking a hotel.",
+        "english": "Hello, I would like to book a room, please.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Booking a Hotel.",
+        "vietnamese": "Xin chào, tôi muốn đặt phòng ạ.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.13
       },
       {
         "id": "3-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I need a double room for three nights.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi cần phòng đôi trong ba đêm.",
+        "time_start": 2.13,
+        "time_end": 4.18
       },
       {
         "id": "3-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "We will arrive on Friday, the 15th of August, and leave on Monday, the 18th.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Chúng tôi đến thứ Sáu ngày 15 tháng 8 và rời đi thứ Hai ngày 18.",
+        "time_start": 4.18,
+        "time_end": 9.24
       },
       {
         "id": "3-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "Do you have a room available?",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Bạn còn phòng trống không?",
+        "time_start": 9.24,
+        "time_end": 11.07
       },
       {
         "id": "3-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "Great.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Tuyệt vời.",
+        "time_start": 11.07,
+        "time_end": 12
       },
       {
         "id": "3-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "Does the room have a bathroom and a TV?",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Phòng có phòng tắm và TV không?",
+        "time_start": 12,
+        "time_end": 14.28
       },
       {
         "id": "3-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "I also want to know if breakfast is included in the price.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Tôi cũng muốn biết bữa sáng có trong giá không.",
+        "time_start": 14.28,
+        "time_end": 18.12
       },
       {
         "id": "3-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "How much is it for one night?",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Một đêm bao nhiêu tiền?",
+        "time_start":   18.12,
+        "time_end": 20
       },
       {
         "id": "3-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "Okay, that is a good price.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Ổn, giá đó hợp lý.",
+        "time_start": 20,
+        "time_end": 21
       },
       {
         "id": "3-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "My name is Anna Smith.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Tên tôi là Anna Smith.",
+        "time_start": 21,
+        "time_end": 23.14
+      },
+      {
+        "id": "3-11",
+        "english": "I can pay by credit card.",
+        "phonetic": "",
+        "vietnamese": "Tôi có thể trả bằng thẻ tín dụng.",
+        "time_start": 23.14,
+        "time_end": 25.08
+      },
+      {
+        "id": "3-12",
+        "english": "Can you send me an email to confirm my booking?",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể gửi email xác nhận đặt phòng không?",
+        "time_start": 25.08,
+        "time_end": 28
+      },
+      {
+        "id": "3-13",
+        "english": "Thank you very much for your help.",
+        "phonetic": "",
+        "vietnamese": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
+        "time_start": 28,
+        "time_end": 30.03
       }
     ]
   },
@@ -298,92 +346,132 @@
     "id": "lesson-04",
     "categoryId": "1",
     "title": "Hỏi đường",
-    "description": "Hỏi đường khi đi du lịch",
+    "description": "Hỏi đường đến bảo tàng thành phố",
     "thumbnailUrl": "https://images.unsplash.com/photo-1476514525535-07fb3b4fd5ee?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 30.11,
     "level": "INTERMEDIATE",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "4-1",
-        "english": "Today we will learn useful English about asking for directions.",
+        "english": "Excuse me, can you help me, please?",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Asking for Directions.",
+        "vietnamese": "Xin lỗi, bạn giúp tôi được không?",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.16
       },
       {
         "id": "4-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I am a tourist and I am lost.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi là khách du lịch và tôi bị lạc.",
+        "time_start": 2.16,
+        "time_end": 5
       },
       {
         "id": "4-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "I am looking for the city museum.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Tôi đang tìm bảo tàng thành phố.",
+        "time_start": 5,
+        "time_end": 7.05
       },
       {
         "id": "4-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "Is it far from here?",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Có xa đây không?",
+        "time_start": 7.05,
+        "time_end": 8.15
       },
       {
         "id": "4-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "Okay, so I need to walk straight on this street.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Vậy tôi cần đi thẳng trên con phố này.",
+        "time_start": 8.15,
+        "time_end": 11.17
       },
       {
         "id": "4-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "Then, I turn left at the traffic lights.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Sau đó, tôi rẽ trái ở đèn giao thông.",
+        "time_start": 11.17,
+        "time_end": 14.03
       },
       {
         "id": "4-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "After that, I walk past the big supermarket and the park.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Rồi tôi đi qua siêu thị lớn và công viên.",
+        "time_start": 14.03,
+        "time_end": 17.24
       },
       {
         "id": "4-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "Is the museum on the right or on the left?",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Bảo tàng ở bên phải hay bên trái?",
+        "time_start": 17.24,
+        "time_end": 20.07
       },
       {
         "id": "4-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "On the right, next to the post office.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Bên phải, cạnh bưu điện.",
+        "time_start": 20.07,
+        "time_end": 22.14
       },
       {
         "id": "4-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "Thank you.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Cảm ơn bạn.",
+        "time_start": 22.14,
+        "time_end": 23.03
+      },
+      {
+        "id": "4-11",
+        "english": "How long does it take to walk there?",
+        "phonetic": "",
+        "vietnamese": "Đi bộ mất bao lâu?",
+        "time_start": 23.03,
+        "time_end": 25
+      },
+      {
+        "id": "4-12",
+        "english": "Only ten minutes?",
+        "phonetic": "",
+        "vietnamese": "Chỉ mười phút thôi à?",
+        "time_start": 25,
+        "time_end": 26
+      },
+      {
+        "id": "4-13",
+        "english": "That is great.",
+        "phonetic": "",
+        "vietnamese": "Tuyệt quá.",
+        "time_start": 26,
+        "time_end": 27.03
+      },
+      {
+        "id": "4-14",
+        "english": "Thank you so much for your help.",
+        "phonetic": "",
+        "vietnamese": "Cảm ơn bạn rất nhiều vì đã giúp.",
+        "time_start": 27.03,
+        "time_end": 28.29
+      },
+      {
+        "id": "4-15",
+        "english": "Have a nice day!",
+        "phonetic": "",
+        "vietnamese": "Chúc bạn một ngày tốt lành!",
+        "time_start": 28.29,
+        "time_end": 30.11
       }
     ]
   },
@@ -391,92 +479,140 @@
     "id": "lesson-05",
     "categoryId": "1",
     "title": "Gọi món ở nước ngoài",
-    "description": "Gọi món tại nhà hàng nước ngoài",
+    "description": "Gọi món và thanh toán tại nhà hàng",
     "thumbnailUrl": "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 31.12,
     "level": "INTERMEDIATE",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "5-1",
-        "english": "Today we will learn useful English about ordering food abroad.",
+        "english": "Good evening.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Ordering Food Abroad.",
+        "vietnamese": "Chào buổi tối.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 0.25
       },
       {
         "id": "5-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "We would like a table for two, please.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Cho chúng tôi bàn cho hai người.",
+        "time_start": 0.25,
+        "time_end": 2.22
       },
       {
         "id": "5-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "Thank you.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Cảm ơn.",
+        "time_start": 2.22,
+        "time_end": 3.20
       },
       {
         "id": "5-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "Can we see the menu?",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Cho chúng tôi xem thực đơn được không?",
+        "time_start": 3.20,
+        "time_end": 5.10
       },
       {
         "id": "5-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "The food here looks very delicious.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Đồ ăn ở đây trông rất ngon.",
+        "time_start": 5.10,
+        "time_end": 7.19
       },
       {
         "id": "5-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "I am very hungry.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Tôi rất đói.",
+        "time_start": 7.19,
+        "time_end": 9.11
       },
       {
         "id": "5-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "For my starter, I would like a green salad.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Khai vị, tôi muốn salad xanh.",
+        "time_start": 9.11,
+        "time_end": 12
       },
       {
         "id": "5-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "For the main course, I want the grilled chicken with rice and vegetables.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Món chính, tôi muốn gà nướng với cơm và rau.",
+        "time_start": 12,
+        "time_end": 16.06
       },
       {
         "id": "5-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "My friend would like the tomato pasta.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Bạn tôi muốn mì pasta sốt cà chua.",
+        "time_start": 16.06,
+        "time_end": 18.04
       },
       {
         "id": "5-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "Can we also have two glasses of orange juice, please?",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Cho thêm hai ly nước cam nữa nhé?",
+        "time_start": 18.04,
+        "time_end": 21.02
+      },
+      {
+        "id": "5-11",
+        "english": "Could we have some extra bread on the table?",
+        "phonetic": "",
+        "vietnamese": "Cho thêm bánh mì trên bàn được không?",
+        "time_start": 21.02,
+        "time_end": 23.16
+      },
+      {
+        "id": "5-12",
+        "english": "Thank you.",
+        "phonetic": "",
+        "vietnamese": "Cảm ơn.",
+        "time_start": 21.16,
+        "time_end": 24.24
+      },
+      {
+        "id": "5-13",
+        "english": "The food was fantastic.",
+        "phonetic": "",
+        "vietnamese": "Món ăn tuyệt vời.",
+        "time_start": 24.24,
+        "time_end": 26
+      },
+      {
+        "id": "5-14",
+        "english": "Could we have the bill, please?",
+        "phonetic": "",
+        "vietnamese": "Cho chúng tôi hóa đơn nhé?",
+        "time_start": 26,
+        "time_end": 27.18
+      },
+      {
+        "id": "5-15",
+        "english": "Can we pay by card or only with cash?",
+        "phonetic": "",
+        "vietnamese": "Trả bằng thẻ hay chỉ tiền mặt?",
+        "time_start": 27.18,
+        "time_end": 30.03
+      },
+      {
+        "id": "5-16",
+        "english": "Keep the change!",
+        "phonetic": "",
+        "vietnamese": "Giữ lại tiền thừa nhé!",
+        "time_start": 30.03,
+        "time_end": 31.12
       }
     ]
   },
@@ -484,92 +620,100 @@
     "id": "lesson-06",
     "categoryId": "1",
     "title": "Phương tiện công cộng",
-    "description": "Sử dụng phương tiện công cộng",
+    "description": "Đi xe buýt và tàu điện ngầm trong thành phố",
     "thumbnailUrl": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 27.13,
     "level": "INTERMEDIATE",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "6-1",
-        "english": "Today we will learn useful English about using public transport.",
+        "english": "I use public transport every day in the city.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Using Public Transport.",
+        "vietnamese": "Tôi dùng phương tiện công cộng mỗi ngày trong thành phố.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.6
       },
       {
         "id": "6-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "Usually, I take the bus to go to the city center.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Thường thì tôi đi xe buýt vào trung tâm.",
+        "time_start": 2.6,
+        "time_end": 4.15
       },
       {
         "id": "6-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "I wait at the bus stop near my hotel.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Tôi chờ ở trạm xe buýt gần khách sạn.",
+        "time_start": 4.15,
+        "time_end": 6.18
       },
       {
         "id": "6-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "When the bus arrives, I get on and buy a ticket from the driver.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Khi xe đến, tôi lên và mua vé từ tài xế.",
+        "time_start": 6.18,
+        "time_end": 9.19
       },
       {
         "id": "6-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "A single ticket is two euros.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Vé một chiều hai euro.",
+        "time_start": 9.19,
+        "time_end": 11.16
       },
       {
         "id": "6-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "Sometimes, the bus is very crowded, and I have to stand.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Đôi khi xe rất đông và tôi phải đứng.",
+        "time_start": 11.16,
+        "time_end": 14.28
       },
       {
         "id": "6-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "If I want to travel faster, I take the subway.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Nếu muốn đi nhanh hơn, tôi đi tàu điện ngầm.",
+        "time_start": 14.28,
+        "time_end": 17.19
       },
       {
         "id": "6-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "The subway station is under the ground.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Ga tàu điện ngầm ở dưới lòng đất.",
+        "time_start": 17.19,
+        "time_end": 19.27
       },
       {
         "id": "6-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "I buy a travel card from the machine.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Tôi mua thẻ đi lại từ máy.",
+        "time_start": 19.27,
+        "time_end": 22.05
       },
       {
         "id": "6-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "Trains are very fast and arrive every five minutes.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Tàu rất nhanh và đến mỗi năm phút.",
+        "time_start": 22.05,
+        "time_end": 25.13
+      },
+      {
+        "id": "6-11",
+        "english": "It is a very easy way to travel.",
+        "phonetic": "",
+        "vietnamese": "Đó là cách đi lại rất dễ.",
+        "time_start": 25.13,
+        "time_end": 27.13
       }
     ]
   },
@@ -577,92 +721,124 @@
     "id": "lesson-07",
     "categoryId": "1",
     "title": "Mua quà lưu niệm",
-    "description": "Mua quà lưu niệm khi du lịch",
+    "description": "Mua quà lưu niệm ở phố cổ",
     "thumbnailUrl": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 45,
     "level": "INTERMEDIATE",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "7-1",
-        "english": "Today we will learn useful English about shopping for souvenirs.",
+        "english": "Today is my last day on holiday.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Shopping for Souvenirs.",
+        "vietnamese": "Hôm nay là ngày cuối kỳ nghỉ của tôi.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.16
       },
       {
         "id": "7-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I want to buy some gifts for my family and friends.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi muốn mua quà cho gia đình và bạn bè.",
+        "time_start": 3.32,
+        "time_end": 6.06
       },
       {
         "id": "7-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "I go to a small souvenir shop in the old town.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Tôi đến cửa hàng lưu niệm nhỏ ở phố cổ.",
+        "time_start": 7.2,
+        "time_end": 10.1
       },
       {
         "id": "7-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "There are many beautiful things here.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Ở đây có nhiều thứ đẹp.",
+        "time_start": 11.22,
+        "time_end": 13.04
       },
       {
         "id": "7-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "I see some nice postcards and magnets.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Tôi thấy bưu thiếp và nam châm đẹp.",
+        "time_start": 13.7,
+        "time_end": 16.34
       },
       {
         "id": "7-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "I decide to buy three magnets for my colleagues.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Tôi quyết định mua ba nam châm cho đồng nghiệp.",
+        "time_start": 17.44,
+        "time_end": 20.18
       },
       {
         "id": "7-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "Then, I look at the t-shirts.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Sau đó, tôi xem áo phông.",
+        "time_start": 21.3,
+        "time_end": 23.46
       },
       {
         "id": "7-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "I want to buy a blue t-shirt for my brother.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Tôi muốn mua áo phông xanh cho anh trai.",
+        "time_start": 24.2,
+        "time_end": 26.88
       },
       {
         "id": "7-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "Excuse me, how much is this t-shirt?",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Xin lỗi, áo này bao nhiêu tiền?",
+        "time_start": 27.9,
+        "time_end": 30.66
       },
       {
         "id": "7-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "Fifteen dollars?",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Mười lăm đô à?",
+        "time_start": 30.66,
+        "time_end": 33.38
+      },
+      {
+        "id": "7-11",
+        "english": "Do you have it in a size large?",
+        "phonetic": "",
+        "vietnamese": "Bạn có size lớn không?",
+        "time_start": 33.38,
+        "time_end": 35.5
+      },
+      {
+        "id": "7-12",
+        "english": "Thank you.",
+        "phonetic": "",
+        "vietnamese": "Cảm ơn.",
+        "time_start": 36.56,
+        "time_end": 37.14
+      },
+      {
+        "id": "7-13",
+        "english": "I will take the magnets and the t-shirt.",
+        "phonetic": "",
+        "vietnamese": "Tôi lấy nam châm và áo phông.",
+        "time_start": 37.66,
+        "time_end": 40.2
+      },
+      {
+        "id": "7-14",
+        "english": "Can I have a bag, please?",
+        "phonetic": "",
+        "vietnamese": "Cho tôi một túi nhé?",
+        "time_start": 40.9,
+        "time_end": 43.2
       }
     ]
   },
@@ -670,92 +846,100 @@
     "id": "lesson-08",
     "categoryId": "1",
     "title": "Tham quan bảo tàng",
-    "description": "Tham quan bảo tàng và di tích",
+    "description": "Tham quan bảo tàng nghệ thuật quốc gia",
     "thumbnailUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 42,
     "level": "ADVANCED",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "8-1",
-        "english": "Today we will learn useful English about visiting a museum.",
+        "english": "I am visiting the National Art Museum today.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Visiting a Museum.",
+        "vietnamese": "Hôm nay tôi tham quan Bảo tàng Nghệ thuật Quốc gia.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.7
       },
       {
         "id": "8-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I love history and art.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi yêu thích lịch sử và nghệ thuật.",
+        "time_start": 3.8,
+        "time_end": 5.04
       },
       {
         "id": "8-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "First, I buy my ticket at the entrance.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Đầu tiên, tôi mua vé ở cổng vào.",
+        "time_start": 6.12,
+        "time_end": 8.82
       },
       {
         "id": "8-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "It costs ten euros for an adult.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Vé người lớn mười euro.",
+        "time_start": 9.94,
+        "time_end": 12
       },
       {
         "id": "8-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "The museum is very quiet and big.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Bảo tàng rất yên tĩnh và rộng.",
+        "time_start": 13.04,
+        "time_end": 15.16
       },
       {
         "id": "8-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "I walk slowly and look at the old paintings.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Tôi đi chậm và ngắm những bức tranh cổ.",
+        "time_start": 15.74,
+        "time_end": 18.48
       },
       {
         "id": "8-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "Some of them are hundreds of years old.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Một số bức hàng trăm năm tuổi.",
+        "time_start": 19.76,
+        "time_end": 21.74
       },
       {
         "id": "8-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "I also see some beautiful statues.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Tôi cũng thấy những bức tượng đẹp.",
+        "time_start": 22.34,
+        "time_end": 24.96
       },
       {
         "id": "8-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "There is a rule: you cannot touch the art, and you cannot take photos with a flash.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Có quy định: không được chạm vào tác phẩm và không chụp ảnh có đèn flash.",
+        "time_start": 25.78,
+        "time_end": 31.42
       },
       {
         "id": "8-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "I learn a lot of new things today.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Hôm nay tôi học được nhiều điều mới.",
+        "time_start": 32.52,
+        "time_end": 34.24
+      },
+      {
+        "id": "8-11",
+        "english": "Before I leave, I go to the museum cafe to drink some tea and rest my legs.",
+        "phonetic": "",
+        "vietnamese": "Trước khi rời đi, tôi vào quán cà phê bảo tàng uống trà và nghỉ chân.",
+        "time_start": 35.54,
+        "time_end": 40.26
       }
     ]
   },
@@ -763,92 +947,100 @@
     "id": "lesson-09",
     "categoryId": "1",
     "title": "Kỳ nghỉ biển",
-    "description": "Kỳ nghỉ biển và hoạt động ngoài trời",
+    "description": "Kỳ nghỉ hè tại bãi biển Tây Ban Nha",
     "thumbnailUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 40,
     "level": "ADVANCED",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "9-1",
-        "english": "Today we will learn useful English about beach vacation.",
+        "english": "I am on a summer holiday in Spain.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Beach Vacation.",
+        "vietnamese": "Tôi đang nghỉ hè ở Tây Ban Nha.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 2.22
       },
       {
         "id": "9-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "I am staying at a nice hotel near the beach.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Tôi ở khách sạn đẹp gần biển.",
+        "time_start": 3.44,
+        "time_end": 5.8
       },
       {
         "id": "9-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "The weather is beautiful.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Thời tiết đẹp.",
+        "time_start": 6.54,
+        "time_end": 7.98
       },
       {
         "id": "9-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "It is very sunny and hot every day.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Mỗi ngày rất nắng và nóng.",
+        "time_start": 9.12,
+        "time_end": 11.16
       },
       {
         "id": "9-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "In the morning, I put on my swimsuit and go to the beach.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Buổi sáng, tôi mặc đồ bơi và ra biển.",
+        "time_start": 12.18,
+        "time_end": 15.7
       },
       {
         "id": "9-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "The sand is white and the water is very clear and blue.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Cát trắng và nước biển trong veo màu xanh.",
+        "time_start": 16.8,
+        "time_end": 19.72
       },
       {
         "id": "9-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "I love swimming in the sea.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Tôi thích bơi ở biển.",
+        "time_start": 20.4,
+        "time_end": 22.12
       },
       {
         "id": "9-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "After that, I lie on a towel and read a book under an umbrella.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Sau đó, tôi nằm trên khăn và đọc sách dưới ô.",
+        "time_start": 23.26,
+        "time_end": 26.96
       },
       {
         "id": "9-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "Sometimes, I walk along the beach and collect small shells.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Đôi khi tôi đi dọc bờ biển và nhặt vỏ sò.",
+        "time_start": 28.06,
+        "time_end": 32
       },
       {
         "id": "9-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "In the evening, I watch the sunset and eat fresh seafood.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Buổi tối, tôi ngắm hoàng hôn và ăn hải sản tươi.",
+        "time_start": 33.22,
+        "time_end": 36.64
+      },
+      {
+        "id": "9-11",
+        "english": "It is very relaxing.",
+        "phonetic": "",
+        "vietnamese": "Rất thư giãn.",
+        "time_start": 37.7,
+        "time_end": 38.88
       }
     ]
   },
@@ -856,92 +1048,108 @@
     "id": "lesson-10",
     "categoryId": "1",
     "title": "Phiêu lưu leo núi",
-    "description": "Chuyến phiêu lưu leo núi",
+    "description": "Chuyến leo núi cuối tuần cùng bạn bè",
     "thumbnailUrl": "https://images.unsplash.com/photo-1432405972618-c60b0225b4f9?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 43,
+    "duration": 44,
     "level": "ADVANCED",
     "topic": "Du lịch & Khám phá",
     "sentences": [
       {
         "id": "10-1",
-        "english": "Today we will learn useful English about mountain adventure.",
+        "english": "This weekend, I am going on a mountain adventure with my friends.",
         "phonetic": "",
-        "vietnamese": "Hôm nay chúng ta học tiếng Anh hữu ích về Mountain Adventure.",
+        "vietnamese": "Cuối tuần này, tôi đi phiêu lưu leo núi với bạn bè.",
         "time_start": 0,
-        "time_end": 4.2
+        "time_end": 4.18
       },
       {
         "id": "10-2",
-        "english": "This topic is part of Travel and very practical.",
+        "english": "We wake up very early in the morning.",
         "phonetic": "",
-        "vietnamese": "Chủ đề này thuộc Du lịch & Khám phá và rất thiết thực.",
-        "time_start": 4.2,
-        "time_end": 8.4
+        "vietnamese": "Chúng tôi dậy rất sớm buổi sáng.",
+        "time_start": 5.34,
+        "time_end": 7.22
       },
       {
         "id": "10-3",
-        "english": "Let us start with common phrases you can use every day.",
+        "english": "I wear strong boots and a warm jacket.",
         "phonetic": "",
-        "vietnamese": "Hãy bắt đầu với những cụm từ thường dùng mỗi ngày.",
-        "time_start": 8.4,
-        "time_end": 12.600000000000001
+        "vietnamese": "Tôi mang giày bốt chắc và áo khoác ấm.",
+        "time_start": 8.34,
+        "time_end": 10.48
       },
       {
         "id": "10-4",
-        "english": "Listen carefully and repeat each sentence clearly.",
+        "english": "I carry a backpack with water, sandwiches, and a map.",
         "phonetic": "",
-        "vietnamese": "Hãy lắng nghe kỹ và lặp lại từng câu rõ ràng.",
-        "time_start": 12.600000000000001,
-        "time_end": 16.8
+        "vietnamese": "Tôi mang ba lô có nước, bánh mì kẹp và bản đồ.",
+        "time_start": 11.6,
+        "time_end": 15.78
       },
       {
         "id": "10-5",
-        "english": "Practice speaking slowly at first, then increase your speed.",
+        "english": "We start walking up the path.",
         "phonetic": "",
-        "vietnamese": "Luyện nói chậm trước, sau đó tăng tốc độ dần.",
-        "time_start": 16.8,
-        "time_end": 21
+        "vietnamese": "Chúng tôi bắt đầu đi lên con đường mòn.",
+        "time_start": 16.84,
+        "time_end": 18.5
       },
       {
         "id": "10-6",
-        "english": "Try to use these expressions in real conversations.",
+        "english": "The air is very fresh and cold.",
         "phonetic": "",
-        "vietnamese": "Hãy dùng các câu này trong hội thoại thực tế.",
-        "time_start": 21,
-        "time_end": 25.2
+        "vietnamese": "Không khí rất trong lành và lạnh.",
+        "time_start": 19.6,
+        "time_end": 21.38
       },
       {
         "id": "10-7",
-        "english": "Shadowing helps you improve pronunciation and fluency.",
+        "english": "We see tall trees and beautiful birds.",
         "phonetic": "",
-        "vietnamese": "Shadowing giúp bạn cải thiện phát âm và độ trôi chảy.",
-        "time_start": 25.2,
-        "time_end": 29.4
+        "vietnamese": "Chúng tôi thấy cây cao và chim đẹp.",
+        "time_start": 22.36,
+        "time_end": 24.72
       },
       {
         "id": "10-8",
-        "english": "Review this lesson again tomorrow for better memory.",
+        "english": "Walking up the mountain is hard work, and I feel tired.",
         "phonetic": "",
-        "vietnamese": "Ôn lại bài này vào ngày mai để nhớ lâu hơn.",
-        "time_start": 29.4,
-        "time_end": 33.6
+        "vietnamese": "Leo núi vất vả và tôi cảm thấy mệt.",
+        "time_start": 26.18,
+        "time_end": 29.46
       },
       {
         "id": "10-9",
-        "english": "Ask a friend to practice this topic with you.",
+        "english": "But we do not stop.",
         "phonetic": "",
-        "vietnamese": "Nhờ bạn bè luyện tập chủ đề này cùng bạn.",
-        "time_start": 33.6,
-        "time_end": 37.800000000000004
+        "vietnamese": "Nhưng chúng tôi không dừng lại.",
+        "time_start": 30.24,
+        "time_end": 31.84
       },
       {
         "id": "10-10",
-        "english": "Great job! You are one step closer to fluent English.",
+        "english": "Finally, we reach the top of the mountain.",
         "phonetic": "",
-        "vietnamese": "Làm tốt lắm! Bạn đã tiến thêm một bước tới tiếng Anh trôi chảy.",
-        "time_start": 37.800000000000004,
-        "time_end": 42.00000000000001
+        "vietnamese": "Cuối cùng, chúng tôi lên đến đỉnh núi.",
+        "time_start": 33.38,
+        "time_end": 35.46
+      },
+      {
+        "id": "10-11",
+        "english": "The view is amazing.",
+        "phonetic": "",
+        "vietnamese": "Cảnh quan tuyệt đẹp.",
+        "time_start": 36.58,
+        "time_end": 37.58
+      },
+      {
+        "id": "10-12",
+        "english": "We sit down, eat our lunch, and take a lot of great photos.",
+        "phonetic": "",
+        "vietnamese": "Chúng tôi ngồi xuống, ăn trưa và chụp nhiều ảnh đẹp.",
+        "time_start": 38.68,
+        "time_end": 42.96
       }
     ]
   },

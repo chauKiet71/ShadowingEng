@@ -16,6 +16,9 @@ const auth_service_1 = require("./auth.service");
 const password_reset_service_1 = require("./password-reset.service");
 const auth_controller_1 = require("./auth.controller");
 const jwt_strategy_1 = require("./jwt.strategy");
+const google_strategy_1 = require("./google.strategy");
+const admin_guard_1 = require("./admin.guard");
+const googleOAuthEnabled = !!process.env.GOOGLE_CLIENT_ID && !!process.env.GOOGLE_CLIENT_SECRET;
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -35,8 +38,8 @@ exports.AuthModule = AuthModule = __decorate([
             }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, password_reset_service_1.PasswordResetService, jwt_strategy_1.JwtStrategy],
-        exports: [auth_service_1.AuthService, jwt_1.JwtModule],
+        providers: [auth_service_1.AuthService, password_reset_service_1.PasswordResetService, jwt_strategy_1.JwtStrategy, admin_guard_1.AdminGuard, ...(googleOAuthEnabled ? [google_strategy_1.GoogleStrategy] : [])],
+        exports: [auth_service_1.AuthService, jwt_1.JwtModule, admin_guard_1.AdminGuard],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

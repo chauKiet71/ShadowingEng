@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { LessonAccessProvider } from './contexts/LessonAccessContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import { HistoryProvider } from './contexts/HistoryContext';
 import { LevelProvider } from './contexts/LevelContext';
@@ -16,7 +17,9 @@ import RegisterPage from './pages/RegisterPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import VerifyOtpPage from './pages/VerifyOtpPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import GoogleCallbackPage from './pages/GoogleCallbackPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
+import AdminLessonsPage from './pages/admin/AdminLessonsPage';
 import AdminPackagesPage from './pages/admin/AdminPackagesPage';
 import UpgradePage from './pages/UpgradePage';
 import PaymentPage from './pages/PaymentPage';
@@ -30,6 +33,7 @@ function LessonPageRoute() {
 export default function App() {
   return (
     <AuthProvider>
+      <LessonAccessProvider>
       <ThemeProvider>
       <FavoritesProvider>
       <HistoryProvider>
@@ -79,6 +83,14 @@ export default function App() {
             }
           />
           <Route
+            path="/xac-thuc-google"
+            element={
+              <GuestRoute>
+                <GoogleCallbackPage />
+              </GuestRoute>
+            }
+          />
+          <Route
             path="/quen-mat-khau"
             element={
               <GuestRoute>
@@ -122,6 +134,14 @@ export default function App() {
             }
           />
           <Route
+            path="/admin/content"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminLessonsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/admin/packages"
             element={
               <ProtectedRoute adminOnly>
@@ -135,6 +155,7 @@ export default function App() {
       </HistoryProvider>
       </FavoritesProvider>
       </ThemeProvider>
+      </LessonAccessProvider>
     </AuthProvider>
   );
 }

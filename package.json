@@ -27,6 +27,10 @@
     "db:seed": "ts-node prisma/seed.ts",
     "generate:lessons": "node scripts/generate-lessons.mjs",
     "generate:audio": "powershell -ExecutionPolicy Bypass -File scripts/generate-lesson-audio.ps1",
+    "generate:travel-audio": "powershell -ExecutionPolicy Bypass -File scripts/generate-travel-audio-1-10.ps1",
+    "elevenlabs:voices": "node scripts/elevenlabs-audio.mjs list-voices",
+    "elevenlabs:clone": "node scripts/elevenlabs-audio.mjs clone-voice",
+    "elevenlabs:generate": "node scripts/elevenlabs-audio.mjs generate",
     "sync:audio": "node scripts/sync-audio.mjs",
     "align:lesson": "node scripts/align-lesson-timestamps.mjs",
     "db:studio": "prisma studio"
@@ -54,16 +58,17 @@
     "nodemailer": "^9.0.3",
     "openai": "^6.46.0",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.22.0",
     "phonemize": "^2.0.0",
+    "prisma": "^7.8.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "ws": "^8.21.0",
-    "prisma": "^7.8.0"
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -77,6 +82,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
     "@types/nodemailer": "^8.0.1",
+    "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.20.0",
     "@types/react": "^19.1.6",

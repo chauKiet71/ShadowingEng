@@ -196,3 +196,12 @@ model CategoryFavorite {
   @@unique([userId, categoryId])
   @@map("category_favorites")
 }
+
+/// Trạng thái khóa bài học (lessonId khớp với id trong lessons.json)
+model LessonAccess {
+  lessonId  String   @id @map("lesson_id")
+  isLocked  Boolean  @default(true) @map("is_locked")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("lesson_access")
+}

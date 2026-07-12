@@ -7,6 +7,11 @@ import { AuthService } from './auth.service';
 import { PasswordResetService } from './password-reset.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
+import { GoogleStrategy } from './google.strategy';
+import { AdminGuard } from './admin.guard';
+
+const googleOAuthEnabled =
+  !!process.env.GOOGLE_CLIENT_ID && !!process.env.GOOGLE_CLIENT_SECRET;
 
 @Module({
   imports: [
@@ -23,7 +28,7 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PasswordResetService, JwtStrategy],
-  exports: [AuthService, JwtModule],
+  providers: [AuthService, PasswordResetService, JwtStrategy, AdminGuard, ...(googleOAuthEnabled ? [GoogleStrategy] : [])],
+  exports: [AuthService, JwtModule, AdminGuard],
 })
 export class AuthModule {}

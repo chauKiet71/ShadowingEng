@@ -1,11 +1,31 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AdminGuard } from '../auth/admin.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { LessonsService } from './lessons.service';
+import { LessonAccessService } from './lesson-access.service';
+import { UpdateLessonAccessDto } from './dto/update-lesson-access.dto';
 
 @Controller('lessons')
 export class LessonsController {
-  constructor(private lessonsService: LessonsService) {}
+  constructor(
+    private lessonsService: LessonsService,
+    private lessonAccessService: LessonAccessService,
+  ) {}
+
+  @Get('access')
+  getAccessMap() {
+    return this.lessonAccessService.getAccessMap();
+  }
+
+  @Put('access/:lessonId')
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  setAccess(
+    @Param('lessonId') lessonId: string,
+    @Body() dto: UpdateLessonAccessDto,
+  ) {
+    return this.lessonAccessService.setLocked(lessonId, dto.isLocked);
+  }
 
   @Get()
   findAll(

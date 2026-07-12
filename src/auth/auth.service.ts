@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserStatus } from '@prisma/client';
+import type { Profile } from 'passport-google-oauth20';
 import * as bcrypt from 'bcrypt';
 import { mkdir, writeFile } from 'fs/promises';
 import { extname, join } from 'path';
@@ -85,6 +86,83 @@ export class AuthService {
     return {
       user: this.sanitizeUser(safeUser),
       accessToken: this.signToken(safeUser),
+    };
+  }
+
+  async loginWithGoogle(profile: Profile) {
+    const googleId = profile.id;
+    const email = profile.emails?.[0]?.value?.toLowerCase();
+    const fullName =
+      profile.displayName?.trim() ||
+      profile.name?.givenName ||
+      email?.split('@')[0] ||
+      'Người dùng';
+    const avatarUrl = profile.photos?.[0]?.value ?? null;
+
+    if (!email) {
+      throw new BadRequestException(
+        'Google không cung cấp email. Vui lòng dùng tài khoản Google khác.',
+      );
+    }
+
+    let user = await this.prisma.user.findUnique({
+      where: { googleId },
+      select: userSelect,
+    });
+
+    if (!user) {
+      const existingByEmail = await this.prisma.user.findUnique({
+        where: { email },
+        select: userSelect,
+      });
+
+      if (existingByEmail) {
+        if (existingByEmail.status === UserStatus.LOCKED) {
+          throw new ForbiddenException(
+            'Tài khoản đã bị khóa. Vui lòng liên hệ hỗ trợ.',
+          );
+        }
+
+        user = await this.prisma.user.update({
+          where: { id: existingByEmail.id },
+          data: {
+            googleId,
+            avatarUrl: existingByEmail.avatarUrl ?? avatarUrl,
+            lastActivity: new Date(),
+          },
+          select: userSelect,
+        });
+      } else {
+        user = await this.prisma.user.create({
+          data: {
+            email,
+            fullName,
+            googleId,
+            avatarUrl,
+          },
+          select: userSelect,
+        });
+      }
+    } else {
+      if (user.status === UserStatus.LOCKED) {
+        throw new ForbiddenException(
+          'Tài khoản đã bị khóa. Vui lòng liên hệ hỗ trợ.',
+        );
+      }
+
+      user = await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          lastActivity: new Date(),
+          avatarUrl: user.avatarUrl ?? avatarUrl,
+        },
+        select: userSelect,
+      });
+    }
+
+    return {
+      user: this.sanitizeUser(user),
+      accessToken: this.signToken(user),
     };
   }
 

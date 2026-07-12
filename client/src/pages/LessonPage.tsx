@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft, Bookmark, MoreHorizontal, RotateCcw, RotateCw,
-  Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic,
+  Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
 } from 'lucide-react';
 import {
   findActiveSentenceIndex,
@@ -12,6 +12,8 @@ import {
 } from '../data/lessons';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { resolveLessonPhonetics } from '../lib/phonetic';
 
@@ -48,6 +50,7 @@ export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const lesson = id ? getLessonById(id) : undefined;
+  const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
   const { isFavorite, toggleFavorite } = useFavorites();
   const { updateListeningProgress, markLessonCompleted } = useHistory();
   const {
@@ -260,7 +263,45 @@ export default function LessonPage() {
     }
   };
 
+  const handleBack = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+      return;
+    }
+    navigate('/');
+  };
+
   if (!lesson) return null;
+
+  if (!accessLoading && locked && !canAccess) {
+    return (
+      <div className="min-h-screen max-w-lg mx-auto flex flex-col bg-gray-50">
+        <div className="px-4 py-3 flex items-center gap-2 border-b border-gray-100 bg-white">
+          <button type="button" onClick={handleBack} className="p-1 text-gray-600" aria-label="Quay lại">
+            <ChevronLeft size={22} />
+          </button>
+          <h1 className="text-sm font-semibold text-gray-900 truncate flex-1">{lesson.title}</h1>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+          <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
+            <Lock size={28} className="text-amber-600" />
+          </div>
+          <h2 className="text-lg font-bold text-gray-900">Bài học Pro</h2>
+          <p className="text-sm text-gray-500 mt-2 max-w-xs">
+            Bài này đã bị khóa. Nâng cấp gói Pro để mở khóa và nghe không giới hạn.
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate('/nang-cap', { state: { from: `/bai-hoc/${lesson.id}` } })}
+            className="mt-6 inline-flex items-center gap-2 gradient-btn text-white font-semibold px-6 py-3 rounded-xl"
+          >
+            <Crown size={18} />
+            Nâng cấp Pro
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
@@ -285,14 +326,6 @@ export default function LessonPage() {
     : isFetching
       ? 'Đang chấm điểm...'
       : 'Luyện nói theo audio';
-
-  const handleBack = () => {
-    if (window.history.state?.idx > 0) {
-      navigate(-1);
-      return;
-    }
-    navigate('/');
-  };
 
   return (
     <div className="h-screen max-w-lg mx-auto flex flex-col bg-gray-50 overflow-hidden">

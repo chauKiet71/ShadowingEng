@@ -1,7 +1,16 @@
 import { LessonsService } from './lessons.service';
+import { LessonAccessService } from './lesson-access.service';
+import { UpdateLessonAccessDto } from './dto/update-lesson-access.dto';
 export declare class LessonsController {
     private lessonsService;
-    constructor(lessonsService: LessonsService);
+    private lessonAccessService;
+    constructor(lessonsService: LessonsService, lessonAccessService: LessonAccessService);
+    getAccessMap(): Promise<Record<string, boolean>>;
+    setAccess(lessonId: string, dto: UpdateLessonAccessDto): Promise<{
+        updatedAt: Date;
+        lessonId: string;
+        isLocked: boolean;
+    }>;
     findAll(featured?: string, categoryId?: string): Promise<({
         category: {
             id: string;
