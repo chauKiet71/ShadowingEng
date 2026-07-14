@@ -6559,7 +6559,7 @@
         "phonetic": "",
         "vietnamese": "Chúng ta cũng sẽ sử dụng nhiều năng lượng sạch hơn từ mặt trời và gió, làm cho các thành phố của chúng ta xanh và đẹp.",
         "time_start": 21.03,
-        "time_end": 27.12 
+        "time_end": 27.12
       },
       {
         "id": "60-7",
@@ -7125,7 +7125,7 @@
         "phonetic": "",
         "vietnamese": "Hầu hết người lớn cần khoảng bảy đến tám giờ ngủ mỗi đêm.",
         "time_start": 3.29,
-        "time_end": 7.19 
+        "time_end": 7.19
       },
       {
         "id": "66-3",
@@ -7572,7 +7572,7 @@
     "description": "Học tiếng Anh hiệu quả",
     "thumbnailUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 71,
+    "duration": 50,
     "level": "INTERMEDIATE",
     "topic": "Học tập & Giáo dục",
     "sentences": [
@@ -7581,96 +7581,1266 @@
         "english": "Learning English effectively is not about studying for many hours in one day.",
         "phonetic": "",
         "vietnamese": "Học tiếng Anh hiệu quả không phải là học nhiều giờ trong một ngày.",
-        "time_start": 0,
-        "time_end": 5.74
+        "time_start": 0.00,
+        "time_end": 4.12
       },
       {
         "id": "71-2",
         "english": "It is about practicing a little bit every single day.",
         "phonetic": "",
         "vietnamese": "Mà là thực hành một chút mỗi ngày.",
-        "time_start": 5.99,
-        "time_end": 10.59
+        "time_start": 4.15,
+        "time_end": 7.2
       },
       {
         "id": "71-3",
         "english": "To learn well, you must use English in your daily life.",
         "phonetic": "",
         "vietnamese": "Để học tốt, bạn phải sử dụng tiếng Anh trong cuộc sống hàng ngày.",
-        "time_start": 10.84,
-        "time_end": 15.82
+        "time_start": 8.00,
+        "time_end": 11.22
       },
       {
         "id": "71-4",
         "english": "First, you should listen to English as much as possible.",
         "phonetic": "",
         "vietnamese": "Đầu tiên, bạn nên nghe tiếng Anh càng nhiều càng tốt.",
-        "time_start": 16.07,
-        "time_end": 20.67
+        "time_start": 12.00,
+        "time_end": 15.00
       },
       {
         "id": "71-5",
         "english": "You can listen to simple songs or podcasts while you travel on the bus or clean your room.",
         "phonetic": "",
         "vietnamese": "Bạn có thể nghe những bài hát đơn giản hoặc podcast khi đi xe buýt hoặc dọn dẹp phòng.",
-        "time_start": 20.92,
-        "time_end": 28.56
+        "time_start": 15.05,
+        "time_end": 20.07
       },
       {
         "id": "71-6",
         "english": "Second, try to read short stories or news articles that are easy to understand.",
         "phonetic": "",
         "vietnamese": "Thứ hai, hãy cố gắng đọc những câu chuyện ngắn hoặc bài báo dễ hiểu.",
-        "time_start": 28.81,
-        "time_end": 34.93
+        "time_start": 20.2,
+        "time_end": 25.1
       },
       {
         "id": "71-7",
         "english": "When you find a new word, write it in a small notebook and learn its meaning.",
         "phonetic": "",
         "vietnamese": "Khi bạn tìm thấy một từ mới, hãy viết nó vào một cuốn sổ nhỏ và học nghĩa của nó.",
-        "time_start": 35.18,
-        "time_end": 42.06
+        "time_start": 25.2,
+        "time_end": 29.2
       },
       {
         "id": "71-8",
         "english": "Do not be afraid to make mistakes when you speak.",
         "phonetic": "",
         "vietnamese": "Đừng sợ mắc lỗi khi bạn nói.",
-        "time_start": 42.31,
-        "time_end": 46.91
+        "time_start": 29.23,
+        "time_end": 32.06
       },
       {
         "id": "71-9",
         "english": "Speaking is the most important skill.",
         "phonetic": "",
         "vietnamese": "Nói là kỹ năng quan trọng nhất.",
-        "time_start": 47.16,
-        "time_end": 50.24
+        "time_start": 32.2,
+        "time_end": 35.05
       },
       {
         "id": "71-10",
         "english": "You can practice speaking with your friends or even talk to yourself in the mirror.",
         "phonetic": "",
         "vietnamese": "Bạn có thể luyện nói với bạn bè hoặc thậm chí nói với chính mình trong gương.",
-        "time_start": 50.49,
-        "time_end": 56.99
+        "time_start": 35.1,
+        "time_end": 39.1
       },
       {
         "id": "71-11",
         "english": "Finally, watching English movies with subtitles is a very fun way to learn.",
         "phonetic": "",
         "vietnamese": "Cuối cùng, xem phim tiếng Anh có phụ đề là một cách rất thú vị để học.",
-        "time_start": 57.24,
-        "time_end": 62.98
+        "time_start": 39.2,
+        "time_end": 44.16
       },
       {
         "id": "71-12",
         "english": "If you study for twenty minutes every day with a big smile, your English will improve very quickly.",
         "phonetic": "",
         "vietnamese": "Nếu bạn học trong hai mươi phút mỗi ngày với một nụ cười lớn, tiếng Anh của bạn sẽ cải thiện rất nhanh.",
-        "time_start": 63.23,
-        "time_end": 70.87
+        "time_start": 44.2,
+        "time_end": 50.00
+      }
+    ]
+  },
+  {
+    "id": "lesson-72",
+    "categoryId": "8",
+    "title": "Thói quen học tập",
+    "description": "Thói quen học tập",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "72-1",
+        "english": "Having good study habits is the secret to being a great student.",
+        "phonetic": "",
+        "vietnamese": "Có thói quen học tốt là bí quyết để trở thành một học sinh giỏi.",
+        "time_start": 0.00,
+        "time_end": 3.12
+      },
+      {
+        "id": "72-2",
+        "english": "A study habit is a routine you do every time you want to learn something new.",
+        "phonetic": "",
+        "vietnamese": "Thói quen học là một thói quen bạn thực hiện mỗi khi bạn muốn học điều gì mới.",
+        "time_start": 4.00,
+        "time_end": 8.00
+      },
+      {
+        "id": "72-3",
+        "english": "First, you need to find a quiet place to study.",
+        "phonetic": "",
+        "vietnamese": "Đầu tiên, bạn cần tìm một nơi yên tĩnh để học.",
+        "time_start": 8.2,
+        "time_end": 11.1
+      },
+      {
+        "id": "72-4",
+        "english": "It can be a desk in your bedroom or a table at the local library.",
+        "phonetic": "",
+        "vietnamese": "Nó có thể là một cái bàn trong phòng ngủ của bạn hoặc một cái bàn ở thư viện địa phương.",
+        "time_start": 11.12,
+        "time_end": 15.02
+      },
+      {
+        "id": "72-5",
+        "english": "Make sure your desk is clean and has enough light.",
+        "phonetic": "",
+        "vietnamese": "Hãy chắc chắn rằng bàn học của bạn sạch sẽ và có đủ ánh sáng.",
+        "time_start": 15.23,
+        "time_end": 18.13
+      },
+      {
+        "id": "72-6",
+        "english": "Next, always plan your study time.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, luôn lên kế hoạch cho thời gian học của bạn.",
+        "time_start": 18.2,
+        "time_end": 21.1
+      },
+      {
+        "id": "72-7",
+        "english": "You can use a small calendar to write down what you need to do every day.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể sử dụng một cuốn lịch nhỏ để ghi lại những gì bạn cần làm mỗi ngày.",
+        "time_start": 21.2,
+        "time_end": 25.2
+      },
+      {
+        "id": "72-8",
+        "english": "When you study, it is very important to put your mobile phone far away.",
+        "phonetic": "",
+        "vietnamese": "Khi bạn học, rất quan trọng để đặt điện thoại di động của bạn ra xa.",
+        "time_start": 26.00,
+        "time_end": 30.06
+      },
+      {
+        "id": "72-9",
+        "english": "The phone can make you stop reading and look at social media.",
+        "phonetic": "",
+        "vietnamese": "Điện thoại có thể khiến bạn ngừng đọc và xem mạng xã hội.",
+        "time_start": 30.1,
+        "time_end": 33.15
+      },
+      {
+        "id": "72-10",
+        "english": "You should study for forty-five minutes and then take a short break for ten minutes.",
+        "phonetic": "",
+        "vietnamese": "Bạn nên học trong bốn mươi lăm phút và sau đó nghỉ ngắn mười phút.",
+        "time_start": 33.17,
+        "time_end": 37.22
+      },
+      {
+        "id": "72-11",
+        "english": "During the break, you can walk around and drink some water.",
+        "phonetic": "",
+        "vietnamese": "Trong thời gian nghỉ, bạn có thể đi bộ xung quanh và uống một chút nước.",
+        "time_start": 37.25,
+        "time_end": 40.2
+      },
+      {
+        "id": "72-12",
+        "english": "Good study habits help you finish your homework quickly and remember information for a very long time.",
+        "phonetic": "",
+        "vietnamese": "Thói quen học tốt giúp bạn hoàn thành bài tập nhanh chóng và nhớ thông tin trong thời gian rất lâu.",
+        "time_start": 41.25,
+        "time_end": 47.08
+      }
+    ]
+  },
+  {
+    "id": "lesson-73",
+    "categoryId": "8",
+    "title": "Khóa học trực tuyến",
+    "description": "Khóa học trực tuyến",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 50,
+    "level": "BEGINNER",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "73-1",
+        "english": "Online courses have changed the way people learn today.",
+        "phonetic": "",
+        "vietnamese": "Các khóa học trực tuyến đã thay đổi cách mọi người học ngày nay.",
+        "time_start": 0.00,
+        "time_end": 3.07
+      },
+      {
+        "id": "73-2",
+        "english": "In the past, you had to go to a real school to learn a new skill.",
+        "phonetic": "",
+        "vietnamese": "Trong quá khứ, bạn phải đến một trường học thật để học một kỹ năng mới.",
+        "time_start": 3.1,
+        "time_end": 7.00
+      },
+      {
+        "id": "73-3",
+        "english": "Now, you can learn anything from your computer at home.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ, bạn có thể học bất cứ điều gì từ máy tính của mình ở nhà.",
+        "time_start": 7.1,
+        "time_end": 10.15
+      },
+      {
+        "id": "73-4",
+        "english": "There are online courses for languages, cooking, mathematics, and computer programming.",
+        "phonetic": "",
+        "vietnamese": "Có các khóa học trực tuyến về ngôn ngữ, nấu ăn, toán học và lập trình máy tính.",
+        "time_start": 10.2,
+        "time_end": 16.05
+      },
+      {
+        "id": "73-5",
+        "english": "Taking an online course is very convenient.",
+        "phonetic": "",
+        "vietnamese": "Tham gia một khóa học trực tuyến rất tiện lợi.",
+        "time_start": 16.2,
+        "time_end": 19.13
+      },
+      {
+        "id": "73-6",
+        "english": "You can study in the early morning or late at night.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể học vào buổi sáng sớm hoặc tối muộn.",
+        "time_start": 19.2,
+        "time_end": 22.16
+      },
+      {
+        "id": "73-7",
+        "english": "You do not have to wear a school uniform or travel on a busy bus.",
+        "phonetic": "",
+        "vietnamese": "Bạn không cần phải mặc đồng phục học sinh hay đi xe buýt đông đúc.",
+        "time_start": 22.25,
+        "time_end": 26.2
+      },
+      {
+        "id": "73-8",
+        "english": "In an online class, you watch videos of the teacher and read documents on the screen.",
+        "phonetic": "",
+        "vietnamese": "Trong một lớp học trực tuyến, bạn xem video của giáo viên và đọc tài liệu trên màn hình.",
+        "time_start": 27.1,
+        "time_end": 31.28
+      },
+      {
+        "id": "73-9",
+        "english": "You can also take small tests to check your knowledge.",
+        "phonetic": "",
+        "vietnamese": "Bạn cũng có thể làm các bài kiểm tra nhỏ để kiểm tra kiến thức của mình.",
+        "time_start": 32.1,
+        "time_end": 35.2
+      },
+      {
+        "id": "73-10",
+        "english": "However, to finish an online course, you must be very responsible.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, để hoàn thành một khóa học trực tuyến, bạn phải rất có trách nhiệm.",
+        "time_start": 35.22,
+        "time_end": 39.2
+      },
+      {
+        "id": "73-11",
+        "english": "You need to tell yourself to sit down and study, because there is no teacher standing next to you.",
+        "phonetic": "",
+        "vietnamese": "Bạn cần tự nhắc mình ngồi xuống và học, vì không có giáo viên đứng bên cạnh bạn.",
+        "time_start": 40.00,
+        "time_end": 45.1
+      },
+      {
+        "id": "73-12",
+        "english": "If you work hard, an online course can help you get a better job in the future.",
+        "phonetic": "",
+        "vietnamese": "Nếu bạn làm việc chăm chỉ, một khóa học trực tuyến có thể giúp bạn có một công việc tốt hơn trong tương lai.",
+        "time_start": 45.2,
+        "time_end": 50.00
+      }
+    ]
+  },
+  {
+    "id": "lesson-74",
+    "categoryId": "8",
+    "title": "Đời sống sinh viên",
+    "description": "Đời sống sinh viên",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 52,
+    "level": "INTERMEDIATE",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "74-1",
+        "english": "Student life is a very special and busy time.",
+        "phonetic": "",
+        "vietnamese": "Cuộc sống sinh viên là một khoảng thời gian rất đặc biệt và bận rộn.",
+        "time_start": 0.00,
+        "time_end": 2.23
+      },
+      {
+        "id": "74-2",
+        "english": "When you are a university student, you have to learn how to live independently.",
+        "phonetic": "",
+        "vietnamese": "Khi bạn là sinh viên đại học, bạn phải học cách sống độc lập.",
+        "time_start": 3.00,
+        "time_end": 7.1
+      },
+      {
+        "id": "74-3",
+        "english": "For many young people, it is their first time living away from their parents.",
+        "phonetic": "",
+        "vietnamese": "Đối với nhiều bạn trẻ, đây là lần đầu tiên họ sống xa cha mẹ.",
+        "time_start": 7.2,
+        "time_end": 11.2
+      },
+      {
+        "id": "74-4",
+        "english": "You have to cook your own meals, wash your own clothes, and clean your own room.",
+        "phonetic": "",
+        "vietnamese": "Bạn phải tự nấu ăn, giặt quần áo và dọn dẹp phòng của mình.",
+        "time_start": 11.23,
+        "time_end": 16.00
+      },
+      {
+        "id": "74-5",
+        "english": "Every day, students go to big classrooms to listen to professors and take notes.",
+        "phonetic": "",
+        "vietnamese": "Mỗi ngày, sinh viên đến các lớp học lớn để nghe giảng và ghi chép.",
+        "time_start": 16.1,
+        "time_end": 21.05
+      },
+      {
+        "id": "74-6",
+        "english": "After class, they often go to the library to read heavy books and do group projects.",
+        "phonetic": "",
+        "vietnamese": "Sau giờ học, họ thường đến thư viện để đọc sách nặng và làm dự án nhóm.",
+        "time_start": 21.1,
+        "time_end": 26.00
+      },
+      {
+        "id": "74-7",
+        "english": "But student life is not only about studying.",
+        "phonetic": "",
+        "vietnamese": "Nhưng cuộc sống sinh viên không chỉ là học tập.",
+        "time_start": 26.1,
+        "time_end": 29.1
+      },
+      {
+        "id": "74-8",
+        "english": "It is also a great time to make new friends from different cities and countries.",
+        "phonetic": "",
+        "vietnamese": "Đây cũng là thời gian tuyệt vời để kết bạn mới từ các thành phố và quốc gia khác nhau.",
+        "time_start": 29.15,
+        "time_end": 33.23
+      },
+      {
+        "id": "74-9",
+        "english": "Students often join sports clubs or music bands.",
+        "phonetic": "",
+        "vietnamese": "Sinh viên thường tham gia các câu lạc bộ thể thao hoặc ban nhạc.",
+        "time_start": 34.00,
+        "time_end": 37.2
+      },
+      {
+        "id": "74-10",
+        "english": "On the weekends, they might go to cheap cafes to chat and relax.",
+        "phonetic": "",
+        "vietnamese": "Vào cuối tuần, họ có thể đến những quán cà phê rẻ để trò chuyện và thư giãn.",
+        "time_start": 38.00,
+        "time_end": 42.02
+      },
+      {
+        "id": "74-11",
+        "english": "Sometimes, students do part-time jobs in restaurants to earn a little money.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi, sinh viên làm việc bán thời gian ở các nhà hàng để kiếm thêm chút tiền.",
+        "time_start": 42.15,
+        "time_end": 47.00
+      },
+      {
+        "id": "74-12",
+        "english": "Student life can be difficult and tiring, but it is always full of fun memories.",
+        "phonetic": "",
+        "vietnamese": "Cuộc sống sinh viên có thể khó khăn và mệt mỏi, nhưng luôn đầy những kỷ niệm vui vẻ.",
+        "time_start": 47.1,
+        "time_end": 52.09
+      }
+    ]
+  },
+  {
+    "id": "lesson-75",
+    "categoryId": "8",
+    "title": "Ôn thi",
+    "description": "Ôn thi",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 52,
+    "level": "INTERMEDIATE",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "75-1",
+        "english": "Exam preparation can make students feel very nervous, but a good plan can make it easy.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị cho kỳ thi có thể khiến học sinh cảm thấy rất lo lắng, nhưng một kế hoạch tốt có thể làm cho nó dễ dàng hơn.",
+        "time_start": 0.00,
+        "time_end": 5.00
+      },
+      {
+        "id": "75-2",
+        "english": "When a big test is coming, you should start studying early.",
+        "phonetic": "",
+        "vietnamese": "Khi một bài kiểm tra lớn sắp đến, bạn nên bắt đầu học sớm.",
+        "time_start": 5.2,
+        "time_end": 9.00
+      },
+      {
+        "id": "75-3",
+        "english": "Do not wait until the last night to read all your books.",
+        "phonetic": "",
+        "vietnamese": "Đừng chờ đến đêm cuối cùng để đọc tất cả sách của bạn.",
+        "time_start": 9.1,
+        "time_end": 12.1
+      },
+      {
+        "id": "75-4",
+        "english": "This is a very bad idea because your brain needs time to rest.",
+        "phonetic": "",
+        "vietnamese": "Đây là một ý tưởng rất tồi vì não của bạn cần thời gian để nghỉ ngơi.",
+        "time_start": 12.2,
+        "time_end": 17.00
+      },
+      {
+        "id": "75-5",
+        "english": "First, you should organize your notes.",
+        "phonetic": "",
+        "vietnamese": "Đầu tiên, bạn nên sắp xếp ghi chú của mình.",
+        "time_start": 17.1,
+        "time_end": 19.2
+      },
+      {
+        "id": "75-6",
+        "english": "Make sure you have all the information from your teacher.",
+        "phonetic": "",
+        "vietnamese": "Hãy chắc chắn rằng bạn có tất cả thông tin từ giáo viên của bạn.",
+        "time_start": 19.21,
+        "time_end": 22.13
+      },
+      {
+        "id": "75-7",
+        "english": "Then, use colorful pens to highlight the most important words and numbers.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, hãy sử dụng bút màu để làm nổi bật những từ và số quan trọng nhất.",
+        "time_start": 22.18,
+        "time_end": 27.00
+      },
+      {
+        "id": "75-8",
+        "english": "Reading out loud can also help you remember the lesson better.",
+        "phonetic": "",
+        "vietnamese": "Đọc to cũng có thể giúp bạn nhớ bài học tốt hơn.",
+        "time_start": 27.1,
+        "time_end": 31.00
+      },
+      {
+        "id": "75-9",
+        "english": "It is very useful to practice with old test papers.",
+        "phonetic": "",
+        "vietnamese": "Thực hành với các đề thi cũ rất hữu ích.",
+        "time_start": 31.1,
+        "time_end": 34.23
+      },
+      {
+        "id": "75-10",
+        "english": "This helps you understand what kind of questions the teacher will ask.",
+        "phonetic": "",
+        "vietnamese": "Điều này giúp bạn hiểu loại câu hỏi mà giáo viên sẽ hỏi.",
+        "time_start": 35.00,
+        "time_end": 38.2
+      },
+      {
+        "id": "75-11",
+        "english": "During the exam weeks, you must eat healthy food, like fish and vegetables, and sleep for eight hours every night.",
+        "phonetic": "",
+        "vietnamese": "Trong những tuần thi, bạn phải ăn thực phẩm lành mạnh, như cá và rau, và ngủ đủ tám giờ mỗi đêm.",
+        "time_start": 39.00,
+        "time_end": 46.07
+      },
+      {
+        "id": "75-12",
+        "english": "If you study hard and take care of your body, you will feel confident and get a very high score on your exam.",
+        "phonetic": "",
+        "vietnamese": "Nếu bạn học chăm chỉ và chăm sóc cơ thể của mình, bạn sẽ cảm thấy tự tin và đạt điểm rất cao trong kỳ thi.",
+        "time_start": 46.2,
+        "time_end": 52.28
+      }
+    ]
+  },
+  {
+    "id": "lesson-76",
+    "categoryId": "8",
+    "title": "Chiến lược đọc hiểu",
+    "description": "Chiến lược đọc hiểu",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 48,
+    "level": "INTERMEDIATE",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "76-1",
+        "english": "Reading in English can be difficult if there are many new words, but good reading strategies can help you understand the text.",
+        "phonetic": "",
+        "vietnamese": "Đọc tiếng Anh có thể khó nếu có nhiều từ mới, nhưng các chiến lược đọc tốt có thể giúp bạn hiểu văn bản.",
+        "time_start": 0.00,
+        "time_end": 6.02
+      },
+      {
+        "id": "76-2",
+        "english": "A reading strategy is a smart way to read a book or an article.",
+        "phonetic": "",
+        "vietnamese": "Một chiến lược đọc là cách thông minh để đọc một cuốn sách hoặc một bài báo.",
+        "time_start": 6.22,
+        "time_end": 10.14
+      },
+      {
+        "id": "76-3",
+        "english": "The first strategy is to look at the title and the pictures before you start reading.",
+        "phonetic": "",
+        "vietnamese": "Chiến lược đầu tiên là nhìn vào tiêu đề và các bức tranh trước khi bạn bắt đầu đọc.",
+        "time_start": 10.2,
+        "time_end": 15.02
+      },
+      {
+        "id": "76-4",
+        "english": "This gives you a general idea about the story.",
+        "phonetic": "",
+        "vietnamese": "Điều này giúp bạn có một ý tưởng tổng quát về câu chuyện.",
+        "time_start": 15.1,
+        "time_end": 18.1
+      },
+      {
+        "id": "76-5",
+        "english": "The second strategy is called skimming.",
+        "phonetic": "",
+        "vietnamese": "Chiến lược thứ hai được gọi là lướt qua.",
+        "time_start": 18.2,
+        "time_end": 21.14
+      },
+      {
+        "id": "76-6",
+        "english": "This means you read the text very quickly to find the main idea.",
+        "phonetic": "",
+        "vietnamese": "Điều này có nghĩa là bạn đọc văn bản rất nhanh để tìm ý chính.",
+        "time_start": 21.16,
+        "time_end": 25.03
+      },
+      {
+        "id": "76-7",
+        "english": "You do not need to understand every single word.",
+        "phonetic": "",
+        "vietnamese": "Bạn không cần phải hiểu từng từ một.",
+        "time_start": 25.08,
+        "time_end": 28.02
+      },
+      {
+        "id": "76-8",
+        "english": "If you see a word you do not know, do not stop reading.",
+        "phonetic": "",
+        "vietnamese": "Nếu bạn thấy một từ bạn không biết, đừng dừng lại để đọc.",
+        "time_start": 28.05,
+        "time_end": 31.1
+      },
+      {
+        "id": "76-9",
+        "english": "You can try to guess the meaning of the word from the other words in the sentence.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể cố gắng đoán nghĩa của từ đó từ các từ khác trong câu.",
+        "time_start": 31.2,
+        "time_end": 35.23
+      },
+      {
+        "id": "76-10",
+        "english": "After you finish the text, you can read it slowly a second time.",
+        "phonetic": "",
+        "vietnamese": "Sau khi bạn đọc xong văn bản, bạn có thể đọc lại chậm hơn một lần nữa.",
+        "time_start": 36,
+        "time_end": 39.28
+      },
+      {
+        "id": "76-11",
+        "english": "Then, you can use a dictionary to check the difficult words.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, bạn có thể sử dụng từ điển để kiểm tra các từ khó.",
+        "time_start": 40,
+        "time_end": 43.1
+      },
+      {
+        "id": "76-12",
+        "english": "Using these simple reading strategies makes reading much faster and more enjoyable.",
+        "phonetic": "",
+        "vietnamese": "Sử dụng những chiến lược đọc đơn giản này giúp việc đọc nhanh hơn và thú vị hơn.",
+        "time_start": 43.2,
+        "time_end": 48.23
+      }
+    ]
+  },
+  {
+    "id": "lesson-77",
+    "categoryId": "8",
+    "title": "Kỹ năng ghi chép",
+    "description": "Kỹ năng ghi chép",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 48,
+    "level": "INTERMEDIATE",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "77-1",
+        "english": "Taking good notes is a very important skill for every student and office worker.",
+        "phonetic": "",
+        "vietnamese": "Ghi chú tốt là một kỹ năng rất quan trọng cho mọi sinh viên và nhân viên văn phòng.",
+        "time_start": 0.00,
+        "time_end": 4.2
+      },
+      {
+        "id": "77-2",
+        "english": "When you are in a class or a meeting, the speaker will share a lot of information.",
+        "phonetic": "",
+        "vietnamese": "Khi bạn ở trong một lớp học hoặc một cuộc họp, người nói sẽ chia sẻ nhiều thông tin.",
+        "time_start": 5.00,
+        "time_end": 9.00
+      },
+      {
+        "id": "77-3",
+        "english": "You cannot remember everything in your head, so you must write it down.",
+        "phonetic": "",
+        "vietnamese": "Bạn không thể nhớ mọi thứ trong đầu, vì vậy bạn phải viết nó xuống.",
+        "time_start": 9.02,
+        "time_end": 13.00
+      },
+      {
+        "id": "77-4",
+        "english": "To take good notes, you should not write every word the teacher says.",
+        "phonetic": "",
+        "vietnamese": "Để ghi chú tốt, bạn không nên viết từng từ mà giáo viên nói.",
+        "time_start": 13.1,
+        "time_end": 16.24
+      },
+      {
+        "id": "77-5",
+        "english": "Instead, you only need to write the main ideas and important keywords.",
+        "phonetic": "",
+        "vietnamese": "Thay vào đó, bạn chỉ cần viết những ý chính và từ khóa quan trọng.",
+        "time_start": 17.00,
+        "time_end": 20.22
+      },
+      {
+        "id": "77-6",
+        "english": "You can use simple symbols and short words to write faster.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể sử dụng các ký hiệu đơn giản và từ ngắn để viết nhanh hơn.",
+        "time_start": 21.00,
+        "time_end": 24.1
+      },
+      {
+        "id": "77-7",
+        "english": "For example, you can use an arrow to show what happens next.",
+        "phonetic": "",
+        "vietnamese": "Ví dụ, bạn có thể sử dụng một mũi tên để chỉ ra điều gì sẽ xảy ra tiếp theo.",
+        "time_start": 24.12,
+        "time_end": 27.2
+      },
+      {
+        "id": "77-8",
+        "english": "It is a good idea to leave empty spaces on your paper.",
+        "phonetic": "",
+        "vietnamese": "Để lại những khoảng trống trên giấy của bạn là một ý tưởng tốt.",
+        "time_start": 28.00,
+        "time_end": 31.1
+      },
+      {
+        "id": "77-9",
+        "english": "Later, you can add more information or draw small pictures to help you remember.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, bạn có thể thêm thông tin hoặc vẽ những bức tranh nhỏ để giúp bạn nhớ.",
+        "time_start": 31.2,
+        "time_end": 36.1
+      },
+      {
+        "id": "77-10",
+        "english": "After the class, you should read your notes again on the same day.",
+        "phonetic": "",
+        "vietnamese": "Sau lớp học, bạn nên đọc lại ghi chú của mình vào cùng ngày.",
+        "time_start": 36.2,
+        "time_end": 40.07
+      },
+      {
+        "id": "77-11",
+        "english": "This helps your brain save the information.",
+        "phonetic": "",
+        "vietnamese": "Điều này giúp não của bạn lưu giữ thông tin.",
+        "time_start": 40.1,
+        "time_end": 42.26
+      },
+      {
+        "id": "77-12",
+        "english": "Good note-taking skills will help you learn faster and do much better in your big exams.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng ghi chú tốt sẽ giúp bạn học nhanh hơn và làm tốt hơn trong các kỳ thi lớn.",
+        "time_start": 43.00,
+        "time_end": 48.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-78",
+    "categoryId": "8",
+    "title": "Trao đổi ngôn ngữ",
+    "description": "Trao đổi ngôn ngữ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1488190211975-475b702e2fda?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 49,
+    "level": "ADVANCED",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "78-1",
+        "english": "A language exchange is a fun and friendly way to practice speaking a new language.",
+        "phonetic": "",
+        "vietnamese": "Trao đổi ngôn ngữ là một cách thú vị và thân thiện để luyện nói một ngôn ngữ mới.",
+        "time_start": 0.00,
+        "time_end": 4.04
+      },
+      {
+        "id": "78-2",
+        "english": "It means you meet someone who speaks the language you want to learn, and they want to learn your language.",
+        "phonetic": "",
+        "vietnamese": "Điều đó có nghĩa là bạn gặp ai đó nói ngôn ngữ bạn muốn học, và họ muốn học ngôn ngữ của bạn.",
+        "time_start": 4.06,
+        "time_end": 9.17
+      },
+      {
+        "id": "78-3",
+        "english": "For example, I want to learn English, and my partner wants to learn Vietnamese.",
+        "phonetic": "",
+        "vietnamese": "Ví dụ, tôi muốn học tiếng Anh, và bạn của tôi muốn học tiếng Việt.",
+        "time_start": 10.00,
+        "time_end": 14.2
+      },
+      {
+        "id": "78-4",
+        "english": "We meet in a quiet cafe once a week.",
+        "phonetic": "",
+        "vietnamese": "Chúng tôi gặp nhau ở một quán cà phê yên tĩnh một lần mỗi tuần.",
+        "time_start": 15.00,
+        "time_end": 17.15
+      },
+      {
+        "id": "78-5",
+        "english": "For the first thirty minutes, we only speak in English, so I can practice.",
+        "phonetic": "",
+        "vietnamese": "Trong ba mươi phút đầu tiên, chúng tôi chỉ nói tiếng Anh, để tôi có thể luyện tập.",
+        "time_start": 17.2,
+        "time_end": 21.2
+      },
+      {
+        "id": "78-6",
+        "english": "For the next thirty minutes, we only speak in Vietnamese, so my partner can practice.",
+        "phonetic": "",
+        "vietnamese": "Trong ba mươi phút tiếp theo, chúng tôi chỉ nói tiếng Việt, để bạn của tôi có thể luyện tập.",
+        "time_start": 22.00,
+        "time_end": 26.1
+      },
+      {
+        "id": "78-7",
+        "english": "It is a very fair trade.",
+        "phonetic": "",
+        "vietnamese": "Đó là một sự trao đổi rất công bằng.",
+        "time_start": 26.15,
+        "time_end": 28.1
+      },
+      {
+        "id": "78-8",
+        "english": "Language exchange is great because it is free.",
+        "phonetic": "",
+        "vietnamese": "Trao đổi ngôn ngữ rất tuyệt vì nó miễn phí.",
+        "time_start": 28.2,
+        "time_end": 31.13
+      },
+      {
+        "id": "78-9",
+        "english": "You also learn how real people speak, not just what is in the books.",
+        "phonetic": "",
+        "vietnamese": "Bạn cũng học cách mà người thật nói, không chỉ là những gì có trong sách.",
+        "time_start": 31.15,
+        "time_end": 35.16
+      },
+      {
+        "id": "78-10",
+        "english": "You can learn cool words and phrases.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể học những từ và cụm từ hay.",
+        "time_start": 35.2,
+        "time_end": 38.00
+      },
+      {
+        "id": "78-11",
+        "english": "Most importantly, you can make a good friend from another country.",
+        "phonetic": "",
+        "vietnamese": "Quan trọng nhất, bạn có thể kết bạn tốt với người từ quốc gia khác.",
+        "time_start": 38.1,
+        "time_end": 41.2
+      },
+      {
+        "id": "78-12",
+        "english": "We often talk about our food, music, and daily life.",
+        "phonetic": "",
+        "vietnamese": "Chúng tôi thường nói về món ăn, âm nhạc và cuộc sống hàng ngày của chúng tôi.",
+        "time_start": 42.00,
+        "time_end": 45.2
+      },
+      {
+        "id": "78-13",
+        "english": "It is the best way to become confident in speaking a new language.",
+        "phonetic": "",
+        "vietnamese": "Đó là cách tốt nhất để trở nên tự tin khi nói một ngôn ngữ mới.",
+        "time_start": 45.25,
+        "time_end": 49.14
+      }
+    ]
+  },
+  {
+    "id": "lesson-79",
+    "categoryId": "8",
+    "title": "Đừng bỏ cuộc",
+    "description": "Đừng bỏ cuộc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 55,
+    "level": "INTERMEDIATE",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "79-1",
+        "english": "Learning a new skill, like playing the guitar or speaking English, takes a lot of time and effort.",
+        "phonetic": "",
+        "vietnamese": "Học một kỹ năng mới, như chơi guitar hoặc nói tiếng Anh, cần rất nhiều thời gian và nỗ lực.",
+        "time_start": 0.00,
+        "time_end": 5.13
+      },
+      {
+        "id": "79-2",
+        "english": "Sometimes, you might feel very tired and frustrated.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi, bạn có thể cảm thấy rất mệt mỏi và thất vọng.",
+        "time_start": 5.2,
+        "time_end": 9.06
+      },
+      {
+        "id": "79-3",
+        "english": "You might make big mistakes or feel that you are not learning anything new.",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể mắc những sai lầm lớn hoặc cảm thấy rằng bạn không học được gì mới.",
+        "time_start": 9.13,
+        "time_end": 13.1
+      },
+      {
+        "id": "79-4",
+        "english": "When this happens, a small voice inside your head might say, \"This is too difficult, I want to stop.\"",
+        "phonetic": "",
+        "vietnamese": "Khi chuyện này xảy ra, một giọng nhỏ trong đầu bạn có thể nói, 'Chuyện này quá khó, mình muốn dừng lại.'",
+        "time_start": 13.1,
+        "time_end": 20
+      },
+      {
+        "id": "79-5",
+        "english": "But you must tell yourself: \"Don't give up!\"",
+        "phonetic": "",
+        "vietnamese": "Nhưng bạn phải tự nhủ: 'Đừng bỏ cuộc!'",
+        "time_start": 20,
+        "time_end": 22.24
+      },
+      {
+        "id": "79-6",
+        "english": "\" Every expert was once a beginner.",
+        "phonetic": "",
+        "vietnamese": "\" Mọi chuyên gia đều từng là người mới bắt đầu.",
+        "time_start": 22.24,
+        "time_end": 25.1
+      },
+      {
+        "id": "79-7",
+        "english": "Making mistakes is a very normal part of the learning journey.",
+        "phonetic": "",
+        "vietnamese": "Mắc lỗi là một phần rất bình thường trong hành trình học tập.",
+        "time_start": 26.00,
+        "time_end": 29.13
+      },
+      {
+        "id": "79-8",
+        "english": "Mistakes show that you are trying.",
+        "phonetic": "",
+        "vietnamese": "Sai lầm cho thấy bạn đang cố gắng.",
+        "time_start": 30.00,
+        "time_end": 32.00
+      },
+      {
+        "id": "79-9",
+        "english": "When you feel sad, take a small break.",
+        "phonetic": "",
+        "vietnamese": "Khi bạn cảm thấy buồn, hãy nghỉ ngơi một chút.",
+        "time_start": 32.1,
+        "time_end": 35.00
+      },
+      {
+        "id": "79-10",
+        "english": "Drink some water, go for a walk, or listen to your favorite song.",
+        "phonetic": "",
+        "vietnamese": "Uống một chút nước, đi dạo hoặc nghe bài hát yêu thích của bạn.",
+        "time_start": 35.02,
+        "time_end": 38.23
+      },
+      {
+        "id": "79-11",
+        "english": "Then, remember why you started in the first place.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, hãy nhớ lý do tại sao bạn bắt đầu ngay từ đầu.",
+        "time_start": 39.00,
+        "time_end": 42.1
+      },
+      {
+        "id": "79-12",
+        "english": "Think about the happy feeling you will have when you finally reach your goal.",
+        "phonetic": "",
+        "vietnamese": "Hãy nghĩ về cảm giác hạnh phúc mà bạn sẽ có khi cuối cùng đạt được mục tiêu.",
+        "time_start": 43.00,
+        "time_end": 46.2
+      },
+      {
+        "id": "79-13",
+        "english": "Always believe in yourself and keep practicing every day.",
+        "phonetic": "",
+        "vietnamese": "Luôn tin vào bản thân và tiếp tục luyện tập mỗi ngày.",
+        "time_start": 47.00,
+        "time_end": 50.1
+      },
+      {
+        "id": "79-14",
+        "english": "Slowly but surely, you will get better.",
+        "phonetic": "",
+        "vietnamese": "Chậm nhưng chắc chắn, bạn sẽ trở nên tốt hơn.",
+        "time_start": 50.2,
+        "time_end": 53.05
+      },
+      {
+        "id": "79-15",
+        "english": "Never, ever give up!",
+        "phonetic": "",
+        "vietnamese": "Đừng bao giờ từ bỏ!",
+        "time_start": 53.08,
+        "time_end": 54.2
+      }
+    ]
+  },
+  {
+    "id": "lesson-80",
+    "categoryId": "8",
+    "title": "Thảo luận trong lớp",
+    "description": "Thảo luận trong lớp",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 50,
+    "level": "ADVANCED",
+    "topic": "Học tập & Giáo dục",
+    "sentences": [
+      {
+        "id": "80-1",
+        "english": "A class discussion is a very active way to learn together with other students.",
+        "phonetic": "",
+        "vietnamese": "Thảo luận trong lớp là một cách rất tích cực để học cùng với các bạn học khác.",
+        "time_start": 0.00,
+        "time_end": 4.12
+      },
+      {
+        "id": "80-2",
+        "english": "Instead of just listening to the teacher, the students talk to each other about a specific topic.",
+        "phonetic": "",
+        "vietnamese": "Thay vì chỉ nghe giáo viên, học sinh nói chuyện với nhau về một chủ đề cụ thể.",
+        "time_start": 4.20,
+        "time_end": 9.2
+      },
+      {
+        "id": "80-3",
+        "english": "The teacher might ask a big question, like \"Is technology good or bad for children?\"",
+        "phonetic": "",
+        "vietnamese": "Giáo viên có thể hỏi một câu hỏi lớn, như 'Công nghệ có tốt hay xấu cho trẻ em?''",
+        "time_start": 9.2,
+        "time_end": 12.34
+      },
+      {
+        "id": "80-4",
+        "english": "\" Then, everyone has a chance to share their own opinion.",
+        "phonetic": "",
+        "vietnamese": "\" Sau đó, mọi người có cơ hội để chia sẻ ý kiến của mình.",
+        "time_start": 12.34,
+        "time_end": 19.00
+      },
+      {
+        "id": "80-5",
+        "english": "To have a good class discussion, you must be a good listener.",
+        "phonetic": "",
+        "vietnamese": "Để có một cuộc thảo luận tốt trong lớp, bạn phải là một người nghe tốt.",
+        "time_start": 19.1,
+        "time_end": 22.16
+      },
+      {
+        "id": "80-6",
+        "english": "When your classmate is speaking, you should look at them and not look at your phone.",
+        "phonetic": "",
+        "vietnamese": "Khi bạn học cùng lớp đang nói, bạn nên nhìn vào họ và không nhìn vào điện thoại của mình.",
+        "time_start": 22.2,
+        "time_end": 26.15
+      },
+      {
+        "id": "80-7",
+        "english": "You must wait until they finish speaking before you start talking.",
+        "phonetic": "",
+        "vietnamese": "Bạn phải chờ cho đến khi họ nói xong trước khi bạn bắt đầu nói.",
+        "time_start": 26.2,
+        "time_end": 29.23
+      },
+      {
+        "id": "80-7",
+        "english": "It is completely okay to have a different idea.",
+        "phonetic": "",
+        "vietnamese": "Hoàn toàn bình thường khi có một ý kiến khác.",
+        "time_start": 30.00,
+        "time_end": 33.1
+      },
+      {
+        "id": "80-8",
+        "english": "You can politely say, \"I understand your point, but I think differently.\"",
+        "phonetic": "",
+        "vietnamese": "Bạn có thể lịch sự nói, 'Mình hiểu ý bạn, nhưng mình nghĩ khác.'",
+        "time_start": 33.1,
+        "time_end": 38.05
+      },
+      {
+        "id": "80-8",
+        "english": "\" Speaking in front of the whole class can make you feel a little nervous.",
+        "phonetic": "",
+        "vietnamese": "\" Nói trước toàn lớp có thể khiến bạn cảm thấy hơi lo lắng.",
+        "time_start": 38.1,
+        "time_end": 42.00
+      },
+      {
+        "id": "80-9",
+        "english": "But if you practice, you will become very confident.",
+        "phonetic": "",
+        "vietnamese": "Nhưng nếu bạn thực hành, bạn sẽ trở nên rất tự tin.",
+        "time_start": 42.1,
+        "time_end": 45.1
+      },
+      {
+        "id": "80-10",
+        "english": "Class discussions help us learn new ideas and respect the thoughts of our friends.",
+        "phonetic": "",
+        "vietnamese": "Các cuộc thảo luận trong lớp giúp chúng ta học những ý tưởng mới và tôn trọng suy nghĩ của bạn bè.",
+        "time_start": 45.22,
+        "time_end": 50.05
+      }
+    ]
+  },
+  {
+    "id": "lesson-81",
+    "categoryId": "2",
+    "title": "Cuộc sống hạnh phúc và buồn bã",
+    "description": "Lòng biết ơn giúp cuộc sống hạnh phúc hơn mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-81.mp3",
+    "duration": 47,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "81-1",
+        "english": "Life is beautiful.",
+        "phonetic": "",
+        "vietnamese": "Cuộc sống thật đẹp.",
+        "time_start": 0,
+        "time_end": 1.02
+      },
+      {
+        "id": "81-2",
+        "english": "Every day, we have many good things.",
+        "phonetic": "",
+        "vietnamese": "Mỗi ngày, chúng ta có nhiều điều tốt đẹp.",
+        "time_start": 1.32,
+        "time_end": 3.4
+      },
+      {
+        "id": "81-3",
+        "english": "We have healthy food, a warm house, and good friends.",
+        "phonetic": "",
+        "vietnamese": "Chúng ta có thức ăn lành mạnh, ngôi nhà ấm áp và những người bạn tốt.",
+        "time_start": 3.88,
+        "time_end": 7.34
+      },
+      {
+        "id": "81-4",
+        "english": "We have a loving family.",
+        "phonetic": "",
+        "vietnamese": "Chúng ta có một gia đình yêu thương.",
+        "time_start": 7.76,
+        "time_end": 9.04
+      },
+      {
+        "id": "81-5",
+        "english": "A good person says \"thank you\" for these things.",
+        "phonetic": "",
+        "vietnamese": "Người tốt sẽ nói \"cảm ơn\" vì những điều này.",
+        "time_start": 9.42,
+        "time_end": 11.66
+      },
+      {
+        "id": "81-6",
+        "english": "This is gratitude.",
+        "phonetic": "",
+        "vietnamese": "Đó là lòng biết ơn.",
+        "time_start": 12.1,
+        "time_end": 13.28
+      },
+      {
+        "id": "81-7",
+        "english": "When we are thankful, we are happy.",
+        "phonetic": "",
+        "vietnamese": "Khi biết ơn, chúng ta hạnh phúc.",
+        "time_start": 13.88,
+        "time_end": 15.84
+      },
+      {
+        "id": "81-8",
+        "english": "We smile a lot and sleep well.",
+        "phonetic": "",
+        "vietnamese": "Chúng ta cười nhiều và ngủ ngon.",
+        "time_start": 16.36,
+        "time_end": 18.9
+      },
+      {
+        "id": "81-9",
+        "english": "But, some people are not thankful.",
+        "phonetic": "",
+        "vietnamese": "Nhưng, một số người không biết ơn.",
+        "time_start": 19.26,
+        "time_end": 21.06
+      },
+      {
+        "id": "81-10",
+        "english": "They never say \"thank you.\"",
+        "phonetic": "",
+        "vietnamese": "Họ không bao giờ nói \"cảm ơn\".",
+        "time_start": 21.5,
+        "time_end": 23.02
+      },
+      {
+        "id": "81-11",
+        "english": "They have good things, but they always want more.",
+        "phonetic": "",
+        "vietnamese": "Họ có những điều tốt, nhưng luôn muốn thêm.",
+        "time_start": 23.42,
+        "time_end": 26.18
+      },
+      {
+        "id": "81-12",
+        "english": "They want more money, new clothes, or a bigger car.",
+        "phonetic": "",
+        "vietnamese": "Họ muốn thêm tiền, quần áo mới, hoặc xe lớn hơn.",
+        "time_start": 26.5,
+        "time_end": 29.52
+      },
+      {
+        "id": "81-13",
+        "english": "This is ungratefulness.",
+        "phonetic": "",
+        "vietnamese": "Đó là sự vô ơn.",
+        "time_start": 30.3,
+        "time_end": 32.12
+      },
+      {
+        "id": "81-14",
+        "english": "Ungrateful people are often sad or angry.",
+        "phonetic": "",
+        "vietnamese": "Người vô ơn thường buồn hoặc tức giận.",
+        "time_start": 32.62,
+        "time_end": 34.74
+      },
+      {
+        "id": "81-15",
+        "english": "They do not see the beautiful things in their life.",
+        "phonetic": "",
+        "vietnamese": "Họ không thấy những điều đẹp trong cuộc sống.",
+        "time_start": 35.26,
+        "time_end": 37.84
+      },
+      {
+        "id": "81-16",
+        "english": "It is very easy to be happy.",
+        "phonetic": "",
+        "vietnamese": "Thật dễ để hạnh phúc.",
+        "time_start": 38.02,
+        "time_end": 40.18
+      },
+      {
+        "id": "81-17",
+        "english": "We just need to look at our life and say \"thank you.\"",
+        "phonetic": "",
+        "vietnamese": "Chúng ta chỉ cần nhìn cuộc sống và nói \"cảm ơn\".",
+        "time_start": 40.64,
+        "time_end": 43.78
+      },
+      {
+        "id": "81-18",
+        "english": "Gratitude makes our life better every day.",
+        "phonetic": "",
+        "vietnamese": "Lòng biết ơn làm cuộc sống tốt hơn mỗi ngày.",
+        "time_start": 44.16,
+        "time_end": 46.32
       }
     ]
   },
