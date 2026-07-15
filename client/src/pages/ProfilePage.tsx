@@ -19,6 +19,27 @@ const menuItems = [
   { icon: HelpCircle, label: 'Hỗ trợ', color: 'text-purple-500', to: 'http://zalo.me/0327142982', external: true },
 ];
 
+function getPremiumTimeLabel(
+  expiresAt?: string | null,
+  packageDuration?: string,
+) {
+  if (!expiresAt) {
+    return packageDuration ? `Thời hạn ${packageDuration}` : 'Đang có hiệu lực';
+  }
+
+  const expiry = new Date(expiresAt);
+  if (Number.isNaN(expiry.getTime())) return 'Đang có hiệu lực';
+
+  const remainingDays = Math.max(
+    0,
+    Math.ceil((expiry.getTime() - Date.now()) / (24 * 60 * 60 * 1000)),
+  );
+  const date = expiry.toLocaleDateString('vi-VN');
+
+  if (remainingDays === 0) return `Hết hạn hôm nay · ${date}`;
+  return `Còn ${remainingDays} ngày · Hết hạn ${date}`;
+}
+
 export default function ProfilePage() {
   const { user, logout, refreshUser } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -149,7 +170,10 @@ export default function ProfilePage() {
               {user?.isPremium ? (
                 <>
                   <Crown size={14} className="text-primary" />
-                  <span className="text-sm text-gray-600">Gói Premium</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    Gói Premium
+                    {user.package?.name ? ` · ${user.package.name}` : ''}
+                  </span>
                 </>
               ) : (
                 <>
@@ -158,6 +182,14 @@ export default function ProfilePage() {
                 </>
               )}
             </div>
+            {user?.isPremium && (
+              <p className="text-[11px] font-medium text-primary mt-0.5">
+                {getPremiumTimeLabel(
+                  user.premiumExpiresAt,
+                  user.package?.duration,
+                )}
+              </p>
+            )}
             <p className="text-xs text-gray-400 mt-0.5">{user?.email}</p>
             {avatarError && (
               <p className="text-xs text-red-500 mt-1">{avatarError}</p>

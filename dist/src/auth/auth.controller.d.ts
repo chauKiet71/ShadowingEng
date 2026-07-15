@@ -18,6 +18,14 @@ export declare class AuthController {
     constructor(authService: AuthService, passwordResetService: PasswordResetService);
     register(dto: RegisterDto): Promise<{
         user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;
             email: string;
@@ -28,11 +36,21 @@ export declare class AuthController {
             xp: number;
             level: number;
             streakDays: number;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
         }, "status">;
         accessToken: string;
     }>;
     login(dto: LoginDto): Promise<{
         user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;
             email: string;
@@ -43,6 +61,8 @@ export declare class AuthController {
             xp: number;
             level: number;
             streakDays: number;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
         }, "status">;
         accessToken: string;
     }>;
@@ -51,6 +71,14 @@ export declare class AuthController {
     me(user: {
         id: string;
     }): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
         isPremium: boolean;
         status: import("@prisma/client").$Enums.UserStatus;
         email: string;
@@ -61,10 +89,20 @@ export declare class AuthController {
         xp: number;
         level: number;
         streakDays: number;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
     }, "status">>;
     updateAvatar(user: {
         id: string;
     }, file: UploadedAvatarFile): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
         isPremium: boolean;
         status: import("@prisma/client").$Enums.UserStatus;
         email: string;
@@ -75,6 +113,8 @@ export declare class AuthController {
         xp: number;
         level: number;
         streakDays: number;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
     }, "status">>;
     forgotPassword(dto: ForgotPasswordDto): Promise<{
         message: string;

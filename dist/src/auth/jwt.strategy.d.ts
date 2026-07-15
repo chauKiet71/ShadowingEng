@@ -22,6 +22,7 @@ export declare class JwtStrategy extends JwtStrategy_base {
         xp: number;
         level: number;
         streakDays: number;
+        premiumExpiresAt: Date | null;
     }>;
 }
 export {};

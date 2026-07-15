@@ -11,7 +11,7 @@ import { GlobalExceptionFilter } from './common/filters/global-exception.filter'
 async function bootstrap() {
   await syncDatabaseSchema();
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { rawBody: true });
   app.useWebSocketAdapter(new WsAdapter(app));
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new GlobalExceptionFilter());

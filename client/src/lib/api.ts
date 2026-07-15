@@ -156,6 +156,17 @@ export const api = {
     return request<PackageRow>(`/packages/${id}`);
   },
 
+  createPaymentOrder(packageId: string) {
+    return request<PaymentOrder>('/payments/orders', {
+      method: 'POST',
+      body: JSON.stringify({ packageId }),
+    });
+  },
+
+  getPaymentOrder(id: string) {
+    return request<PaymentOrder>(`/payments/orders/${id}`);
+  },
+
   createPackage(payload: PackagePayload) {
     return request<PackageRow>('/packages', {
       method: 'POST',
@@ -241,6 +252,28 @@ export interface PackagePayload {
   icon?: string;
   status?: 'ACTIVE' | 'PAUSED';
   isVisible?: boolean;
+}
+
+export interface PaymentOrder {
+  id: string;
+  paymentCode: string;
+  amount: number;
+  status: 'PENDING' | 'PAID' | 'EXPIRED' | 'CANCELLED';
+  expiresAt: string;
+  paidAt: string | null;
+  package: {
+    id: string;
+    name: string;
+    durationUnit: 'DAY' | 'MONTH';
+    days: number;
+    months: number;
+  };
+  bank: {
+    bank: string;
+    accountNumber: string;
+    accountHolder: string;
+  };
+  qrUrl: string;
 }
 
 export interface LessonHistoryStats {

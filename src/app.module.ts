@@ -11,6 +11,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { PackagesModule } from './packages/packages.module';
 import { AuthModule } from './auth/auth.module';
 import { ShadowingModule } from './shadowing/shadowing.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ShadowingModule } from './shadowing/shadowing.module';
     CategoriesModule,
     PackagesModule,
     ShadowingModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

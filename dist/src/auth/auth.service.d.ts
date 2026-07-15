@@ -12,6 +12,14 @@ export declare class AuthService {
     constructor(prisma: PrismaService, jwtService: JwtService);
     register(dto: RegisterDto): Promise<{
         user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;
             email: string;
@@ -22,11 +30,21 @@ export declare class AuthService {
             xp: number;
             level: number;
             streakDays: number;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
         }, "status">;
         accessToken: string;
     }>;
     login(dto: LoginDto): Promise<{
         user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;
             email: string;
@@ -37,11 +55,21 @@ export declare class AuthService {
             xp: number;
             level: number;
             streakDays: number;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
         }, "status">;
         accessToken: string;
     }>;
     loginWithGoogle(profile: Profile): Promise<{
         user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
             isPremium: boolean;
             status: import("@prisma/client").$Enums.UserStatus;
             email: string;
@@ -52,10 +80,20 @@ export declare class AuthService {
             xp: number;
             level: number;
             streakDays: number;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
         }, "status">;
         accessToken: string;
     }>;
     getProfile(userId: string): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
         isPremium: boolean;
         status: import("@prisma/client").$Enums.UserStatus;
         email: string;
@@ -66,8 +104,18 @@ export declare class AuthService {
         xp: number;
         level: number;
         streakDays: number;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
     }, "status">>;
     updateAvatar(userId: string, file: UploadedAvatarFile): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
         isPremium: boolean;
         status: import("@prisma/client").$Enums.UserStatus;
         email: string;
@@ -78,6 +126,8 @@ export declare class AuthService {
         xp: number;
         level: number;
         streakDays: number;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
     }, "status">>;
     private signToken;
     private sanitizeUser;

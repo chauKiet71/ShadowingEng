@@ -4,6 +4,16 @@ export interface User {
   fullName: string;
   role: 'USER' | 'ADMIN';
   isPremium: boolean;
+  premiumExpiresAt?: string | null;
+  packageId?: string | null;
+  package?: {
+    id: string;
+    name: string;
+    duration: string;
+    durationUnit: 'DAY' | 'MONTH';
+    days: number;
+    months: number;
+  } | null;
   avatarUrl?: string | null;
   xp?: number;
   level?: number;

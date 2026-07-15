@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
-    const user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
       select: {
         id: true,
@@ -33,6 +33,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         fullName: true,
         role: true,
         isPremium: true,
+        premiumExpiresAt: true,
         avatarUrl: true,
         xp: true,
         level: true,
@@ -43,6 +44,29 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!user || user.status === UserStatus.LOCKED) {
       throw new UnauthorizedException('Phiên đăng nhập không hợp lệ');
+    }
+    if (
+      user.isPremium &&
+      user.premiumExpiresAt &&
+      user.premiumExpiresAt <= new Date()
+    ) {
+      user = await this.prisma.user.update({
+        where: { id: user.id },
+        data: { isPremium: false, packageId: null },
+        select: {
+          id: true,
+          email: true,
+          fullName: true,
+          role: true,
+          isPremium: true,
+          premiumExpiresAt: true,
+          avatarUrl: true,
+          xp: true,
+          level: true,
+          streakDays: true,
+          status: true,
+        },
+      });
     }
 
     const { status: _, ...safeUser } = user;

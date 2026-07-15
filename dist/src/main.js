@@ -10,7 +10,7 @@ const database_sync_1 = require("./prisma/database-sync");
 const global_exception_filter_1 = require("./common/filters/global-exception.filter");
 async function bootstrap() {
     await (0, database_sync_1.syncDatabaseSchema)();
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, { rawBody: true });
     app.useWebSocketAdapter(new platform_ws_1.WsAdapter(app));
     app.setGlobalPrefix('api');
     app.useGlobalFilters(new global_exception_filter_1.GlobalExceptionFilter());

@@ -25,6 +25,18 @@ const userSelect = {
   fullName: true,
   role: true,
   isPremium: true,
+  premiumExpiresAt: true,
+  packageId: true,
+  package: {
+    select: {
+      id: true,
+      name: true,
+      duration: true,
+      durationUnit: true,
+      days: true,
+      months: true,
+    },
+  },
   avatarUrl: true,
   xp: true,
   level: true,
@@ -167,12 +179,23 @@ export class AuthService {
   }
 
   async getProfile(userId: string) {
-    const user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: userSelect,
     });
     if (!user || user.status === UserStatus.LOCKED) {
       throw new UnauthorizedException('Phiên đăng nhập không hợp lệ');
+    }
+    if (
+      user.isPremium &&
+      user.premiumExpiresAt &&
+      user.premiumExpiresAt <= new Date()
+    ) {
+      user = await this.prisma.user.update({
+        where: { id: userId },
+        data: { isPremium: false, packageId: null },
+        select: userSelect,
+      });
     }
     return this.sanitizeUser(user);
   }
