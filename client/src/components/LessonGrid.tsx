@@ -74,9 +74,11 @@ export default function LessonGrid({ lessons, emptyMessage }: LessonGridProps) {
               {lesson.title}
             </p>
             <p className="text-xs text-gray-400 mt-1">{lesson.topic}</p>
-            <p className={`text-xs font-medium mt-1 ${locked ? 'text-amber-600' : 'text-primary'}`}>
-              {locked ? 'Pro · Nhấn để mở khóa' : formatDuration(lesson.duration)}
-            </p>
+            {!locked && (
+              <p className="text-xs font-medium mt-1 text-primary">
+                {formatDuration(lesson.duration)}
+              </p>
+            )}
           </div>
         </LessonLink>
       );

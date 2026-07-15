@@ -6,12 +6,8 @@ import {
   Crown,
   Headphones,
   Infinity,
-  Download,
   Subtitles,
-  Gauge,
   Bookmark,
-  BarChart3,
-  Headset,
   Sparkles,
   Shield,
   XCircle,
@@ -24,12 +20,8 @@ import { formatPrice, getUnitPriceLabel, mapPackageToPlan, type Plan } from '../
 
 const features = [
   { icon: Infinity, label: 'Nghe không giới hạn', free: false, premium: true },
-  { icon: Download, label: 'Tải xuống & offline', free: false, premium: true },
   { icon: Subtitles, label: 'Phụ đề song ngữ', free: 'limited', premium: true },
-  { icon: Gauge, label: 'Tốc độ nghe đa dạng', free: 'limited', premium: true },
   { icon: Bookmark, label: 'Lưu & Quản lý yêu thích', free: 'limited', premium: true },
-  { icon: BarChart3, label: 'Thống kê nâng cao', free: false, premium: true },
-  { icon: Headset, label: 'Hỗ trợ ưu tiên', free: false, premium: true },
 ] as const;
 
 function FeatureCell({ value }: { value: boolean | 'limited' }) {
