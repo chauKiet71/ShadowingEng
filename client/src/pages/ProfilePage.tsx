@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, type ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Moon, Sun, Bell, Crown, Star, Flame, Headphones, Clock,
+  Moon, Sun, Crown, Star, Flame, Headphones, Clock,
   Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
@@ -123,10 +123,6 @@ export default function ProfilePage() {
             >
               {theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}
             </button>
-            <button className="text-gray-500 relative">
-              <Bell size={22} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
           </div>
         </div>
 
@@ -162,7 +158,7 @@ export default function ProfilePage() {
               <h2 className="font-bold text-gray-900 text-lg">{user?.fullName}</h2>
               {user?.isPremium && (
                 <span className="flex items-center gap-1 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  <Crown size={10} /> Pro
+                  <Crown size={10} /> Premium
                 </span>
               )}
             </div>

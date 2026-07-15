@@ -21,7 +21,7 @@ export default function Logo({ size = 'md', showText = true }: LogoProps) {
       </div>
       {showText && (
         <div className={`${textSize} leading-tight text-left`}>
-          <span className="font-bold text-gray-900">Shadowing</span>
+          <span className="font-bold text-gray-900">HiHi</span>
           <br />
           <span className="font-bold text-blue-500 text-xs tracking-wider">ENGLISH</span>
         </div>

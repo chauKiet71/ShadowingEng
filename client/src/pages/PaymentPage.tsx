@@ -187,7 +187,7 @@ export default function PaymentPage() {
             </div>
 
             <div className="-mt-5 px-5 pb-6">
-              <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-md">
+              <div className="mt-[35px] rounded-2xl border border-gray-100 bg-white p-4 shadow-md">
                 <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
                     <Crown size={21} className="text-amber-500" fill="currentColor" />

@@ -62,6 +62,10 @@ body {
   color: #f9fafb !important;
 }
 
+.dark h1.hero-title {
+  color: #111827 !important;
+}
+
 .dark .text-gray-800 {
   color: #f3f4f6 !important;
 }

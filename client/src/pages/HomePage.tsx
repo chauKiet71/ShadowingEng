@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Headphones, Target, Bookmark, Trophy, Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
@@ -6,7 +7,9 @@ import HorizontalScroll from '../components/HorizontalScroll';
 import UserAvatar from '../components/UserAvatar';
 import LessonLink from '../components/LessonLink';
 import { useAuth } from '../contexts/AuthContext';
+import { useListeningStats } from '../contexts/HistoryContext';
 import { useRequireAuth } from '../hooks/useRequireAuth';
+import { api, type LessonHistoryStats } from '../lib/api';
 import { featuredLessons, formatDuration } from '../data/mockData';
 import { getRandomLessonId, lessons, formatLevelLabel } from '../data/lessons';
 import { categories } from '../data/categories';
@@ -27,6 +30,25 @@ const quickLinks = [
 export default function HomePage() {
   const { isAuthenticated, user } = useAuth();
   const { goToLesson } = useRequireAuth();
+  const localStats = useListeningStats();
+  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(null);
+
+  useEffect(() => {
+    if (!user?.id) {
+      setRemoteStats(null);
+      return;
+    }
+
+    void api.getMyLessonStats()
+      .then(setRemoteStats)
+      .catch(() => setRemoteStats(null));
+  }, [user?.id]);
+
+  const streakDays = Math.max(
+    localStats.streakDays,
+    user?.streakDays ?? 0,
+    remoteStats?.streakDays ?? 0,
+  );
 
   return (
     <MobileLayout>
@@ -57,12 +79,14 @@ export default function HomePage() {
 
       {/* Hero */}
       <div className="px-4 py-4">
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-5 relative overflow-hidden">
-          <h1 className="text-xl font-bold text-gray-900 leading-tight">
+        <div
+          className="rounded-2xl p-5 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/home-listening-hero.png')" }}
+        >
+          <h1 className="hero-title text-xl font-bold text-gray-900 leading-tight">
             Nghe chủ động -<br />Nói tự nhiên
           </h1>
           <p className="text-gray-600 text-sm mt-2">Lắng nghe – Bắt chước – Tiến bộ mỗi ngày</p>
-          <div className="absolute right-4 top-4 text-6xl opacity-80">🎧</div>
           <div className="flex gap-2 mt-3">
             {['Listen', 'Shadow', 'Improve'].map((tag) => (
               <span key={tag} className="text-xs bg-white/70 text-primary px-2 py-1 rounded-full font-medium">{tag}</span>
@@ -72,7 +96,7 @@ export default function HomePage() {
             to="/kham-pha"
             className="mt-4 inline-block gradient-btn text-white text-sm font-semibold px-5 py-2.5 rounded-xl"
           >
-            Chỉ tập trung vào NGHE
+            Bắt đầu nghe
           </Link>
         </div>
       </div>
@@ -89,7 +113,7 @@ export default function HomePage() {
             <p className="text-[10px] text-gray-500 leading-tight">Chủ đề đa dạng</p>
           </div>
           <div>
-            <p className="text-xl font-bold text-primary">7</p>
+            <p className="text-xl font-bold text-primary">{streakDays}</p>
             <p className="text-[10px] text-gray-500 leading-tight">Ngày streak Liên tục học tập</p>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { LevelProvider } from './contexts/LevelContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestRoute from './components/GuestRoute';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
 import LessonPage from './pages/LessonPage';
@@ -39,6 +40,7 @@ export default function App() {
       <HistoryProvider>
       <LevelProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/kham-pha" element={<ExplorePage />} />

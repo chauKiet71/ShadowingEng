@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Filter,
-  Trash2,
   Headphones,
   Clock,
   Calendar,
@@ -30,7 +28,7 @@ const tabs = [
 
 export default function HistoryPage() {
   const [activeTab, setActiveTab] = useState(0);
-  const { entries, clearHistory, removeEntry } = useHistory();
+  const { entries, removeEntry } = useHistory();
   const { isFavorite } = useFavorites();
 
   const items = useMemo(() => {
@@ -58,29 +56,22 @@ export default function HistoryPage() {
       (sum, { entry }) => sum + entry.listenedSeconds,
       0,
     );
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const showHours = totalMinutes >= 60;
     return {
       lessonsListened: items.length,
-      hoursListened: (totalSeconds / 3600).toFixed(1),
+      listeningTime: showHours
+        ? Math.floor(totalSeconds / 3600)
+        : totalMinutes,
+      listeningTimeLabel: showHours ? 'Giờ đã nghe' : 'Phút đã nghe',
     };
   }, [items]);
 
   return (
     <MobileLayout>
       <div className="px-4 pt-5">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center mb-4">
           <h1 className="text-2xl font-bold text-gray-900">Lịch sử</h1>
-          <div className="flex gap-2">
-            <button type="button" className="flex items-center gap-1 text-sm text-gray-500 px-2 py-1">
-              <Filter size={16} /> Bộ lọc
-            </button>
-            <button
-              type="button"
-              onClick={clearHistory}
-              className="flex items-center gap-1 text-sm text-red-500 px-2 py-1"
-            >
-              <Trash2 size={16} /> Xóa
-            </button>
-          </div>
         </div>
 
         <div className="flex gap-1 border-b border-gray-200 mb-4 -mx-4 px-4 overflow-x-auto no-scrollbar">
@@ -110,8 +101,10 @@ export default function HistoryPage() {
             </div>
             <div className="text-center">
               <Clock size={20} className="text-blue-500 mx-auto mb-1" />
-              <p className="font-bold text-gray-900">{stats.hoursListened}</p>
-              <p className="text-[10px] text-gray-400">Giờ đã nghe</p>
+              <p className="font-bold text-gray-900">{stats.listeningTime}</p>
+              <p className="text-[10px] text-gray-400">
+                {stats.listeningTimeLabel}
+              </p>
             </div>
             <div className="text-center">
               <Calendar size={20} className="text-green-500 mx-auto mb-1" />
@@ -144,13 +137,13 @@ export default function HistoryPage() {
                 lessonId={lesson.id}
                 className="bg-white rounded-xl card-shadow p-3 flex gap-3"
               >
-                <div className="relative flex-shrink-0">
+                <div className="relative w-20 h-14 flex-shrink-0 self-start overflow-hidden rounded-lg bg-gray-100">
                   <img
                     src={lesson.thumbnailUrl}
                     alt=""
-                    className="w-20 h-14 rounded-lg object-cover"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-7 h-7 bg-white/90 rounded-full flex items-center justify-center">
                       <Play size={12} className="text-primary ml-0.5" fill="currentColor" />
                     </div>
