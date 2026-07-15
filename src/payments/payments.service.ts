@@ -325,14 +325,12 @@ export class PaymentsService {
       'SEPAY_ACCOUNT_HOLDER',
       'LE CHAU KIET',
     );
-    const qr = new URL('https://vietqr.app/img');
-    qr.searchParams.set('bank', bank);
-    qr.searchParams.set('acc', accountNumber);
+    const qr = new URL(
+      `https://img.vietqr.io/image/${encodeURIComponent(bank)}-${encodeURIComponent(accountNumber)}-compact2.png`,
+    );
     qr.searchParams.set('amount', String(order.amount));
     qr.searchParams.set('addInfo', order.paymentCode);
-    qr.searchParams.set('template', 'compact');
-    qr.searchParams.set('showinfo', 'true');
-    qr.searchParams.set('holder', accountHolder);
+    qr.searchParams.set('accountName', accountHolder);
 
     return {
       id: order.id,
