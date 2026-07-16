@@ -32,14 +32,37 @@ async function request<T>(
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
+    const rawMessage = data.message;
     const message =
-      Array.isArray(data.message)
-        ? data.message.join(', ')
-        : data.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-    throw new Error(message);
+      typeof rawMessage === 'string'
+        ? rawMessage
+        : Array.isArray(rawMessage)
+          ? rawMessage.join(', ')
+          : typeof rawMessage?.message === 'string'
+            ? rawMessage.message
+            : 'Đã xảy ra lỗi. Vui lòng thử lại.';
+    const code =
+      typeof data.code === 'string'
+        ? data.code
+        : typeof rawMessage?.code === 'string'
+          ? rawMessage.code
+          : undefined;
+    throw new ApiError(message, code, res.status);
   }
 
   return data as T;
+}
+
+export class ApiError extends Error {
+  code?: string;
+  status?: number;
+
+  constructor(message: string, code?: string, status?: number) {
+    super(message);
+    this.name = 'ApiError';
+    this.code = code;
+    this.status = status;
+  }
 }
 
 export const api = {
@@ -202,6 +225,27 @@ export const api = {
       },
     );
   },
+
+  getChatQuota() {
+    return request<ChatQuota>('/chat/quota');
+  },
+
+  createChatConversation(level: CefrLevel) {
+    return request<CreateChatConversationResponse>('/chat/conversations', {
+      method: 'POST',
+      body: JSON.stringify({ level }),
+    });
+  },
+
+  sendChatMessage(conversationId: string, content: string) {
+    return request<SendChatMessageResponse>(
+      `/chat/conversations/${encodeURIComponent(conversationId)}/messages`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ content }),
+      },
+    );
+  },
 };
 
 export interface AdminUserRow {
@@ -281,4 +325,36 @@ export interface LessonHistoryStats {
   completedLessons: number;
   hoursListened: number;
   lessonsListened: number;
+}
+
+export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+
+export interface ChatQuota {
+  used: number;
+  limit: number;
+  remaining: number | null;
+  isPremium: boolean;
+}
+
+export interface ChatMessageDto {
+  id: string;
+  role: 'USER' | 'ASSISTANT' | 'SYSTEM';
+  content: string;
+  createdAt: string;
+}
+
+export interface CreateChatConversationResponse {
+  conversation: {
+    id: string;
+    level: CefrLevel;
+    createdAt: string;
+  };
+  messages: ChatMessageDto[];
+  quota: ChatQuota;
+}
+
+export interface SendChatMessageResponse {
+  userMessage: ChatMessageDto;
+  assistantMessage: ChatMessageDto;
+  quota: ChatQuota;
 }

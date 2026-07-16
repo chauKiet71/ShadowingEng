@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, type ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Moon, Sun, Crown, Star, Flame, Headphones, Clock,
-  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil,
+  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil, MessageCircle,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import UserAvatar from '../components/UserAvatar';
@@ -15,6 +15,7 @@ import { api, type LessonHistoryStats } from '../lib/api';
 const menuItems = [
   { icon: Heart, label: 'Danh sách yêu thích', color: 'text-red-500', to: '/kham-pha?filter=fav' },
   { icon: Clock, label: 'Lịch sử học tập', color: 'text-blue-500', to: '/lich-su' },
+  { icon: MessageCircle, label: 'Trò chuyện với AI', color: 'text-teal-500', to: '/tro-chuyen-ai' },
   { icon: Gauge, label: 'Trình độ', color: 'text-green-500', to: '/trinh-do' },
   { icon: HelpCircle, label: 'Hỗ trợ', color: 'text-purple-500', to: 'http://zalo.me/0327142982', external: true },
 ];

@@ -51,6 +51,21 @@ enum PaymentEventStatus {
   REJECTED
 }
 
+enum CefrLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+enum ChatMessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
 model User {
   id               String     @id @default(uuid())
   email            String     @unique
@@ -66,15 +81,17 @@ model User {
   premiumExpiresAt DateTime?  @map("premium_expires_at")
   packageId        String?    @map("package_id")
   package          Package?   @relation(fields: [packageId], references: [id])
+  chatMessagesUsed Int        @default(0) @map("chat_messages_used")
   googleId         String?    @unique @map("google_id")
   lastActivity     DateTime?  @map("last_activity")
   createdAt        DateTime   @default(now()) @map("created_at")
   updatedAt        DateTime   @updatedAt @map("updated_at")
 
-  histories     UserLessonHistory[]
-  favorites     UserFavorite[]
-  categoryFavs  CategoryFavorite[]
-  paymentOrders PaymentOrder[]
+  histories         UserLessonHistory[]
+  favorites         UserFavorite[]
+  categoryFavs      CategoryFavorite[]
+  paymentOrders     PaymentOrder[]
+  chatConversations ChatConversation[]
 
   @@map("users")
 }
@@ -257,4 +274,30 @@ model LessonAccess {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("lesson_access")
+}
+
+model ChatConversation {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level     CefrLevel
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  messages ChatMessage[]
+
+  @@index([userId])
+  @@map("chat_conversations")
+}
+
+model ChatMessage {
+  id             String          @id @default(uuid())
+  conversationId String          @map("conversation_id")
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           ChatMessageRole
+  content        String
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  @@index([conversationId, createdAt])
+  @@map("chat_messages")
 }

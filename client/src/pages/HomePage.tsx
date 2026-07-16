@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Headphones, Target, Bookmark, Trophy, Play, User } from 'lucide-react';
+import { Headphones, Target, Bookmark, MessageCircle, Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import Logo from '../components/Logo';
 import HorizontalScroll from '../components/HorizontalScroll';
@@ -24,7 +24,7 @@ const quickLinks = [
   { icon: Headphones, label: 'Bài nghe', sub: 'Theo chủ đề', color: 'bg-blue-500', to: '/kham-pha' },
   { icon: Target, label: 'Luyện tập', sub: 'Shadowing', color: 'bg-pink-500', randomLesson: true },
   { icon: Bookmark, label: 'Yêu thích', sub: 'Đã lưu', color: 'bg-orange-500', to: '/kham-pha?filter=fav' },
-  { icon: Trophy, label: 'Thử thách', sub: 'Hàng ngày', color: 'bg-teal-500', to: '/kham-pha' },
+  { icon: MessageCircle, label: 'Chat AI', sub: 'Theo cấp độ', color: 'bg-teal-500', to: '/tro-chuyen-ai' },
 ];
 
 export default function HomePage() {

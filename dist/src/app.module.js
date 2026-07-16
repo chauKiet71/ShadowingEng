@@ -21,6 +21,7 @@ const packages_module_1 = require("./packages/packages.module");
 const auth_module_1 = require("./auth/auth.module");
 const shadowing_module_1 = require("./shadowing/shadowing.module");
 const payments_module_1 = require("./payments/payments.module");
+const chat_module_1 = require("./chat/chat.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,6 +45,7 @@ exports.AppModule = AppModule = __decorate([
             packages_module_1.PackagesModule,
             shadowing_module_1.ShadowingModule,
             payments_module_1.PaymentsModule,
+            chat_module_1.ChatModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

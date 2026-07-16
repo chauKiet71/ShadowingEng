@@ -12,6 +12,7 @@ import { PackagesModule } from './packages/packages.module';
 import { AuthModule } from './auth/auth.module';
 import { ShadowingModule } from './shadowing/shadowing.module';
 import { PaymentsModule } from './payments/payments.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { PaymentsModule } from './payments/payments.module';
     PackagesModule,
     ShadowingModule,
     PaymentsModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
