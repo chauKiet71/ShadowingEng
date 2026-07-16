@@ -8,6 +8,7 @@ import {
   Infinity,
   Subtitles,
   Bookmark,
+  MessageCircle,
   Sparkles,
   Shield,
   XCircle,
@@ -20,6 +21,7 @@ import { formatPrice, getUnitPriceLabel, mapPackageToPlan, type Plan } from '../
 
 const features = [
   { icon: Infinity, label: 'Nghe không giới hạn', free: false, premium: true },
+  { icon: MessageCircle, label: 'Trò chuyện với AI', free: 'limited', premium: true },
   { icon: Subtitles, label: 'Phụ đề song ngữ', free: 'limited', premium: true },
   { icon: Bookmark, label: 'Lưu & Quản lý yêu thích', free: 'limited', premium: true },
 ] as const;

@@ -49,14 +49,18 @@ export default function BottomNav() {
         >
           {({ isActive }) => (
             <>
-              <span
-                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-neutral-900 transition-transform ${
-                  isActive
-                    ? 'gradient-btn scale-105 ring-2 ring-primary/30'
-                    : 'gradient-btn hover:scale-105'
-                }`}
-              >
-                <MessageCircle size={26} className="text-white" strokeWidth={2.25} />
+              <span className="relative w-14 h-14">
+                <span className="chat-ai-pulse" aria-hidden />
+                <span className="chat-ai-pulse" aria-hidden />
+                <span
+                  className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-neutral-900 transition-transform ${
+                    isActive
+                      ? 'gradient-btn scale-105'
+                      : 'gradient-btn hover:scale-105'
+                  }`}
+                >
+                  <MessageCircle size={26} className="text-white" strokeWidth={2.25} />
+                </span>
               </span>
               <span
                 className={`text-[10px] font-semibold mt-1 ${

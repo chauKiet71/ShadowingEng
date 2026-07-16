@@ -165,7 +165,7 @@ export default function AiChatPage() {
   }
 
   return (
-    <MobileLayout showPlayer={false}>
+    <MobileLayout showPlayer={false} showNav={false}>
       <div className="px-4 pt-4 pb-2 flex items-center gap-3">
         <button
           type="button"
@@ -184,11 +184,6 @@ export default function AiChatPage() {
             <MessageCircle size={16} className="text-primary" />
             Chat AI · {selectedLevel}
           </h1>
-          <p className="text-xs text-gray-500 truncate">
-            {quota?.isPremium
-              ? 'Premium · Không giới hạn'
-              : `Free · ${quota?.used ?? 0}/${quota?.limit ?? 10} tin đã dùng`}
-          </p>
         </div>
       </div>
 
@@ -214,7 +209,7 @@ export default function AiChatPage() {
         </div>
       )}
 
-      <div className="px-4 pb-28 space-y-3 min-h-[50vh]">
+      <div className="px-4 pb-24 space-y-3 min-h-[50vh]">
         {messages.map((message) => {
           const isUser = message.role === 'USER';
           return (
@@ -247,7 +242,7 @@ export default function AiChatPage() {
 
       <form
         onSubmit={(e) => void handleSend(e)}
-        className="fixed bottom-20 left-1/2 -translate-x-1/2 w-full max-w-lg px-4 z-30"
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-lg px-4 z-30"
       >
         <div className="bg-white border border-gray-100 rounded-2xl card-shadow flex items-end gap-2 p-2">
           <textarea

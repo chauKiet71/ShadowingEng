@@ -70,8 +70,9 @@ export default function ProfilePage() {
   );
   const completedLessons =
     localStats.completedLessons || remoteStats?.completedLessons || 0;
-  const hoursListened =
-    localStats.hoursListened || remoteStats?.hoursListened || 0;
+  const hoursListened = Math.floor(
+    localStats.hoursListened || remoteStats?.hoursListened || 0,
+  );
 
   const handleLogout = () => {
     logout();
