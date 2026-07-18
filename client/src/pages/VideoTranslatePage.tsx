@@ -7,6 +7,7 @@ import {
   Loader2,
   Mic,
   Subtitles,
+  X,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import { useShadowing } from '../hooks/useShadowing';
@@ -18,6 +19,28 @@ import {
   type VideoTranslateSegment,
 } from '../lib/api';
 import { resolveLessonPhonetics } from '../lib/phonetic';
+
+const DELETED_RECENT_VIDEO_IDS_KEY = 'video_translate_deleted_recent_job_ids';
+
+function getDeletedRecentVideoIds() {
+  try {
+    const parsed = JSON.parse(
+      localStorage.getItem(DELETED_RECENT_VIDEO_IDS_KEY) ?? '[]',
+    );
+    return new Set(Array.isArray(parsed) ? parsed.filter(Boolean) : []);
+  } catch {
+    return new Set<string>();
+  }
+}
+
+function rememberDeletedRecentVideoId(id: string) {
+  const ids = getDeletedRecentVideoIds();
+  ids.add(id);
+  localStorage.setItem(
+    DELETED_RECENT_VIDEO_IDS_KEY,
+    JSON.stringify(Array.from(ids).slice(-100)),
+  );
+}
 
 declare global {
   interface Window {
@@ -241,8 +264,15 @@ export default function VideoTranslatePage() {
           api.listVideoTranslateJobs(),
         ]);
         if (cancelled) return;
+        const deletedIds = getDeletedRecentVideoIds();
         setQuota(nextQuota);
-        setRecent(list.jobs.filter((item) => item.status === 'READY').slice(0, 8));
+        setRecent(
+          list.jobs
+            .filter(
+              (item) => item.status === 'READY' && !deletedIds.has(item.id),
+            )
+            .slice(0, 8),
+        );
       } catch (err) {
         if (!cancelled) {
           setError(
@@ -394,6 +424,31 @@ export default function VideoTranslatePage() {
     prevActiveIndexRef.current = -1;
   }
 
+  async function deleteRecentJob(item: VideoTranslateJob) {
+    setRecent((prev) => prev.filter((recentItem) => recentItem.id !== item.id));
+    if (job?.id === item.id) {
+      setJob(null);
+      setCurrentTime(0);
+      prevActiveIndexRef.current = -1;
+    }
+
+    try {
+      await api.deleteVideoTranslateJob(item.id);
+    } catch (err) {
+      if (
+        err instanceof ApiError &&
+        err.status === 404 &&
+        err.message.startsWith('Cannot DELETE')
+      ) {
+        rememberDeletedRecentVideoId(item.id);
+        return;
+      }
+
+      setRecent((prev) => [item, ...prev].slice(0, 8));
+      setError(err instanceof Error ? err.message : 'Không xóa được video');
+    }
+  }
+
   function seekToSegment(seg: VideoTranslateSegment) {
     const player = playerRef.current;
     if (player) {
@@ -427,7 +482,7 @@ export default function VideoTranslatePage() {
             </h1>
             {!ready && (
               <p className="text-xs text-gray-500 truncate">
-                Nghe tiếng Anh · xem bản dịch VI
+                Nghe tiếng anh
               </p>
             )}
           </div>
@@ -676,11 +731,19 @@ export default function VideoTranslatePage() {
                 </h2>
                 <div className="space-y-2">
                   {recent.map((item) => (
-                    <button
+                    <div
                       key={item.id}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => openJob(item)}
-                      className="w-full flex gap-3 rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-2.5 text-left"
+                      onKeyDown={(e) => {
+                        if (e.target !== e.currentTarget) return;
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          openJob(item);
+                        }
+                      }}
+                      className="relative w-full flex gap-3 rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-2.5 pr-10 text-left cursor-pointer"
                     >
                       {item.thumbnailUrl ? (
                         <img
@@ -702,7 +765,18 @@ export default function VideoTranslatePage() {
                           {item.fromCache ? ' · cache' : ''}
                         </p>
                       </div>
-                    </button>
+                      <button
+                        type="button"
+                        aria-label="Xóa video gần đây"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          void deleteRecentJob(item);
+                        }}
+                        className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-rose-500 dark:hover:bg-neutral-800"
+                      >
+                        <X size={15} strokeWidth={2.5} />
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>

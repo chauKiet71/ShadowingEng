@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateVideoTranslateDto } from './dto/create-video-translate.dto';
@@ -30,5 +38,10 @@ export class VideoTranslateController {
     @Body() dto: CreateVideoTranslateDto,
   ) {
     return this.videoTranslateService.createJob(user.id, dto.url);
+  }
+
+  @Delete('jobs/:id')
+  deleteJob(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+    return this.videoTranslateService.deleteJob(user.id, id);
   }
 }

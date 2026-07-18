@@ -35,6 +35,9 @@ let VideoTranslateController = class VideoTranslateController {
     createJob(user, dto) {
         return this.videoTranslateService.createJob(user.id, dto.url);
     }
+    deleteJob(user, id) {
+        return this.videoTranslateService.deleteJob(user.id, id);
+    }
 };
 exports.VideoTranslateController = VideoTranslateController;
 __decorate([
@@ -67,6 +70,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, create_video_translate_dto_1.CreateVideoTranslateDto]),
     __metadata("design:returntype", void 0)
 ], VideoTranslateController.prototype, "createJob", null);
+__decorate([
+    (0, common_1.Delete)('jobs/:id'),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], VideoTranslateController.prototype, "deleteJob", null);
 exports.VideoTranslateController = VideoTranslateController = __decorate([
     (0, common_1.Controller)('video-translate'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

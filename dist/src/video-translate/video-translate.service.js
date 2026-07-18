@@ -58,11 +58,10 @@ const youtube_util_1 = require("./youtube.util");
 exports.FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 exports.DEFAULT_MAX_SECONDS_FREE = 480;
 exports.DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-exports.DUBBED_PIPELINE_VERSION = 8;
+exports.DUBBED_PIPELINE_VERSION = 9;
 const TRANSCRIPT_RULES = {
-    minWordsPerCard: 4,
     pauseBreakSec: 0.5,
-    shortFragmentMergeGapSec: 1.0,
+    timestampEpsilonSec: 0.001,
     maxWordsPerCard: 18,
     maxUtteranceSec: 8,
 };
@@ -99,9 +98,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 : Math.max(0, exports.FREE_VIDEO_TRANSLATE_PER_DAY - usage),
             isPremium,
             resetsAt: this.nextResetAt().toISOString(),
-            maxSeconds: isPremium
-                ? this.maxSecondsPremium()
-                : this.maxSecondsFree(),
+            maxSeconds: isPremium ? this.maxSecondsPremium() : this.maxSecondsFree(),
         };
     }
     async listJobs(userId) {
@@ -126,12 +123,26 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             quota: await this.getQuota(userId),
         };
     }
+    async deleteJob(userId, jobId) {
+        const job = await this.prisma.videoTranslateJob.findFirst({
+            where: { id: jobId, userId },
+            select: { id: true },
+        });
+        if (!job)
+            throw new common_1.NotFoundException('KhÃ´ng tÃ¬m tháº¥y job dá»‹ch video');
+        await this.prisma.videoTranslateJob.delete({
+            where: { id: job.id },
+        });
+        return { deleted: true };
+    }
     async resolveDubbedFilePath(userId, jobId) {
         const job = await this.prisma.videoTranslateJob.findFirst({
             where: { id: jobId, userId },
             select: { dubbedAudioUrl: true, status: true },
         });
-        if (!job || job.status !== client_1.VideoTranslateStatus.READY || !job.dubbedAudioUrl) {
+        if (!job ||
+            job.status !== client_1.VideoTranslateStatus.READY ||
+            !job.dubbedAudioUrl) {
             return null;
         }
         const match = job.dubbedAudioUrl.match(/^\/media\/video-translate\/([^/]+)\/dubbed\.mp3$/);
@@ -357,11 +368,9 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     finalizeSegments(segments, durationSec) {
         const sorted = [...segments].sort((a, b) => a.start - b.start || a.end - b.end);
         const collapsed = this.collapseRollingCaptions(sorted);
-        const utterances = this.mergeIntoUtterances(collapsed);
-        const glued = this.enforceMinWordsPerCard(utterances);
-        const split = this.splitMultiSentence(glued);
-        const repaired = this.enforceMinWordsPerCard(split);
-        return this.alignSegmentWindows(repaired, durationSec).filter((seg) => seg.en.trim().length > 0);
+        const sentenceParts = this.splitMultiSentence(collapsed);
+        const utterances = this.mergeIntoUtterances(sentenceParts);
+        return this.alignSegmentWindows(utterances, durationSec).filter((seg) => seg.en.trim().length > 0);
     }
     wordCount(text) {
         return text.split(/\s+/).filter(Boolean).length;
@@ -370,30 +379,30 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         return /[.!?…]["')\]]?\s*$/.test(text.trim());
     }
     joinSegmentText(left, right) {
-        const lastLower = left.toLowerCase();
-        const nextLower = right.toLowerCase();
-        if (nextLower.startsWith(lastLower) || nextLower.includes(lastLower)) {
-            return right;
+        const leftWords = left.trim().split(/\s+/).filter(Boolean);
+        const rightWords = right.trim().split(/\s+/).filter(Boolean);
+        const comparable = (word) => word.toLowerCase().replace(/^[^a-z0-9']+|[^a-z0-9']+$/g, '');
+        const leftComparable = leftWords.map(comparable);
+        const rightComparable = rightWords.map(comparable);
+        let overlap = Math.min(leftWords.length, rightWords.length);
+        while (overlap > 0) {
+            const leftTail = leftComparable.slice(-overlap);
+            const rightHead = rightComparable.slice(0, overlap);
+            if (leftTail.every((word, index) => word.length > 0 && word === rightHead[index])) {
+                break;
+            }
+            overlap -= 1;
         }
-        if (lastLower.includes(nextLower) && right.length <= left.length) {
-            return left;
-        }
-        return `${left} ${right}`.replace(/\s+/g, ' ').trim();
+        return [...leftWords, ...rightWords.slice(overlap)]
+            .join(' ')
+            .replace(/\s+([,.;!?…])/g, '$1')
+            .trim();
     }
     mergeTwoSegments(a, b) {
-        const aWords = this.wordCount(a.en);
-        const bWords = this.wordCount(b.en);
-        const reorder = this.endsUtterance(a.en) &&
-            aWords <= 4 &&
-            bWords <= 4 &&
-            /^[a-z]/.test(a.en.trim()) &&
-            /^[A-Z]/.test(b.en.trim());
         return {
             start: Math.min(a.start, b.start),
             end: Math.max(a.end, b.end),
-            en: reorder
-                ? `${b.en.replace(/[.!?…]+$/, '')} ${a.en}`.replace(/\s+/g, ' ').trim()
-                : this.joinSegmentText(a.en, b.en),
+            en: this.joinSegmentText(a.en, b.en),
         };
     }
     collapseRollingCaptions(segments) {
@@ -404,15 +413,29 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 out.push({ ...seg });
                 continue;
             }
-            const lastLower = last.en.toLowerCase();
-            const nextLower = seg.en.toLowerCase();
+            const normalizeWords = (text) => text
+                .toLowerCase()
+                .split(/\s+/)
+                .map((word) => word.replace(/^[^a-z0-9']+|[^a-z0-9']+$/g, ''))
+                .filter(Boolean);
+            const lastWords = normalizeWords(last.en);
+            const nextWords = normalizeWords(seg.en);
             const overlaps = seg.start <= last.end + 0.25;
-            const isExtension = nextLower.startsWith(lastLower) ||
-                nextLower.includes(lastLower) ||
-                lastLower.includes(nextLower);
+            const containsSequence = (haystack, needle) => {
+                if (!needle.length || needle.length > haystack.length)
+                    return false;
+                return haystack.some((_, start) => needle.every((word, index) => haystack[start + index] === word));
+            };
+            const sameText = lastWords.length === nextWords.length &&
+                lastWords.every((word, index) => word === nextWords[index]);
+            const oneContainsTheOther = containsSequence(nextWords, lastWords) ||
+                containsSequence(lastWords, nextWords);
+            const isExtension = sameText ||
+                (oneContainsTheOther &&
+                    (!this.endsUtterance(last.en) || seg.start <= last.end));
             if (overlaps && isExtension) {
                 last.end = Math.max(last.end, seg.end);
-                if (seg.en.length >= last.en.length)
+                if (nextWords.length >= lastWords.length)
                     last.en = seg.en;
                 continue;
             }
@@ -421,7 +444,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         return out;
     }
     mergeIntoUtterances(segments) {
-        const { minWordsPerCard, pauseBreakSec, shortFragmentMergeGapSec, maxWordsPerCard, maxUtteranceSec, } = TRANSCRIPT_RULES;
+        const { pauseBreakSec, timestampEpsilonSec, maxWordsPerCard, maxUtteranceSec, } = TRANSCRIPT_RULES;
         const merged = [];
         for (const seg of segments) {
             const last = merged[merged.length - 1];
@@ -435,104 +458,26 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             const combinedWords = lastWords + words;
             const combinedDur = Math.max(seg.end, last.end) - last.start;
             const lastEnded = this.endsUtterance(last.en);
-            const lastCompleteEnough = lastWords >= minWordsPerCard || (lastEnded && lastWords >= 3);
-            const lastTooShort = lastWords < minWordsPerCard;
             const canFit = combinedWords <= maxWordsPerCard && combinedDur <= maxUtteranceSec;
-            if (lastCompleteEnough && gap >= pauseBreakSec) {
-                if (lastEnded &&
-                    lastWords <= 4 &&
-                    words <= 4 &&
-                    gap < shortFragmentMergeGapSec &&
-                    /^[a-z]/.test(last.en.trim()) &&
-                    /^[A-Z]/.test(seg.en.trim())) {
-                    const joined = this.mergeTwoSegments(last, seg);
-                    last.start = joined.start;
-                    last.end = joined.end;
-                    last.en = joined.en;
-                    continue;
-                }
+            if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded || !canFit) {
                 merged.push({ ...seg });
                 continue;
             }
-            const mustGlueShort = lastTooShort && gap < shortFragmentMergeGapSec && canFit;
-            const continueSameSentence = canFit &&
-                (mustGlueShort ||
-                    (!lastCompleteEnough && gap < pauseBreakSec) ||
-                    (gap < pauseBreakSec && !lastEnded));
-            if (continueSameSentence) {
-                const joined = this.mergeTwoSegments(last, seg);
-                last.start = joined.start;
-                last.end = joined.end;
-                last.en = joined.en;
-                continue;
-            }
-            merged.push({ ...seg });
-        }
-        return merged;
-    }
-    enforceMinWordsPerCard(segments) {
-        const { minWordsPerCard, pauseBreakSec, shortFragmentMergeGapSec, maxWordsPerCard, } = TRANSCRIPT_RULES;
-        let merged = [...segments.map((seg) => ({ ...seg }))];
-        const forward = [];
-        for (const seg of merged) {
-            const last = forward[forward.length - 1];
-            if (!last) {
-                forward.push(seg);
-                continue;
-            }
-            const gap = seg.start - last.end;
-            const lastWords = this.wordCount(last.en);
-            const words = this.wordCount(seg.en);
-            const lastCompleteEnough = lastWords >= minWordsPerCard ||
-                (this.endsUtterance(last.en) && lastWords >= 3);
-            if (lastCompleteEnough && gap >= pauseBreakSec) {
-                forward.push(seg);
-                continue;
-            }
-            const close = gap < shortFragmentMergeGapSec || seg.start - last.start < 5;
-            const needGlue = close &&
-                lastWords + words <= maxWordsPerCard &&
-                (lastWords < minWordsPerCard ||
-                    words < minWordsPerCard ||
-                    (!this.endsUtterance(last.en) && lastWords < minWordsPerCard + 2));
-            if (needGlue) {
-                const joined = this.mergeTwoSegments(last, seg);
-                last.start = joined.start;
-                last.end = joined.end;
-                last.en = joined.en;
-            }
-            else {
-                forward.push(seg);
-            }
-        }
-        merged = [];
-        for (let i = 0; i < forward.length; i += 1) {
-            const cur = forward[i];
-            const next = forward[i + 1];
-            if (next &&
-                this.wordCount(cur.en) < minWordsPerCard &&
-                !this.endsUtterance(cur.en) &&
-                next.start - cur.end < shortFragmentMergeGapSec) {
-                const joined = this.mergeTwoSegments(cur, next);
-                next.start = joined.start;
-                next.end = joined.end;
-                next.en = joined.en;
-                continue;
-            }
-            merged.push(cur);
+            const joined = this.mergeTwoSegments(last, seg);
+            last.start = joined.start;
+            last.end = joined.end;
+            last.en = joined.en;
         }
         return merged;
     }
     splitMultiSentence(segments) {
-        const { minWordsPerCard } = TRANSCRIPT_RULES;
         const out = [];
+        const sentenceSegmenter = new Intl.Segmenter('en', {
+            granularity: 'sentence',
+        });
         for (const seg of segments) {
-            const parts = seg.en
-                .split(/(?<=[.!?…])\s+/)
-                .map((part) => part.trim())
-                .filter(Boolean);
-            if (parts.length <= 1 ||
-                parts.some((part) => this.wordCount(part) < minWordsPerCard)) {
+            const parts = Array.from(sentenceSegmenter.segment(seg.en), (part) => part.segment.trim()).filter(Boolean);
+            if (parts.length <= 1) {
                 out.push({ ...seg });
                 continue;
             }
@@ -542,7 +487,9 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             parts.forEach((part, index) => {
                 const share = part.length / totalChars;
                 const dur = Math.max(0.4, totalDur * share);
-                const end = index === parts.length - 1 ? seg.end : Math.min(seg.end, cursor + dur);
+                const end = index === parts.length - 1
+                    ? seg.end
+                    : Math.min(seg.end, cursor + dur);
                 out.push({ start: cursor, end, en: part });
                 cursor = end;
             });
@@ -561,17 +508,18 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             let end = Math.max(seg.end, minEnd);
             if (!isLast) {
                 const gap = nextStart - seg.end;
-                if (gap <= 2.5) {
-                    end = Math.max(seg.start + 0.35, nextStart - 0.04);
+                if (gap + TRANSCRIPT_RULES.timestampEpsilonSec >=
+                    TRANSCRIPT_RULES.pauseBreakSec) {
+                    end = Math.min(seg.end, nextStart - 0.04);
                 }
                 else {
-                    end = Math.min(Math.max(seg.end, minEnd), nextStart - 0.04);
+                    end = Math.max(seg.start + 0.35, nextStart - 0.04);
                 }
             }
             return {
                 ...seg,
                 start: Math.max(0, seg.start),
-                end: Math.max(seg.start + 0.35, end),
+                end: Math.max(seg.start + 0.12, end),
             };
         });
     }
@@ -771,7 +719,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             const match = stderr.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
             if (!match)
                 return 0;
-            return (Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3]));
+            return Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3]);
         }
     }
     async synthesizeVietnamese(text) {
@@ -869,15 +817,26 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             model: 'whisper-1',
             language: 'en',
             response_format: 'verbose_json',
-            timestamp_granularities: ['segment'],
+            timestamp_granularities: ['word', 'segment'],
         });
-        const segments = result.segments ?? [];
-        if (!segments.length && result.text) {
+        const timedResult = result;
+        const words = timedResult.words ?? [];
+        if (words.length) {
+            return words
+                .map((word) => ({
+                start: Number(word.start) || 0,
+                end: Number(word.end) || (Number(word.start) || 0) + 0.3,
+                en: this.cleanCaptionText(String(word.word ?? '')),
+            }))
+                .filter((word) => word.en.length > 0);
+        }
+        const segments = timedResult.segments ?? [];
+        if (!segments.length && timedResult.text) {
             return [
                 {
                     start: 0,
                     end: 4,
-                    en: String(result.text).trim(),
+                    en: String(timedResult.text).trim(),
                 },
             ];
         }

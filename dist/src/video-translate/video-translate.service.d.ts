@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export declare const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export declare const DEFAULT_MAX_SECONDS_FREE = 480;
 export declare const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-export declare const DUBBED_PIPELINE_VERSION = 8;
+export declare const DUBBED_PIPELINE_VERSION = 9;
 export type VideoSegment = {
     start: number;
     end: number;
@@ -81,6 +81,9 @@ export declare class VideoTranslateService {
             maxSeconds: number;
         };
     }>;
+    deleteJob(userId: string, jobId: string): Promise<{
+        deleted: boolean;
+    }>;
     resolveDubbedFilePath(userId: string, jobId: string): Promise<string | null>;
     createJob(userId: string, rawUrl: string): Promise<{
         job: {
@@ -122,7 +125,6 @@ export declare class VideoTranslateService {
     private mergeTwoSegments;
     private collapseRollingCaptions;
     private mergeIntoUtterances;
-    private enforceMinWordsPerCard;
     private splitMultiSentence;
     private alignSegmentWindows;
     private translateSegments;

@@ -32,22 +32,20 @@ export const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export const DEFAULT_MAX_SECONDS_FREE = 480;
 export const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 /** Bump when processing pipeline changes — old cache bị bỏ qua */
-export const DUBBED_PIPELINE_VERSION = 8;
+export const DUBBED_PIPELINE_VERSION = 9;
 
 /**
  * Quy tắc tạo transcript: mỗi thẻ = một câu nói tự nhiên.
  * Ví dụ hợp lệ: "Let me check."
  * Ví dụ cấm: tách "Let" và "me check." thành 2 thẻ.
  *
- * Cắt thẻ mới khi: đã nói hết câu (đủ từ / có dấu kết thúc) và nghỉ ≥ 0.5s.
+ * Cắt thẻ mới khi đã hết câu hoặc có khoảng nghỉ ≥ 0.5s.
  */
 const TRANSCRIPT_RULES = {
-  /** Không để thẻ dưới số từ này nếu còn mảnh gần kề */
-  minWordsPerCard: 4,
-  /** Nghỉ ≥ mức này sau khi câu đủ dài → cắt thẻ mới (giây) */
+  /** Khoảng nghỉ từ mức này trở lên luôn là ranh giới mới (giây). */
   pauseBreakSec: 0.5,
-  /** Chỉ dùng để dán mảnh quá ngắn (vd. "Let") — không vượt pauseBreak cho câu đủ dài */
-  shortFragmentMergeGapSec: 1.0,
+  /** Timestamp từ caption/audio thường được làm tròn đến mili giây. */
+  timestampEpsilonSec: 0.001,
   /** Giới hạn độ dài một thẻ */
   maxWordsPerCard: 18,
   maxUtteranceSec: 8,
@@ -98,9 +96,7 @@ export class VideoTranslateService {
         : Math.max(0, FREE_VIDEO_TRANSLATE_PER_DAY - usage),
       isPremium,
       resetsAt: this.nextResetAt().toISOString(),
-      maxSeconds: isPremium
-        ? this.maxSecondsPremium()
-        : this.maxSecondsFree(),
+      maxSeconds: isPremium ? this.maxSecondsPremium() : this.maxSecondsFree(),
     };
   }
 
@@ -127,12 +123,30 @@ export class VideoTranslateService {
     };
   }
 
+  async deleteJob(userId: string, jobId: string) {
+    const job = await this.prisma.videoTranslateJob.findFirst({
+      where: { id: jobId, userId },
+      select: { id: true },
+    });
+    if (!job) throw new NotFoundException('Không tìm thấy job dịch video');
+
+    await this.prisma.videoTranslateJob.delete({
+      where: { id: job.id },
+    });
+
+    return { deleted: true };
+  }
+
   async resolveDubbedFilePath(userId: string, jobId: string) {
     const job = await this.prisma.videoTranslateJob.findFirst({
       where: { id: jobId, userId },
       select: { dubbedAudioUrl: true, status: true },
     });
-    if (!job || job.status !== VideoTranslateStatus.READY || !job.dubbedAudioUrl) {
+    if (
+      !job ||
+      job.status !== VideoTranslateStatus.READY ||
+      !job.dubbedAudioUrl
+    ) {
       return null;
     }
 
@@ -249,7 +263,10 @@ export class VideoTranslateService {
         data: { status: VideoTranslateStatus.PROCESSING, errorMessage: null },
       });
 
-      const meta = await this.fetchVideoMeta(job.youtubeVideoId, job.youtubeUrl);
+      const meta = await this.fetchVideoMeta(
+        job.youtubeVideoId,
+        job.youtubeUrl,
+      );
       const user = await this.prisma.user.findUniqueOrThrow({
         where: { id: job.userId },
         select: { isPremium: true, premiumExpiresAt: true },
@@ -272,7 +289,8 @@ export class VideoTranslateService {
         data: {
           title: meta.title,
           durationSec: meta.durationSec,
-          thumbnailUrl: meta.thumbnailUrl ?? youtubeThumbnailUrl(job.youtubeVideoId),
+          thumbnailUrl:
+            meta.thumbnailUrl ?? youtubeThumbnailUrl(job.youtubeVideoId),
         },
       });
 
@@ -290,7 +308,7 @@ export class VideoTranslateService {
         data: {
           status: VideoTranslateStatus.READY,
           source,
-          segmentsJson: translated as unknown as Prisma.InputJsonValue,
+          segmentsJson: translated,
           dubbedAudioUrl: null,
           pipelineVersion: DUBBED_PIPELINE_VERSION,
           completedAt: new Date(),
@@ -429,11 +447,9 @@ export class VideoTranslateService {
       (a, b) => a.start - b.start || a.end - b.end,
     );
     const collapsed = this.collapseRollingCaptions(sorted);
-    const utterances = this.mergeIntoUtterances(collapsed);
-    const glued = this.enforceMinWordsPerCard(utterances);
-    const split = this.splitMultiSentence(glued);
-    const repaired = this.enforceMinWordsPerCard(split);
-    return this.alignSegmentWindows(repaired, durationSec).filter(
+    const sentenceParts = this.splitMultiSentence(collapsed);
+    const utterances = this.mergeIntoUtterances(sentenceParts);
+    return this.alignSegmentWindows(utterances, durationSec).filter(
       (seg) => seg.en.trim().length > 0,
     );
   }
@@ -447,37 +463,41 @@ export class VideoTranslateService {
   }
 
   private joinSegmentText(left: string, right: string) {
-    const lastLower = left.toLowerCase();
-    const nextLower = right.toLowerCase();
-    if (nextLower.startsWith(lastLower) || nextLower.includes(lastLower)) {
-      return right;
+    const leftWords = left.trim().split(/\s+/).filter(Boolean);
+    const rightWords = right.trim().split(/\s+/).filter(Boolean);
+    const comparable = (word: string) =>
+      word.toLowerCase().replace(/^[^a-z0-9']+|[^a-z0-9']+$/g, '');
+    const leftComparable = leftWords.map(comparable);
+    const rightComparable = rightWords.map(comparable);
+
+    let overlap = Math.min(leftWords.length, rightWords.length);
+    while (overlap > 0) {
+      const leftTail = leftComparable.slice(-overlap);
+      const rightHead = rightComparable.slice(0, overlap);
+      if (
+        leftTail.every(
+          (word, index) => word.length > 0 && word === rightHead[index],
+        )
+      ) {
+        break;
+      }
+      overlap -= 1;
     }
-    if (lastLower.includes(nextLower) && right.length <= left.length) {
-      return left;
-    }
-    return `${left} ${right}`.replace(/\s+/g, ' ').trim();
+
+    return [...leftWords, ...rightWords.slice(overlap)]
+      .join(' ')
+      .replace(/\s+([,.;!?…])/g, '$1')
+      .trim();
   }
 
   private mergeTwoSegments(
     a: { start: number; end: number; en: string },
     b: { start: number; end: number; en: string },
   ) {
-    const aWords = this.wordCount(a.en);
-    const bWords = this.wordCount(b.en);
-    // Lệch thứ tự: "me check." rồi mới "Let" → "Let me check."
-    const reorder =
-      this.endsUtterance(a.en) &&
-      aWords <= 4 &&
-      bWords <= 4 &&
-      /^[a-z]/.test(a.en.trim()) &&
-      /^[A-Z]/.test(b.en.trim());
-
     return {
       start: Math.min(a.start, b.start),
       end: Math.max(a.end, b.end),
-      en: reorder
-        ? `${b.en.replace(/[.!?…]+$/, '')} ${a.en}`.replace(/\s+/g, ' ').trim()
-        : this.joinSegmentText(a.en, b.en),
+      en: this.joinSegmentText(a.en, b.en),
     };
   }
 
@@ -494,17 +514,35 @@ export class VideoTranslateService {
         continue;
       }
 
-      const lastLower = last.en.toLowerCase();
-      const nextLower = seg.en.toLowerCase();
+      const normalizeWords = (text: string) =>
+        text
+          .toLowerCase()
+          .split(/\s+/)
+          .map((word) => word.replace(/^[^a-z0-9']+|[^a-z0-9']+$/g, ''))
+          .filter(Boolean);
+      const lastWords = normalizeWords(last.en);
+      const nextWords = normalizeWords(seg.en);
       const overlaps = seg.start <= last.end + 0.25;
+      const containsSequence = (haystack: string[], needle: string[]) => {
+        if (!needle.length || needle.length > haystack.length) return false;
+        return haystack.some((_, start) =>
+          needle.every((word, index) => haystack[start + index] === word),
+        );
+      };
+      const sameText =
+        lastWords.length === nextWords.length &&
+        lastWords.every((word, index) => word === nextWords[index]);
+      const oneContainsTheOther =
+        containsSequence(nextWords, lastWords) ||
+        containsSequence(lastWords, nextWords);
       const isExtension =
-        nextLower.startsWith(lastLower) ||
-        nextLower.includes(lastLower) ||
-        lastLower.includes(nextLower);
+        sameText ||
+        (oneContainsTheOther &&
+          (!this.endsUtterance(last.en) || seg.start <= last.end));
 
       if (overlaps && isExtension) {
         last.end = Math.max(last.end, seg.end);
-        if (seg.en.length >= last.en.length) last.en = seg.en;
+        if (nextWords.length >= lastWords.length) last.en = seg.en;
         continue;
       }
 
@@ -516,16 +554,16 @@ export class VideoTranslateService {
 
   /**
    * Quy tắc gộp chính:
-   * - Nghỉ ≥ 0.5s sau câu đủ dài → cắt thẻ mới
-   * - Thẻ dưới minWordsPerCard → vẫn dính mảnh kế (tránh "Let" / "me check.")
+   * - Nghỉ ≥ 0.5s luôn cắt thẻ mới.
+   * - Dấu kết câu cắt thẻ mới ngay cả với câu rất ngắn.
+   * - Các mảnh sát nhau chỉ được gộp khi vẫn thuộc cùng một câu.
    */
   private mergeIntoUtterances(
     segments: Array<{ start: number; end: number; en: string }>,
   ) {
     const {
-      minWordsPerCard,
       pauseBreakSec,
-      shortFragmentMergeGapSec,
+      timestampEpsilonSec,
       maxWordsPerCard,
       maxUtteranceSec,
     } = TRANSCRIPT_RULES;
@@ -544,126 +582,19 @@ export class VideoTranslateService {
       const combinedWords = lastWords + words;
       const combinedDur = Math.max(seg.end, last.end) - last.start;
       const lastEnded = this.endsUtterance(last.en);
-      const lastCompleteEnough =
-        lastWords >= minWordsPerCard || (lastEnded && lastWords >= 3);
-      const lastTooShort = lastWords < minWordsPerCard;
 
       const canFit =
         combinedWords <= maxWordsPerCard && combinedDur <= maxUtteranceSec;
 
-      // Đã hết câu + nghỉ ≥ 0.5s → cắt ngay
-      if (lastCompleteEnough && gap >= pauseBreakSec) {
-        if (
-          lastEnded &&
-          lastWords <= 4 &&
-          words <= 4 &&
-          gap < shortFragmentMergeGapSec &&
-          /^[a-z]/.test(last.en.trim()) &&
-          /^[A-Z]/.test(seg.en.trim())
-        ) {
-          const joined = this.mergeTwoSegments(last, seg);
-          last.start = joined.start;
-          last.end = joined.end;
-          last.en = joined.en;
-          continue;
-        }
+      if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded || !canFit) {
         merged.push({ ...seg });
         continue;
       }
 
-      // Mảnh ngắn: vẫn gộp (tránh tách từ)
-      const mustGlueShort =
-        lastTooShort && gap < shortFragmentMergeGapSec && canFit;
-
-      const continueSameSentence =
-        canFit &&
-        (mustGlueShort ||
-          (!lastCompleteEnough && gap < pauseBreakSec) ||
-          (gap < pauseBreakSec && !lastEnded));
-
-      if (continueSameSentence) {
-        const joined = this.mergeTwoSegments(last, seg);
-        last.start = joined.start;
-        last.end = joined.end;
-        last.en = joined.en;
-        continue;
-      }
-
-      merged.push({ ...seg });
-    }
-
-    return merged;
-  }
-
-  /** Ép quy tắc minWordsPerCard: không sót thẻ 1–3 từ. */
-  private enforceMinWordsPerCard(
-    segments: Array<{ start: number; end: number; en: string }>,
-  ) {
-    const {
-      minWordsPerCard,
-      pauseBreakSec,
-      shortFragmentMergeGapSec,
-      maxWordsPerCard,
-    } = TRANSCRIPT_RULES;
-    let merged = [...segments.map((seg) => ({ ...seg }))];
-
-    const forward: Array<{ start: number; end: number; en: string }> = [];
-    for (const seg of merged) {
-      const last = forward[forward.length - 1];
-      if (!last) {
-        forward.push(seg);
-        continue;
-      }
-
-      const gap = seg.start - last.end;
-      const lastWords = this.wordCount(last.en);
-      const words = this.wordCount(seg.en);
-      const lastCompleteEnough =
-        lastWords >= minWordsPerCard ||
-        (this.endsUtterance(last.en) && lastWords >= 3);
-
-      // Không dán ngược qua nghỉ 0.5s nếu câu trước đã đủ
-      if (lastCompleteEnough && gap >= pauseBreakSec) {
-        forward.push(seg);
-        continue;
-      }
-
-      const close =
-        gap < shortFragmentMergeGapSec || seg.start - last.start < 5;
-      const needGlue =
-        close &&
-        lastWords + words <= maxWordsPerCard &&
-        (lastWords < minWordsPerCard ||
-          words < minWordsPerCard ||
-          (!this.endsUtterance(last.en) && lastWords < minWordsPerCard + 2));
-
-      if (needGlue) {
-        const joined = this.mergeTwoSegments(last, seg);
-        last.start = joined.start;
-        last.end = joined.end;
-        last.en = joined.en;
-      } else {
-        forward.push(seg);
-      }
-    }
-
-    merged = [];
-    for (let i = 0; i < forward.length; i += 1) {
-      const cur = forward[i];
-      const next = forward[i + 1];
-      if (
-        next &&
-        this.wordCount(cur.en) < minWordsPerCard &&
-        !this.endsUtterance(cur.en) &&
-        next.start - cur.end < shortFragmentMergeGapSec
-      ) {
-        const joined = this.mergeTwoSegments(cur, next);
-        next.start = joined.start;
-        next.end = joined.end;
-        next.en = joined.en;
-        continue;
-      }
-      merged.push(cur);
+      const joined = this.mergeTwoSegments(last, seg);
+      last.start = joined.start;
+      last.end = joined.end;
+      last.en = joined.en;
     }
 
     return merged;
@@ -672,20 +603,17 @@ export class VideoTranslateService {
   private splitMultiSentence(
     segments: Array<{ start: number; end: number; en: string }>,
   ) {
-    const { minWordsPerCard } = TRANSCRIPT_RULES;
     const out: Array<{ start: number; end: number; en: string }> = [];
+    const sentenceSegmenter = new Intl.Segmenter('en', {
+      granularity: 'sentence',
+    });
 
     for (const seg of segments) {
-      const parts = seg.en
-        .split(/(?<=[.!?…])\s+/)
-        .map((part) => part.trim())
-        .filter(Boolean);
+      const parts = Array.from(sentenceSegmenter.segment(seg.en), (part) =>
+        part.segment.trim(),
+      ).filter(Boolean);
 
-      // Không tách nếu tạo ra mảnh dưới minWordsPerCard
-      if (
-        parts.length <= 1 ||
-        parts.some((part) => this.wordCount(part) < minWordsPerCard)
-      ) {
+      if (parts.length <= 1) {
         out.push({ ...seg });
         continue;
       }
@@ -698,7 +626,9 @@ export class VideoTranslateService {
         const share = part.length / totalChars;
         const dur = Math.max(0.4, totalDur * share);
         const end =
-          index === parts.length - 1 ? seg.end : Math.min(seg.end, cursor + dur);
+          index === parts.length - 1
+            ? seg.end
+            : Math.min(seg.end, cursor + dur);
         out.push({ start: cursor, end, en: part });
         cursor = end;
       });
@@ -707,7 +637,7 @@ export class VideoTranslateService {
     return out;
   }
 
-  /** Kéo end tới gần start câu sau để highlight không tắt giữa câu. */
+  /** Căn thời gian hiển thị nhưng giữ nguyên khoảng nghỉ dùng để cắt câu. */
   private alignSegmentWindows(
     segments: Array<{ start: number; end: number; en: string }>,
     durationSec: number,
@@ -728,17 +658,20 @@ export class VideoTranslateService {
 
       if (!isLast) {
         const gap = nextStart - seg.end;
-        if (gap <= 2.5) {
-          end = Math.max(seg.start + 0.35, nextStart - 0.04);
+        if (
+          gap + TRANSCRIPT_RULES.timestampEpsilonSec >=
+          TRANSCRIPT_RULES.pauseBreakSec
+        ) {
+          end = Math.min(seg.end, nextStart - 0.04);
         } else {
-          end = Math.min(Math.max(seg.end, minEnd), nextStart - 0.04);
+          end = Math.max(seg.start + 0.35, nextStart - 0.04);
         }
       }
 
       return {
         ...seg,
         start: Math.max(0, seg.start),
-        end: Math.max(seg.start + 0.35, end),
+        end: Math.max(seg.start + 0.12, end),
       };
     });
   }
@@ -835,12 +768,18 @@ export class VideoTranslateService {
 
       const nextStart = segments[i + 1]?.start ?? durationSec;
       // Dùng khoảng đến câu tiếp theo để TTS có chỗ thở, vẫn khớp nhịp cảnh
-      const windowEnd = Math.max(seg.start + 0.35, Math.min(seg.end + 0.15, nextStart - 0.04));
+      const windowEnd = Math.max(
+        seg.start + 0.35,
+        Math.min(seg.end + 0.15, nextStart - 0.04),
+      );
       const targetDur = Math.max(0.35, windowEnd - seg.start);
 
       const buffer = await this.synthesizeVietnamese(seg.vi);
       const rawPath = join(partsDir, `raw-${String(i).padStart(3, '0')}.mp3`);
-      const fittedPath = join(partsDir, `fit-${String(i).padStart(3, '0')}.mp3`);
+      const fittedPath = join(
+        partsDir,
+        `fit-${String(i).padStart(3, '0')}.mp3`,
+      );
       writeFileSync(rawPath, buffer);
       await this.fitSpeechToWindow(rawPath, fittedPath, targetDur);
 
@@ -851,13 +790,18 @@ export class VideoTranslateService {
     }
 
     if (partFiles.length === 0) {
-      throw new BadRequestException('Không tạo được audio tiếng Việt từ transcript');
+      throw new BadRequestException(
+        'Không tạo được audio tiếng Việt từ transcript',
+      );
     }
 
     mkdirSync(jobDir, { recursive: true });
     const outPath = join(jobDir, 'dubbed.mp3');
     const silencePath = join(workDir, 'silence.mp3');
-    const totalSec = Math.max(durationSec, Math.ceil(segments.at(-1)?.end ?? 1) + 1);
+    const totalSec = Math.max(
+      durationSec,
+      Math.ceil(segments.at(-1)?.end ?? 1) + 1,
+    );
 
     await this.runFfmpeg([
       '-y',
@@ -973,7 +917,9 @@ export class VideoTranslateService {
         ['-i', filePath, '-f', 'null', '-'],
         { timeout: 30_000, maxBuffer: 2 * 1024 * 1024 },
       );
-      const match = String(stderr).match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
+      const match = String(stderr).match(
+        /Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/,
+      );
       if (!match) return 0;
       const h = Number(match[1]);
       const m = Number(match[2]);
@@ -986,9 +932,7 @@ export class VideoTranslateService {
           : '';
       const match = stderr.match(/Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)/);
       if (!match) return 0;
-      return (
-        Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3])
-      );
+      return Number(match[1]) * 3600 + Number(match[2]) * 60 + Number(match[3]);
     }
   }
 
@@ -1046,7 +990,8 @@ export class VideoTranslateService {
         model: 'gpt-4o-mini-tts',
         voice: 'alloy',
         input: text,
-        instructions: 'Speak clear Vietnamese at a natural conversational pace.',
+        instructions:
+          'Speak clear Vietnamese at a natural conversational pace.',
         response_format: 'mp3',
       });
       return Buffer.from(await speech.arrayBuffer());
@@ -1088,8 +1033,7 @@ export class VideoTranslateService {
         { timeout: 180_000, maxBuffer: 10 * 1024 * 1024 },
       );
     } catch (error) {
-      const detail =
-        error instanceof Error ? error.message : String(error);
+      const detail = error instanceof Error ? error.message : String(error);
       throw new ServiceUnavailableException(
         `Không tải được audio YouTube. Kiểm tra yt-dlp/ffmpeg. Chi tiết: ${detail.slice(0, 240)}`,
       );
@@ -1099,7 +1043,9 @@ export class VideoTranslateService {
       /^audio\.(mp3|m4a|webm|opus|wav)$/i.test(name),
     );
     if (!files.length) {
-      throw new ServiceUnavailableException('Không tìm thấy file audio sau khi tải');
+      throw new ServiceUnavailableException(
+        'Không tìm thấy file audio sau khi tải',
+      );
     }
     return join(workDir, files[0]);
   }
@@ -1113,22 +1059,32 @@ export class VideoTranslateService {
       model: 'whisper-1',
       language: 'en',
       response_format: 'verbose_json',
-      timestamp_granularities: ['segment'],
+      timestamp_granularities: ['word', 'segment'],
     });
 
-    const segments =
-      (
-        result as unknown as {
-          segments?: Array<{ start?: number; end?: number; text?: string }>;
-        }
-      ).segments ?? [];
+    const timedResult = result as unknown as {
+      text?: string;
+      words?: Array<{ start?: number; end?: number; word?: string }>;
+      segments?: Array<{ start?: number; end?: number; text?: string }>;
+    };
+    const words = timedResult.words ?? [];
+    if (words.length) {
+      return words
+        .map((word) => ({
+          start: Number(word.start) || 0,
+          end: Number(word.end) || (Number(word.start) || 0) + 0.3,
+          en: this.cleanCaptionText(String(word.word ?? '')),
+        }))
+        .filter((word) => word.en.length > 0);
+    }
 
-    if (!segments.length && (result as { text?: string }).text) {
+    const segments = timedResult.segments ?? [];
+    if (!segments.length && timedResult.text) {
       return [
         {
           start: 0,
           end: 4,
-          en: String((result as { text?: string }).text).trim(),
+          en: String(timedResult.text).trim(),
         },
       ];
     }
@@ -1166,7 +1122,10 @@ export class VideoTranslateService {
           `https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`,
         );
         if (res.ok) {
-          const data = (await res.json()) as { title?: string; thumbnail_url?: string };
+          const data = (await res.json()) as {
+            title?: string;
+            thumbnail_url?: string;
+          };
           return {
             title: data.title?.trim() || `YouTube ${videoId}`,
             durationSec: this.maxSecondsFree(),

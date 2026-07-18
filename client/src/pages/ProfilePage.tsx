@@ -21,10 +21,10 @@ const menuItems = [
   { icon: Mic, label: 'Luyện nói tình huống', color: 'text-indigo-500', to: '/luyen-noi' },
   {
     icon: Clapperboard,
-    label: 'Sắp mở',
+    label: 'Dịch video YouTube',
     color: 'text-rose-500',
     to: '/dich-video',
-    disabled: true,
+    disabled: false,
   },
   { icon: Gauge, label: 'Trình độ', color: 'text-green-500', to: '/trinh-do' },
   { icon: HelpCircle, label: 'Hỗ trợ', color: 'text-purple-500', to: 'http://zalo.me/0327142982', external: true },

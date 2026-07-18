@@ -368,6 +368,13 @@ export const api = {
       body: JSON.stringify({ url }),
     });
   },
+
+  deleteVideoTranslateJob(id: string) {
+    return request<{ deleted: boolean }>(
+      `/video-translate/jobs/${encodeURIComponent(id)}`,
+      { method: 'DELETE' },
+    );
+  },
 };
 
 export interface AdminUserRow {
