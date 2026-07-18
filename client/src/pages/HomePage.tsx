@@ -31,11 +31,11 @@ const quickLinks = [
   { icon: Mic, label: 'Luyện nói', sub: 'Tình huống thật', color: 'bg-indigo-500', to: '/luyen-noi' },
   {
     icon: Clapperboard,
-    label: 'Sắp mở',
+    label: 'Dịch video',
     sub: 'Nghe EN + text VI',
     color: 'bg-rose-500',
     to: '/dich-video',
-    disabled: true,
+    disabled: false,
   },
 ];
 
