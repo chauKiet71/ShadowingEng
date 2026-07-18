@@ -37,6 +37,7 @@ export declare class VocabularyController {
             cefrLevel: import("@prisma/client").$Enums.CefrLevel;
             topic: string;
             wordCount: number;
+            learnedCount: number;
             saved: boolean;
         }[];
         dueWords: {
@@ -65,8 +66,8 @@ export declare class VocabularyController {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            word: string;
             setId: string;
+            word: string;
             phonetic: string | null;
             meaning: string;
             example: string;
@@ -112,8 +113,8 @@ export declare class VocabularyController {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            word: string;
             setId: string;
+            word: string;
             phonetic: string | null;
             meaning: string;
             example: string;

@@ -8763,5 +8763,3049 @@
         "time_end": 37.2
       }
     ]
+  },
+  {
+    "id": "lesson-83",
+    "categoryId": "9",
+    "title": "Ngày đầu nhập học",
+    "description": "Hỏi đường và làm quen trong ngày đầu đến trường",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-83.mp3",
+    "duration": 50,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "83-1",
+        "english": "Excuse me, could you tell me where the admissions office is?",
+        "phonetic": "/ɪkˈskjus mi, kʊd ju tɛl mi weər ði ædˈmɪʃənz ˈɔfəs ɪz?/",
+        "vietnamese": "Xin lỗi, bạn có thể chỉ cho tôi văn phòng tuyển sinh ở đâu không?",
+        "time_start": 0,
+        "time_end": 2.6
+      },
+      {
+        "id": "83-2",
+        "english": "I'm a freshman and I'm a bit lost.",
+        "phonetic": "/aɪm ə ˈfrɛʃmən ænd aɪm ə bɪt lɔst./",
+        "vietnamese": "Tôi là sinh viên năm nhất và tôi hơi lạc đường.",
+        "time_start": 2.6,
+        "time_end": 5.6
+      },
+      {
+        "id": "83-3",
+        "english": "Welcome to the campus!",
+        "phonetic": "/ˈwɛlkəm tu ðə ˈkæmpəs!/",
+        "vietnamese": "Chào mừng bạn đến với trường!",
+        "time_start": 5.6,
+        "time_end": 6.44
+      },
+      {
+        "id": "83-4",
+        "english": "The admissions office is in the main administrative building, just past the library.",
+        "phonetic": "/ði ædˈmɪʃənz ˈɔfəs ɪz ɪn ðə meɪn ædˈmɪnɪˌstreɪtɪv ˈbɪldɪŋ, ʤʌst pæst ðə ˈlaɪˌbrɛri./",
+        "vietnamese": "Văn phòng tuyển sinh nằm ở tòa nhà hành chính chính, đi qua thư viện một chút.",
+        "time_start": 6.96,
+        "time_end": 11.74
+      },
+      {
+        "id": "83-5",
+        "english": "Thank you!",
+        "phonetic": "/θæŋk ju!/",
+        "vietnamese": "Cảm ơn bạn!",
+        "time_start": 12.2,
+        "time_end": 12.64
+      },
+      {
+        "id": "83-6",
+        "english": "The campus is huge.",
+        "phonetic": "/ðə ˈkæmpəs ɪz hjuʤ./",
+        "vietnamese": "Khuôn viên trường rộng quá.",
+        "time_start": 12.86,
+        "time_end": 14.32
+      },
+      {
+        "id": "83-7",
+        "english": "How long did it take you to get used to finding your way around?",
+        "phonetic": "/haʊ lɔŋ dɪd ɪt teɪk ju tu gɛt just tu ˈfaɪndɪŋ jʊər weɪ əˈraʊnd?/",
+        "vietnamese": "Bạn mất bao lâu để quen với việc tìm đường ở đây?",
+        "time_start": 14.62,
+        "time_end": 17.32
+      },
+      {
+        "id": "83-8",
+        "english": "It took me a couple of weeks.",
+        "phonetic": "/ɪt tʊk mi ə ˈkʌpəl ʌv wiks./",
+        "vietnamese": "Tôi mất vài tuần.",
+        "time_start": 17.7,
+        "time_end": 19
+      },
+      {
+        "id": "83-9",
+        "english": "Don't worry, you'll get the hang of it.",
+        "phonetic": "/doʊnt ˈwɜri, jul gɛt ðə hæŋ ʌv ɪt./",
+        "vietnamese": "Đừng lo, bạn sẽ quen thôi.",
+        "time_start": 19,
+        "time_end": 21.42
+      },
+      {
+        "id": "83-10",
+        "english": "I recommend downloading the campus map app.",
+        "phonetic": "/aɪ ˌrɛkəˈmɛnd ˈdaʊnˌloʊdɪŋ ðə ˈkæmpəs mæp æp./",
+        "vietnamese": "Tôi khuyên bạn nên tải ứng dụng bản đồ của trường.",
+        "time_start": 21.42,
+        "time_end": 23.96
+      },
+      {
+        "id": "83-11",
+        "english": "That's a great idea, I will do that right away.",
+        "phonetic": "/ðæts ə greɪt aɪˈdiə, aɪ wɪl du ðæt raɪt əˈweɪ./",
+        "vietnamese": "Đó là một ý kiến hay, tôi sẽ tải ngay.",
+        "time_start": 23.96,
+        "time_end": 26.1
+      },
+      {
+        "id": "83-12",
+        "english": "By the way, I'm Liam.",
+        "phonetic": "/baɪ ðə weɪ, aɪm ˈliəm./",
+        "vietnamese": "Nhân tiện, tôi là Liam.",
+        "time_start": 26.1,
+        "time_end": 28.24
+      },
+      {
+        "id": "83-13",
+        "english": "Nice to meet you.",
+        "phonetic": "/naɪs tu mit ju./",
+        "vietnamese": "Rất vui được gặp bạn.",
+        "time_start": 28.24,
+        "time_end": 28.94
+      },
+      {
+        "id": "83-14",
+        "english": "I'm Sarah.",
+        "phonetic": "/aɪm ˈsɛrə./",
+        "vietnamese": "Tôi là Sarah.",
+        "time_start": 28.94,
+        "time_end": 30.58
+      },
+      {
+        "id": "83-15",
+        "english": "Nice to meet you too, Liam.",
+        "phonetic": "/naɪs tu mit ju tu, ˈliəm./",
+        "vietnamese": "Rất vui được gặp bạn, Liam.",
+        "time_start": 30.58,
+        "time_end": 31.6
+      },
+      {
+        "id": "83-16",
+        "english": "Are you going to the freshman orientation later today?",
+        "phonetic": "/ɑr ju ˈgoʊɪŋ tu ðə ˈfrɛʃmən ˌɔriɛnˈteɪʃən ˈleɪtər təˈdeɪ?/",
+        "vietnamese": "Chiều nay bạn có tham gia buổi định hướng cho sinh viên năm nhất không?",
+        "time_start": 31.7,
+        "time_end": 34.12
+      },
+      {
+        "id": "83-17",
+        "english": "Yes, I am.",
+        "phonetic": "/jɛs, aɪ æm./",
+        "vietnamese": "Có, tôi có đi.",
+        "time_start": 34.42,
+        "time_end": 35.28
+      },
+      {
+        "id": "83-18",
+        "english": "I heard they will explain how to use the student portal and register for extracurricular activities.",
+        "phonetic": "/aɪ hɜrd ðeɪ wɪl ɪkˈspleɪn haʊ tu juz ðə ˈstudənt ˈpɔrtəl ænd ˈrɛʤɪstər fɔr ˌɛkstrəkəˈrɪkjələr ækˈtɪvətiz./",
+        "vietnamese": "Tôi nghe nói họ sẽ giải thích cách sử dụng cổng thông tin sinh viên và đăng ký các hoạt động ngoại khóa.",
+        "time_start": 35.46,
+        "time_end": 40.58
+      },
+      {
+        "id": "83-19",
+        "english": "Exactly.",
+        "phonetic": "/ɪgˈzæktli./",
+        "vietnamese": "Chính xác.",
+        "time_start": 41.08,
+        "time_end": 41.56
+      },
+      {
+        "id": "83-20",
+        "english": "It's very helpful.",
+        "phonetic": "/ɪts ˈvɛri ˈhɛlpfəl./",
+        "vietnamese": "Nó rất hữu ích đấy.",
+        "time_start": 41.56,
+        "time_end": 43.74
+      },
+      {
+        "id": "83-21",
+        "english": "Let me walk you to the admissions office since I'm heading that way.",
+        "phonetic": "/lɛt mi wɔk ju tu ði ædˈmɪʃənz ˈɔfəs sɪns aɪm ˈhɛdɪŋ ðæt weɪ./",
+        "vietnamese": "Để tôi đi cùng bạn đến văn phòng tuyển sinh vì tôi cũng đang đi hướng đó.",
+        "time_start": 43.74,
+        "time_end": 45.92
+      },
+      {
+        "id": "83-22",
+        "english": "That would be wonderful, thank you so much for your help!",
+        "phonetic": "/ðæt wʊd bi ˈwʌndərfəl, θæŋk ju soʊ mʌʧ fɔr jʊər hɛlp!/",
+        "vietnamese": "Vậy thì tuyệt quá, cảm ơn bạn rất nhiều vì đã giúp đỡ!",
+        "time_start": 45.92,
+        "time_end": 49.42
+      }
+    ]
+  },
+  {
+    "id": "lesson-84",
+    "categoryId": "9",
+    "title": "Chuyển vào ký túc xá",
+    "description": "Làm quen bạn cùng phòng và sắp xếp không gian sống",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-84.mp3",
+    "duration": 46,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "84-1",
+        "english": "Hi there!",
+        "phonetic": "/haɪ ðɛr!/",
+        "vietnamese": "Chào bạn!",
+        "time_start": 0,
+        "time_end": 0.62
+      },
+      {
+        "id": "84-2",
+        "english": "You must be my new roommate.",
+        "phonetic": "/ju mʌst bi maɪ nu ˈrumˌmeɪt./",
+        "vietnamese": "Chắc hẳn bạn là bạn cùng phòng mới của tôi.",
+        "time_start": 0.76,
+        "time_end": 1.96
+      },
+      {
+        "id": "84-3",
+        "english": "I'm David, nice to meet you.",
+        "phonetic": "/aɪm ˈdeɪvɪd, naɪs tu mit ju./",
+        "vietnamese": "Tôi là David, rất vui được gặp bạn.",
+        "time_start": 1.96,
+        "time_end": 4.2
+      },
+      {
+        "id": "84-4",
+        "english": "Hi David!",
+        "phonetic": "/haɪ ˈdeɪvɪd!/",
+        "vietnamese": "Chào David!",
+        "time_start": 4.2,
+        "time_end": 4.54
+      },
+      {
+        "id": "84-5",
+        "english": "I'm Michael.",
+        "phonetic": "/aɪm ˈmaɪkəl./",
+        "vietnamese": "Tôi là Michael.",
+        "time_start": 4.54,
+        "time_end": 6.31
+      },
+      {
+        "id": "84-6",
+        "english": "It's great to finally meet you in person.",
+        "phonetic": "/ɪts greɪt tu ˈfaɪnəli mit ju ɪn ˈpɜrsən./",
+        "vietnamese": "Thật tuyệt khi cuối cùng cũng được gặp bạn trực tiếp.",
+        "time_start": 6.31,
+        "time_end": 8.08
+      },
+      {
+        "id": "84-7",
+        "english": "Which bed is yours?",
+        "phonetic": "/wɪʧ bɛd ɪz jʊrz?/",
+        "vietnamese": "Giường nào là của bạn?",
+        "time_start": 8.08,
+        "time_end": 9.08
+      },
+      {
+        "id": "84-8",
+        "english": "I took the one near the window, if that's okay with you.",
+        "phonetic": "/aɪ tʊk ðə wʌn nɪr ðə ˈwɪndoʊ, ɪf ðæts ˌoʊˈkeɪ wɪð ju./",
+        "vietnamese": "Tôi chọn giường gần cửa sổ, nếu bạn không phiền.",
+        "time_start": 9.08,
+        "time_end": 9.56
+      },
+      {
+        "id": "84-9",
+        "english": "I left the other side entirely for your things.",
+        "phonetic": "/aɪ lɛft ði ˈʌðər saɪd ɪnˈtaɪərli fɔr jʊər θɪŋz./",
+        "vietnamese": "Tôi đã để lại toàn bộ phía bên kia cho đồ đạc của bạn.",
+        "time_start": 9.56,
+        "time_end": 15.24
+      },
+      {
+        "id": "84-10",
+        "english": "That's perfectly fine.",
+        "phonetic": "/ðæts ˈpɜrfəktli faɪn./",
+        "vietnamese": "Hoàn toàn ổn.",
+        "time_start": 15.24,
+        "time_end": 16.88
+      },
+      {
+        "id": "84-11",
+        "english": "I actually prefer being closer to the door.",
+        "phonetic": "/aɪ ˈækʧuəli prɪˈfɜr ˈbiɪŋ ˈkloʊsər tu ðə dɔr./",
+        "vietnamese": "Thực ra tôi thích ở gần cửa ra vào hơn.",
+        "time_start": 16.88,
+        "time_end": 18.8
+      },
+      {
+        "id": "84-12",
+        "english": "Have you unpacked everything yet?",
+        "phonetic": "/hæv ju ənˈpækt ˈɛvriˌθɪŋ jɛt?/",
+        "vietnamese": "Bạn đã dọn hết đồ ra chưa?",
+        "time_start": 19.26,
+        "time_end": 20.9
+      },
+      {
+        "id": "84-13",
+        "english": "Mostly.",
+        "phonetic": "/ˈmoʊstli./",
+        "vietnamese": "Gần xong rồi.",
+        "time_start": 21.24,
+        "time_end": 21.64
+      },
+      {
+        "id": "84-14",
+        "english": "Just putting away some clothes.",
+        "phonetic": "/ʤʌst ˈpʊtɪŋ əˈweɪ sʌm kloʊðz./",
+        "vietnamese": "Chỉ đang cất nốt vài bộ quần áo.",
+        "time_start": 22.02,
+        "time_end": 23.48
+      },
+      {
+        "id": "84-15",
+        "english": "By the way, the laundry room is at the end of the hallway.",
+        "phonetic": "/baɪ ðə weɪ, ðə ˈlɔndri rum ɪz æt ði ɛnd ʌv ðə ˈhɔlˌweɪ./",
+        "vietnamese": "Nhân tiện, phòng giặt ủi ở cuối hành lang nhé.",
+        "time_start": 23.78,
+        "time_end": 26.58
+      },
+      {
+        "id": "84-16",
+        "english": "Good to know.",
+        "phonetic": "/gʊd tu noʊ./",
+        "vietnamese": "Thật tốt khi biết điều đó.",
+        "time_start": 26.58,
+        "time_end": 27.56
+      },
+      {
+        "id": "84-17",
+        "english": "Do we need to buy our own cleaning supplies for the room?",
+        "phonetic": "/du wi nid tu baɪ ˈaʊər oʊn ˈklinɪŋ səˈplaɪz fɔr ðə rum?/",
+        "vietnamese": "Chúng ta có cần tự mua đồ dùng dọn dẹp cho phòng không?",
+        "time_start": 27.9,
+        "time_end": 30.7
+      },
+      {
+        "id": "84-18",
+        "english": "Yes, we should probably share the cost.",
+        "phonetic": "/jɛs, wi ʃʊd ˈprɑbəbli ʃɛr ðə kɑst./",
+        "vietnamese": "Có, chúng ta có lẽ nên chia sẻ chi phí.",
+        "time_start": 31.16,
+        "time_end": 32.96
+      },
+      {
+        "id": "84-19",
+        "english": "We can go to the convenience store downstairs later.",
+        "phonetic": "/wi kæn goʊ tu ðə kənˈvinjəns stɔr ˈdaʊnˈstɛrz ˈleɪtər./",
+        "vietnamese": "Lát nữa chúng ta có thể xuống cửa hàng tiện lợi dưới lầu.",
+        "time_start": 33.34,
+        "time_end": 35.78
+      },
+      {
+        "id": "84-20",
+        "english": "Sounds like a plan.",
+        "phonetic": "/saʊndz laɪk ə plæn./",
+        "vietnamese": "Nghe hợp lý đấy.",
+        "time_start": 36.2,
+        "time_end": 37.06
+      },
+      {
+        "id": "84-21",
+        "english": "I brought a mini-fridge by the way, so we can store some snacks and drinks.",
+        "phonetic": "/aɪ brɔt ə ˈmɪni-frɪʤ baɪ ðə weɪ, soʊ wi kæn stɔr sʌm snæks ænd drɪŋks./",
+        "vietnamese": "Nhân tiện, tôi có mang theo tủ lạnh mini, nên chúng ta có thể cất chút đồ ăn vặt và đồ uống.",
+        "time_start": 37.4,
+        "time_end": 41.34
+      },
+      {
+        "id": "84-22",
+        "english": "Awesome!",
+        "phonetic": "/ˈɔsəm!/",
+        "vietnamese": "Tuyệt vời!",
+        "time_start": 41.84,
+        "time_end": 42.12
+      },
+      {
+        "id": "84-23",
+        "english": "That will be a lifesaver during late-night study sessions.",
+        "phonetic": "/ðæt wɪl bi ə ˈlaɪfˌseɪvər ˈdʊrɪŋ leɪt-naɪt ˈstʌdi ˈsɛʃənz./",
+        "vietnamese": "Nó sẽ là cứu cánh trong những buổi học khuya đấy.",
+        "time_start": 42.44,
+        "time_end": 45.6
+      }
+    ]
+  },
+  {
+    "id": "lesson-85",
+    "categoryId": "9",
+    "title": "Đăng ký môn học",
+    "description": "Đăng ký lớp học và chọn môn cho học kỳ mới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-85.mp3",
+    "duration": 47,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "85-1",
+        "english": "Hey, have you registered for your classes for the next semester yet?",
+        "phonetic": "/heɪ, hæv ju ˈrɛʤɪstərd fɔr jʊər ˈklæsəz fɔr ðə nɛkst səˈmɛstər jɛt?/",
+        "vietnamese": "Này, bạn đã đăng ký môn học cho học kỳ tới chưa?",
+        "time_start": 0,
+        "time_end": 3.26
+      },
+      {
+        "id": "85-2",
+        "english": "Not yet.",
+        "phonetic": "/nɑt jɛt./",
+        "vietnamese": "Chưa.",
+        "time_start": 3.78,
+        "time_end": 4.2
+      },
+      {
+        "id": "85-3",
+        "english": "I'm trying to log into the system right now, but it's lagging really badly.",
+        "phonetic": "/aɪm ˈtraɪɪŋ tu lɔg ˈɪntu ðə ˈsɪstəm raɪt naʊ, bʌt ɪts ˈlægɪŋ ˈrɪli ˈbædli./",
+        "vietnamese": "Tôi đang cố gắng đăng nhập vào hệ thống lúc này, nhưng nó lag quá tệ.",
+        "time_start": 4.2,
+        "time_end": 8.7
+      },
+      {
+        "id": "85-4",
+        "english": "Yeah, everyone is trying to register at the same time.",
+        "phonetic": "/jæ, ˈɛvriˌwʌn ɪz ˈtraɪɪŋ tu ˈrɛʤɪstər æt ðə seɪm taɪm./",
+        "vietnamese": "Ừ, mọi người đều đang cố đăng ký cùng một lúc.",
+        "time_start": 8.7,
+        "time_end": 11.74
+      },
+      {
+        "id": "85-5",
+        "english": "Which classes are you trying to get into?",
+        "phonetic": "/wɪʧ ˈklæsəz ɑr ju ˈtraɪɪŋ tu gɛt ˈɪntu?/",
+        "vietnamese": "Bạn đang cố đăng ký những lớp nào?",
+        "time_start": 12.16,
+        "time_end": 13.72
+      },
+      {
+        "id": "85-6",
+        "english": "I need to take Macroeconomics and Introduction to Psychology.",
+        "phonetic": "/aɪ nid tu teɪk ˌmækroʊˌɛkəˈnɑmɪks ænd ˌɪntrəˈdʌkʃən tu saɪˈkɑləʤi./",
+        "vietnamese": "Tôi cần học Kinh tế vĩ mô và Nhập môn Tâm lý học.",
+        "time_start": 14.16,
+        "time_end": 17.72
+      },
+      {
+        "id": "85-7",
+        "english": "But I see the psychology class is almost full.",
+        "phonetic": "/bʌt aɪ si ðə saɪˈkɑləʤi klæs ɪz ˈɔlˌmoʊst fʊl./",
+        "vietnamese": "Nhưng lớp tâm lý học gần kín chỗ rồi.",
+        "time_start": 18.1,
+        "time_end": 21.04
+      },
+      {
+        "id": "85-8",
+        "english": "You better hurry.",
+        "phonetic": "/ju ˈbɛtər ˈhɜri./",
+        "vietnamese": "Bạn tốt nhất nên nhanh lên.",
+        "time_start": 21.42,
+        "time_end": 22.16
+      },
+      {
+        "id": "85-9",
+        "english": "If you can't get into that one, do you have a backup plan?",
+        "phonetic": "/ɪf ju kænt gɛt ˈɪntu ðæt wʌn, du ju hæv ə ˈbækˌʌp plæn?/",
+        "vietnamese": "Nếu không vào được lớp đó, bạn có kế hoạch dự phòng không?",
+        "time_start": 22.16,
+        "time_end": 25.14
+      },
+      {
+        "id": "85-10",
+        "english": "I might take Sociology instead.",
+        "phonetic": "/aɪ maɪt teɪk ˌsoʊsiˈɑləʤi ɪnˈstɛd./",
+        "vietnamese": "Tôi có thể sẽ học Xã hội học thay thế.",
+        "time_start": 25.14,
+        "time_end": 27.36
+      },
+      {
+        "id": "85-11",
+        "english": "It also fulfills the general education requirement.",
+        "phonetic": "/ɪt ˈɔlsoʊ fʊlˈfɪlz ðə ˈʤɛnərəl ˌɛʤəˈkeɪʃən rɪˈkwaɪərmənt./",
+        "vietnamese": "Nó cũng đáp ứng yêu cầu giáo dục đại cương.",
+        "time_start": 27.36,
+        "time_end": 30.6
+      },
+      {
+        "id": "85-12",
+        "english": "Oh, I finally got in!",
+        "phonetic": "/oʊ, aɪ ˈfaɪnəli gɑt ɪn!/",
+        "vietnamese": "Ôi, cuối cùng tôi cũng vào được!",
+        "time_start": 31.04,
+        "time_end": 32.46
+      },
+      {
+        "id": "85-13",
+        "english": "Let me quickly add these courses to my schedule.",
+        "phonetic": "/lɛt mi ˈkwɪkli æd ðiz ˈkɔrsəz tu maɪ ˈskɛʤʊl./",
+        "vietnamese": "Để tôi nhanh chóng thêm các khóa này vào thời khóa biểu.",
+        "time_start": 32.8,
+        "time_end": 34.86
+      },
+      {
+        "id": "85-14",
+        "english": "Make sure to check the professors' reviews online before you confirm.",
+        "phonetic": "/meɪk ʃʊr tu ʧɛk ðə prəˈfɛsərz rɪˈvjuz ˈɔnˌlaɪn bɪˈfɔr ju kənˈfɜrm./",
+        "vietnamese": "Nhớ kiểm tra đánh giá về các giáo sư trên mạng trước khi xác nhận.",
+        "time_start": 34.86,
+        "time_end": 39.42
+      },
+      {
+        "id": "85-15",
+        "english": "Some of them give a lot of homework.",
+        "phonetic": "/sʌm ʌv ðɛm gɪv ə lɔt ʌv ˈhoʊmˌwɜrk./",
+        "vietnamese": "Một số người giao rất nhiều bài tập đấy.",
+        "time_start": 39.42,
+        "time_end": 41.1
+      },
+      {
+        "id": "85-16",
+        "english": "Thanks for the tip.",
+        "phonetic": "/θæŋks fɔr ðə tɪp./",
+        "vietnamese": "Cảm ơn vì lời khuyên.",
+        "time_start": 41.58,
+        "time_end": 42.32
+      },
+      {
+        "id": "85-17",
+        "english": "I successfully registered for everything.",
+        "phonetic": "/aɪ səkˈsɛsfəli ˈrɛʤɪstərd fɔr ˈɛvriˌθɪŋ./",
+        "vietnamese": "Tôi đã đăng ký thành công mọi thứ.",
+        "time_start": 42.64,
+        "time_end": 45.16
+      },
+      {
+        "id": "85-18",
+        "english": "What a relief!",
+        "phonetic": "/wʌt ə rɪˈlif!/",
+        "vietnamese": "Thật nhẹ nhõm!",
+        "time_start": 45.58,
+        "time_end": 46.46
+      }
+    ]
+  },
+  {
+    "id": "lesson-86",
+    "categoryId": "9",
+    "title": "Học nhóm tại thư viện",
+    "description": "Phân công và làm bài tập nhóm tại phòng học",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-86.mp3",
+    "duration": 43,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "86-1",
+        "english": "Hey guys, thanks for meeting up today.",
+        "phonetic": "/heɪ gaɪz, θæŋks fɔr ˈmitɪŋ ʌp təˈdeɪ./",
+        "vietnamese": "Chào mọi người, cảm ơn vì đã đến gặp nhau hôm nay.",
+        "time_start": 0,
+        "time_end": 1.64
+      },
+      {
+        "id": "86-2",
+        "english": "We have a lot to cover for our group project.",
+        "phonetic": "/wi hæv ə lɔt tu ˈkʌvər fɔr ˈaʊər grup ˈprɑʤɛkt./",
+        "vietnamese": "Chúng ta có rất nhiều việc phải làm cho bài tập nhóm.",
+        "time_start": 1.86,
+        "time_end": 4.18
+      },
+      {
+        "id": "86-3",
+        "english": "No problem.",
+        "phonetic": "/noʊ ˈprɑbləm./",
+        "vietnamese": "Không có gì.",
+        "time_start": 4.6,
+        "time_end": 5.12
+      },
+      {
+        "id": "86-4",
+        "english": "Did you manage to book this study room for two hours?",
+        "phonetic": "/dɪd ju ˈmænəʤ tu bʊk ðɪs ˈstʌdi rum fɔr tu ˈaʊərz?/",
+        "vietnamese": "Bạn đã đặt được phòng học này trong hai giờ chưa?",
+        "time_start": 5.44,
+        "time_end": 7.86
+      },
+      {
+        "id": "86-5",
+        "english": "Yes, I booked it from 2 PM to 4 PM.",
+        "phonetic": "/jɛs, aɪ bʊkt ɪt frʌm tu pi-ɛm tu fɔr pi-ɛm./",
+        "vietnamese": "Rồi, tôi đã đặt từ 2 giờ đến 4 giờ chiều.",
+        "time_start": 8.42,
+        "time_end": 10.94
+      },
+      {
+        "id": "86-6",
+        "english": "So, who wants to start with the research part?",
+        "phonetic": "/soʊ, hu wɑnts tu stɑrt wɪð ðə ˈrisɜrʧ pɑrt?/",
+        "vietnamese": "Vậy, ai muốn bắt đầu với phần nghiên cứu?",
+        "time_start": 11.14,
+        "time_end": 13.54
+      },
+      {
+        "id": "86-7",
+        "english": "I can handle the research.",
+        "phonetic": "/aɪ kæn ˈhændəl ðə ˈrisɜrʧ./",
+        "vietnamese": "Tôi có thể lo phần nghiên cứu.",
+        "time_start": 13.88,
+        "time_end": 14.94
+      },
+      {
+        "id": "86-8",
+        "english": "I've already found some credible sources in the library's database.",
+        "phonetic": "/aɪv ɔlˈrɛdi faʊnd sʌm ˈkrɛdəbəl ˈsɔrsəz ɪn ðə ˈlaɪˌbrɛriz ˈdeɪtəˌbeɪs./",
+        "vietnamese": "Tôi đã tìm thấy một số nguồn đáng tin cậy trong cơ sở dữ liệu của thư viện.",
+        "time_start": 14.94,
+        "time_end": 19.04
+      },
+      {
+        "id": "86-9",
+        "english": "Great.",
+        "phonetic": "/greɪt./",
+        "vietnamese": "Tuyệt vời.",
+        "time_start": 19.04,
+        "time_end": 19.26
+      },
+      {
+        "id": "86-10",
+        "english": "I'll take care of drafting the presentation slides and organizing the information.",
+        "phonetic": "/aɪl teɪk kɛr ʌv ˈdræftɪŋ ðə ˌprɛzənˈteɪʃən slaɪdz ænd ˈɔrgəˌnaɪzɪŋ ði ˌɪnfərˈmeɪʃən./",
+        "vietnamese": "Tôi sẽ lo việc soạn thảo các trang trình chiếu và sắp xếp thông tin.",
+        "time_start": 19.26,
+        "time_end": 21.92
+      },
+      {
+        "id": "86-11",
+        "english": "And I will proofread everything and write the final report.",
+        "phonetic": "/ænd aɪ wɪl ˈprufˌrid ˈɛvriˌθɪŋ ænd raɪt ðə ˈfaɪnəl rɪˈpɔrt./",
+        "vietnamese": "Và tôi sẽ đọc dò lại mọi thứ và viết báo cáo cuối cùng.",
+        "time_start": 21.92,
+        "time_end": 27.2
+      },
+      {
+        "id": "86-12",
+        "english": "How does that sound?",
+        "phonetic": "/haʊ dʌz ðæt saʊnd?/",
+        "vietnamese": "Nghe hợp lý chứ?",
+        "time_start": 27.44,
+        "time_end": 28.34
+      },
+      {
+        "id": "86-13",
+        "english": "That sounds like a fair division of labor.",
+        "phonetic": "/ðæt saʊndz laɪk ə fɛr dɪˈvɪʒən ʌv ˈleɪbər./",
+        "vietnamese": "Nghe có vẻ như là sự phân công lao động công bằng đấy.",
+        "time_start": 28.34,
+        "time_end": 30.54
+      },
+      {
+        "id": "86-14",
+        "english": "Let's aim to have the first draft ready by Friday.",
+        "phonetic": "/lɛts eɪm tu hæv ðə fɜrst dræft ˈrɛdi baɪ ˈfraɪˌdeɪ./",
+        "vietnamese": "Hãy cố gắng có bản nháp đầu tiên vào thứ Sáu nhé.",
+        "time_start": 30.54,
+        "time_end": 32.62
+      },
+      {
+        "id": "86-15",
+        "english": "Agreed.",
+        "phonetic": "/əˈgrid./",
+        "vietnamese": "Đồng ý.",
+        "time_start": 32.62,
+        "time_end": 34.7
+      },
+      {
+        "id": "86-16",
+        "english": "If anyone needs help, just send a message in our group chat.",
+        "phonetic": "/ɪf ˈɛniˌwʌn nidz hɛlp, ʤʌst sɛnd ə ˈmɛsəʤ ɪn ˈaʊər grup ʧæt./",
+        "vietnamese": "Nếu ai cần giúp đỡ, cứ gửi tin nhắn vào nhóm trò chuyện của chúng ta.",
+        "time_start": 34.7,
+        "time_end": 37.68
+      },
+      {
+        "id": "86-17",
+        "english": "Perfect.",
+        "phonetic": "/ˈpɜrfɪkt./",
+        "vietnamese": "Hoàn hảo.",
+        "time_start": 38.04,
+        "time_end": 38.56
+      },
+      {
+        "id": "86-18",
+        "english": "Now let's get down to business before our time in this room runs out.",
+        "phonetic": "/naʊ lɛts gɛt daʊn tu ˈbɪznəs bɪˈfɔr ˈaʊər taɪm ɪn ðɪs rum rʌnz aʊt./",
+        "vietnamese": "Giờ hãy bắt tay vào việc trước khi thời gian ở phòng này hết hạn.",
+        "time_start": 38.56,
+        "time_end": 42.91
+      }
+    ]
+  },
+  {
+    "id": "lesson-87",
+    "categoryId": "9",
+    "title": "Tham gia câu lạc bộ",
+    "description": "Đăng ký câu lạc bộ tranh biện và hỏi thông tin",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-87.mp3",
+    "duration": 44,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "87-1",
+        "english": "Hi, I saw your booth at the club fair and I'm interested in joining the debate club.",
+        "phonetic": "/haɪ, aɪ sɔ jʊər buθ æt ðə klʌb fɛr ænd aɪm ˈɪntrəstəd ɪn ˈʤɔɪnɪŋ ðə dɪˈbeɪt klʌb./",
+        "vietnamese": "Xin chào, tôi thấy gian hàng của bạn ở hội chợ và tôi rất quan tâm đến việc tham gia câu lạc bộ tranh biện.",
+        "time_start": 0,
+        "time_end": 3.19
+      },
+      {
+        "id": "87-2",
+        "english": "Hello!",
+        "phonetic": "/hɛˈloʊ!/",
+        "vietnamese": "Xin chào!",
+        "time_start": 3.19,
+        "time_end": 6.38
+      },
+      {
+        "id": "87-3",
+        "english": "We are always looking for new members.",
+        "phonetic": "/wi ɑr ˈɔlˌweɪz ˈlʊkɪŋ fɔr nu ˈmɛmbərz./",
+        "vietnamese": "Chút chúng tôi luôn tìm kiếm thành viên mới.",
+        "time_start": 6.38,
+        "time_end": 8.42
+      },
+      {
+        "id": "87-4",
+        "english": "Have you ever debated before?",
+        "phonetic": "/hæv ju ˈɛvər dɪˈbeɪtəd bɪˈfɔr?/",
+        "vietnamese": "Bạn đã từng tranh biện trước đây chưa?",
+        "time_start": 8.82,
+        "time_end": 9.98
+      },
+      {
+        "id": "87-5",
+        "english": "No, I haven't.",
+        "phonetic": "/noʊ, aɪ ˈhævənt./",
+        "vietnamese": "Chưa, tôi chưa từng.",
+        "time_start": 9.98,
+        "time_end": 11.32
+      },
+      {
+        "id": "87-6",
+        "english": "But I want to improve my public speaking and critical thinking skills.",
+        "phonetic": "/bʌt aɪ wɑnt tu ɪmˈpruv maɪ ˈpʌblɪk ˈspikɪŋ ænd ˈkrɪtɪkəl ˈθɪŋkɪŋ skɪlz./",
+        "vietnamese": "Nhưng tôi muốn cải thiện kỹ năng nói trước công chúng và tư duy phản biện của mình.",
+        "time_start": 11.32,
+        "time_end": 14.76
+      },
+      {
+        "id": "87-7",
+        "english": "That's exactly what we focus on.",
+        "phonetic": "/ðæts ɪgˈzæktli wʌt wi ˈfoʊkəs ɑn./",
+        "vietnamese": "Đó chính xác là những gì chúng tôi tập trung vào.",
+        "time_start": 14.76,
+        "time_end": 16.79
+      },
+      {
+        "id": "87-8",
+        "english": "You don't need prior experience to join.",
+        "phonetic": "/ju doʊnt nid ˈpraɪər ɪkˈspɪriəns tu ʤɔɪn./",
+        "vietnamese": "Bạn không cần kinh nghiệm trước đó để tham gia.",
+        "time_start": 16.79,
+        "time_end": 18.82
+      },
+      {
+        "id": "87-9",
+        "english": "That's a relief.",
+        "phonetic": "/ðæts ə rɪˈlif./",
+        "vietnamese": "Thật nhẹ nhõm.",
+        "time_start": 18.82,
+        "time_end": 20.86
+      },
+      {
+        "id": "87-10",
+        "english": "When and where do you guys usually meet?",
+        "phonetic": "/wɛn ænd weər du ju gaɪz ˈjuʒəwəli mit?/",
+        "vietnamese": "Các bạn thường gặp nhau khi nào và ở đâu?",
+        "time_start": 20.86,
+        "time_end": 23
+      },
+      {
+        "id": "87-11",
+        "english": "We meet every Wednesday evening at 6 PM in Room 204.",
+        "phonetic": "/wi mit ˈɛvəri ˈwɛnzdeɪ ˈivnɪŋ æt sɪks pi-ɛm ɪn rum tu ˈoʊ fɔr./",
+        "vietnamese": "Chúng tôi họp mỗi tối thứ Tư lúc 6 giờ tại Phòng 204.",
+        "time_start": 23.34,
+        "time_end": 27.4
+      },
+      {
+        "id": "87-12",
+        "english": "We usually do practice rounds and workshops.",
+        "phonetic": "/wi ˈjuʒəwəli du ˈpræktəs raʊndz ænd ˈwɜrkˌʃɑps./",
+        "vietnamese": "Chúng tôi thường có các vòng thực hành và hội thảo.",
+        "time_start": 27.4,
+        "time_end": 29.82
+      },
+      {
+        "id": "87-13",
+        "english": "Is there any membership fee or audition process?",
+        "phonetic": "/ɪz ðɛr ˈɛni ˈmɛmbərˌʃɪp fi ɔr ɔˈdɪʃən ˈprɑˌsɛs?/",
+        "vietnamese": "Có phí thành viên hay quá trình thử giọng nào không?",
+        "time_start": 30.26,
+        "time_end": 33.06
+      },
+      {
+        "id": "87-14",
+        "english": "The fee is twenty dollars per semester to cover materials.",
+        "phonetic": "/ðə fi ɪz ˈtwɛnti ˈdɑlərz pɜr səˈmɛstər tu ˈkʌvər məˈtɪriəlz./",
+        "vietnamese": "Phí là 20 đô la mỗi học kỳ để trang trải tài liệu.",
+        "time_start": 33.06,
+        "time_end": 35.74
+      },
+      {
+        "id": "87-15",
+        "english": "And no, there's no audition, just sign up here.",
+        "phonetic": "/ænd noʊ, ðɛrz noʊ ɔˈdɪʃən, ʤʌst saɪn ʌp hir./",
+        "vietnamese": "Và không, không có thử giọng gì cả, chỉ cần đăng ký ở đây.",
+        "time_start": 35.74,
+        "time_end": 38.42
+      },
+      {
+        "id": "87-16",
+        "english": "Awesome, I'll fill out the form right now.",
+        "phonetic": "/ˈɔsəm, aɪl fɪl aʊt ðə fɔrm raɪt naʊ./",
+        "vietnamese": "Tuyệt quá, tôi sẽ điền vào biểu mẫu ngay.",
+        "time_start": 38.42,
+        "time_end": 41.11
+      },
+      {
+        "id": "87-17",
+        "english": "I'm really looking forward to the first meeting.",
+        "phonetic": "/aɪm ˈrɪli ˈlʊkɪŋ ˈfɔrwərd tu ðə fɜrst ˈmitɪŋ./",
+        "vietnamese": "Tôi thực sự mong chờ buổi họp đầu tiên.",
+        "time_start": 41.11,
+        "time_end": 43.79
+      }
+    ]
+  },
+  {
+    "id": "lesson-88",
+    "categoryId": "9",
+    "title": "Áp lực mùa thi",
+    "description": "Chia sẻ áp lực thi cử và cách ôn tập hiệu quả",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-88.mp3",
+    "duration": 43,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "88-1",
+        "english": "You look completely exhausted.",
+        "phonetic": "/ju lʊk kəmˈplitli ɪgˈzɔstəd./",
+        "vietnamese": "Trông bạn hoàn toàn kiệt sức.",
+        "time_start": 0,
+        "time_end": 1.44
+      },
+      {
+        "id": "88-2",
+        "english": "How much sleep did you get last night?",
+        "phonetic": "/haʊ mʌʧ slip dɪd ju gɛt læst naɪt?/",
+        "vietnamese": "Tối qua bạn ngủ được bao nhiêu tiếng?",
+        "time_start": 1.96,
+        "time_end": 3.54
+      },
+      {
+        "id": "88-3",
+        "english": "Maybe three hours.",
+        "phonetic": "/ˈmeɪbi θri ˈaʊərz./",
+        "vietnamese": "Chắc khoảng ba tiếng.",
+        "time_start": 3.94,
+        "time_end": 5.02
+      },
+      {
+        "id": "88-4",
+        "english": "I've been cramming for the calculus final exam.",
+        "phonetic": "/aɪv bɪn ˈkræmɪŋ fɔr ðə ˈkælkjələs ˈfaɪnəl ɪgˈzæm./",
+        "vietnamese": "Tôi đã cày cuốc cho bài kiểm tra cuối kỳ môn giải tích.",
+        "time_start": 5.02,
+        "time_end": 7.71
+      },
+      {
+        "id": "88-5",
+        "english": "You shouldn't push yourself so hard.",
+        "phonetic": "/ju ˈʃʊdənt pʊʃ jʊrˈsɛlf soʊ hɑrd./",
+        "vietnamese": "Bạn không nên ép bản thân quá sức.",
+        "time_start": 7.71,
+        "time_end": 10.4
+      },
+      {
+        "id": "88-6",
+        "english": "Pulling an all-nighter can actually hurt your performance.",
+        "phonetic": "/ˈpʊlɪŋ ən ɔl-ˈnaɪtər kæn ˈækʧuəli hɜrt jʊər pərˈfɔrməns./",
+        "vietnamese": "Thức trắng đêm thực sự có thể làm giảm hiệu suất của bạn đấy.",
+        "time_start": 10.4,
+        "time_end": 12.98
+      },
+      {
+        "id": "88-7",
+        "english": "I know, but there are so many formulas to memorize, and I am really worried about failing.",
+        "phonetic": "/aɪ noʊ, bʌt ðɛr ɑr soʊ ˈmɛni ˈfɔrmjələz tu ˈmɛməˌraɪz, ænd aɪ æm ˈrɪli ˈwɜrid əˈbaʊt ˈfeɪlɪŋ./",
+        "vietnamese": "Tôi biết, nhưng có quá nhiều công thức phải nhớ, và tôi thực sự lo lắng về việc thi trượt.",
+        "time_start": 13.36,
+        "time_end": 18.44
+      },
+      {
+        "id": "88-8",
+        "english": "Have you tried breaking the material into smaller chunks and using flashcards?",
+        "phonetic": "/hæv ju traɪd ˈbreɪkɪŋ ðə məˈtɪriəl ˈɪntu ˈsmɔlər ʧʌŋks ænd ˈjuzɪŋ ˈflæʃˌkɑrdz?/",
+        "vietnamese": "Bạn đã thử chia nhỏ tài liệu ra và sử dụng thẻ ghi nhớ chưa?",
+        "time_start": 18.76,
+        "time_end": 22.78
+      },
+      {
+        "id": "88-9",
+        "english": "Not really.",
+        "phonetic": "/nɑt ˈrɪli./",
+        "vietnamese": "Chưa hẳn.",
+        "time_start": 23.08,
+        "time_end": 23.84
+      },
+      {
+        "id": "88-10",
+        "english": "I just read the textbook over and over again until my eyes blur.",
+        "phonetic": "/aɪ ʤʌst rid ðə ˈtɛkstˌbʊk ˈoʊvər ænd ˈoʊvər əˈgɛn ənˈtɪl maɪ aɪz blɜr./",
+        "vietnamese": "Tôi chỉ đọc sách giáo khoa hết lần này đến lần khác cho đến khi mờ cả mắt.",
+        "time_start": 24.06,
+        "time_end": 27.78
+      },
+      {
+        "id": "88-11",
+        "english": "That's not very effective.",
+        "phonetic": "/ðæts nɑt ˈvɛri ɪˈfɛktɪv./",
+        "vietnamese": "Cách đó không hiệu quả lắm đâu.",
+        "time_start": 27.78,
+        "time_end": 30.57
+      },
+      {
+        "id": "88-12",
+        "english": "Let's take a 20-minute coffee break, and then I'll help you study.",
+        "phonetic": "/lɛts teɪk ə 20-ˈmɪnət ˈkɑfi breɪk, ænd ðɛn aɪl hɛlp ju ˈstʌdi./",
+        "vietnamese": "Hãy nghỉ giải lao uống cà phê 20 phút đi, rồi tôi sẽ giúp bạn học.",
+        "time_start": 30.57,
+        "time_end": 33.36
+      },
+      {
+        "id": "88-13",
+        "english": "That would be amazing.",
+        "phonetic": "/ðæt wʊd bi əˈmeɪzɪŋ./",
+        "vietnamese": "Thế thì tuyệt quá.",
+        "time_start": 33.36,
+        "time_end": 34.38
+      },
+      {
+        "id": "88-14",
+        "english": "I really need someone to quiz me on the practice problems.",
+        "phonetic": "/aɪ ˈrɪli nid ˈsʌmˌwʌn tu kwɪz mi ɑn ðə ˈpræktəs ˈprɑbləmz./",
+        "vietnamese": "Tôi thực sự cần ai đó đố tôi các bài tập thực hành.",
+        "time_start": 34.72,
+        "time_end": 37.34
+      },
+      {
+        "id": "88-15",
+        "english": "Don't worry, we'll get through this.",
+        "phonetic": "/doʊnt ˈwɜri, wil gɛt θru ðɪs./",
+        "vietnamese": "Đừng lo, chúng ta sẽ vượt qua mà.",
+        "time_start": 37.34,
+        "time_end": 39.74
+      },
+      {
+        "id": "88-16",
+        "english": "Just remember to breathe and take care of your health.",
+        "phonetic": "/ʤʌst rɪˈmɛmbər tu brið ænd teɪk kɛr ʌv jʊər hɛlθ./",
+        "vietnamese": "Chỉ cần nhớ hít thở và giữ gìn sức khỏe của bạn.",
+        "time_start": 39.74,
+        "time_end": 42.5
+      }
+    ]
+  },
+  {
+    "id": "lesson-89",
+    "categoryId": "9",
+    "title": "Tìm việc làm thêm",
+    "description": "Tìm việc part-time trong trường và chuẩn bị hồ sơ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-89.mp3",
+    "duration": 45,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "89-1",
+        "english": "I think I need to find a part-time job.",
+        "phonetic": "/aɪ θɪŋk aɪ nid tu faɪnd ə ˈpɑrtˌtaɪm ʤɑb./",
+        "vietnamese": "Tôi nghĩ tôi cần tìm một công việc làm thêm.",
+        "time_start": 0,
+        "time_end": 2.1
+      },
+      {
+        "id": "89-2",
+        "english": "My savings are running a bit low.",
+        "phonetic": "/maɪ ˈseɪvɪŋz ɑr ˈrʌnɪŋ ə bɪt loʊ./",
+        "vietnamese": "Tiền tiết kiệm của tôi đang cạn dần rồi.",
+        "time_start": 2.46,
+        "time_end": 4.2
+      },
+      {
+        "id": "89-3",
+        "english": "That's a good idea.",
+        "phonetic": "/ðæts ə gʊd aɪˈdiə./",
+        "vietnamese": "Đó là một ý hay.",
+        "time_start": 4.2,
+        "time_end": 5.88
+      },
+      {
+        "id": "89-4",
+        "english": "Are you looking for something on-campus or off-campus?",
+        "phonetic": "/ɑr ju ˈlʊkɪŋ fɔr ˈsʌmθɪŋ ɑn-ˈkæmpəs ɔr ɔf-ˈkæmpəs?/",
+        "vietnamese": "Bạn đang tìm việc trong trường hay bên ngoài?",
+        "time_start": 5.88,
+        "time_end": 8.76
+      },
+      {
+        "id": "89-5",
+        "english": "I prefer an on-campus job because the schedule is usually more flexible around my classes.",
+        "phonetic": "/aɪ prɪˈfɜr ən ɑn-ˈkæmpəs ʤɑb bɪˈkɔz ðə ˈskɛʤʊl ɪz ˈjuʒəwəli mɔr ˈflɛksəbəl əˈraʊnd maɪ ˈklæsəz./",
+        "vietnamese": "Tôi thích việc làm trong trường hơn vì lịch trình thường linh hoạt theo lịch học của tôi.",
+        "time_start": 8.9,
+        "time_end": 14.6
+      },
+      {
+        "id": "89-6",
+        "english": "Have you checked the student career center?",
+        "phonetic": "/hæv ju ʧɛkt ðə ˈstudənt kəˈrɪr ˈsɛntər?/",
+        "vietnamese": "Bạn đã kiểm tra trung tâm việc làm sinh viên chưa?",
+        "time_start": 14.98,
+        "time_end": 16.52
+      },
+      {
+        "id": "89-7",
+        "english": "They post new job openings every week.",
+        "phonetic": "/ðeɪ poʊst nu ʤɑb ˈoʊpənɪŋz ˈɛvəri wik./",
+        "vietnamese": "Họ đăng các vị trí việc làm mới mỗi tuần đó.",
+        "time_start": 16.76,
+        "time_end": 18.84
+      },
+      {
+        "id": "89-8",
+        "english": "Yes, I saw an opening for a library assistant.",
+        "phonetic": "/jɛs, aɪ sɔ ən ˈoʊpənɪŋ fɔr ə ˈlaɪˌbrɛri əˈsɪstənt./",
+        "vietnamese": "Có, tôi thấy có tuyển một trợ lý thư viện.",
+        "time_start": 19.2,
+        "time_end": 21.84
+      },
+      {
+        "id": "89-9",
+        "english": "Do you think I should apply?",
+        "phonetic": "/du ju θɪŋk aɪ ʃʊd əˈplaɪ?/",
+        "vietnamese": "Bạn có nghĩ tôi nên ứng tuyển không?",
+        "time_start": 22.16,
+        "time_end": 23.18
+      },
+      {
+        "id": "89-10",
+        "english": "Absolutely!",
+        "phonetic": "/ˌæbsəˈlutli!/",
+        "vietnamese": "Chắc chắn rồi!",
+        "time_start": 23.76,
+        "time_end": 24.4
+      },
+      {
+        "id": "89-11",
+        "english": "It's a quiet environment, and you might even get some studying done during slow hours.",
+        "phonetic": "/ɪts ə ˈkwaɪət ɪnˈvaɪrənmənt, ænd ju maɪt ˈivɪn gɛt sʌm ˈstʌdiɪŋ dʌn ˈdʊrɪŋ sloʊ ˈaʊərz./",
+        "vietnamese": "Đó là môi trường yên tĩnh, và bạn thậm chí có thể học bài vào lúc vắng khách.",
+        "time_start": 24.4,
+        "time_end": 30.28
+      },
+      {
+        "id": "89-12",
+        "english": "That sounds perfect.",
+        "phonetic": "/ðæt saʊndz ˈpɜrfɪkt./",
+        "vietnamese": "Nghe hoàn hảo thật.",
+        "time_start": 30.28,
+        "time_end": 31.36
+      },
+      {
+        "id": "89-13",
+        "english": "I just need to update my resume before I submit the application.",
+        "phonetic": "/aɪ ʤʌst nid tu əpˈdeɪt maɪ ˌrɪˈzum bɪˈfɔr aɪ səbˈmɪt ði ˌæpləˈkeɪʃən./",
+        "vietnamese": "Tôi chỉ cần cập nhật sơ yếu lý lịch trước khi nộp đơn.",
+        "time_start": 31.62,
+        "time_end": 34.78
+      },
+      {
+        "id": "89-14",
+        "english": "If you want, I can help you review your resume.",
+        "phonetic": "/ɪf ju wɑnt, aɪ kæn hɛlp ju rɪˈvju jʊər ˌrɪˈzum./",
+        "vietnamese": "Nếu bạn muốn, tôi có thể giúp xem lại sơ yếu lý lịch.",
+        "time_start": 35.24,
+        "time_end": 37.74
+      },
+      {
+        "id": "89-15",
+        "english": "I worked at the writing center last year.",
+        "phonetic": "/aɪ wɜrkt æt ðə ˈraɪtɪŋ ˈsɛntər læst jɪr./",
+        "vietnamese": "Năm ngoái tôi làm việc tại trung tâm viết lách.",
+        "time_start": 38.16,
+        "time_end": 40.04
+      },
+      {
+        "id": "89-16",
+        "english": "That would be a huge help.",
+        "phonetic": "/ðæt wʊd bi ə hjuʤ hɛlp./",
+        "vietnamese": "Vậy thì giúp ích lớn quá.",
+        "time_start": 40.36,
+        "time_end": 41.78
+      },
+      {
+        "id": "89-17",
+        "english": "I'll buy you dinner in return!",
+        "phonetic": "/aɪl baɪ ju ˈdɪnər ɪn rɪˈtɜrn!/",
+        "vietnamese": "Tôi sẽ mời bạn bữa tối để trả ơn nhé!",
+        "time_start": 41.78,
+        "time_end": 44.07
+      }
+    ]
+  },
+  {
+    "id": "lesson-90",
+    "categoryId": "9",
+    "title": "Quản lý chi tiêu",
+    "description": "Theo dõi ngân sách và thay đổi thói quen tiêu dùng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-90.mp3",
+    "duration": 42,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "90-1",
+        "english": "I can't believe it's only the middle of the month and I'm already out of money.",
+        "phonetic": "/aɪ kæn t bɪˈliv ɪts ˈoʊnli ðə ˈmɪdəl ʌv ðə mʌnθ ænd aɪm ɔlˈrɛdi aʊt ʌv ˈmʌni./",
+        "vietnamese": "Tôi không thể tin được mới giữa tháng mà tôi đã hết sạch tiền rồi.",
+        "time_start": 0,
+        "time_end": 2.45
+      },
+      {
+        "id": "90-2",
+        "english": "Really?",
+        "phonetic": "/ˈrɪli?/",
+        "vietnamese": "Thật sao?",
+        "time_start": 2.45,
+        "time_end": 4.9
+      },
+      {
+        "id": "90-3",
+        "english": "What did you spend it all on?",
+        "phonetic": "/wʌt dɪd ju spɛnd ɪt ɔl ɑn?/",
+        "vietnamese": "Bạn đã tiêu hết vào việc gì vậy?",
+        "time_start": 4.9,
+        "time_end": 6.1
+      },
+      {
+        "id": "90-4",
+        "english": "Did you buy something expensive?",
+        "phonetic": "/dɪd ju baɪ ˈsʌmθɪŋ ɪkˈspɛnsɪv?/",
+        "vietnamese": "Bạn có mua thứ gì đắt tiền không?",
+        "time_start": 6.2,
+        "time_end": 7.46
+      },
+      {
+        "id": "90-5",
+        "english": "Not really.",
+        "phonetic": "/nɑt ˈrɪli./",
+        "vietnamese": "Cũng không hẳn.",
+        "time_start": 7.92,
+        "time_end": 8.54
+      },
+      {
+        "id": "90-6",
+        "english": "Just daily things like coffee, eating out with friends, and some online shopping.",
+        "phonetic": "/ʤʌst ˈdeɪli θɪŋz laɪk ˈkɑfi, ˈitɪŋ aʊt wɪð frɛndz, ænd sʌm ˈɔnˌlaɪn ˈʃɑpɪŋ./",
+        "vietnamese": "Chỉ là những thứ hàng ngày như cà phê, ăn ngoài với bạn bè và mua sắm trên mạng chút ít.",
+        "time_start": 8.86,
+        "time_end": 13.56
+      },
+      {
+        "id": "90-7",
+        "english": "Those small expenses add up quickly.",
+        "phonetic": "/ðoʊz smɔl ɪkˈspɛnsəz æd ʌp ˈkwɪkli./",
+        "vietnamese": "Những khoản chi nhỏ đó cộng lại rất nhanh đấy.",
+        "time_start": 14,
+        "time_end": 16.1
+      },
+      {
+        "id": "90-8",
+        "english": "You should start keeping track of your daily spending.",
+        "phonetic": "/ju ʃʊd stɑrt ˈkipɪŋ træk ʌv jʊər ˈdeɪli ˈspɛndɪŋ./",
+        "vietnamese": "Bạn nên bắt đầu theo dõi chi tiêu hàng ngày của mình.",
+        "time_start": 16.52,
+        "time_end": 18.78
+      },
+      {
+        "id": "90-9",
+        "english": "I know I should, but making a budget seems so complicated.",
+        "phonetic": "/aɪ noʊ aɪ ʃʊd, bʌt ˈmeɪkɪŋ ə ˈbʌʤɪt simz soʊ ˈkɑmpləˌkeɪtəd./",
+        "vietnamese": "Tôi biết là mình nên làm vậy, nhưng lập ngân sách có vẻ phức tạp quá.",
+        "time_start": 19.16,
+        "time_end": 22.64
+      },
+      {
+        "id": "90-10",
+        "english": "It doesn't have to be.",
+        "phonetic": "/ɪt ˈdʌzənt hæv tu bi./",
+        "vietnamese": "Không nhất thiết phải vậy đâu.",
+        "time_start": 22.64,
+        "time_end": 24.16
+      },
+      {
+        "id": "90-11",
+        "english": "Just use a budgeting app on your phone to log everything you buy.",
+        "phonetic": "/ʤʌst juz ə ˈbʌʤɪtɪŋ æp ɑn jʊər foʊn tu lɔg ˈɛvriˌθɪŋ ju baɪ./",
+        "vietnamese": "Chỉ cần sử dụng một ứng dụng quản lý ngân sách trên điện thoại để ghi lại mọi thứ.",
+        "time_start": 24.16,
+        "time_end": 27.82
+      },
+      {
+        "id": "90-12",
+        "english": "I guess I can try that.",
+        "phonetic": "/aɪ gɛs aɪ kæn traɪ ðæt./",
+        "vietnamese": "Tôi đoán tôi có thể thử.",
+        "time_start": 28.2,
+        "time_end": 29.36
+      },
+      {
+        "id": "90-13",
+        "english": "I also need to start cooking at home more often.",
+        "phonetic": "/aɪ ˈɔlsoʊ nid tu stɑrt ˈkʊkɪŋ æt hoʊm mɔr ˈɔfən./",
+        "vietnamese": "Tôi cũng cần bắt đầu nấu ăn ở nhà thường xuyên hơn.",
+        "time_start": 29.36,
+        "time_end": 31.86
+      },
+      {
+        "id": "90-14",
+        "english": "Cooking at home will save you a fortune.",
+        "phonetic": "/ˈkʊkɪŋ æt hoʊm wɪl seɪv ju ə ˈfɔrʧən./",
+        "vietnamese": "Nấu ăn ở nhà sẽ giúp bạn tiết kiệm cả một gia tài.",
+        "time_start": 32.38,
+        "time_end": 34
+      },
+      {
+        "id": "90-15",
+        "english": "We can go grocery shopping together this weekend.",
+        "phonetic": "/wi kæn goʊ ˈgroʊsəri ˈʃɑpɪŋ təˈgɛðər ðɪs ˈwikˌɛnd./",
+        "vietnamese": "Cuối tuần này chúng ta có thể đi siêu thị cùng nhau.",
+        "time_start": 34.46,
+        "time_end": 36.8
+      },
+      {
+        "id": "90-16",
+        "english": "Thanks for the advice.",
+        "phonetic": "/θæŋks fɔr ði ædˈvaɪs./",
+        "vietnamese": "Cảm ơn vì lời khuyên.",
+        "time_start": 37.22,
+        "time_end": 38.16
+      },
+      {
+        "id": "90-17",
+        "english": "I seriously need to change my spending habits.",
+        "phonetic": "/aɪ ˈsɪriəsli nid tu ʧeɪnʤ maɪ ˈspɛndɪŋ ˈhæbəts./",
+        "vietnamese": "Tôi thực sự cần phải thay đổi thói quen chi tiêu của mình.",
+        "time_start": 38.52,
+        "time_end": 40.76
+      }
+    ]
+  },
+  {
+    "id": "lesson-91",
+    "categoryId": "9",
+    "title": "Tìm kiếm thực tập",
+    "description": "Ứng tuyển thực tập, networking và chuẩn bị pitch",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-91.mp3",
+    "duration": 48,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "91-1",
+        "english": "I'm so stressed out.",
+        "phonetic": "/aɪm soʊ strɛst aʊt./",
+        "vietnamese": "Tôi căng thẳng quá.",
+        "time_start": 0,
+        "time_end": 3.14
+      },
+      {
+        "id": "91-2",
+        "english": "I've sent out over twenty applications for summer internships and heard nothing back.",
+        "phonetic": "/aɪv sɛnt aʊt ˈoʊvər ˈtwɛnti ˌæpləˈkeɪʃənz fɔr ˈsʌmər ˈɪntərnˌʃɪps ænd hɜrd ˈnʌθɪŋ bæk./",
+        "vietnamese": "Tôi đã gửi hơn 20 đơn xin thực tập mùa hè mà chẳng nhận được hồi âm nào.",
+        "time_start": 3.14,
+        "time_end": 6.28
+      },
+      {
+        "id": "91-3",
+        "english": "The job market is really competitive right now.",
+        "phonetic": "/ðə ʤɑb ˈmɑrkət ɪz ˈrɪli kəmˈpɛtətɪv raɪt naʊ./",
+        "vietnamese": "Thị trường việc làm hiện tại rất cạnh tranh.",
+        "time_start": 6.28,
+        "time_end": 8.78
+      },
+      {
+        "id": "91-4",
+        "english": "Have you tailored your cover letters for each company?",
+        "phonetic": "/hæv ju ˈteɪlərd jʊər ˈkʌvər ˈlɛtərz fɔr iʧ ˈkʌmpəni?/",
+        "vietnamese": "Bạn đã điều chỉnh thư xin việc cho từng công ty chưa?",
+        "time_start": 8.88,
+        "time_end": 11
+      },
+      {
+        "id": "91-5",
+        "english": "Yes, I customized every single one.",
+        "phonetic": "/jɛs, aɪ ˈkʌstəˌmaɪzd ˈɛvəri ˈsɪŋgəl wʌn./",
+        "vietnamese": "Có, tôi đã tùy chỉnh từng lá thư một.",
+        "time_start": 11.46,
+        "time_end": 13.58
+      },
+      {
+        "id": "91-6",
+        "english": "I even highlighted my relevant coursework and projects.",
+        "phonetic": "/aɪ ˈivɪn ˈhaɪˌlaɪtɪd maɪ ˈrɛləvənt ˈkɔrˌswɜrk ænd ˈprɑʤɛkts./",
+        "vietnamese": "Tôi thậm chí còn làm nổi bật các khóa học và dự án liên quan.",
+        "time_start": 13.92,
+        "time_end": 16.72
+      },
+      {
+        "id": "91-7",
+        "english": "Maybe you should try networking.",
+        "phonetic": "/ˈmeɪbi ju ʃʊd traɪ ˈnɛtˌwɜrkɪŋ./",
+        "vietnamese": "Có lẽ bạn nên thử mở rộng mối quan hệ.",
+        "time_start": 17.2,
+        "time_end": 18.36
+      },
+      {
+        "id": "91-8",
+        "english": "Attend the upcoming job fair on campus next Tuesday.",
+        "phonetic": "/əˈtɛnd ði ˈʌpˌkʌmɪŋ ʤɑb fɛr ɑn ˈkæmpəs nɛkst ˈtuzdi./",
+        "vietnamese": "Hãy tham dự hội chợ việc làm sắp tới trong trường vào thứ Ba tới.",
+        "time_start": 19.06,
+        "time_end": 21.96
+      },
+      {
+        "id": "91-9",
+        "english": "That's a good point.",
+        "phonetic": "/ðæts ə gʊd pɔɪnt./",
+        "vietnamese": "Đó là một ý hay.",
+        "time_start": 21.96,
+        "time_end": 23.62
+      },
+      {
+        "id": "91-10",
+        "english": "Speaking to recruiters in person can make a stronger impression than an online application.",
+        "phonetic": "/ˈspikɪŋ tu rɪˈkrutərz ɪn ˈpɜrsən kæn meɪk ə ˈstrɔŋgər ɪmˈprɛʃən ðæn ən ˈɔnˌlaɪn ˌæpləˈkeɪʃən./",
+        "vietnamese": "Việc nói chuyện trực tiếp với nhà tuyển dụng có thể tạo ấn tượng mạnh hơn so với nộp đơn trực tuyến.",
+        "time_start": 23.62,
+        "time_end": 28.26
+      },
+      {
+        "id": "91-11",
+        "english": "Exactly.",
+        "phonetic": "/ɪgˈzæktli./",
+        "vietnamese": "Chính xác.",
+        "time_start": 28.84,
+        "time_end": 29.2
+      },
+      {
+        "id": "91-12",
+        "english": "Dress professionally and prepare a brief elevator pitch about yourself.",
+        "phonetic": "/drɛs prəˈfɛʃənəli ænd priˈpɛr ə brif ˈɛləˌveɪtər pɪʧ əˈbaʊt jʊrˈsɛlf./",
+        "vietnamese": "Hãy ăn mặc chuyên nghiệp và chuẩn bị một bài giới thiệu ngắn gọn về bản thân.",
+        "time_start": 29.82,
+        "time_end": 33.22
+      },
+      {
+        "id": "91-13",
+        "english": "I'll do that.",
+        "phonetic": "/aɪl du ðæt./",
+        "vietnamese": "Tôi sẽ làm vậy.",
+        "time_start": 33.22,
+        "time_end": 33.78
+      },
+      {
+        "id": "91-14",
+        "english": "Do you think I should bring physical copies of my resume too?",
+        "phonetic": "/du ju θɪŋk aɪ ʃʊd brɪŋ ˈfɪzɪkəl ˈkɑpiz ʌv maɪ ˌrɪˈzum tu?/",
+        "vietnamese": "Bạn có nghĩ tôi nên mang theo các bản in sơ yếu lý lịch của mình không?",
+        "time_start": 33.78,
+        "time_end": 37.22
+      },
+      {
+        "id": "91-15",
+        "english": "Definitely.",
+        "phonetic": "/ˈdɛfənətli./",
+        "vietnamese": "Chắc chắn rồi.",
+        "time_start": 37.68,
+        "time_end": 38.04
+      },
+      {
+        "id": "91-16",
+        "english": "Bring at least ten copies in a nice folder.",
+        "phonetic": "/brɪŋ æt list tɛn ˈkɑpiz ɪn ə naɪs ˈfoʊldər./",
+        "vietnamese": "Hãy mang theo ít nhất mười bản sao trong một bìa hồ sơ đẹp.",
+        "time_start": 38.66,
+        "time_end": 40.8
+      },
+      {
+        "id": "91-17",
+        "english": "Confidence is key!",
+        "phonetic": "/ˈkɑnfədəns ɪz ki!/",
+        "vietnamese": "Sự tự tin là chìa khóa!",
+        "time_start": 41.54,
+        "time_end": 42.62
+      },
+      {
+        "id": "91-18",
+        "english": "Thank you for the encouragement.",
+        "phonetic": "/θæŋks fɔr ði ɛnˈkɜrɪʤmənt./",
+        "vietnamese": "Cảm ơn bạn đã động viên.",
+        "time_start": 43.06,
+        "time_end": 44.26
+      },
+      {
+        "id": "91-19",
+        "english": "I'm going to start practicing my pitch tonight.",
+        "phonetic": "/aɪm ˈgoʊɪŋ tu stɑrt ˈpræktəsɪŋ maɪ pɪʧ təˈnaɪt./",
+        "vietnamese": "Tối nay tôi sẽ bắt đầu luyện tập bài giới thiệu của mình.",
+        "time_start": 44.26,
+        "time_end": 47.04
+      }
+    ]
+  },
+  {
+    "id": "lesson-92",
+    "categoryId": "9",
+    "title": "Chuẩn bị tốt nghiệp",
+    "description": "Chuẩn bị lễ tốt nghiệp và kiểm tra điều kiện ra trường",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-92.mp3",
+    "duration": 47,
+    "level": "INTERMEDIATE",
+    "topic": "Đời sống sinh viên",
+    "sentences": [
+      {
+        "id": "92-1",
+        "english": "I can hardly believe that we are graduating in just two months.",
+        "phonetic": "/aɪ kæn ˈhɑrdli bɪˈliv ðæt wi ɑr ˈgræʤuˌeɪtɪŋ ɪn ʤʌst tu mʌnθs./",
+        "vietnamese": "Tôi khó có thể tin được là chúng ta sẽ tốt nghiệp trong vỏn vẹn hai tháng nữa.",
+        "time_start": 0,
+        "time_end": 3.54
+      },
+      {
+        "id": "92-2",
+        "english": "Four years went by so fast.",
+        "phonetic": "/fɔr jɪrz wɛnt baɪ soʊ fæst./",
+        "vietnamese": "Bốn năm trôi qua nhanh quá.",
+        "time_start": 4.12,
+        "time_end": 5.76
+      },
+      {
+        "id": "92-3",
+        "english": "I know, right?",
+        "phonetic": "/aɪ noʊ, raɪt?/",
+        "vietnamese": "Tôi biết mà, đúng không?",
+        "time_start": 6.1,
+        "time_end": 6.9
+      },
+      {
+        "id": "92-4",
+        "english": "Have you ordered your graduation cap and gown yet?",
+        "phonetic": "/hæv ju ˈɔrdərd jʊər ˌgræʤuˈeɪʃən kæp ænd gaʊn jɛt?/",
+        "vietnamese": "Bạn đã đặt mua mũ và áo choàng tốt nghiệp chưa?",
+        "time_start": 7.16,
+        "time_end": 9.48
+      },
+      {
+        "id": "92-5",
+        "english": "Yes, I placed the order yesterday.",
+        "phonetic": "/jɛs, aɪ pleɪst ði ˈɔrdər ˈjɛstərˌdeɪ./",
+        "vietnamese": "Rồi, tôi đã đặt hàng hôm qua.",
+        "time_start": 9.86,
+        "time_end": 11.32
+      },
+      {
+        "id": "92-6",
+        "english": "Now I just need to make sure all my graduation requirements are met.",
+        "phonetic": "/naʊ aɪ ʤʌst nid tu meɪk ʃʊr ɔl maɪ ˌgræʤuˈeɪʃən rɪˈkwaɪərmənts ɑr mɛt./",
+        "vietnamese": "Bây giờ tôi chỉ cần đảm bảo tất cả các điều kiện tốt nghiệp của tôi đã được đáp ứng.",
+        "time_start": 11.76,
+        "time_end": 14.94
+      },
+      {
+        "id": "92-7",
+        "english": "You should schedule an appointment with your academic advisor just to be safe.",
+        "phonetic": "/ju ʃʊd ˈskɛʤʊl ən əˈpɔɪntmənt wɪð jʊər ˌækəˈdɛmɪk ædˈvaɪzər ʤʌst tu bi seɪf./",
+        "vietnamese": "Bạn nên đặt lịch hẹn với cố vấn học tập của mình để cho chắc chắn.",
+        "time_start": 15.3,
+        "time_end": 18.9
+      },
+      {
+        "id": "92-8",
+        "english": "I already did.",
+        "phonetic": "/aɪ ɔlˈrɛdi dɪd./",
+        "vietnamese": "Tôi làm rồi.",
+        "time_start": 19.14,
+        "time_end": 19.88
+      },
+      {
+        "id": "92-9",
+        "english": "I have an appointment next Monday to do a final audit of my credits.",
+        "phonetic": "/aɪ hæv ən əˈpɔɪntmənt nɛkst ˈmʌnˌdeɪ tu du ə ˈfaɪnəl ˈɔdət ʌv maɪ ˈkrɛdəts./",
+        "vietnamese": "Tôi có lịch hẹn vào thứ Hai tới để kiểm tra lại toàn bộ tín chỉ lần cuối.",
+        "time_start": 20.08,
+        "time_end": 23.58
+      },
+      {
+        "id": "92-10",
+        "english": "That's smart.",
+        "phonetic": "/ðæts smart./",
+        "vietnamese": "Thông minh đấy.",
+        "time_start": 23.58,
+        "time_end": 25.14
+      },
+      {
+        "id": "92-11",
+        "english": "By the way, are your parents flying in for the commencement ceremony?",
+        "phonetic": "/baɪ ðə weɪ, ɑr jʊər ˈpɛrənts ˈflaɪɪŋ ɪn fɔr ðə kəˈmɛnsmənt ˈsɛrəˌmoʊni?/",
+        "vietnamese": "Nhân tiện, bố mẹ bạn có bay đến dự lễ trao bằng tốt nghiệp không?",
+        "time_start": 25.14,
+        "time_end": 28.5
+      },
+      {
+        "id": "92-12",
+        "english": "Yes, they are so excited.",
+        "phonetic": "/jɛs, ðeɪ ɑr soʊ ɪkˈsaɪtəd./",
+        "vietnamese": "Có, họ rất hào hứng.",
+        "time_start": 28.5,
+        "time_end": 30.66
+      },
+      {
+        "id": "92-13",
+        "english": "We even booked a nice restaurant for a celebratory dinner afterwards.",
+        "phonetic": "/wi ˈivɪn bʊkt ə naɪs ˈrɛstəˌrɑnt fɔr ə ˈsɛləbrəˌtɔri ˈdɪnər ˈæftərwərdz./",
+        "vietnamese": "Chúng tôi thậm chí đã đặt một nhà hàng sang trọng cho bữa tối ăn mừng sau đó.",
+        "time_start": 30.98,
+        "time_end": 34.48
+      },
+      {
+        "id": "92-14",
+        "english": "That sounds lovely.",
+        "phonetic": "/ðæt saʊndz ˈlʌvli./",
+        "vietnamese": "Nghe tuyệt thật.",
+        "time_start": 34.9,
+        "time_end": 36
+      },
+      {
+        "id": "92-15",
+        "english": "It's definitely a milestone worth celebrating.",
+        "phonetic": "/ɪts ˈdɛfənətli ə ˈmaɪlˌstoʊn wɜrθ ˈsɛləˌbreɪtɪŋ./",
+        "vietnamese": "Chắc chắn đây là một cột mốc đáng để ăn mừng.",
+        "time_start": 36,
+        "time_end": 39.48
+      },
+      {
+        "id": "92-16",
+        "english": "We should take lots of pictures.",
+        "phonetic": "/wi ʃʊd teɪk lɔts ʌv ˈpɪkʧərz./",
+        "vietnamese": "Chúng ta nên chụp thật nhiều ảnh.",
+        "time_start": 39.48,
+        "time_end": 40.72
+      },
+      {
+        "id": "92-17",
+        "english": "Absolutely!",
+        "phonetic": "/ˌæbsəˈlutli!/",
+        "vietnamese": "Tuyệt đối rồi!",
+        "time_start": 41.24,
+        "time_end": 41.82
+      },
+      {
+        "id": "92-18",
+        "english": "Let's get a big group photo in front of the main library on graduation day.",
+        "phonetic": "/lɛts gɛt ə bɪg grup ˈfoʊˌtoʊ ɪn frʌnt ʌv ðə meɪn ˈlaɪˌbrɛri ɑn ˌgræʤuˈeɪʃən deɪ./",
+        "vietnamese": "Cùng chụp một bức ảnh nhóm lớn trước thư viện chính vào ngày tốt nghiệp nhé.",
+        "time_start": 41.82,
+        "time_end": 46.43
+      }
+    ]
+  },
+  {
+    "id": "lesson-93",
+    "categoryId": "10",
+    "title": "Làm quen",
+    "description": "Làm quen tại quán cà phê và xin số điện thoại",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-93.mp3",
+    "duration": 33,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "93-1",
+        "english": "Excuse me, is this seat taken?",
+        "phonetic": "/ɪkˈskjus mi, ɪz ðɪs sit ˈteɪkən?/",
+        "vietnamese": "Xin lỗi, chỗ này có ai ngồi chưa?",
+        "time_start": 0,
+        "time_end": 1.92
+      },
+      {
+        "id": "93-2",
+        "english": "The coffee shop is really crowded today.",
+        "phonetic": "/ðə ˈkɑfi ʃɑp ɪz ˈrɪli ˈkraʊdəd təˈdeɪ./",
+        "vietnamese": "Quán cà phê hôm nay thực sự rất đông.",
+        "time_start": 2.3,
+        "time_end": 4.34
+      },
+      {
+        "id": "93-3",
+        "english": "No, it's free.",
+        "phonetic": "/noʊ, ɪts fri./",
+        "vietnamese": "Chưa, nó còn trống.",
+        "time_start": 4.34,
+        "time_end": 5.82
+      },
+      {
+        "id": "93-4",
+        "english": "You can go ahead and sit here.",
+        "phonetic": "/ju kæn goʊ əˈhɛd ænd sɪt hir./",
+        "vietnamese": "Anh có thể cứ tự nhiên ngồi đây.",
+        "time_start": 5.82,
+        "time_end": 7.3
+      },
+      {
+        "id": "93-5",
+        "english": "Thank you so much.",
+        "phonetic": "/θæŋk ju soʊ mʌʧ./",
+        "vietnamese": "Cảm ơn em rất nhiều.",
+        "time_start": 7.7,
+        "time_end": 8.5
+      },
+      {
+        "id": "93-6",
+        "english": "I'm Mark, by the way.",
+        "phonetic": "/aɪm mɑrk, baɪ ðə weɪ./",
+        "vietnamese": "Nhân tiện, anh là Mark.",
+        "time_start": 8.5,
+        "time_end": 10.36
+      },
+      {
+        "id": "93-7",
+        "english": "Nice to meet you, Mark.",
+        "phonetic": "/naɪs tu mit ju, mɑrk./",
+        "vietnamese": "Rất vui được gặp anh, Mark.",
+        "time_start": 10.36,
+        "time_end": 11.18
+      },
+      {
+        "id": "93-8",
+        "english": "I'm Emma.",
+        "phonetic": "/aɪm ˈɛmə./",
+        "vietnamese": "Em là Emma.",
+        "time_start": 11.18,
+        "time_end": 12.28
+      },
+      {
+        "id": "93-9",
+        "english": "Are you reading that new mystery novel?",
+        "phonetic": "/ɑr ju ˈridɪŋ ðæt nu ˈmɪstəri ˈnɑvəl?/",
+        "vietnamese": "Em đang đọc cuốn tiểu thuyết bí ẩn mới đó à?",
+        "time_start": 12.28,
+        "time_end": 13.88
+      },
+      {
+        "id": "93-10",
+        "english": "I saw it on the bestseller list.",
+        "phonetic": "/aɪ sɔ ɪt ɑn ðə ˌbɛstˈsɛlər lɪst./",
+        "vietnamese": "Anh đã thấy nó trên danh sách bán chạy nhất.",
+        "time_start": 14.16,
+        "time_end": 15.92
+      },
+      {
+        "id": "93-11",
+        "english": "Yes, I just started it this morning.",
+        "phonetic": "/jɛs, aɪ ʤʌst ˈstɑrtəd ɪt ðɪs ˈmɔrnɪŋ./",
+        "vietnamese": "Vâng, em vừa mới bắt đầu đọc sáng nay.",
+        "time_start": 16.14,
+        "time_end": 18.14
+      },
+      {
+        "id": "93-12",
+        "english": "It's really captivating so far.",
+        "phonetic": "/ɪts ˈrɪli ˈkæptɪˌveɪtɪŋ soʊ fɑr./",
+        "vietnamese": "Cho đến giờ nó thực sự rất lôi cuốn.",
+        "time_start": 18.14,
+        "time_end": 20.54
+      },
+      {
+        "id": "93-13",
+        "english": "I love reading mystery books too.",
+        "phonetic": "/aɪ lʌv ˈridɪŋ ˈmɪstəri bʊks tu./",
+        "vietnamese": "Anh cũng rất thích đọc sách bí ẩn.",
+        "time_start": 20.54,
+        "time_end": 22.38
+      },
+      {
+        "id": "93-14",
+        "english": "Maybe we can discuss it when you finish.",
+        "phonetic": "/ˈmeɪbi wi kæn dɪˈskʌs ɪt wɛn ju ˈfɪnɪʃ./",
+        "vietnamese": "Có lẽ chúng ta có thể thảo luận về nó khi em đọc xong.",
+        "time_start": 22.7,
+        "time_end": 24.38
+      },
+      {
+        "id": "93-15",
+        "english": "That sounds like a great idea.",
+        "phonetic": "/ðæt saʊndz laɪk ə greɪt aɪˈdiə./",
+        "vietnamese": "Nghe có vẻ là một ý hay đấy.",
+        "time_start": 24.62,
+        "time_end": 26.14
+      },
+      {
+        "id": "93-16",
+        "english": "I'd love to do that.",
+        "phonetic": "/aɪd lʌv tu du ðæt./",
+        "vietnamese": "Em rất sẵn lòng.",
+        "time_start": 26.14,
+        "time_end": 27.62
+      },
+      {
+        "id": "93-17",
+        "english": "Could I get your phone number?",
+        "phonetic": "/kʊd aɪ gɛt jʊər foʊn ˈnʌmbər?/",
+        "vietnamese": "Anh có thể xin số điện thoại của em không?",
+        "time_start": 27.62,
+        "time_end": 28.74
+      },
+      {
+        "id": "93-18",
+        "english": "We can keep in touch.",
+        "phonetic": "/wi kæn kip ɪn tʌʧ./",
+        "vietnamese": "Chúng ta có thể giữ liên lạc.",
+        "time_start": 28.74,
+        "time_end": 30.04
+      },
+      {
+        "id": "93-19",
+        "english": "Sure, let me type it into your phone.",
+        "phonetic": "/ʃʊr, lɛt mi taɪp ɪt ˈɪntu jʊər foʊn./",
+        "vietnamese": "Chắc chắn rồi, để em gõ nó vào điện thoại của anh.",
+        "time_start": 30.46,
+        "time_end": 31.98
+      }
+    ]
+  },
+  {
+    "id": "lesson-94",
+    "categoryId": "10",
+    "title": "Hẹn hò đầu tiên",
+    "description": "Buổi hẹn hò đầu tiên tại nhà hàng Ý",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-94.mp3",
+    "duration": 29,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "94-1",
+        "english": "You look absolutely stunning tonight.",
+        "phonetic": "/ju lʊk ˌæbsəˈlutli ˈstʌnɪŋ təˈnaɪt./",
+        "vietnamese": "Tối nay em trông thực sự lộng lẫy.",
+        "time_start": 0,
+        "time_end": 2
+      },
+      {
+        "id": "94-2",
+        "english": "That dress is perfect on you.",
+        "phonetic": "/ðæt drɛs ɪz ˈpɜrfɪkt ɑn ju./",
+        "vietnamese": "Chiếc váy đó trông rất hoàn hảo trên người em.",
+        "time_start": 2.3,
+        "time_end": 3.78
+      },
+      {
+        "id": "94-3",
+        "english": "Thank you, Jack.",
+        "phonetic": "/θæŋk ju, ʤæk./",
+        "vietnamese": "Cảm ơn anh, Jack.",
+        "time_start": 4.14,
+        "time_end": 4.68
+      },
+      {
+        "id": "94-4",
+        "english": "You look very handsome yourself.",
+        "phonetic": "/ju lʊk ˈvɛri ˈhænsəm jʊrˈsɛlf./",
+        "vietnamese": "Bản thân anh cũng rất đẹp trai.",
+        "time_start": 4.88,
+        "time_end": 6.44
+      },
+      {
+        "id": "94-5",
+        "english": "I'm really glad you agreed to come out with me.",
+        "phonetic": "/aɪm ˈrɪli glæd ju əˈgrid tu kʌm aʊt wɪð mi./",
+        "vietnamese": "Anh rất vui vì em đã đồng ý đi chơi với anh.",
+        "time_start": 6.44,
+        "time_end": 7.63
+      },
+      {
+        "id": "94-6",
+        "english": "I've been looking forward to this all week.",
+        "phonetic": "/aɪv bɪn ˈlʊkɪŋ ˈfɔrwərd tu ðɪs ɔl wik./",
+        "vietnamese": "Anh đã mong chờ điều này cả tuần nay.",
+        "time_start": 7.63,
+        "time_end": 8.82
+      },
+      {
+        "id": "94-7",
+        "english": "Me too.",
+        "phonetic": "/mi tu./",
+        "vietnamese": "Em cũng vậy.",
+        "time_start": 8.82,
+        "time_end": 12
+      },
+      {
+        "id": "94-8",
+        "english": "This restaurant has a great atmosphere.",
+        "phonetic": "/ðɪs ˈrɛstəˌrɑnt hæz ə greɪt ˈætməˌsfɪr./",
+        "vietnamese": "Nhà hàng này có không khí tuyệt quá.",
+        "time_start": 12.34,
+        "time_end": 14.28
+      },
+      {
+        "id": "94-9",
+        "english": "I thought you might like it.",
+        "phonetic": "/aɪ θɔt ju maɪt laɪk ɪt./",
+        "vietnamese": "Anh nghĩ em sẽ thích nó.",
+        "time_start": 14.6,
+        "time_end": 15.76
+      },
+      {
+        "id": "94-10",
+        "english": "They serve the best Italian food in town.",
+        "phonetic": "/ðeɪ sɜrv ðə bɛst ɪˈtæljən fud ɪn taʊn./",
+        "vietnamese": "Họ phục vụ món ăn Ý ngon nhất trong thị trấn.",
+        "time_start": 16.02,
+        "time_end": 18.38
+      },
+      {
+        "id": "94-11",
+        "english": "I love Italian food.",
+        "phonetic": "/aɪ lʌv ɪˈtæljən fud./",
+        "vietnamese": "Em rất thích đồ ăn Ý.",
+        "time_start": 18.7,
+        "time_end": 20.02
+      },
+      {
+        "id": "94-12",
+        "english": "What would you recommend we order?",
+        "phonetic": "/wʌt wʊd ju ˌrɛkəˈmɛnd wi ˈɔrdər?/",
+        "vietnamese": "Anh muốn gợi ý chúng ta nên gọi món gì?",
+        "time_start": 20.32,
+        "time_end": 21.7
+      },
+      {
+        "id": "94-13",
+        "english": "Their seafood pasta is incredible.",
+        "phonetic": "/ðɛr ˈsiˌfud ˈpɑstə ɪz ɪnˈkrɛdəbəl./",
+        "vietnamese": "Mì Ý hải sản của họ rất tuyệt vời.",
+        "time_start": 21.98,
+        "time_end": 23.88
+      },
+      {
+        "id": "94-14",
+        "english": "And we should definitely get some red wine.",
+        "phonetic": "/ænd wi ʃʊd ˈdɛfənətli gɛt sʌm rɛd waɪn./",
+        "vietnamese": "Và chúng ta chắc chắn nên gọi chút rượu vang đỏ.",
+        "time_start": 24.16,
+        "time_end": 26.12
+      },
+      {
+        "id": "94-15",
+        "english": "That sounds delicious.",
+        "phonetic": "/ðæt saʊndz dɪˈlɪʃəs./",
+        "vietnamese": "Nghe ngon quá.",
+        "time_start": 26.36,
+        "time_end": 27.4
+      },
+      {
+        "id": "94-16",
+        "english": "Let's go with that.",
+        "phonetic": "/lɛts goʊ wɪð ðæt./",
+        "vietnamese": "Chúng ta chốt món đó nhé.",
+        "time_start": 27.4,
+        "time_end": 28.65
+      }
+    ]
+  },
+  {
+    "id": "lesson-95",
+    "categoryId": "10",
+    "title": "Lời tỏ tình",
+    "description": "Thổ lộ tình cảm với người bạn thân",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-95.mp3",
+    "duration": 35,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "95-1",
+        "english": "Mia, there's something important I need to tell you.",
+        "phonetic": "/ˈmiə, ðɛrz ˈsʌmθɪŋ ɪmˈpɔrtənt aɪ nid tu tɛl ju./",
+        "vietnamese": "Mia, có điều quan trọng anh cần nói với em.",
+        "time_start": 0,
+        "time_end": 2.52
+      },
+      {
+        "id": "95-2",
+        "english": "I've been thinking about this for a while.",
+        "phonetic": "/aɪv bɪn ˈθɪŋkɪŋ əˈbaʊt ðɪs fɔr ə waɪl./",
+        "vietnamese": "Anh đã suy nghĩ về điều này một thời gian rồi.",
+        "time_start": 2.64,
+        "time_end": 4.88
+      },
+      {
+        "id": "95-3",
+        "english": "What is it, Leo?",
+        "phonetic": "/wʌt ɪz ɪt, ˈlioʊ?/",
+        "vietnamese": "Chuyện gì vậy, Leo?",
+        "time_start": 5,
+        "time_end": 6.12
+      },
+      {
+        "id": "95-4",
+        "english": "You look so serious.",
+        "phonetic": "/ju lʊk soʊ ˈsɪriəs./",
+        "vietnamese": "Trông anh thật nghiêm túc.",
+        "time_start": 6.24,
+        "time_end": 7.36
+      },
+      {
+        "id": "95-5",
+        "english": "We've been best friends for a long time.",
+        "phonetic": "/wiv bɪn bɛst frɛndz fɔr ə lɔŋ taɪm./",
+        "vietnamese": "Chúng ta đã là bạn thân một thời gian dài rồi.",
+        "time_start": 7.48,
+        "time_end": 9.72
+      },
+      {
+        "id": "95-6",
+        "english": "But my feelings for you have grown into something more.",
+        "phonetic": "/bʌt maɪ ˈfilɪŋz fɔr ju hæv groʊn ˈɪntu ˈsʌmθɪŋ mɔr./",
+        "vietnamese": "Nhưng tình cảm của anh dành cho em đã lớn dần thành một thứ gì đó hơn thế.",
+        "time_start": 9.84,
+        "time_end": 12.64
+      },
+      {
+        "id": "95-7",
+        "english": "I think I'm falling in love with you.",
+        "phonetic": "/aɪ θɪŋk aɪm ˈfɑlɪŋ ɪn lʌv wɪð ju./",
+        "vietnamese": "Anh nghĩ là anh đang yêu em mất rồi.",
+        "time_start": 12.76,
+        "time_end": 14.99
+      },
+      {
+        "id": "95-8",
+        "english": "I just couldn't hide it anymore.",
+        "phonetic": "/aɪ ʤʌst ˈkʊdənt haɪd ɪt ˌɛniˈmɔr./",
+        "vietnamese": "Anh chỉ là không thể giấu nó thêm nữa.",
+        "time_start": 15.11,
+        "time_end": 16.79
+      },
+      {
+        "id": "95-9",
+        "english": "Leo, I really don't know what to say.",
+        "phonetic": "/ˈlioʊ, aɪ ˈrɪli doʊnt noʊ wʌt tu seɪ./",
+        "vietnamese": "Leo, em thực sự không biết phải nói gì nữa.",
+        "time_start": 16.91,
+        "time_end": 19.15
+      },
+      {
+        "id": "95-10",
+        "english": "I didn't expect this at all.",
+        "phonetic": "/aɪ ˈdɪdənt ɪkˈspɛkt ðɪs æt ɔl./",
+        "vietnamese": "Em hoàn toàn không mong đợi điều này.",
+        "time_start": 19.27,
+        "time_end": 20.95
+      },
+      {
+        "id": "95-11",
+        "english": "I hope this doesn't ruin our friendship.",
+        "phonetic": "/aɪ hoʊp ðɪs ˈdʌzənt ˈruən ˈaʊər ˈfrɛndˌʃɪp./",
+        "vietnamese": "Anh hy vọng điều này không phá hỏng tình bạn của chúng ta.",
+        "time_start": 21.07,
+        "time_end": 23.03
+      },
+      {
+        "id": "95-12",
+        "english": "I just had to be honest with you.",
+        "phonetic": "/aɪ ʤʌst hæd tu bi ˈɑnəst wɪð ju./",
+        "vietnamese": "Anh chỉ là phải thành thật với em thôi.",
+        "time_start": 23.15,
+        "time_end": 25.39
+      },
+      {
+        "id": "95-13",
+        "english": "Actually, I've secretly felt the same way.",
+        "phonetic": "/ˈækʧuəli, aɪv ˈsikrɪtli fɛlt ðə seɪm weɪ./",
+        "vietnamese": "Thực ra, em cũng thầm có cảm giác như vậy.",
+        "time_start": 25.51,
+        "time_end": 27.47
+      },
+      {
+        "id": "95-14",
+        "english": "I was just too scared to admit it.",
+        "phonetic": "/aɪ wʌz ʤʌst tu skɛrd tu ædˈmɪt ɪt./",
+        "vietnamese": "Em chỉ là quá sợ hãi để thừa nhận nó.",
+        "time_start": 27.59,
+        "time_end": 29.83
+      },
+      {
+        "id": "95-15",
+        "english": "Does this mean you'll be my girlfriend?",
+        "phonetic": "/dʌz ðɪs min jul bi maɪ ˈgɜrlˌfrɛnd?/",
+        "vietnamese": "Điều này có nghĩa là em sẽ làm bạn gái anh chứ?",
+        "time_start": 29.95,
+        "time_end": 31.91
+      },
+      {
+        "id": "95-16",
+        "english": "Yes, I would love to be your girlfriend.",
+        "phonetic": "/jɛs, aɪ wʊd lʌv tu bi jʊər ˈgɜrlˌfrɛnd./",
+        "vietnamese": "Vâng, em rất muốn làm bạn gái anh.",
+        "time_start": 32.03,
+        "time_end": 34.27
+      }
+    ]
+  },
+  {
+    "id": "lesson-96",
+    "categoryId": "10",
+    "title": "Giận hờn",
+    "description": "Tranh cãi và chia sẻ cảm xúc khi giận hờn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-96.mp3",
+    "duration": 36,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "96-1",
+        "english": "Why are you ignoring all my messages?",
+        "phonetic": "/waɪ ɑr ju ɪgˈnɔrɪŋ ɔl maɪ ˈmɛsəʤəz?/",
+        "vietnamese": "Tại sao em lại phớt lờ tất cả tin nhắn của anh?",
+        "time_start": 0,
+        "time_end": 2.08
+      },
+      {
+        "id": "96-2",
+        "english": "I've been trying to reach you all morning.",
+        "phonetic": "/aɪv bɪn ˈtraɪɪŋ tu riʧ ju ɔl ˈmɔrnɪŋ./",
+        "vietnamese": "Anh đã cố gắng liên lạc với em cả sáng nay.",
+        "time_start": 2.08,
+        "time_end": 4.35
+      },
+      {
+        "id": "96-3",
+        "english": "Because I'm really upset with you right now.",
+        "phonetic": "/bɪˈkɔz aɪm ˈrɪli əpˈsɛt wɪð ju raɪt naʊ./",
+        "vietnamese": "Bởi vì hiện tại em đang rất bực mình với anh.",
+        "time_start": 4.35,
+        "time_end": 6.63
+      },
+      {
+        "id": "96-4",
+        "english": "I don't even want to talk to you.",
+        "phonetic": "/aɪ doʊnt ˈivɪn wɑnt tu tɔk tu ju./",
+        "vietnamese": "Em thậm chí không muốn nói chuyện với anh.",
+        "time_start": 6.63,
+        "time_end": 8.9
+      },
+      {
+        "id": "96-5",
+        "english": "What did I do wrong?",
+        "phonetic": "/wʌt dɪd aɪ du rɔŋ?/",
+        "vietnamese": "Anh đã làm gì sai chứ?",
+        "time_start": 8.9,
+        "time_end": 9.78
+      },
+      {
+        "id": "96-6",
+        "english": "Please tell me what happened.",
+        "phonetic": "/pliz tɛl mi wʌt ˈhæpənd./",
+        "vietnamese": "Làm ơn cho anh biết chuyện gì đã xảy ra.",
+        "time_start": 10.14,
+        "time_end": 11.34
+      },
+      {
+        "id": "96-7",
+        "english": "You completely forgot our date last night.",
+        "phonetic": "/ju kəmˈplitli fərˈgɑt ˈaʊər deɪt læst naɪt./",
+        "vietnamese": "Anh đã hoàn toàn quên cuộc hẹn của chúng ta tối qua.",
+        "time_start": 11.66,
+        "time_end": 13.72
+      },
+      {
+        "id": "96-8",
+        "english": "I waited at the restaurant for over an hour.",
+        "phonetic": "/aɪ ˈweɪtəd æt ðə ˈrɛstəˌrɑnt fɔr ˈoʊvər ən ˈaʊər./",
+        "vietnamese": "Em đã đợi ở nhà hàng hơn một tiếng đồng hồ.",
+        "time_start": 14.02,
+        "time_end": 16.24
+      },
+      {
+        "id": "96-9",
+        "english": "Oh my god, I am so incredibly sorry.",
+        "phonetic": "/oʊ maɪ gɑd, aɪ æm soʊ ɪnˈkrɛdəbli ˈsɑri./",
+        "vietnamese": "Ôi trời ơi, anh thực sự vô cùng xin lỗi.",
+        "time_start": 16.52,
+        "time_end": 19.26
+      },
+      {
+        "id": "96-10",
+        "english": "I was overwhelmed with a project at work.",
+        "phonetic": "/aɪ wʌz ˌoʊvərˈwɛlmd wɪð ə ˈprɑʤɛkt æt wɜrk./",
+        "vietnamese": "Anh đã bị quá tải với một dự án ở chỗ làm.",
+        "time_start": 19.52,
+        "time_end": 21.8
+      },
+      {
+        "id": "96-11",
+        "english": "I completely lost track of time.",
+        "phonetic": "/aɪ kəmˈplitli lɔst træk ʌv taɪm./",
+        "vietnamese": "Anh đã hoàn toàn quên béng mất thời gian.",
+        "time_start": 21.94,
+        "time_end": 23.76
+      },
+      {
+        "id": "96-12",
+        "english": "You could have at least sent me a quick text.",
+        "phonetic": "/ju kʊd hæv æt list sɛnt mi ə kwɪk tɛkst./",
+        "vietnamese": "Ít nhất anh cũng có thể gửi cho em một tin nhắn nhanh mà.",
+        "time_start": 24.06,
+        "time_end": 26.08
+      },
+      {
+        "id": "96-13",
+        "english": "It's about having basic respect for my time.",
+        "phonetic": "/ɪts əˈbaʊt ˈhævɪŋ ˈbeɪsɪk rɪˈspɛkt fɔr maɪ taɪm./",
+        "vietnamese": "Đó là về việc có sự tôn trọng cơ bản đối với thời gian của em.",
+        "time_start": 26.08,
+        "time_end": 28.98
+      },
+      {
+        "id": "96-14",
+        "english": "You're right, there is absolutely no excuse.",
+        "phonetic": "/jʊr raɪt, ðɛr ɪz ˌæbsəˈlutli noʊ ɪkˈskjus./",
+        "vietnamese": "Em nói đúng, hoàn toàn không có lời bào chữa nào cả.",
+        "time_start": 28.98,
+        "time_end": 31.88
+      },
+      {
+        "id": "96-15",
+        "english": "I was selfish and thoughtless.",
+        "phonetic": "/aɪ wʌz ˈsɛlfɪʃ ænd ˈθɔtləs./",
+        "vietnamese": "Anh đã ích kỷ và thiếu suy nghĩ.",
+        "time_start": 31.88,
+        "time_end": 33.18
+      },
+      {
+        "id": "96-16",
+        "english": "I need some space to cool down right now.",
+        "phonetic": "/aɪ nid sʌm speɪs tu kul daʊn raɪt naʊ./",
+        "vietnamese": "Lúc này em cần chút không gian để bình tĩnh lại.",
+        "time_start": 33.56,
+        "time_end": 35.64
+      }
+    ]
+  },
+  {
+    "id": "lesson-97",
+    "categoryId": "10",
+    "title": "Làm hòa",
+    "description": "Xin lỗi và làm lành sau cãi vã",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-97.mp3",
+    "duration": 35,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "97-1",
+        "english": "I brought you your favorite flowers to apologize.",
+        "phonetic": "/aɪ brɔt ju jʊər ˈfeɪvərɪt ˈflaʊərz tu əˈpɑləˌʤaɪz./",
+        "vietnamese": "Anh mang cho em loài hoa yêu thích để xin lỗi.",
+        "time_start": 0,
+        "time_end": 2.56
+      },
+      {
+        "id": "97-2",
+        "english": "I feel terrible about what happened yesterday.",
+        "phonetic": "/aɪ fil ˈtɛrəbəl əˈbaʊt wʌt ˈhæpənd ˈjɛstərˌdeɪ./",
+        "vietnamese": "Anh cảm thấy thật tồi tệ về những gì đã xảy ra hôm qua.",
+        "time_start": 3,
+        "time_end": 5.16
+      },
+      {
+        "id": "97-3",
+        "english": "They are beautiful, thank you.",
+        "phonetic": "/ðeɪ ɑr ˈbjutəfəl, θæŋk ju./",
+        "vietnamese": "Chúng rất đẹp, cảm ơn anh.",
+        "time_start": 5.66,
+        "time_end": 6.86
+      },
+      {
+        "id": "97-4",
+        "english": "But a bouquet doesn't fix everything.",
+        "phonetic": "/bʌt ə boʊˈkeɪ ˈdʌzənt fɪks ˈɛvriˌθɪŋ./",
+        "vietnamese": "Nhưng một bó hoa không thể giải quyết được mọi thứ.",
+        "time_start": 6.86,
+        "time_end": 8.02
+      },
+      {
+        "id": "97-5",
+        "english": "I know it doesn't.",
+        "phonetic": "/aɪ noʊ ɪt ˈdʌzənt./",
+        "vietnamese": "Anh biết là không thể.",
+        "time_start": 8.02,
+        "time_end": 9.18
+      },
+      {
+        "id": "97-6",
+        "english": "I promise I will never let work get in the way again.",
+        "phonetic": "/aɪ ˈprɑməs aɪ wɪl ˈnɛvər lɛt wɜrk gɛt ɪn ðə weɪ əˈgɛn./",
+        "vietnamese": "Anh hứa sẽ không bao giờ để công việc cản trở nữa.",
+        "time_start": 9.18,
+        "time_end": 12.98
+      },
+      {
+        "id": "97-7",
+        "english": "You are the most important person in my life.",
+        "phonetic": "/ju ɑr ðə moʊst ɪmˈpɔrtənt ˈpɜrsən ɪn maɪ laɪf./",
+        "vietnamese": "Em là người quan trọng nhất trong cuộc đời anh.",
+        "time_start": 13.36,
+        "time_end": 15.52
+      },
+      {
+        "id": "97-8",
+        "english": "I know you've been under a lot of stress lately.",
+        "phonetic": "/aɪ noʊ juv bɪn ˈʌndər ə lɔt ʌv strɛst ˈleɪtli./",
+        "vietnamese": "Em biết dạo này anh đang chịu rất nhiều căng thẳng.",
+        "time_start": 15.52,
+        "time_end": 18.38
+      },
+      {
+        "id": "97-9",
+        "english": "But I need you to communicate with me.",
+        "phonetic": "/bʌt aɪ nid ju tu kəmˈjunəˌkeɪt wɪð mi./",
+        "vietnamese": "Nhưng em cần anh phải giao tiếp với em.",
+        "time_start": 18.38,
+        "time_end": 20.14
+      },
+      {
+        "id": "97-10",
+        "english": "I will do better, I promise.",
+        "phonetic": "/aɪ wɪl du ˈbɛtər, aɪ ˈprɑməs./",
+        "vietnamese": "Anh sẽ làm tốt hơn, anh hứa.",
+        "time_start": 20.3,
+        "time_end": 21.96
+      },
+      {
+        "id": "97-11",
+        "english": "Please forgive me for being so careless.",
+        "phonetic": "/pliz fərˈgɪv mi fɔr ˈbiɪŋ soʊ ˈkɛrləs./",
+        "vietnamese": "Làm ơn tha thứ cho anh vì đã quá vô tâm.",
+        "time_start": 22.36,
+        "time_end": 24.24
+      },
+      {
+        "id": "97-12",
+        "english": "Okay, I forgive you.",
+        "phonetic": "/ˈoʊˈkeɪ, aɪ fərˈgɪv ju./",
+        "vietnamese": "Được rồi, em tha thứ cho anh.",
+        "time_start": 24.68,
+        "time_end": 25.86
+      },
+      {
+        "id": "97-13",
+        "english": "Let's move past this.",
+        "phonetic": "/lɛts muv pæst ðɪs./",
+        "vietnamese": "Chúng ta hãy bỏ qua chuyện này nhé.",
+        "time_start": 25.86,
+        "time_end": 27.24
+      },
+      {
+        "id": "97-14",
+        "english": "Can I make it up to you with a nice dinner tonight?",
+        "phonetic": "/kæn aɪ meɪk ɪt ʌp tu ju wɪð ə naɪs ˈdɪnər təˈnaɪt?/",
+        "vietnamese": "Anh có thể bù đắp cho em bằng một bữa tối ngon miệng tối nay không?",
+        "time_start": 27.24,
+        "time_end": 29.78
+      },
+      {
+        "id": "97-15",
+        "english": "I've already made reservations at your favorite place.",
+        "phonetic": "/aɪv ɔlˈrɛdi meɪd ˌrɛzərˈveɪʃənz æt jʊər ˈfeɪvərɪt pleɪs./",
+        "vietnamese": "Anh đã đặt bàn tại địa điểm yêu thích của em rồi.",
+        "time_start": 29.78,
+        "time_end": 33.14
+      },
+      {
+        "id": "97-16",
+        "english": "That sounds perfect, thank you.",
+        "phonetic": "/ðæt saʊndz ˈpɜrfɪkt, θæŋk ju./",
+        "vietnamese": "Nghe hoàn hảo đấy, cảm ơn anh.",
+        "time_start": 33.14,
+        "time_end": 34.68
+      }
+    ]
+  },
+  {
+    "id": "lesson-98",
+    "categoryId": "10",
+    "title": "Kỷ niệm ngày yêu",
+    "description": "Kỷ niệm ngày yêu và nhìn lại hành trình bên nhau",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-98.mp3",
+    "duration": 39,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "98-1",
+        "english": "Happy anniversary, my darling!",
+        "phonetic": "/ˈhæpi ˌænəˈvɜrsəri, maɪ ˈdɑrlɪŋ!/",
+        "vietnamese": "Chúc mừng kỷ niệm ngày yêu, em yêu của anh!",
+        "time_start": 0,
+        "time_end": 1.68
+      },
+      {
+        "id": "98-2",
+        "english": "I can't believe it's been three years already.",
+        "phonetic": "/aɪ kænt bɪˈliv ɪts bɪn θri jɪrz ɔlˈrɛdi./",
+        "vietnamese": "Anh không thể tin được là đã ba năm trôi qua rồi.",
+        "time_start": 1.68,
+        "time_end": 4.78
+      },
+      {
+        "id": "98-3",
+        "english": "Happy anniversary to you too!",
+        "phonetic": "/ˈhæpi ˌænəˈvɜrsəri tu ju tu!/",
+        "vietnamese": "Chúc mừng kỷ niệm anh nhé!",
+        "time_start": 4.78,
+        "time_end": 6.36
+      },
+      {
+        "id": "98-4",
+        "english": "Time flies so fast when I'm with you.",
+        "phonetic": "/taɪm flaɪz soʊ fæst wɛn aɪm wɪð ju./",
+        "vietnamese": "Thời gian trôi thật nhanh khi em ở bên anh.",
+        "time_start": 6.36,
+        "time_end": 9.42
+      },
+      {
+        "id": "98-5",
+        "english": "Every single day with you is a blessing.",
+        "phonetic": "/ˈɛvəri ˈsɪŋgəl deɪ wɪð ju ɪz ə ˈblɛsɪŋ./",
+        "vietnamese": "Mỗi một ngày bên em đều là một phước lành.",
+        "time_start": 9.42,
+        "time_end": 11.18
+      },
+      {
+        "id": "98-6",
+        "english": "I got you a little something to celebrate.",
+        "phonetic": "/aɪ gɑt ju ə ˈlɪtəl ˈsʌmθɪŋ tu ˈsɛləˌbreɪt./",
+        "vietnamese": "Anh có một món quà nhỏ cho em để ăn mừng.",
+        "time_start": 11.62,
+        "time_end": 13.48
+      },
+      {
+        "id": "98-7",
+        "english": "Close your eyes and give me your hand.",
+        "phonetic": "/kloʊs jʊər aɪz ænd gɪv mi jʊər hænd./",
+        "vietnamese": "Nhắm mắt lại và đưa tay cho anh nào.",
+        "time_start": 14.38,
+        "time_end": 16.46
+      },
+      {
+        "id": "98-8",
+        "english": "Oh wow, it's a beautiful diamond necklace!",
+        "phonetic": "/oʊ waʊ, ɪts ə ˈbjutəfəl ˈdaɪmənd ˈnɛkləs!/",
+        "vietnamese": "Ôi chao, là một chiếc vòng cổ kim cương tuyệt đẹp!",
+        "time_start": 16.46,
+        "time_end": 18.94
+      },
+      {
+        "id": "98-9",
+        "english": "It's absolutely gorgeous, Tom.",
+        "phonetic": "/ɪts ˌæbsəˈlutli ˈgɔrʤəs, tɑm./",
+        "vietnamese": "Nó thực sự vô cùng lộng lẫy, Tom à.",
+        "time_start": 18.94,
+        "time_end": 21.42
+      },
+      {
+        "id": "98-10",
+        "english": "I love it so much, thank you.",
+        "phonetic": "/aɪ lʌv ɪt soʊ mʌʧ, θæŋk ju./",
+        "vietnamese": "Em thích nó lắm, cảm ơn anh.",
+        "time_start": 21.42,
+        "time_end": 23.04
+      },
+      {
+        "id": "98-11",
+        "english": "Turn around, let me put it on for you.",
+        "phonetic": "/tɜrn əˈraʊnd, lɛt mi pʊt ɪt ɑn fɔr ju./",
+        "vietnamese": "Quay lưng lại đi, để anh đeo nó cho em nhé.",
+        "time_start": 23.44,
+        "time_end": 25.4
+      },
+      {
+        "id": "98-12",
+        "english": "It looks perfect on your neck.",
+        "phonetic": "/ɪt lʊks ˈpɜrfɪkt ɑn jʊər nɛk./",
+        "vietnamese": "Nó trông thật hoàn hảo trên cổ em.",
+        "time_start": 25.66,
+        "time_end": 27.32
+      },
+      {
+        "id": "98-13",
+        "english": "You always know exactly how to make me feel special.",
+        "phonetic": "/ju ˈɔlˌweɪz noʊ ɪgˈzæktli haʊ tu meɪk mi fil ˈspɛʃəl./",
+        "vietnamese": "Anh luôn biết chính xác cách làm cho em cảm thấy đặc biệt.",
+        "time_start": 27.32,
+        "time_end": 30.24
+      },
+      {
+        "id": "98-14",
+        "english": "I got you a gift too, it's on the table.",
+        "phonetic": "/aɪ gɑt ju ə gɪft tu, ɪts ɑn ðə ˈteɪbəl./",
+        "vietnamese": "Em cũng có quà cho anh, nó ở trên bàn kia kìa.",
+        "time_start": 30.24,
+        "time_end": 31.06
+      },
+      {
+        "id": "98-15",
+        "english": "A new watch! This is exactly what I wanted.",
+        "phonetic": "/ə nu wɑʧ! ðɪs ɪz ɪgˈzæktli wʌt aɪ ˈwɑntɪd./",
+        "vietnamese": "Một chiếc đồng hồ mới! Đây chính xác là thứ anh mong muốn.",
+        "time_start": 31.06,
+        "time_end": 35.66
+      },
+      {
+        "id": "98-16",
+        "english": "Thank you, baby. Here's to many more years together.",
+        "phonetic": "/θæŋk ju, ˈbeɪbi. hirz tu ˈmɛni mɔr jɪrz təˈgɛðər./",
+        "vietnamese": "Cảm ơn em yêu. Cùng hướng tới nhiều năm bên nhau nữa nhé.",
+        "time_start": 35.66,
+        "time_end": 38.87
+      }
+    ]
+  },
+  {
+    "id": "lesson-99",
+    "categoryId": "10",
+    "title": "Gặp gỡ gia đình",
+    "description": "Gặp bố mẹ lần đầu và tạo ấn tượng tốt",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-99.mp3",
+    "duration": 35,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "99-1",
+        "english": "Are you ready to meet my parents?",
+        "phonetic": "/ɑr ju ˈrɛdi tu mit maɪ ˈpɛrənts?/",
+        "vietnamese": "Em đã sẵn sàng gặp gỡ bố mẹ anh chưa?",
+        "time_start": 0,
+        "time_end": 2.02
+      },
+      {
+        "id": "99-2",
+        "english": "They are waiting inside the house.",
+        "phonetic": "/ðeɪ ɑr ˈweɪtɪŋ ɪnˈsaɪd ðə haʊs./",
+        "vietnamese": "Họ đang đợi ở trong nhà rồi.",
+        "time_start": 2.14,
+        "time_end": 3.87
+      },
+      {
+        "id": "99-3",
+        "english": "I'm incredibly nervous right now.",
+        "phonetic": "/aɪm ɪnˈkrɛdəbli ˈnɜrvəs raɪt naʊ./",
+        "vietnamese": "Ngay lúc này em đang vô cùng lo lắng.",
+        "time_start": 3.99,
+        "time_end": 5.44
+      },
+      {
+        "id": "99-4",
+        "english": "My hands are literally shaking.",
+        "phonetic": "/maɪ hændz ɑr ˈlɪtərəli ˈʃeɪkɪŋ./",
+        "vietnamese": "Tay em đang thực sự run lẩy bẩy đây này.",
+        "time_start": 5.56,
+        "time_end": 7
+      },
+      {
+        "id": "99-5",
+        "english": "Don't be silly, take a deep breath.",
+        "phonetic": "/doʊnt bi ˈsɪli, teɪk ə dip brɛθ./",
+        "vietnamese": "Đừng ngốc thế, hít một hơi thật sâu nào.",
+        "time_start": 7.12,
+        "time_end": 9.14
+      },
+      {
+        "id": "99-6",
+        "english": "They are going to absolutely love you.",
+        "phonetic": "/ðeɪ ɑr ˈgoʊɪŋ tu ˌæbsəˈlutli lʌv ju./",
+        "vietnamese": "Họ chắc chắn sẽ rất yêu mến em.",
+        "time_start": 9.26,
+        "time_end": 11.28
+      },
+      {
+        "id": "99-7",
+        "english": "What if they don't like me?",
+        "phonetic": "/wʌt ɪf ðeɪ doʊnt laɪk mi?/",
+        "vietnamese": "Nhỡ họ không thích em thì sao?",
+        "time_start": 11.4,
+        "time_end": 13.13
+      },
+      {
+        "id": "99-8",
+        "english": "What if I say something wrong?",
+        "phonetic": "/wʌt ɪf aɪ seɪ ˈsʌmθɪŋ rɔŋ?/",
+        "vietnamese": "Nhỡ em nói sai điều gì đó thì sao?",
+        "time_start": 13.25,
+        "time_end": 14.99
+      },
+      {
+        "id": "99-9",
+        "english": "Just be yourself, Alice.",
+        "phonetic": "/ʤʌst bi jʊrˈsɛlf, ˈælɪs./",
+        "vietnamese": "Hãy cứ là chính mình thôi, Alice.",
+        "time_start": 15.11,
+        "time_end": 16.26
+      },
+      {
+        "id": "99-10",
+        "english": "You have a wonderful and charming personality.",
+        "phonetic": "/ju hæv ə ˈwʌndərfəl ænd ˈʧɑrmɪŋ ˌpɜrsəˈnælɪti./",
+        "vietnamese": "Em có một tính cách rất tuyệt vời và duyên dáng mà.",
+        "time_start": 16.38,
+        "time_end": 18.4
+      },
+      {
+        "id": "99-11",
+        "english": "Should I have brought them a more expensive gift?",
+        "phonetic": "/ʃʊd aɪ hæv brɔt ðɛm ə mɔr ɪkˈspɛnsɪv gɪft?/",
+        "vietnamese": "Đáng lẽ em có nên mang cho họ một món quà đắt tiền hơn không?",
+        "time_start": 18.52,
+        "time_end": 21.12
+      },
+      {
+        "id": "99-12",
+        "english": "I only brought this basket of fruit and some wine.",
+        "phonetic": "/aɪ ˈoʊnli brɔt ðɪs ˈbæskət ʌv frut ænd sʌm waɪn./",
+        "vietnamese": "Em chỉ mang theo giỏ hoa quả này và chút rượu vang thôi.",
+        "time_start": 21.24,
+        "time_end": 24.13
+      },
+      {
+        "id": "99-13",
+        "english": "That is perfectly fine.",
+        "phonetic": "/ðæt ɪz ˈpɜrfəktli faɪn./",
+        "vietnamese": "Như thế là hoàn toàn ổn rồi.",
+        "time_start": 24.25,
+        "time_end": 25.4
+      },
+      {
+        "id": "99-14",
+        "english": "My dad loves red wine and my mom loves fruit.",
+        "phonetic": "/maɪ dæd lʌvz rɛd waɪn ænd maɪ mɑm lʌvz frut./",
+        "vietnamese": "Bố anh thích rượu vang đỏ và mẹ anh rất thích hoa quả.",
+        "time_start": 25.52,
+        "time_end": 28.41
+      },
+      {
+        "id": "99-15",
+        "english": "Okay, I really hope I leave a good impression.",
+        "phonetic": "/ˈoʊˈkeɪ, aɪ ˈrɪli hoʊp aɪ liv ə gʊd ɪmˈprɛʃən./",
+        "vietnamese": "Được rồi, em thực sự hy vọng mình sẽ để lại ấn tượng tốt.",
+        "time_start": 28.53,
+        "time_end": 31.13
+      },
+      {
+        "id": "99-16",
+        "english": "You will. Now let's go inside, I'll be right beside you.",
+        "phonetic": "/ju wɪl. naʊ lɛts goʊ ɪnˈsaɪd, aɪl bi raɪt bɪˈsaɪd ju./",
+        "vietnamese": "Em sẽ làm được mà. Giờ thì vào trong thôi, anh sẽ ở ngay bên cạnh em.",
+        "time_start": 31.25,
+        "time_end": 34.42
+      }
+    ]
+  },
+  {
+    "id": "lesson-100",
+    "categoryId": "10",
+    "title": "Yêu xa",
+    "description": "Duy trì mối quan hệ khi phải sống xa nhau",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-100.mp3",
+    "duration": 41,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "100-1",
+        "english": "I miss you so much.",
+        "phonetic": "/aɪ mɪs ju soʊ mʌʧ./",
+        "vietnamese": "Em nhớ anh rất nhiều.",
+        "time_start": 0,
+        "time_end": 1.22
+      },
+      {
+        "id": "100-2",
+        "english": "The house feels so empty without you here.",
+        "phonetic": "/ðə haʊs filz soʊ ˈɛmpti wɪˈðaʊt ju hir./",
+        "vietnamese": "Ngôi nhà có cảm giác thật trống trải khi không có anh ở đây.",
+        "time_start": 1.44,
+        "time_end": 3.66
+      },
+      {
+        "id": "100-3",
+        "english": "I miss you too, babe.",
+        "phonetic": "/aɪ mɪs ju tu, beɪb./",
+        "vietnamese": "Anh cũng nhớ em, cục cưng.",
+        "time_start": 3.92,
+        "time_end": 5.16
+      },
+      {
+        "id": "100-4",
+        "english": "Being apart is way harder than I thought it would be.",
+        "phonetic": "/biɪŋ əˈpɑrt ɪz weɪ ˈhɑrdər ðæn aɪ θɔt ɪt wʊd bi./",
+        "vietnamese": "Việc phải xa nhau khó khăn hơn anh nghĩ rất nhiều.",
+        "time_start": 5.4,
+        "time_end": 7.76
+      },
+      {
+        "id": "100-5",
+        "english": "It's only been two weeks, but it feels like a year.",
+        "phonetic": "/ɪts ˈoʊnli bɪn tu wiks, bʌt ɪt filz laɪk ə jɪr./",
+        "vietnamese": "Mới chỉ có hai tuần thôi, nhưng cảm giác như một năm vậy.",
+        "time_start": 7.76,
+        "time_end": 11.44
+      },
+      {
+        "id": "100-6",
+        "english": "I hate this time zone difference.",
+        "phonetic": "/aɪ heɪt ðɪs taɪm zoʊn ˈdɪfərəns./",
+        "vietnamese": "Em ghét sự chênh lệch múi giờ này.",
+        "time_start": 11.44,
+        "time_end": 13.22
+      },
+      {
+        "id": "100-7",
+        "english": "I know, but my business trip is only for a few more months.",
+        "phonetic": "/aɪ noʊ, bʌt maɪ ˈbɪznəs trɪp ɪz ˈoʊnli fɔr ə fju mɔr mʌnθs./",
+        "vietnamese": "Anh biết, nhưng chuyến công tác của anh chỉ kéo dài thêm vài tháng nữa thôi.",
+        "time_start": 13.58,
+        "time_end": 16.82
+      },
+      {
+        "id": "100-8",
+        "english": "We can do a video call every single night.",
+        "phonetic": "/wi kæn du ə ˈvɪdioʊ kɔl ˈɛvəri ˈsɪŋgəl naɪt./",
+        "vietnamese": "Chúng ta có thể gọi video mỗi tối mà.",
+        "time_start": 17.26,
+        "time_end": 19.72
+      },
+      {
+        "id": "100-9",
+        "english": "That makes me feel a bit better.",
+        "phonetic": "/ðæt meɪks mi fil ə bɪt ˈbɛtər./",
+        "vietnamese": "Điều đó làm em cảm thấy khá hơn một chút.",
+        "time_start": 19.92,
+        "time_end": 21.5
+      },
+      {
+        "id": "100-10",
+        "english": "Seeing your face is the best part of my day.",
+        "phonetic": "/ˈsiɪŋ jʊər feɪs ɪz ðə bɛst pɑrt ʌv maɪ deɪ./",
+        "vietnamese": "Được nhìn thấy khuôn mặt anh là phần tuyệt vời nhất trong ngày của em.",
+        "time_start": 22.06,
+        "time_end": 24.32
+      },
+      {
+        "id": "100-11",
+        "english": "I'm counting down the days until I can finally hug you.",
+        "phonetic": "/aɪm ˈkaʊntɪŋ daʊn ðə deɪz ənˈtɪl aɪ kæn ˈfaɪnəli hʌg ju./",
+        "vietnamese": "Anh đang đếm từng ngày cho đến khi cuối cùng cũng có thể ôm em.",
+        "time_start": 24.32,
+        "time_end": 26.32
+      },
+      {
+        "id": "100-12",
+        "english": "I will book my flight back as soon as possible.",
+        "phonetic": "/aɪ wɪl bʊk maɪ flaɪt bæk æz sun æz ˈpɑsəbəl./",
+        "vietnamese": "Anh sẽ đặt chuyến bay về ngay khi có thể.",
+        "time_start": 26.32,
+        "time_end": 30.12
+      },
+      {
+        "id": "100-13",
+        "english": "Please take care of your health over there.",
+        "phonetic": "/pliz teɪk kɛr ʌv jʊər hɛlθ ˈoʊvər ðɛr./",
+        "vietnamese": "Hãy giữ gìn sức khỏe ở bên đó nhé.",
+        "time_start": 30.5,
+        "time_end": 32.34
+      },
+      {
+        "id": "100-14",
+        "english": "Don't work too late into the night.",
+        "phonetic": "/doʊnt wɜrk tu leɪt ˈɪntu ðə naɪt./",
+        "vietnamese": "Đừng làm việc quá khuya vào ban đêm.",
+        "time_start": 32.34,
+        "time_end": 34.48
+      },
+      {
+        "id": "100-15",
+        "english": "I will. Distance means so little when someone means so much.",
+        "phonetic": "/aɪ wɪl. ˈdɪstəns minz soʊ ˈlɪtəl wɛn ˈsʌmˌwʌn minz soʊ mʌʧ./",
+        "vietnamese": "Anh sẽ làm vậy. Khoảng cách chẳng có nghĩa lý gì khi một người có ý nghĩa quá lớn.",
+        "time_start": 34.48,
+        "time_end": 38.52
+      },
+      {
+        "id": "100-16",
+        "english": "I love you, goodnight.",
+        "phonetic": "/aɪ lʌv ju, gʊdˈnaɪt./",
+        "vietnamese": "Anh yêu em, chúc ngủ ngon.",
+        "time_start": 38.82,
+        "time_end": 40.04
+      }
+    ]
+  },
+  {
+    "id": "lesson-101",
+    "categoryId": "10",
+    "title": "Cầu hôn",
+    "description": "Khoảnh khắc cầu hôn và lời hứa bên nhau",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-101.mp3",
+    "duration": 36,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "101-1",
+        "english": "I brought you to this spot for a special reason.",
+        "phonetic": "/aɪ brɔt ju tu ðɪs spɑt fɔr ə ˈspɛʃəl ˈrizən./",
+        "vietnamese": "Anh đưa em đến nơi này vì một lý do đặc biệt.",
+        "time_start": 0,
+        "time_end": 2.44
+      },
+      {
+        "id": "101-2",
+        "english": "Do you remember this park?",
+        "phonetic": "/du ju rɪˈmɛmbər ðɪs pɑrk?/",
+        "vietnamese": "Em có nhớ công viên này không?",
+        "time_start": 2.86,
+        "time_end": 4
+      },
+      {
+        "id": "101-3",
+        "english": "Of course I do.",
+        "phonetic": "/ʌv kɔrs aɪ du./",
+        "vietnamese": "Tất nhiên là em nhớ chứ.",
+        "time_start": 4.32,
+        "time_end": 5.08
+      },
+      {
+        "id": "101-4",
+        "english": "It's exactly where we first met five years ago.",
+        "phonetic": "/ɪts ɪgˈzæktli weər wi fɜrst mɛt faɪv jɪrz əˈgoʊ./",
+        "vietnamese": "Nó chính xác là nơi chúng ta lần đầu gặp nhau năm năm trước.",
+        "time_start": 5.08,
+        "time_end": 8.52
+      },
+      {
+        "id": "101-5",
+        "english": "You have made me the happiest man alive since that day.",
+        "phonetic": "/ju hæv meɪd mi ðə ˈhæpiəst mæn əˈlaɪv sɪns ðæt deɪ./",
+        "vietnamese": "Em đã biến anh thành người đàn ông hạnh phúc nhất trần đời kể từ ngày đó.",
+        "time_start": 8.52,
+        "time_end": 11.46
+      },
+      {
+        "id": "101-6",
+        "english": "Every moment with you is a treasure.",
+        "phonetic": "/ˈɛvəri ˈmoʊmənt wɪð ju ɪz ə ˈtrɛʒər./",
+        "vietnamese": "Mỗi khoảnh khắc bên em đều là một kho báu.",
+        "time_start": 12.02,
+        "time_end": 13.5
+      },
+      {
+        "id": "101-7",
+        "english": "I want to spend the rest of my life making you smile.",
+        "phonetic": "/aɪ wɑnt tu spɛnd ðə rɛst ʌv maɪ laɪf ˈmeɪkɪŋ ju smaɪl./",
+        "vietnamese": "Anh muốn dành phần đời còn lại để làm em mỉm cười.",
+        "time_start": 13.76,
+        "time_end": 16.44
+      },
+      {
+        "id": "101-8",
+        "english": "Kevin, you're making me cry.",
+        "phonetic": "/ˈkɛvɪn, jʊr ˈmeɪkɪŋ mi kraɪ./",
+        "vietnamese": "Kevin, anh đang làm em khóc đấy.",
+        "time_start": 16.44,
+        "time_end": 18.86
+      },
+      {
+        "id": "101-9",
+        "english": "What are you doing? Why are you kneeling?",
+        "phonetic": "/wʌt ɑr ju ˈduɪŋ? waɪ ɑr ju ˈnilɪŋ?/",
+        "vietnamese": "Anh đang làm gì vậy? Sao anh lại quỳ xuống?",
+        "time_start": 18.86,
+        "time_end": 20.66
+      },
+      {
+        "id": "101-10",
+        "english": "Sophie, you are the love of my life.",
+        "phonetic": "/ˈsoʊfi, ju ɑr ðə lʌv ʌv maɪ laɪf./",
+        "vietnamese": "Sophie, em là tình yêu của đời anh.",
+        "time_start": 20.96,
+        "time_end": 23.16
+      },
+      {
+        "id": "101-11",
+        "english": "Will you do me the honor of marrying me?",
+        "phonetic": "/wɪl ju du mi ði ˈɑnər ʌv ˈmɛriɪŋ mi?/",
+        "vietnamese": "Em sẽ ban cho anh vinh dự được kết hôn với em chứ?",
+        "time_start": 23.5,
+        "time_end": 25.54
+      },
+      {
+        "id": "101-12",
+        "english": "Oh my god, yes!",
+        "phonetic": "/oʊ maɪ gɑd, jɛs!/",
+        "vietnamese": "Ôi trời ơi, vâng!",
+        "time_start": 25.74,
+        "time_end": 27.12
+      },
+      {
+        "id": "101-13",
+        "english": "A million times yes!",
+        "phonetic": "/ə ˈmɪljən taɪmz jɛs!/",
+        "vietnamese": "Một triệu lần đồng ý!",
+        "time_start": 27.26,
+        "time_end": 28.58
+      },
+      {
+        "id": "101-14",
+        "english": "Let me put the ring on your finger.",
+        "phonetic": "/lɛt mi pʊt ðə rɪŋ ɑn jʊər ˈfɪŋgər./",
+        "vietnamese": "Để anh đeo chiếc nhẫn vào tay em nhé.",
+        "time_start": 28.58,
+        "time_end": 30.32
+      },
+      {
+        "id": "101-15",
+        "english": "It fits perfectly.",
+        "phonetic": "/ɪt fɪts ˈpɜrfəktli./",
+        "vietnamese": "Nó vừa vặn hoàn hảo luôn.",
+        "time_start": 30.64,
+        "time_end": 31.58
+      },
+      {
+        "id": "101-16",
+        "english": "It's the most beautiful ring I've ever seen. I love you.",
+        "phonetic": "/ɪts ðə moʊst ˈbjutəfəl rɪŋ aɪv ˈɛvər sin. aɪ lʌv ju./",
+        "vietnamese": "Đó là chiếc nhẫn đẹp nhất em từng thấy. Em yêu anh.",
+        "time_start": 31.58,
+        "time_end": 35.38
+      }
+    ]
+  },
+  {
+    "id": "lesson-102",
+    "categoryId": "10",
+    "title": "Chuẩn bị đám cưới",
+    "description": "Lên kế hoạch và chuẩn bị cho ngày cưới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-102.mp3",
+    "duration": 40,
+    "level": "INTERMEDIATE",
+    "topic": "Tình yêu",
+    "sentences": [
+      {
+        "id": "102-1",
+        "english": "We need to start planning the guest list for the wedding.",
+        "phonetic": "/wi nid tu stɑrt ˈplænɪŋ ðə gɛst lɪst fɔr ðə ˈwɛdɪŋ./",
+        "vietnamese": "Chúng ta cần bắt đầu lên danh sách khách mời cho đám cưới.",
+        "time_start": 0,
+        "time_end": 3.05
+      },
+      {
+        "id": "102-2",
+        "english": "It's getting closer and we have so much to do.",
+        "phonetic": "/ɪts ˈgɛtɪŋ ˈkloʊsər ænd wi hæv soʊ mʌʧ tu du./",
+        "vietnamese": "Ngày đó đang đến gần và chúng ta có quá nhiều việc phải làm.",
+        "time_start": 3.17,
+        "time_end": 5.94
+      },
+      {
+        "id": "102-3",
+        "english": "I think we should keep it small and intimate.",
+        "phonetic": "/aɪ θɪŋk wi ʃʊd kip ɪt smɔl ænd ˈɪntəmət./",
+        "vietnamese": "Anh nghĩ chúng ta nên giữ quy mô nhỏ và ấm cúng.",
+        "time_start": 6.06,
+        "time_end": 8.55
+      },
+      {
+        "id": "102-4",
+        "english": "I don't want a massive, stressful event.",
+        "phonetic": "/aɪ doʊnt wɑnt ə ˈmæsɪv, ˈstrɛsfəl ɪˈvɛnt./",
+        "vietnamese": "Anh không muốn một sự kiện khổng lồ, căng thẳng.",
+        "time_start": 8.67,
+        "time_end": 10.61
+      },
+      {
+        "id": "102-5",
+        "english": "I totally agree with you.",
+        "phonetic": "/aɪ ˈtoʊtəli əˈgri wɪð ju./",
+        "vietnamese": "Em hoàn toàn đồng ý với anh.",
+        "time_start": 10.73,
+        "time_end": 12.12
+      },
+      {
+        "id": "102-6",
+        "english": "Let's just invite our close family and best friends.",
+        "phonetic": "/lɛts ʤʌst ɪnˈvaɪt ˈaʊər kloʊs ˈfæməli ænd bɛst frɛndz./",
+        "vietnamese": "Chúng ta chỉ mời gia đình gần gũi và những người bạn thân nhất thôi.",
+        "time_start": 12.24,
+        "time_end": 14.73
+      },
+      {
+        "id": "102-7",
+        "english": "Have you picked out a wedding dress yet?",
+        "phonetic": "/hæv ju pɪkt aʊt ə ˈwɛdɪŋ drɛs jɛt?/",
+        "vietnamese": "Em đã chọn được váy cưới chưa?",
+        "time_start": 14.85,
+        "time_end": 17.06
+      },
+      {
+        "id": "102-8",
+        "english": "I know you've been browsing magazines.",
+        "phonetic": "/aɪ noʊ juv bɪn ˈbraʊzɪŋ ˈmægəˌzinz./",
+        "vietnamese": "Anh biết dạo này em đang xem qua các tạp chí.",
+        "time_start": 17.18,
+        "time_end": 18.85
+      },
+      {
+        "id": "102-9",
+        "english": "Not yet, but I'm going shopping with my mom this weekend.",
+        "phonetic": "/nɑt jɛt, bʌt aɪm ˈgoʊɪŋ ˈʃɑpɪŋ wɪð maɪ mɑm ðɪs ˈwikˌɛnd./",
+        "vietnamese": "Chưa đâu, nhưng em sẽ đi mua sắm với mẹ vào cuối tuần này.",
+        "time_start": 18.97,
+        "time_end": 22.01
+      },
+      {
+        "id": "102-10",
+        "english": "I have a specific style in mind.",
+        "phonetic": "/aɪ hæv ə spəˈsɪfɪk staɪl ɪn maɪnd./",
+        "vietnamese": "Em đã có một phong cách cụ thể trong đầu rồi.",
+        "time_start": 22.13,
+        "time_end": 24.07
+      },
+      {
+        "id": "102-11",
+        "english": "I'm sure you will look like an absolute angel.",
+        "phonetic": "/aɪm ʃʊr ju wɪl lʊk laɪk ən ˈæbsəˌlut ˈeɪnʤəl./",
+        "vietnamese": "Anh chắc chắn em sẽ trông như một thiên thần thực sự.",
+        "time_start": 24.19,
+        "time_end": 26.69
+      },
+      {
+        "id": "102-12",
+        "english": "Whatever you choose will be perfect.",
+        "phonetic": "/wʌtˈɛvər ju ʧuz wɪl bi ˈpɜrfɪkt./",
+        "vietnamese": "Bất cứ điều gì em chọn đều sẽ hoàn hảo.",
+        "time_start": 26.81,
+        "time_end": 28.47
+      },
+      {
+        "id": "102-13",
+        "english": "We also need to book a venue and a photographer soon.",
+        "phonetic": "/wi ˈɔlsoʊ nid tu bʊk ə ˈvɛnju ænd ə fəˈtɑgrəfər sun./",
+        "vietnamese": "Chúng ta cũng cần đặt địa điểm và thợ chụp ảnh sớm.",
+        "time_start": 28.59,
+        "time_end": 31.64
+      },
+      {
+        "id": "102-14",
+        "english": "The good ones get fully booked months in advance.",
+        "phonetic": "/ðə gʊd wʌnz gɛt ˈfʊli bʊkt mʌnθs ɪn ədˈvæns./",
+        "vietnamese": "Những nơi tốt thường được đặt kín từ nhiều tháng trước.",
+        "time_start": 31.76,
+        "time_end": 34.25
+      },
+      {
+        "id": "102-15",
+        "english": "Let's go visit some places tomorrow afternoon.",
+        "phonetic": "/lɛts goʊ ˈvɪzət sʌm ˈpleɪsəz təˈmɑˌroʊ ˌæftərˈnun./",
+        "vietnamese": "Hãy đi xem một vài nơi vào chiều mai nhé.",
+        "time_start": 34.37,
+        "time_end": 36.31
+      },
+      {
+        "id": "102-16",
+        "english": "I can't wait for the day I finally call you my wife.",
+        "phonetic": "/aɪ kænt weɪt fɔr ðə deɪ aɪ ˈfaɪnəli kɔl ju maɪ waɪf./",
+        "vietnamese": "Anh không thể đợi được đến ngày cuối cùng cũng được gọi em là vợ anh.",
+        "time_start": 36.43,
+        "time_end": 39.75
+      }
+    ]
   }
 ]

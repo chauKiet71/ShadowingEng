@@ -14,95 +14,20 @@ const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
 const vocabulary_tech_sets_1 = require("./vocabulary-tech-sets");
+const vocabulary_travel_set_1 = require("./vocabulary-travel-set");
+const vocabulary_daily_set_1 = require("./vocabulary-daily-set");
+const vocabulary_movie_set_1 = require("./vocabulary-movie-set");
+const vocabulary_office_set_1 = require("./vocabulary-office-set");
 const SETS = [
-    {
-        slug: 'du-lich-co-ban',
-        title: 'Du lịch cơ bản',
-        description: 'Những từ cần thiết cho chuyến đi đầu tiên',
-        icon: 'plane',
-        color: 'blue',
-        cefrLevel: client_1.CefrLevel.A1,
-        topic: 'Du lịch',
-        isFeatured: true,
-        sortOrder: 1,
-        words: [
-            ['passport', '/ˈpɑːspɔːrt/', 'hộ chiếu', 'Please show me your passport.', 'Vui lòng cho tôi xem hộ chiếu.'],
-            ['luggage', '/ˈlʌɡɪdʒ/', 'hành lý', 'My luggage is very heavy.', 'Hành lý của tôi rất nặng.'],
-            ['ticket', '/ˈtɪkɪt/', 'vé', 'I bought a train ticket.', 'Tôi đã mua một vé tàu.'],
-            ['airport', '/ˈerpɔːrt/', 'sân bay', 'We arrived at the airport early.', 'Chúng tôi đến sân bay sớm.'],
-            ['hotel', '/hoʊˈtel/', 'khách sạn', 'Our hotel is near the beach.', 'Khách sạn của chúng tôi gần bãi biển.'],
-            ['map', '/mæp/', 'bản đồ', 'Can I have a city map?', 'Tôi có thể lấy một tấm bản đồ thành phố không?'],
-            ['journey', '/ˈdʒɜːrni/', 'hành trình', 'The journey took three hours.', 'Hành trình kéo dài ba giờ.'],
-            ['souvenir', '/ˌsuːvəˈnɪr/', 'quà lưu niệm', 'I bought a small souvenir.', 'Tôi đã mua một món quà lưu niệm nhỏ.'],
-        ],
-    },
-    {
-        slug: 'giao-tiep-hang-ngay',
-        title: 'Giao tiếp hằng ngày',
-        description: 'Từ vựng quen thuộc dùng mỗi ngày',
-        icon: 'message-circle',
-        color: 'purple',
-        cefrLevel: client_1.CefrLevel.A1,
-        topic: 'Cuộc sống',
-        isFeatured: true,
-        sortOrder: 2,
-        words: [
-            ['morning', '/ˈmɔːrnɪŋ/', 'buổi sáng', 'I exercise every morning.', 'Tôi tập thể dục mỗi sáng.'],
-            ['breakfast', '/ˈbrekfəst/', 'bữa sáng', 'Breakfast is ready.', 'Bữa sáng đã sẵn sàng.'],
-            ['neighbor', '/ˈneɪbər/', 'hàng xóm', 'My neighbor is very friendly.', 'Hàng xóm của tôi rất thân thiện.'],
-            ['usually', '/ˈjuːʒuəli/', 'thường xuyên', 'I usually walk to work.', 'Tôi thường đi bộ đến nơi làm việc.'],
-            ['together', '/təˈɡeðər/', 'cùng nhau', 'We cook dinner together.', 'Chúng tôi nấu bữa tối cùng nhau.'],
-            ['busy', '/ˈbɪzi/', 'bận rộn', 'Today is a busy day.', 'Hôm nay là một ngày bận rộn.'],
-            ['relax', '/rɪˈlæks/', 'thư giãn', 'I relax after dinner.', 'Tôi thư giãn sau bữa tối.'],
-            ['weekend', '/ˌwiːkˈend/', 'cuối tuần', 'What do you do on weekends?', 'Bạn làm gì vào cuối tuần?'],
-        ],
-    },
-    {
-        slug: 'cong-viec-van-phong',
-        title: 'Công việc văn phòng',
-        description: 'Giao tiếp chuyên nghiệp tại nơi làm việc',
-        icon: 'briefcase',
-        color: 'teal',
-        cefrLevel: client_1.CefrLevel.A2,
-        topic: 'Công việc',
-        isFeatured: true,
-        sortOrder: 3,
-        words: [
-            ['meeting', '/ˈmiːtɪŋ/', 'cuộc họp', 'The meeting starts at nine.', 'Cuộc họp bắt đầu lúc chín giờ.'],
-            ['deadline', '/ˈdedlaɪn/', 'hạn chót', 'The deadline is next Friday.', 'Hạn chót là thứ Sáu tuần sau.'],
-            ['colleague', '/ˈkɑːliːɡ/', 'đồng nghiệp', 'My colleague helped me.', 'Đồng nghiệp đã giúp tôi.'],
-            ['project', '/ˈprɑːdʒekt/', 'dự án', 'This project is important.', 'Dự án này rất quan trọng.'],
-            ['schedule', '/ˈskedʒuːl/', 'lịch trình', 'Please check your schedule.', 'Vui lòng kiểm tra lịch trình của bạn.'],
-            ['report', '/rɪˈpɔːrt/', 'báo cáo', 'I finished the monthly report.', 'Tôi đã hoàn thành báo cáo tháng.'],
-            ['client', '/ˈklaɪənt/', 'khách hàng', 'The client liked our idea.', 'Khách hàng thích ý tưởng của chúng tôi.'],
-            ['manager', '/ˈmænɪdʒər/', 'quản lý', 'I spoke with my manager.', 'Tôi đã nói chuyện với quản lý.'],
-        ],
-    },
-    {
-        slug: 'phim-anh-giai-tri',
-        title: 'Phim ảnh & Giải trí',
-        description: 'Thảo luận về phim và chương trình yêu thích',
-        icon: 'clapperboard',
-        color: 'pink',
-        cefrLevel: client_1.CefrLevel.B1,
-        topic: 'Giải trí',
-        isFeatured: false,
-        sortOrder: 4,
-        words: [
-            ['character', '/ˈkærəktər/', 'nhân vật', 'The main character is brave.', 'Nhân vật chính rất dũng cảm.'],
-            ['plot', '/plɑːt/', 'cốt truyện', 'The plot was surprising.', 'Cốt truyện thật bất ngờ.'],
-            ['director', '/dəˈrektər/', 'đạo diễn', 'She is a famous director.', 'Cô ấy là một đạo diễn nổi tiếng.'],
-            ['scene', '/siːn/', 'cảnh phim', 'That was my favorite scene.', 'Đó là cảnh phim tôi yêu thích.'],
-            ['performance', '/pərˈfɔːrməns/', 'màn trình diễn', 'His performance was excellent.', 'Màn trình diễn của anh ấy rất xuất sắc.'],
-            ['audience', '/ˈɔːdiəns/', 'khán giả', 'The audience laughed loudly.', 'Khán giả đã cười lớn.'],
-            ['episode', '/ˈepɪsoʊd/', 'tập phim', 'I watched the final episode.', 'Tôi đã xem tập cuối.'],
-            ['recommend', '/ˌrekəˈmend/', 'đề xuất', 'I recommend this movie.', 'Tôi đề xuất bộ phim này.'],
-        ],
-    },
+    vocabulary_travel_set_1.TRAVEL_VOCABULARY_SET,
+    vocabulary_daily_set_1.DAILY_VOCABULARY_SET,
+    vocabulary_office_set_1.OFFICE_VOCABULARY_SET,
+    vocabulary_movie_set_1.MOVIE_VOCABULARY_SET,
     ...vocabulary_tech_sets_1.TECH_VOCABULARY_SETS,
 ];
 let VocabularyService = class VocabularyService {
     prisma;
+    catalogSync = null;
     constructor(prisma) {
         this.prisma = prisma;
     }
@@ -111,7 +36,16 @@ let VocabularyService = class VocabularyService {
         next.setDate(next.getDate() + days);
         return next;
     }
-    async ensureCatalog() {
+    ensureCatalog() {
+        if (!this.catalogSync) {
+            this.catalogSync = this.syncCatalog().catch((error) => {
+                this.catalogSync = null;
+                throw error;
+            });
+        }
+        return this.catalogSync;
+    }
+    async syncCatalog() {
         const keepSlugs = SETS.map((set) => set.slug);
         await this.prisma.vocabularySet.deleteMany({
             where: {
@@ -121,7 +55,39 @@ let VocabularyService = class VocabularyService {
                 },
             },
         });
+        const existing = await this.prisma.vocabularySet.findMany({
+            where: { slug: { in: keepSlugs } },
+            select: {
+                id: true,
+                slug: true,
+                _count: { select: { words: true } },
+            },
+        });
+        const bySlug = new Map(existing.map((set) => [set.slug, set]));
+        const alreadySynced = SETS.every((set) => {
+            const found = bySlug.get(set.slug);
+            return !!found && found._count.words === set.words.length;
+        });
+        if (alreadySynced)
+            return;
         for (const set of SETS) {
+            const current = bySlug.get(set.slug);
+            if (current && current._count.words === set.words.length) {
+                await this.prisma.vocabularySet.update({
+                    where: { id: current.id },
+                    data: {
+                        title: set.title,
+                        description: set.description,
+                        icon: set.icon,
+                        color: set.color,
+                        cefrLevel: set.cefrLevel,
+                        topic: set.topic,
+                        isFeatured: set.isFeatured,
+                        sortOrder: set.sortOrder,
+                    },
+                });
+                continue;
+            }
             const vocabularySet = await this.prisma.vocabularySet.upsert({
                 where: { slug: set.slug },
                 create: {
@@ -146,32 +112,20 @@ let VocabularyService = class VocabularyService {
                     sortOrder: set.sortOrder,
                 },
             });
-            for (const [index, word] of set.words.entries()) {
-                await this.prisma.vocabularyWord.upsert({
-                    where: {
-                        setId_word: {
-                            setId: vocabularySet.id,
-                            word: word[0],
-                        },
-                    },
-                    create: {
-                        setId: vocabularySet.id,
-                        word: word[0],
-                        phonetic: word[1],
-                        meaning: word[2],
-                        example: word[3],
-                        exampleTranslation: word[4],
-                        sortOrder: index + 1,
-                    },
-                    update: {
-                        phonetic: word[1],
-                        meaning: word[2],
-                        example: word[3],
-                        exampleTranslation: word[4],
-                        sortOrder: index + 1,
-                    },
-                });
-            }
+            await this.prisma.vocabularyWord.deleteMany({
+                where: { setId: vocabularySet.id },
+            });
+            await this.prisma.vocabularyWord.createMany({
+                data: set.words.map((word, index) => ({
+                    setId: vocabularySet.id,
+                    word: word[0],
+                    phonetic: word[1],
+                    meaning: word[2],
+                    example: word[3],
+                    exampleTranslation: word[4],
+                    sortOrder: index + 1,
+                })),
+            });
         }
     }
     async getOverview(userId) {
@@ -179,7 +133,7 @@ let VocabularyService = class VocabularyService {
         const now = new Date();
         const startOfDay = new Date(now);
         startOfDay.setHours(0, 0, 0, 0);
-        const [totalLearned, mastered, dueCount, learnedToday, sets, mySets, dueWords,] = await Promise.all([
+        const [totalLearned, mastered, dueCount, learnedToday, sets, mySets, dueWords, learnedProgress,] = await Promise.all([
             this.prisma.userVocabularyProgress.count({ where: { userId } }),
             this.prisma.userVocabularyProgress.count({
                 where: { userId, status: client_1.VocabularyProgressStatus.MASTERED },
@@ -195,14 +149,6 @@ let VocabularyService = class VocabularyService {
                 include: {
                     _count: { select: { words: true } },
                     savedBy: { where: { userId }, select: { id: true } },
-                    words: {
-                        select: {
-                            progress: {
-                                where: { userId },
-                                select: { id: true, status: true },
-                            },
-                        },
-                    },
                 },
             }),
             this.prisma.userVocabularySet.findMany({
@@ -220,7 +166,16 @@ let VocabularyService = class VocabularyService {
                 take: 20,
                 include: { word: { include: { set: true } } },
             }),
+            this.prisma.userVocabularyProgress.findMany({
+                where: { userId },
+                select: { word: { select: { setId: true } } },
+            }),
         ]);
+        const learnedCountBySet = new Map();
+        for (const item of learnedProgress) {
+            const setId = item.word.setId;
+            learnedCountBySet.set(setId, (learnedCountBySet.get(setId) ?? 0) + 1);
+        }
         return {
             stats: {
                 totalLearned,
@@ -240,7 +195,7 @@ let VocabularyService = class VocabularyService {
                 topic: set.topic,
                 isFeatured: set.isFeatured,
                 wordCount: set._count.words,
-                learnedCount: set.words.filter((w) => w.progress.length > 0).length,
+                learnedCount: learnedCountBySet.get(set.id) ?? 0,
                 saved: set.savedBy.length > 0,
             })),
             mySets: mySets.map(({ set }) => ({
@@ -253,6 +208,7 @@ let VocabularyService = class VocabularyService {
                 cefrLevel: set.cefrLevel,
                 topic: set.topic,
                 wordCount: set._count.words,
+                learnedCount: learnedCountBySet.get(set.id) ?? 0,
                 saved: true,
             })),
             dueWords: dueWords.map((progress) => ({

@@ -1,4 +1,4 @@
-import { api, type VocabularyOverview } from './api';
+import { api } from './api';
 import {
   cachedFetch,
   invalidateCache,
@@ -36,24 +36,9 @@ export function fetchVocabularySet(id: string, force = false) {
   return cachedFetch(
     PrefetchKeys.vocabularySet(id),
     () => api.getVocabularySet(id),
-    { ttlMs: DEFAULT_TTL, force },
+    // Giữ cache lâu để quay lại chủ đề không phải fetch lại.
+    { ttlMs: 24 * 60 * 60 * 1000, force },
   );
-}
-
-export async function prefetchVocabularySets(
-  overview?: VocabularyOverview,
-  force = false,
-) {
-  const data = overview ?? (await fetchVocabularyOverview(force));
-  const setIds = new Set(
-    [...data.sets, ...data.mySets].map((set) => set.id),
-  );
-
-  await Promise.allSettled(
-    [...setIds].map((id) => fetchVocabularySet(id, force)),
-  );
-
-  return data;
 }
 
 export function fetchActivePackages(force = false) {
@@ -87,7 +72,7 @@ export function prefetchHomeFeatures(isAuthenticated: boolean) {
   if (isAuthenticated) {
     tasks.push(
       fetchLessonStats(),
-      prefetchVocabularySets(),
+      fetchVocabularyOverview(),
       fetchSpeakingScenarios(),
       fetchSpeakingQuota(),
     );

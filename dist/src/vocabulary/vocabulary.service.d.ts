@@ -1,9 +1,11 @@
 import { PrismaService } from '../prisma/prisma.service';
 export declare class VocabularyService {
     private readonly prisma;
+    private catalogSync;
     constructor(prisma: PrismaService);
     private addDays;
     private ensureCatalog;
+    private syncCatalog;
     getOverview(userId: string): Promise<{
         stats: {
             totalLearned: number;
@@ -36,6 +38,7 @@ export declare class VocabularyService {
             cefrLevel: import("@prisma/client").$Enums.CefrLevel;
             topic: string;
             wordCount: number;
+            learnedCount: number;
             saved: boolean;
         }[];
         dueWords: {
@@ -64,8 +67,8 @@ export declare class VocabularyService {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            word: string;
             setId: string;
+            word: string;
             phonetic: string | null;
             meaning: string;
             example: string;
@@ -107,8 +110,8 @@ export declare class VocabularyService {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            word: string;
             setId: string;
+            word: string;
             phonetic: string | null;
             meaning: string;
             example: string;

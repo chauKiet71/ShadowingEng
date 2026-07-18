@@ -45,7 +45,6 @@ import {
   PrefetchKeys,
   fetchVocabularyOverview,
   fetchVocabularySet,
-  prefetchVocabularySets,
 } from '../lib/prefetchFeatures';
 
 const iconMap = {
@@ -239,10 +238,19 @@ export default function VocabularyPage() {
   async function loadOverview(force = false) {
     const data = await fetchVocabularyOverview(force);
     setOverview(data);
-    void prefetchVocabularySets(data, force);
   }
 
   useEffect(() => {
+    // Hiện overview từ cache nếu có. Chi tiết từng bộ chỉ fetch khi người dùng mở chủ đề.
+    const cached = peekCache<VocabularyOverview>(
+      PrefetchKeys.vocabularyOverview,
+    );
+    if (cached) {
+      setOverview(cached);
+      setLoading(false);
+      return;
+    }
+
     void loadOverview()
       .catch((err) =>
         setError(err instanceof Error ? err.message : 'Không tải được từ vựng'),
@@ -261,8 +269,14 @@ export default function VocabularyPage() {
       const cached = peekCache<VocabularySetDetail>(
         PrefetchKeys.vocabularySet(set.id),
       );
-      if (cached) setSelectedSet(cached);
-      setSelectedSet(await fetchVocabularySet(set.id));
+      if (cached) {
+        setSelectedSet(cached);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        return;
+      }
+
+      const detail = await fetchVocabularySet(set.id);
+      setSelectedSet(detail);
       window.scrollTo({ top: 0, behavior: 'auto' });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không mở được bộ từ');
@@ -317,23 +331,6 @@ export default function VocabularyPage() {
     setError('');
     playWordAudio(words[0]);
     window.scrollTo({ top: 0, behavior: 'auto' });
-  }
-
-  function startLearning(word: VocabularyWord) {
-    const queue =
-      selectedSet?.words.filter((item) => !item.progress) ?? [word];
-    const startIndex = Math.max(
-      0,
-      queue.findIndex((item) => item.id === word.id),
-    );
-    const ordered =
-      startIndex > 0
-        ? [...queue.slice(startIndex), ...queue.slice(0, startIndex)]
-        : queue.length > 0
-          ? queue
-          : [word];
-
-    startLearningQueue(ordered);
   }
 
   function saveLearnedWord(word: VocabularyWord) {
@@ -856,7 +853,7 @@ export default function VocabularyPage() {
                   : 'bg-white dark:bg-neutral-900 text-primary card-shadow'
               }`}
             >
-              {selectedSet.saved ? 'Đã lưu' : 'Lưu bộ'}
+              {selectedSet.saved ? 'Đã lưu' : 'Lưu'}
             </button>
           </div>
         </div>
@@ -903,21 +900,6 @@ export default function VocabularyPage() {
                   </p>
                 </div>
               </div>
-              {!word.progress && (
-                <button
-                  type="button"
-                  disabled={busyId === word.id}
-                  onClick={() => startLearning(word)}
-                  className="mt-3 ml-11 inline-flex items-center gap-1.5 text-xs font-semibold text-primary"
-                >
-                  {busyId === word.id ? (
-                    <Loader2 size={13} className="animate-spin" />
-                  ) : (
-                    <Plus size={13} />
-                  )}
-                  Học từ này
-                </button>
-              )}
             </div>
           ))}
         </div>
@@ -1138,7 +1120,7 @@ export default function VocabularyPage() {
             </button>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
-            {(overview?.sets ?? []).map((set) => (
+            {(overview?.sets ?? []).slice(0, 5).map((set) => (
               <SetCard
                 key={set.id}
                 set={set}

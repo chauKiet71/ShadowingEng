@@ -90,6 +90,26 @@ export const categories: Category[] = [
     imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=200&h=200&fit=crop',
     lessonCount: 10,
   },
+  {
+    id: '9',
+    slug: 'doi-song-sinh-vien',
+    name: 'Đời sống sinh viên',
+    description: 'Hội thoại tiếng Anh trong đời sống sinh viên',
+    icon: '🏫',
+    iconColor: 'bg-indigo-500',
+    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=200&h=200&fit=crop',
+    lessonCount: 10,
+  },
+  {
+    id: '10',
+    slug: 'tinh-yeu',
+    name: 'Tình yêu',
+    description: 'Hội thoại tiếng Anh về tình yêu và hẹn hò',
+    icon: '💕',
+    iconColor: 'bg-rose-500',
+    imageUrl: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=200&h=200&fit=crop',
+    lessonCount: 10,
+  },
 ];
 
 export function getCategoryById(id: string): Category | undefined {
