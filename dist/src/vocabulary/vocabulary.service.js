@@ -22,6 +22,7 @@ const vocabulary_education_set_1 = require("./vocabulary-education-set");
 const vocabulary_economy_set_1 = require("./vocabulary-economy-set");
 const vocabulary_business_set_1 = require("./vocabulary-business-set");
 const vocabulary_banking_set_1 = require("./vocabulary-banking-set");
+const vocabulary_finance_set_1 = require("./vocabulary-finance-set");
 const SETS = [
     vocabulary_travel_set_1.TRAVEL_VOCABULARY_SET,
     vocabulary_daily_set_1.DAILY_VOCABULARY_SET,
@@ -32,6 +33,7 @@ const SETS = [
     vocabulary_economy_set_1.ECONOMY_VOCABULARY_SET,
     vocabulary_business_set_1.BUSINESS_VOCABULARY_SET,
     vocabulary_banking_set_1.BANKING_VOCABULARY_SET,
+    vocabulary_finance_set_1.FINANCE_VOCABULARY_SET,
 ];
 let VocabularyService = class VocabularyService {
     prisma;

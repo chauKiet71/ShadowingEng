@@ -139,26 +139,28 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="px-4 mb-6">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
           {quickLinks.map((item) => {
             const { icon: Icon, label, sub, color, disabled } = item;
             const content = (
               <>
                 <div
-                  className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center ${
+                  className={`w-10 h-10 sm:w-12 sm:h-12 ${color} rounded-xl sm:rounded-2xl flex items-center justify-center ${
                     disabled ? 'opacity-50' : ''
                   }`}
                 >
-                  <Icon size={22} className="text-white" />
+                  <Icon size={20} className="text-white" />
                 </div>
                 <span
-                  className={`text-[10px] font-semibold ${
+                  className={`text-[9px] sm:text-[10px] font-semibold text-center leading-tight ${
                     disabled ? 'text-gray-400' : 'text-gray-800'
                   }`}
                 >
                   {label}
                 </span>
-                <span className="text-[9px] text-gray-400">{sub}</span>
+                <span className="text-[8px] sm:text-[9px] text-gray-400 text-center leading-tight line-clamp-2">
+                  {sub}
+                </span>
               </>
             );
 
