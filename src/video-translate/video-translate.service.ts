@@ -19,6 +19,7 @@ import {
 } from 'fs';
 import { join } from 'path';
 import { promisify } from 'util';
+import ffmpegStaticPath from 'ffmpeg-static';
 import OpenAI, { toFile } from 'openai';
 import { fetchTranscript } from 'youtube-transcript';
 import { PrismaService } from '../prisma/prisma.service';
@@ -1013,11 +1014,14 @@ export class VideoTranslateService {
 
   private async downloadAudio(youtubeUrl: string, workDir: string) {
     const ytDlp = this.resolveYtDlpPath();
+    const ffmpeg = this.resolveFfmpegPath();
     const outTemplate = join(workDir, 'audio.%(ext)s');
     try {
       await execFileAsync(
         ytDlp,
         [
+          '--js-runtimes',
+          'node',
           '-f',
           'bestaudio/best',
           '-x',
@@ -1025,6 +1029,8 @@ export class VideoTranslateService {
           'mp3',
           '--audio-quality',
           '5',
+          '--ffmpeg-location',
+          ffmpeg,
           '--no-playlist',
           '-o',
           outTemplate,
@@ -1103,7 +1109,13 @@ export class VideoTranslateService {
       const ytDlp = this.resolveYtDlpPath();
       const { stdout } = await execFileAsync(
         ytDlp,
-        ['--dump-json', '--no-playlist', youtubeUrl],
+        [
+          '--js-runtimes',
+          'node',
+          '--dump-json',
+          '--no-playlist',
+          youtubeUrl,
+        ],
         { timeout: 60_000, maxBuffer: 8 * 1024 * 1024 },
       );
       const data = JSON.parse(stdout) as {
@@ -1147,11 +1159,9 @@ export class VideoTranslateService {
     const configured = this.config.get<string>('YT_DLP_PATH')?.trim();
     if (configured && existsSync(configured)) return configured;
 
-    const local = join(process.cwd(), 'tools', 'yt-dlp.exe');
-    if (existsSync(local)) return local;
-
-    const unixLocal = join(process.cwd(), 'tools', 'yt-dlp');
-    if (existsSync(unixLocal)) return unixLocal;
+    for (const candidate of this.localToolCandidates('yt-dlp.exe', 'yt-dlp')) {
+      if (existsSync(candidate)) return candidate;
+    }
 
     return 'yt-dlp';
   }
@@ -1159,7 +1169,32 @@ export class VideoTranslateService {
   private resolveFfmpegPath() {
     const configured = this.config.get<string>('FFMPEG_PATH')?.trim();
     if (configured && existsSync(configured)) return configured;
+
+    if (ffmpegStaticPath && existsSync(ffmpegStaticPath)) {
+      return ffmpegStaticPath;
+    }
+
+    for (const candidate of this.localToolCandidates('ffmpeg.exe', 'ffmpeg')) {
+      if (existsSync(candidate)) return candidate;
+    }
+
     return 'ffmpeg';
+  }
+
+  private localToolCandidates(...names: string[]) {
+    const projectRoots = [
+      process.cwd(),
+      join(__dirname, '..', '..'),
+      join(__dirname, '..', '..', '..'),
+    ];
+
+    return Array.from(
+      new Set(
+        projectRoots.flatMap((root) =>
+          names.map((name) => join(root, 'tools', name)),
+        ),
+      ),
+    );
   }
 
   private async runFfmpeg(args: string[]) {

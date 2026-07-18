@@ -41,6 +41,9 @@ var __importStar = (this && this.__importStar) || (function () {
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var VideoTranslateService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VideoTranslateService = exports.DUBBED_PIPELINE_VERSION = exports.DEFAULT_MAX_SECONDS_PREMIUM = exports.DEFAULT_MAX_SECONDS_FREE = exports.FREE_VIDEO_TRANSLATE_PER_DAY = void 0;
@@ -51,6 +54,7 @@ const child_process_1 = require("child_process");
 const fs_1 = require("fs");
 const path_1 = require("path");
 const util_1 = require("util");
+const ffmpeg_static_1 = __importDefault(require("ffmpeg-static"));
 const openai_1 = __importStar(require("openai"));
 const youtube_transcript_1 = require("youtube-transcript");
 const prisma_service_1 = require("../prisma/prisma.service");
@@ -782,9 +786,12 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     }
     async downloadAudio(youtubeUrl, workDir) {
         const ytDlp = this.resolveYtDlpPath();
+        const ffmpeg = this.resolveFfmpegPath();
         const outTemplate = (0, path_1.join)(workDir, 'audio.%(ext)s');
         try {
             await execFileAsync(ytDlp, [
+                '--js-runtimes',
+                'node',
                 '-f',
                 'bestaudio/best',
                 '-x',
@@ -792,6 +799,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 'mp3',
                 '--audio-quality',
                 '5',
+                '--ffmpeg-location',
+                ffmpeg,
                 '--no-playlist',
                 '-o',
                 outTemplate,
@@ -851,7 +860,13 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     async fetchVideoMeta(videoId, youtubeUrl) {
         try {
             const ytDlp = this.resolveYtDlpPath();
-            const { stdout } = await execFileAsync(ytDlp, ['--dump-json', '--no-playlist', youtubeUrl], { timeout: 60_000, maxBuffer: 8 * 1024 * 1024 });
+            const { stdout } = await execFileAsync(ytDlp, [
+                '--js-runtimes',
+                'node',
+                '--dump-json',
+                '--no-playlist',
+                youtubeUrl,
+            ], { timeout: 60_000, maxBuffer: 8 * 1024 * 1024 });
             const data = JSON.parse(stdout);
             return {
                 title: data.title?.trim() || `YouTube ${videoId}`,
@@ -884,19 +899,32 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         const configured = this.config.get('YT_DLP_PATH')?.trim();
         if (configured && (0, fs_1.existsSync)(configured))
             return configured;
-        const local = (0, path_1.join)(process.cwd(), 'tools', 'yt-dlp.exe');
-        if ((0, fs_1.existsSync)(local))
-            return local;
-        const unixLocal = (0, path_1.join)(process.cwd(), 'tools', 'yt-dlp');
-        if ((0, fs_1.existsSync)(unixLocal))
-            return unixLocal;
+        for (const candidate of this.localToolCandidates('yt-dlp.exe', 'yt-dlp')) {
+            if ((0, fs_1.existsSync)(candidate))
+                return candidate;
+        }
         return 'yt-dlp';
     }
     resolveFfmpegPath() {
         const configured = this.config.get('FFMPEG_PATH')?.trim();
         if (configured && (0, fs_1.existsSync)(configured))
             return configured;
+        if (ffmpeg_static_1.default && (0, fs_1.existsSync)(ffmpeg_static_1.default)) {
+            return ffmpeg_static_1.default;
+        }
+        for (const candidate of this.localToolCandidates('ffmpeg.exe', 'ffmpeg')) {
+            if ((0, fs_1.existsSync)(candidate))
+                return candidate;
+        }
         return 'ffmpeg';
+    }
+    localToolCandidates(...names) {
+        const projectRoots = [
+            process.cwd(),
+            (0, path_1.join)(__dirname, '..', '..'),
+            (0, path_1.join)(__dirname, '..', '..', '..'),
+        ];
+        return Array.from(new Set(projectRoots.flatMap((root) => names.map((name) => (0, path_1.join)(root, 'tools', name)))));
     }
     async runFfmpeg(args) {
         const ffmpeg = this.resolveFfmpegPath();
