@@ -4,9 +4,12 @@
   "description": "Shadowing ENGLISH - NestJS Fullstack App",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "postinstall": "prisma generate",
-    "build": "prisma generate && npm run build:client && nest build",
+    "postinstall": "prisma generate && node scripts/install-yt-dlp.mjs",
+    "build": "prisma generate && node scripts/install-yt-dlp.mjs && npm run build:client && nest build",
     "build:client": "vite build --config client/vite.config.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

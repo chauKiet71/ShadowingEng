@@ -12,3 +12,4 @@ public/*
 /storage/**
 !/storage/.gitkeep
 /tools/yt-dlp.exe
+/tools/yt-dlp
