@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, type ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Moon, Sun, Crown, Star, Flame, Headphones, Clock,
-  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil, MessageCircle,
+  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil, BookOpen, Mic,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import UserAvatar from '../components/UserAvatar';
@@ -11,11 +11,14 @@ import { useListeningStats } from '../contexts/HistoryContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { api, type LessonHistoryStats } from '../lib/api';
+import { peekCache } from '../lib/prefetchCache';
+import { PrefetchKeys, fetchLessonStats } from '../lib/prefetchFeatures';
 
 const menuItems = [
   { icon: Heart, label: 'Danh sách yêu thích', color: 'text-red-500', to: '/kham-pha?filter=fav' },
   { icon: Clock, label: 'Lịch sử học tập', color: 'text-blue-500', to: '/lich-su' },
-  { icon: MessageCircle, label: 'Trò chuyện với AI', color: 'text-teal-500', to: '/tro-chuyen-ai' },
+  { icon: BookOpen, label: 'Từ vựng của bạn', color: 'text-orange-500', to: '/tu-vung' },
+  { icon: Mic, label: 'Luyện nói tình huống', color: 'text-indigo-500', to: '/luyen-noi' },
   { icon: Gauge, label: 'Trình độ', color: 'text-green-500', to: '/trinh-do' },
   { icon: HelpCircle, label: 'Hỗ trợ', color: 'text-purple-500', to: 'http://zalo.me/0327142982', external: true },
 ];
@@ -50,7 +53,9 @@ export default function ProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [avatarError, setAvatarError] = useState('');
-  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(null);
+  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(
+    () => peekCache<LessonHistoryStats>(PrefetchKeys.lessonStats) ?? null,
+  );
 
   useEffect(() => {
     if (!user?.id) {
@@ -58,7 +63,7 @@ export default function ProfilePage() {
       return;
     }
 
-    void api.getMyLessonStats()
+    void fetchLessonStats()
       .then(setRemoteStats)
       .catch(() => setRemoteStats(null));
   }, [user?.id]);

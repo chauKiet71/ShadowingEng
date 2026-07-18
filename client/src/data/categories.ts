@@ -18,7 +18,7 @@ export const categories: Category[] = [
     icon: '🏔️',
     iconColor: 'bg-green-500',
     imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=200&h=200&fit=crop',
-    lessonCount: 10,
+    lessonCount: 11,
   },
   {
     id: '2',

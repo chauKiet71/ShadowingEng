@@ -22,6 +22,8 @@ const auth_module_1 = require("./auth/auth.module");
 const shadowing_module_1 = require("./shadowing/shadowing.module");
 const payments_module_1 = require("./payments/payments.module");
 const chat_module_1 = require("./chat/chat.module");
+const vocabulary_module_1 = require("./vocabulary/vocabulary.module");
+const speaking_module_1 = require("./speaking/speaking.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -46,6 +48,8 @@ exports.AppModule = AppModule = __decorate([
             shadowing_module_1.ShadowingModule,
             payments_module_1.PaymentsModule,
             chat_module_1.ChatModule,
+            vocabulary_module_1.VocabularyModule,
+            speaking_module_1.SpeakingModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

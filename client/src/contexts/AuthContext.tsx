@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { api, getToken, removeToken, setToken } from '../lib/api';
+import { clearAuthenticatedPrefetch } from '../lib/prefetchFeatures';
 import type { LoginPayload, RegisterPayload, User } from '../types/auth';
 
 interface AuthContextValue {
@@ -78,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     removeToken();
     setUser(null);
+    clearAuthenticatedPrefetch();
   }, []);
 
   const value = useMemo(

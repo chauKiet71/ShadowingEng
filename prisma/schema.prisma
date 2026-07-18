@@ -66,6 +66,21 @@ enum ChatMessageRole {
   SYSTEM
 }
 
+enum VocabularyProgressStatus {
+  LEARNING
+  MASTERED
+}
+
+enum SpeakingSessionStatus {
+  ACTIVE
+  COMPLETED
+}
+
+enum SpeakingDialect {
+  EN_US
+  EN_GB
+}
+
 model User {
   id               String     @id @default(uuid())
   email            String     @unique
@@ -92,6 +107,10 @@ model User {
   categoryFavs      CategoryFavorite[]
   paymentOrders     PaymentOrder[]
   chatConversations ChatConversation[]
+  vocabularyProgress UserVocabularyProgress[]
+  vocabularySets     UserVocabularySet[]
+  speakingSessions   SpeakingSession[]
+  speakingDailyUsage SpeakingDailyUsage[]
 
   @@map("users")
 }
@@ -300,4 +319,163 @@ model ChatMessage {
 
   @@index([conversationId, createdAt])
   @@map("chat_messages")
+}
+
+model VocabularySet {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  description String
+  icon        String    @default("book")
+  color       String    @default("indigo")
+  cefrLevel   CefrLevel @default(A1) @map("cefr_level")
+  topic       String
+  isFeatured  Boolean   @default(false) @map("is_featured")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  words VocabularyWord[]
+  savedBy UserVocabularySet[]
+
+  @@map("vocabulary_sets")
+}
+
+model VocabularyWord {
+  id                 String   @id @default(uuid())
+  setId              String   @map("set_id")
+  set                VocabularySet @relation(fields: [setId], references: [id], onDelete: Cascade)
+  word               String
+  phonetic           String?
+  meaning            String
+  example            String
+  exampleTranslation String   @map("example_translation")
+  audioUrl           String?  @map("audio_url")
+  sortOrder          Int      @default(0) @map("sort_order")
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  progress UserVocabularyProgress[]
+
+  @@unique([setId, word])
+  @@index([setId, sortOrder])
+  @@map("vocabulary_words")
+}
+
+model UserVocabularyProgress {
+  id             String                   @id @default(uuid())
+  userId         String                   @map("user_id")
+  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wordId         String                   @map("word_id")
+  word           VocabularyWord           @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  status         VocabularyProgressStatus @default(LEARNING)
+  reviewCount    Int                      @default(0) @map("review_count")
+  correctCount   Int                      @default(0) @map("correct_count")
+  intervalDays   Int                      @default(1) @map("interval_days")
+  learnedAt      DateTime                 @default(now()) @map("learned_at")
+  lastReviewedAt DateTime?                @map("last_reviewed_at")
+  nextReviewAt   DateTime                 @map("next_review_at")
+  createdAt      DateTime                 @default(now()) @map("created_at")
+  updatedAt      DateTime                 @updatedAt @map("updated_at")
+
+  @@unique([userId, wordId])
+  @@index([userId, nextReviewAt])
+  @@map("user_vocabulary_progress")
+}
+
+model UserVocabularySet {
+  id        String        @id @default(uuid())
+  userId    String        @map("user_id")
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  setId     String        @map("set_id")
+  set       VocabularySet @relation(fields: [setId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  @@unique([userId, setId])
+  @@map("user_vocabulary_sets")
+}
+
+model SpeakingScenario {
+  id           String    @id @default(uuid())
+  slug         String    @unique
+  title        String
+  description  String
+  icon         String    @default("mic")
+  color        String    @default("indigo")
+  learnerRole  String    @map("learner_role")
+  aiRole       String    @map("ai_role")
+  objective    String
+  minLevel     CefrLevel @default(A1) @map("min_level")
+  maxLevel     CefrLevel @default(C2) @map("max_level")
+  openingHint  String    @map("opening_hint")
+  isVisible    Boolean   @default(true) @map("is_visible")
+  sortOrder    Int       @default(0) @map("sort_order")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  sessions SpeakingSession[]
+
+  @@index([isVisible, sortOrder])
+  @@map("speaking_scenarios")
+}
+
+model SpeakingSession {
+  id          String                @id @default(uuid())
+  userId      String                @map("user_id")
+  user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scenarioId  String                @map("scenario_id")
+  scenario    SpeakingScenario      @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  level       CefrLevel
+  dialect     SpeakingDialect       @default(EN_US)
+  status      SpeakingSessionStatus @default(ACTIVE)
+  turnCount   Int                   @default(0) @map("turn_count")
+  completedAt DateTime?             @map("completed_at")
+  createdAt   DateTime              @default(now()) @map("created_at")
+  updatedAt   DateTime              @updatedAt @map("updated_at")
+
+  turns SpeakingTurn[]
+
+  @@index([userId, createdAt])
+  @@index([scenarioId])
+  @@map("speaking_sessions")
+}
+
+model SpeakingTurn {
+  id               String          @id @default(uuid())
+  sessionId        String          @map("session_id")
+  session          SpeakingSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  turnIndex        Int             @map("turn_index")
+  promptText       String          @map("prompt_text")
+  transcript       String?
+  suggestion       String?
+  feedback         String?
+  aiReply          String?         @map("ai_reply")
+  pronunciation    Float?
+  fluency          Float?
+  grammar          Float?
+  vocabulary       Float?
+  coherence        Float?
+  overall          Float?
+  relevance        String?
+  cefrOverall      String?         @map("cefr_overall")
+  durationMs       Int?            @map("duration_ms")
+  processingRaw    Json?           @map("speechace_raw")
+  createdAt        DateTime        @default(now()) @map("created_at")
+
+  @@unique([sessionId, turnIndex])
+  @@index([sessionId, createdAt])
+  @@map("speaking_turns")
+}
+
+model SpeakingDailyUsage {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  usageDate DateTime @map("usage_date") @db.Date
+  turnCount Int      @default(0) @map("turn_count")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, usageDate])
+  @@index([userId, usageDate])
+  @@map("speaking_daily_usage")
 }

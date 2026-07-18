@@ -1,5 +1,6 @@
 import { PrismaClient, LessonLevel, PackageStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { SPEAKING_SCENARIOS } from '../src/speaking/speaking-scenarios';
 
 const prisma = new PrismaClient();
 
@@ -188,7 +189,35 @@ async function main() {
     },
   });
 
-  console.log('Seed completed:', { packages: packages.length, categories: categories.length, lesson: lesson.title });
+  let speakingCount = 0;
+  for (const scenario of SPEAKING_SCENARIOS) {
+    await prisma.speakingScenario.upsert({
+      where: { slug: scenario.slug },
+      create: { ...scenario },
+      update: {
+        title: scenario.title,
+        description: scenario.description,
+        icon: scenario.icon,
+        color: scenario.color,
+        learnerRole: scenario.learnerRole,
+        aiRole: scenario.aiRole,
+        objective: scenario.objective,
+        minLevel: scenario.minLevel,
+        maxLevel: scenario.maxLevel,
+        openingHint: scenario.openingHint,
+        sortOrder: scenario.sortOrder,
+        isVisible: true,
+      },
+    });
+    speakingCount += 1;
+  }
+
+  console.log('Seed completed:', {
+    packages: packages.length,
+    categories: categories.length,
+    lesson: lesson.title,
+    speakingScenarios: speakingCount,
+  });
 }
 
 main()

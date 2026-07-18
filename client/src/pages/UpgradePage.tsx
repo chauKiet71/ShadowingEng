@@ -8,7 +8,7 @@ import {
   Infinity,
   Subtitles,
   Bookmark,
-  MessageCircle,
+  Mic,
   Sparkles,
   Shield,
   XCircle,
@@ -16,12 +16,14 @@ import {
   Circle,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
-import { api } from '../lib/api';
 import { formatPrice, getUnitPriceLabel, mapPackageToPlan, type Plan } from '../data/plans';
+import { peekCache } from '../lib/prefetchCache';
+import { PrefetchKeys, fetchActivePackages } from '../lib/prefetchFeatures';
+import type { PackageRow } from '../lib/api';
 
 const features = [
   { icon: Infinity, label: 'Nghe không giới hạn', free: false, premium: true },
-  { icon: MessageCircle, label: 'Trò chuyện với AI', free: 'limited', premium: true },
+  { icon: Mic, label: 'Luyện nói tình huống', free: 'limited', premium: true },
   { icon: Subtitles, label: 'Phụ đề song ngữ', free: 'limited', premium: true },
   { icon: Bookmark, label: 'Lưu & Quản lý yêu thích', free: 'limited', premium: true },
 ] as const;
@@ -38,19 +40,26 @@ function FeatureCell({ value }: { value: boolean | 'limited' }) {
 
 export default function UpgradePage() {
   const navigate = useNavigate();
-  const [plans, setPlans] = useState<Plan[]>([]);
-  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const cachedPackages = peekCache<PackageRow[]>(PrefetchKeys.packages);
+  const [plans, setPlans] = useState<Plan[]>(() =>
+    cachedPackages ? cachedPackages.map(mapPackageToPlan) : [],
+  );
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(() => {
+    if (!cachedPackages?.length) return null;
+    const mapped = cachedPackages.map(mapPackageToPlan);
+    return mapped[1]?.id ?? mapped[0]?.id ?? null;
+  });
+  const [loading, setLoading] = useState(() => !cachedPackages);
   const [error, setError] = useState('');
 
   useEffect(() => {
     let cancelled = false;
 
     async function loadPlans() {
-      setLoading(true);
+      if (!cachedPackages) setLoading(true);
       setError('');
       try {
-        const data = await api.getPackages({ status: 'ACTIVE', visible: true });
+        const data = await fetchActivePackages();
         if (cancelled) return;
         const mapped = data.map(mapPackageToPlan);
         setPlans(mapped);

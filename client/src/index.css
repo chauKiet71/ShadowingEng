@@ -267,7 +267,7 @@ button .loader {
   }
 }
 
-@keyframes chat-ai-radiate {
+@keyframes speaking-nav-radiate {
   0% {
     transform: scale(1);
     opacity: 0.55;
@@ -278,16 +278,16 @@ button .loader {
   }
 }
 
-.chat-ai-pulse {
+.speaking-nav-pulse {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
   background: linear-gradient(135deg, #6366f1, #3b82f6);
-  animation: chat-ai-radiate 2s ease-out infinite;
+  animation: speaking-nav-radiate 2s ease-out infinite;
   pointer-events: none;
 }
 
-.chat-ai-pulse:nth-child(2) {
+.speaking-nav-pulse:nth-child(2) {
   animation-delay: 1s;
 }
 

@@ -226,24 +226,125 @@ export const api = {
     );
   },
 
-  getChatQuota() {
-    return request<ChatQuota>('/chat/quota');
+  getVocabularyOverview() {
+    return request<VocabularyOverview>('/vocabulary/overview');
   },
 
-  createChatConversation(level: CefrLevel) {
-    return request<CreateChatConversationResponse>('/chat/conversations', {
+  getVocabularySet(id: string) {
+    return request<VocabularySetDetail>(
+      `/vocabulary/sets/${encodeURIComponent(id)}`,
+    );
+  },
+
+  saveVocabularySet(id: string) {
+    return request<{ saved: boolean }>(
+      `/vocabulary/sets/${encodeURIComponent(id)}/save`,
+      { method: 'POST' },
+    );
+  },
+
+  removeVocabularySet(id: string) {
+    return request<{ saved: boolean }>(
+      `/vocabulary/sets/${encodeURIComponent(id)}/save`,
+      { method: 'DELETE' },
+    );
+  },
+
+  learnVocabularyWord(wordId: string) {
+    return request<VocabularyProgress>('/vocabulary/words/learn', {
       method: 'POST',
-      body: JSON.stringify({ level }),
+      body: JSON.stringify({ wordId }),
     });
   },
 
-  sendChatMessage(conversationId: string, content: string) {
-    return request<SendChatMessageResponse>(
-      `/chat/conversations/${encodeURIComponent(conversationId)}/messages`,
+  reviewVocabularyWord(wordId: string, correct: boolean) {
+    return request<VocabularyProgress>(
+      `/vocabulary/words/${encodeURIComponent(wordId)}/review`,
       {
         method: 'POST',
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ correct }),
       },
+    );
+  },
+
+  getSpeakingScenarios() {
+    return request<SpeakingScenario[]>('/speaking/scenarios');
+  },
+
+  getSpeakingQuota() {
+    return request<SpeakingQuota>('/speaking/quota');
+  },
+
+  translateSpeakingText(text: string) {
+    return request<{ translation: string }>('/speaking/translate', {
+      method: 'POST',
+      body: JSON.stringify({ text }),
+    });
+  },
+
+  createSpeakingSession(payload: {
+    scenarioId: string;
+    level: CefrLevel;
+    dialect: SpeakingDialect;
+  }) {
+    return request<CreateSpeakingSessionResponse>('/speaking/sessions', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  getSpeakingSession(id: string) {
+    return request<SpeakingSessionDetail>(
+      `/speaking/sessions/${encodeURIComponent(id)}`,
+    );
+  },
+
+  async submitSpeakingTurn(
+    sessionId: string,
+    audio: Blob,
+    durationMs?: number,
+  ) {
+    const token = getToken();
+    const form = new FormData();
+    form.append('audio', audio, 'speaking.webm');
+    if (typeof durationMs === 'number') {
+      form.append('durationMs', String(Math.round(durationMs)));
+    }
+
+    const res = await fetch(
+      `/api/speaking/sessions/${encodeURIComponent(sessionId)}/turns`,
+      {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: form,
+      },
+    );
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const rawMessage = data.message;
+      const message =
+        typeof rawMessage === 'string'
+          ? rawMessage
+          : Array.isArray(rawMessage)
+            ? rawMessage.join(', ')
+            : typeof rawMessage?.message === 'string'
+              ? rawMessage.message
+              : 'Không gửi được bản ghi âm';
+      const code =
+        typeof data.code === 'string'
+          ? data.code
+          : typeof rawMessage?.code === 'string'
+            ? rawMessage.code
+            : undefined;
+      throw new ApiError(message, code, res.status);
+    }
+    return data as SubmitSpeakingTurnResponse;
+  },
+
+  completeSpeakingSession(id: string) {
+    return request<CompleteSpeakingSessionResponse>(
+      `/speaking/sessions/${encodeURIComponent(id)}/complete`,
+      { method: 'POST' },
     );
   },
 };
@@ -329,32 +430,158 @@ export interface LessonHistoryStats {
 
 export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 
-export interface ChatQuota {
+export interface VocabularyProgress {
+  id: string;
+  status: 'LEARNING' | 'MASTERED';
+  reviewCount: number;
+  correctCount: number;
+  intervalDays: number;
+  nextReviewAt: string;
+}
+
+export interface VocabularyWord {
+  id: string;
+  word: string;
+  phonetic: string | null;
+  meaning: string;
+  example: string;
+  exampleTranslation: string;
+  audioUrl: string | null;
+  setTitle?: string;
+  progress: VocabularyProgress | null;
+}
+
+export interface VocabularySetSummary {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  cefrLevel: CefrLevel;
+  topic: string;
+  isFeatured?: boolean;
+  wordCount: number;
+  learnedCount?: number;
+  saved: boolean;
+}
+
+export interface VocabularySetDetail
+  extends Omit<VocabularySetSummary, 'wordCount'> {
+  words: VocabularyWord[];
+}
+
+export interface VocabularyOverview {
+  stats: {
+    totalLearned: number;
+    mastered: number;
+    learning: number;
+    dueCount: number;
+    learnedToday: number;
+  };
+  sets: VocabularySetSummary[];
+  mySets: VocabularySetSummary[];
+  dueWords: VocabularyWord[];
+}
+
+export type SpeakingDialect = 'EN_US' | 'EN_GB';
+
+export interface SpeakingQuota {
   used: number;
   limit: number;
   remaining: number | null;
   isPremium: boolean;
+  resetsAt: string;
 }
 
-export interface ChatMessageDto {
+export interface SpeakingScenario {
   id: string;
-  role: 'USER' | 'ASSISTANT' | 'SYSTEM';
-  content: string;
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  learnerRole: string;
+  aiRole: string;
+  objective: string;
+  minLevel: CefrLevel;
+  maxLevel: CefrLevel;
+  sortOrder: number;
+}
+
+export interface SpeakingScores {
+  pronunciation: number | null;
+  fluency: number | null;
+  grammar: number | null;
+  vocabulary: number | null;
+  coherence: number | null;
+  overall: number | null;
+  relevance: string | null;
+  cefrOverall: string | null;
+}
+
+export interface SpeakingTurn {
+  id: string;
+  turnIndex: number;
+  promptText: string;
+  transcript: string | null;
+  suggestion: string | null;
+  feedback: string | null;
+  aiReply: string | null;
+  scores: SpeakingScores;
+  durationMs: number | null;
   createdAt: string;
 }
 
-export interface CreateChatConversationResponse {
-  conversation: {
+export interface SpeakingSession {
+  id: string;
+  level: CefrLevel;
+  dialect: SpeakingDialect;
+  status: 'ACTIVE' | 'COMPLETED';
+  turnCount: number;
+  createdAt: string;
+  completedAt: string | null;
+  scenario: {
     id: string;
-    level: CefrLevel;
-    createdAt: string;
+    slug: string;
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    learnerRole: string;
+    aiRole: string;
+    objective: string;
   };
-  messages: ChatMessageDto[];
-  quota: ChatQuota;
 }
 
-export interface SendChatMessageResponse {
-  userMessage: ChatMessageDto;
-  assistantMessage: ChatMessageDto;
-  quota: ChatQuota;
+export interface CreateSpeakingSessionResponse {
+  session: SpeakingSession;
+  turn: SpeakingTurn;
+  quota: SpeakingQuota;
+}
+
+export interface SpeakingSessionDetail {
+  session: SpeakingSession;
+  turns: SpeakingTurn[];
+  quota: SpeakingQuota;
+}
+
+export interface SubmitSpeakingTurnResponse {
+  turn: SpeakingTurn;
+  quota: SpeakingQuota;
+}
+
+export interface CompleteSpeakingSessionResponse {
+  session: SpeakingSession;
+  turns: SpeakingTurn[];
+  summary: {
+    turnsSpoken: number;
+    averageOverall: number | null;
+    averagePronunciation: number | null;
+    averageFluency: number | null;
+    averageGrammar: number | null;
+    averageVocabulary: number | null;
+    averageCoherence: number | null;
+  };
+  quota: SpeakingQuota;
 }

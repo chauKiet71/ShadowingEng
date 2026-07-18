@@ -25,7 +25,8 @@ import AdminPackagesPage from './pages/admin/AdminPackagesPage';
 import UpgradePage from './pages/UpgradePage';
 import PaymentPage from './pages/PaymentPage';
 import LevelPage from './pages/LevelPage';
-import AiChatPage from './pages/AiChatPage';
+import VocabularyPage from './pages/VocabularyPage';
+import SpeakingPage from './pages/SpeakingPage';
 
 function LessonPageRoute() {
   const { id } = useParams<{ id: string }>();
@@ -126,10 +127,18 @@ export default function App() {
             }
           />
           <Route
-            path="/tro-chuyen-ai"
+            path="/tu-vung"
             element={
               <ProtectedRoute>
-                <AiChatPage />
+                <VocabularyPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/luyen-noi"
+            element={
+              <ProtectedRoute>
+                <SpeakingPage />
               </ProtectedRoute>
             }
           />

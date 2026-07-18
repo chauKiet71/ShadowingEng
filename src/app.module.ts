@@ -13,6 +13,8 @@ import { AuthModule } from './auth/auth.module';
 import { ShadowingModule } from './shadowing/shadowing.module';
 import { PaymentsModule } from './payments/payments.module';
 import { ChatModule } from './chat/chat.module';
+import { VocabularyModule } from './vocabulary/vocabulary.module';
+import { SpeakingModule } from './speaking/speaking.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { ChatModule } from './chat/chat.module';
     ShadowingModule,
     PaymentsModule,
     ChatModule,
+    VocabularyModule,
+    SpeakingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

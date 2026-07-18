@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Headphones, Target, Bookmark, MessageCircle, Play, User } from 'lucide-react';
+import { Headphones, BookOpen, Mic, Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import Logo from '../components/Logo';
 import HorizontalScroll from '../components/HorizontalScroll';
@@ -8,10 +8,15 @@ import UserAvatar from '../components/UserAvatar';
 import LessonLink from '../components/LessonLink';
 import { useAuth } from '../contexts/AuthContext';
 import { useListeningStats } from '../contexts/HistoryContext';
-import { useRequireAuth } from '../hooks/useRequireAuth';
-import { api, type LessonHistoryStats } from '../lib/api';
+import { type LessonHistoryStats } from '../lib/api';
+import {
+  fetchLessonStats,
+  PrefetchKeys,
+  prefetchHomeFeatures,
+} from '../lib/prefetchFeatures';
+import { peekCache } from '../lib/prefetchCache';
 import { featuredLessons, formatDuration } from '../data/mockData';
-import { getRandomLessonId, lessons, formatLevelLabel } from '../data/lessons';
+import { lessons, formatLevelLabel } from '../data/lessons';
 import { categories } from '../data/categories';
 
 const levelColors: Record<string, string> = {
@@ -22,27 +27,32 @@ const levelColors: Record<string, string> = {
 
 const quickLinks = [
   { icon: Headphones, label: 'Bài nghe', sub: 'Theo chủ đề', color: 'bg-blue-500', to: '/kham-pha' },
-  { icon: Target, label: 'Luyện tập', sub: 'Shadowing', color: 'bg-pink-500', randomLesson: true },
-  { icon: Bookmark, label: 'Yêu thích', sub: 'Đã lưu', color: 'bg-orange-500', to: '/kham-pha?filter=fav' },
-  { icon: MessageCircle, label: 'Chat AI', sub: 'Theo cấp độ', color: 'bg-teal-500', to: '/tro-chuyen-ai' },
+  { icon: BookOpen, label: 'Từ vựng', sub: 'Học & ôn tập', color: 'bg-orange-500', to: '/tu-vung' },
+  { icon: Mic, label: 'Luyện nói', sub: 'Tình huống thật', color: 'bg-indigo-500', to: '/luyen-noi' },
 ];
 
 export default function HomePage() {
-  const { isAuthenticated, user } = useAuth();
-  const { goToLesson } = useRequireAuth();
+  const { isAuthenticated, user, loading: authLoading } = useAuth();
   const localStats = useListeningStats();
-  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(null);
+  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(
+    () => peekCache<LessonHistoryStats>(PrefetchKeys.lessonStats) ?? null,
+  );
 
+  // Chỉ prefetch sau khi trang chủ mount và auth đã sẵn sàng.
   useEffect(() => {
+    if (authLoading) return;
+
+    void prefetchHomeFeatures(isAuthenticated);
+
     if (!user?.id) {
       setRemoteStats(null);
       return;
     }
 
-    void api.getMyLessonStats()
+    void fetchLessonStats()
       .then(setRemoteStats)
       .catch(() => setRemoteStats(null));
-  }, [user?.id]);
+  }, [authLoading, isAuthenticated, user?.id]);
 
   const streakDays = Math.max(
     localStats.streakDays,
@@ -56,7 +66,7 @@ export default function HomePage() {
       <div className="px-4 pt-4 pb-2 flex items-center justify-between">
         <Link
           to="/"
-          className="inline-flex rounded-xl bg-white border border-gray-100 px-2.5 py-1.5 card-shadow"
+          className="inline-flex"
         >
           <Logo size="sm" />
         </Link>
@@ -121,7 +131,7 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="px-4 mb-6">
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {quickLinks.map((item) => {
             const { icon: Icon, label, sub, color } = item;
             const content = (
@@ -134,21 +144,8 @@ export default function HomePage() {
               </>
             );
 
-            if ('randomLesson' in item && item.randomLesson) {
-              return (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => goToLesson(getRandomLessonId())}
-                  className="flex flex-col items-center gap-1"
-                >
-                  {content}
-                </button>
-              );
-            }
-
             return (
-              <Link key={label} to={item.to!} className="flex flex-col items-center gap-1">
+              <Link key={label} to={item.to} className="flex flex-col items-center gap-1">
                 {content}
               </Link>
             );
@@ -223,7 +220,7 @@ export default function HomePage() {
                 <img
                   src={cat.imageUrl}
                   alt=""
-                  className="w-[4.5rem] h-full object-cover flex-shrink-0"
+                  className="w-[9rem] h-full object-cover flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0 p-2.5 flex flex-col overflow-hidden">
                   <div className="flex items-center gap-2 mb-1">

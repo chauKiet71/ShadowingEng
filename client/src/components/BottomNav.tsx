@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Compass, Clock, User, MessageCircle } from 'lucide-react';
+import { Home, Compass, BookOpen, User, Mic } from 'lucide-react';
 
 const leftItems = [
   { to: '/', icon: Home, label: 'Trang chủ' },
@@ -7,7 +7,7 @@ const leftItems = [
 ];
 
 const rightItems = [
-  { to: '/lich-su', icon: Clock, label: 'Lịch sử' },
+  { to: '/tu-vung', icon: BookOpen, label: 'Từ vựng' },
   { to: '/ca-nhan', icon: User, label: 'Cá nhân' },
 ];
 
@@ -44,14 +44,14 @@ export default function BottomNav() {
         ))}
 
         <NavLink
-          to="/tro-chuyen-ai"
+          to="/luyen-noi"
           className="relative flex flex-col items-center -mt-6 mx-1 w-[72px] shrink-0"
         >
           {({ isActive }) => (
             <>
               <span className="relative w-14 h-14">
-                <span className="chat-ai-pulse" aria-hidden />
-                <span className="chat-ai-pulse" aria-hidden />
+                <span className="speaking-nav-pulse" aria-hidden />
+                <span className="speaking-nav-pulse" aria-hidden />
                 <span
                   className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-neutral-900 transition-transform ${
                     isActive
@@ -59,7 +59,7 @@ export default function BottomNav() {
                       : 'gradient-btn hover:scale-105'
                   }`}
                 >
-                  <MessageCircle size={26} className="text-white" strokeWidth={2.25} />
+                  <Mic size={26} className="text-white" strokeWidth={2.25} />
                 </span>
               </span>
               <span
@@ -67,7 +67,7 @@ export default function BottomNav() {
                   isActive ? 'text-primary' : 'text-gray-500'
                 }`}
               >
-                Chat AI
+                Luyện nói
               </span>
             </>
           )}

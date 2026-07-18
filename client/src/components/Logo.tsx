@@ -1,30 +1,43 @@
-import { Headphones } from 'lucide-react';
-
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
 }
 
 export default function Logo({ size = 'md', showText = true }: LogoProps) {
-  const iconSize = size === 'sm' ? 20 : size === 'lg' ? 32 : 24;
-  const textSize = size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-xl' : 'text-base';
+  const iconClass =
+    size === 'sm'
+      ? 'h-9 w-9'
+      : size === 'lg'
+        ? 'h-14 w-14'
+        : 'h-11 w-11';
+  const imageClass =
+    size === 'sm'
+      ? 'h-[58px] w-[58px]'
+      : size === 'lg'
+        ? 'h-[90px] w-[90px]'
+        : 'h-[72px] w-[72px]';
+  const textClass =
+    size === 'sm'
+      ? 'text-xl'
+      : size === 'lg'
+        ? 'text-3xl'
+        : 'text-2xl';
 
   return (
     <div className="flex items-center gap-2">
-      <div className="relative">
-        <Headphones size={iconSize} className="text-blue-500" />
-        <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 flex gap-0.5">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="w-0.5 bg-blue-400 rounded-full" style={{ height: `${4 + i * 2}px` }} />
-          ))}
-        </div>
+      <div className={`relative shrink-0 overflow-hidden rounded-full bg-white ${iconClass}`}>
+        <img
+          src="/brand/hihi-icon.png"
+          alt=""
+          className={`absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 ${imageClass}`}
+        />
       </div>
       {showText && (
-        <div className={`${textSize} leading-tight text-left`}>
-          <span className="font-bold text-gray-900">HiHi</span>
-          <br />
-          <span className="font-bold text-blue-500 text-xs tracking-wider">ENGLISH</span>
-        </div>
+        <span
+          className={`bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text font-extrabold leading-none tracking-tight text-transparent ${textClass}`}
+        >
+          HiHiEnglish
+        </span>
       )}
     </div>
   );
