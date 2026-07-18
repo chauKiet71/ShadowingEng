@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ChevronLeft,
   ChevronRight,
@@ -9,6 +9,7 @@ import {
   Subtitles,
   Bookmark,
   Mic,
+  Clapperboard,
   Sparkles,
   Shield,
   XCircle,
@@ -24,6 +25,7 @@ import type { PackageRow } from '../lib/api';
 const features = [
   { icon: Infinity, label: 'Nghe không giới hạn', free: false, premium: true },
   { icon: Mic, label: 'Luyện nói tình huống', free: 'limited', premium: true },
+  { icon: Clapperboard, label: 'Dịch video YouTube', free: 'limited', premium: true },
   { icon: Subtitles, label: 'Phụ đề song ngữ', free: 'limited', premium: true },
   { icon: Bookmark, label: 'Lưu & Quản lý yêu thích', free: 'limited', premium: true },
 ] as const;
@@ -40,6 +42,13 @@ function FeatureCell({ value }: { value: boolean | 'limited' }) {
 
 export default function UpgradePage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const locationState = location.state as
+    | { from?: string; message?: string }
+    | null;
+  const backTo = locationState?.from || '/ca-nhan';
+  const upgradeMessage = locationState?.message?.trim() || '';
+
   const cachedPackages = peekCache<PackageRow[]>(PrefetchKeys.packages);
   const [plans, setPlans] = useState<Plan[]>(() =>
     cachedPackages ? cachedPackages.map(mapPackageToPlan) : [],
@@ -89,9 +98,14 @@ export default function UpgradePage() {
       <div className="min-h-screen gradient-bg pb-8">
         <div className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-white/60">
           <div className="max-w-lg mx-auto px-4 py-3 flex items-center gap-3">
-            <Link to="/ca-nhan" className="text-gray-600 p-1 -ml-1">
+            <button
+              type="button"
+              onClick={() => navigate(backTo)}
+              className="text-gray-600 p-1 -ml-1"
+              aria-label="Quay lại"
+            >
               <ChevronLeft size={24} />
-            </Link>
+            </button>
             <h1 className="flex-1 text-center font-semibold text-gray-900 pr-7">
               Nâng cấp Premium
             </h1>
@@ -99,6 +113,12 @@ export default function UpgradePage() {
         </div>
 
         <div className="max-w-lg mx-auto px-4 pt-5">
+          {upgradeMessage && (
+            <div className="mb-4 rounded-2xl bg-amber-50 border border-amber-100 px-4 py-3 text-sm text-amber-800">
+              {upgradeMessage}
+            </div>
+          )}
+
           <div className="flex items-start gap-3 mb-6">
             <div className="flex-1">
               <h2 className="text-xl font-bold text-gray-900 leading-snug">

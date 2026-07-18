@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, type ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Moon, Sun, Crown, Star, Flame, Headphones, Clock,
-  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil, BookOpen, Mic,
+  Target, Heart, Gauge, HelpCircle, ChevronRight, LogOut, Pencil, BookOpen, Mic, Clapperboard,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import UserAvatar from '../components/UserAvatar';
@@ -19,6 +19,13 @@ const menuItems = [
   { icon: Clock, label: 'Lịch sử học tập', color: 'text-blue-500', to: '/lich-su' },
   { icon: BookOpen, label: 'Từ vựng của bạn', color: 'text-orange-500', to: '/tu-vung' },
   { icon: Mic, label: 'Luyện nói tình huống', color: 'text-indigo-500', to: '/luyen-noi' },
+  {
+    icon: Clapperboard,
+    label: 'Sắp mở',
+    color: 'text-rose-500',
+    to: '/dich-video',
+    disabled: true,
+  },
   { icon: Gauge, label: 'Trình độ', color: 'text-green-500', to: '/trinh-do' },
   { icon: HelpCircle, label: 'Hỗ trợ', color: 'text-purple-500', to: 'http://zalo.me/0327142982', external: true },
 ];
@@ -227,7 +234,9 @@ export default function ProfilePage() {
               <div className="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-2">
                 <Target size={16} />
               </div>
-              <p className="font-bold text-gray-900">{localStats.avgHoursPerDay}</p>
+              <p className="font-bold text-gray-900">
+                {Math.floor(localStats.avgHoursPerDay)}
+              </p>
               <p className="text-[10px] text-gray-400 mt-0.5">Giờ/ngày trung bình</p>
             </div>
             <div className="bg-white rounded-xl card-shadow p-3">
@@ -242,15 +251,24 @@ export default function ProfilePage() {
 
         {/* Menu */}
         <div className="bg-white rounded-2xl card-shadow mb-4 overflow-hidden">
-          {menuItems.map(({ icon: Icon, label, color, to, external }, i) => {
-            const className = `flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 ${i > 0 ? 'border-t border-gray-50' : ''}`;
+          {menuItems.map(({ icon: Icon, label, color, to, external, disabled }, i) => {
+            const className = `flex items-center gap-3 px-4 py-3.5 ${
+              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50'
+            } ${i > 0 ? 'border-t border-gray-50' : ''}`;
             const content = (
               <>
                 <Icon size={20} className={color} />
                 <span className="flex-1 text-sm text-gray-800">{label}</span>
-                <ChevronRight size={16} className="text-gray-300" />
+                {!disabled && <ChevronRight size={16} className="text-gray-300" />}
               </>
             );
+            if (disabled) {
+              return (
+                <div key={label} className={className} aria-disabled="true">
+                  {content}
+                </div>
+              );
+            }
             if (external) {
               return (
                 <a

@@ -27,6 +27,7 @@ import PaymentPage from './pages/PaymentPage';
 import LevelPage from './pages/LevelPage';
 import VocabularyPage from './pages/VocabularyPage';
 import SpeakingPage from './pages/SpeakingPage';
+import VideoTranslatePage from './pages/VideoTranslatePage';
 
 function LessonPageRoute() {
   const { id } = useParams<{ id: string }>();
@@ -139,6 +140,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <SpeakingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dich-video"
+            element={
+              <ProtectedRoute>
+                <VideoTranslatePage />
               </ProtectedRoute>
             }
           />

@@ -24,6 +24,7 @@ const payments_module_1 = require("./payments/payments.module");
 const chat_module_1 = require("./chat/chat.module");
 const vocabulary_module_1 = require("./vocabulary/vocabulary.module");
 const speaking_module_1 = require("./speaking/speaking.module");
+const video_translate_module_1 = require("./video-translate/video-translate.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,7 +34,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(process.cwd(), 'public'),
-                exclude: ['/api/*path'],
+                exclude: ['/api/*path', '/media/*path'],
                 serveStaticOptions: {
                     fallthrough: true,
                     index: false,
@@ -50,6 +51,7 @@ exports.AppModule = AppModule = __decorate([
             chat_module_1.ChatModule,
             vocabulary_module_1.VocabularyModule,
             speaking_module_1.SpeakingModule,
+            video_translate_module_1.VideoTranslateModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

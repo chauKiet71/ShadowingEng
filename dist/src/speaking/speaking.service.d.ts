@@ -16,11 +16,11 @@ export declare class SpeakingService {
         sortOrder: number;
         icon: string;
         title: string;
+        objective: string;
         slug: string;
         color: string;
         learnerRole: string;
         aiRole: string;
-        objective: string;
         minLevel: import("@prisma/client").$Enums.CefrLevel;
         maxLevel: import("@prisma/client").$Enums.CefrLevel;
     }[]>;

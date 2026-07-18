@@ -347,6 +347,27 @@ export const api = {
       { method: 'POST' },
     );
   },
+
+  getVideoTranslateQuota() {
+    return request<VideoTranslateQuota>('/video-translate/quota');
+  },
+
+  listVideoTranslateJobs() {
+    return request<VideoTranslateListResponse>('/video-translate/jobs');
+  },
+
+  getVideoTranslateJob(id: string) {
+    return request<VideoTranslateJobResponse>(
+      `/video-translate/jobs/${encodeURIComponent(id)}`,
+    );
+  },
+
+  createVideoTranslateJob(url: string) {
+    return request<CreateVideoTranslateResponse>('/video-translate/jobs', {
+      method: 'POST',
+      body: JSON.stringify({ url }),
+    });
+  },
 };
 
 export interface AdminUserRow {
@@ -584,4 +605,61 @@ export interface CompleteSpeakingSessionResponse {
     averageCoherence: number | null;
   };
   quota: SpeakingQuota;
+}
+
+export interface VideoTranslateQuota {
+  used: number;
+  limit: number;
+  remaining: number | null;
+  isPremium: boolean;
+  resetsAt: string;
+  maxSeconds: number;
+}
+
+export interface VideoTranslateSegment {
+  start: number;
+  end: number;
+  en: string;
+  vi: string;
+}
+
+export type VideoTranslateStatus =
+  | 'PENDING'
+  | 'PROCESSING'
+  | 'READY'
+  | 'FAILED';
+
+export interface VideoTranslateJob {
+  id: string;
+  youtubeVideoId: string;
+  youtubeUrl: string;
+  title: string | null;
+  thumbnailUrl: string | null;
+  durationSec: number | null;
+  status: VideoTranslateStatus;
+  source: string | null;
+  errorMessage: string | null;
+  segments: VideoTranslateSegment[];
+  dubbedAudioUrl: string | null;
+  pipelineVersion?: number;
+  fromCache: boolean;
+  createdAt: string;
+  updatedAt: string;
+  completedAt: string | null;
+}
+
+export interface VideoTranslateJobResponse {
+  job: VideoTranslateJob;
+  quota: VideoTranslateQuota;
+}
+
+export interface VideoTranslateListResponse {
+  jobs: VideoTranslateJob[];
+  quota: VideoTranslateQuota;
+}
+
+export interface CreateVideoTranslateResponse {
+  job: VideoTranslateJob;
+  quota: VideoTranslateQuota;
+  fromCache: boolean;
 }

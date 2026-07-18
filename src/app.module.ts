@@ -15,13 +15,14 @@ import { PaymentsModule } from './payments/payments.module';
 import { ChatModule } from './chat/chat.module';
 import { VocabularyModule } from './vocabulary/vocabulary.module';
 import { SpeakingModule } from './speaking/speaking.module';
+import { VideoTranslateModule } from './video-translate/video-translate.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'public'),
-      exclude: ['/api/*path'],
+      exclude: ['/api/*path', '/media/*path'],
       serveStaticOptions: {
         fallthrough: true,
         index: false,
@@ -38,6 +39,7 @@ import { SpeakingModule } from './speaking/speaking.module';
     ChatModule,
     VocabularyModule,
     SpeakingModule,
+    VideoTranslateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

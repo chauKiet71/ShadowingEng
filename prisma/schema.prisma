@@ -111,6 +111,8 @@ model User {
   vocabularySets     UserVocabularySet[]
   speakingSessions   SpeakingSession[]
   speakingDailyUsage SpeakingDailyUsage[]
+  videoTranslateJobs VideoTranslateJob[]
+  videoTranslateDailyUsage VideoTranslateDailyUsage[]
 
   @@map("users")
 }
@@ -478,4 +480,50 @@ model SpeakingDailyUsage {
   @@unique([userId, usageDate])
   @@index([userId, usageDate])
   @@map("speaking_daily_usage")
+}
+
+enum VideoTranslateStatus {
+  PENDING
+  PROCESSING
+  READY
+  FAILED
+}
+
+model VideoTranslateJob {
+  id             String               @id @default(uuid())
+  userId         String               @map("user_id")
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  youtubeVideoId String               @map("youtube_video_id")
+  youtubeUrl     String               @map("youtube_url")
+  title          String?
+  thumbnailUrl   String?              @map("thumbnail_url")
+  durationSec    Int?                 @map("duration_sec")
+  status         VideoTranslateStatus @default(PENDING)
+  source         String?
+  errorMessage   String?              @map("error_message") @db.Text
+  segmentsJson   Json?                @map("segments_json")
+  dubbedAudioUrl String?              @map("dubbed_audio_url")
+  pipelineVersion Int                 @default(1) @map("pipeline_version")
+  fromCache      Boolean              @default(false) @map("from_cache")
+  createdAt      DateTime             @default(now()) @map("created_at")
+  updatedAt      DateTime             @updatedAt @map("updated_at")
+  completedAt    DateTime?            @map("completed_at")
+
+  @@index([userId, createdAt])
+  @@index([youtubeVideoId, status])
+  @@map("video_translate_jobs")
+}
+
+model VideoTranslateDailyUsage {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  usageDate  DateTime @map("usage_date") @db.Date
+  videoCount Int      @default(0) @map("video_count")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, usageDate])
+  @@index([userId, usageDate])
+  @@map("video_translate_daily_usage")
 }

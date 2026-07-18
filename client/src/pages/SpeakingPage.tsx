@@ -162,7 +162,22 @@ export default function SpeakingPage() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [step, turns, processing]);
 
+  function goToSpeakingUpgrade() {
+    navigate('/nang-cap', {
+      state: {
+        from: '/luyen-noi',
+        message:
+          'Bạn đã hết 3 lượt luyện nói miễn phí hôm nay. Nâng cấp Premium để tiếp tục.',
+      },
+    });
+  }
+
   async function startSession(scenarioId: string) {
+    if (quota && !quota.isPremium && (quota.remaining ?? 0) <= 0) {
+      goToSpeakingUpgrade();
+      return;
+    }
+
     setSelectedScenarioId(scenarioId);
     setStarting(true);
     setError('');
@@ -189,6 +204,16 @@ export default function SpeakingPage() {
   async function toggleRecording() {
     if (processing) return;
     setError('');
+
+    if (
+      !recording &&
+      quota &&
+      !quota.isPremium &&
+      (quota.remaining ?? 0) <= 0
+    ) {
+      goToSpeakingUpgrade();
+      return;
+    }
 
     if (!recording) {
       try {
@@ -220,13 +245,7 @@ export default function SpeakingPage() {
       if (result.turn.aiReply) speakEnglish(result.turn.aiReply);
     } catch (err) {
       if (err instanceof ApiError && err.code === 'SPEAKING_QUOTA_EXCEEDED') {
-        navigate('/nang-cap', {
-          state: {
-            from: '/luyen-noi',
-            message:
-              'Bạn đã hết 3 lượt luyện nói miễn phí hôm nay. Nâng cấp Premium để tiếp tục.',
-          },
-        });
+        goToSpeakingUpgrade();
         return;
       }
       setError(err instanceof Error ? err.message : 'Không chấm được bản ghi');

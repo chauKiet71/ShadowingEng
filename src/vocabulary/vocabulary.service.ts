@@ -9,6 +9,11 @@ import { TRAVEL_VOCABULARY_SET } from './vocabulary-travel-set';
 import { DAILY_VOCABULARY_SET } from './vocabulary-daily-set';
 import { MOVIE_VOCABULARY_SET } from './vocabulary-movie-set';
 import { OFFICE_VOCABULARY_SET } from './vocabulary-office-set';
+import { EDUCATION_VOCABULARY_SET } from './vocabulary-education-set';
+import { ECONOMY_VOCABULARY_SET } from './vocabulary-economy-set';
+import { BUSINESS_VOCABULARY_SET } from './vocabulary-business-set';
+import { BANKING_VOCABULARY_SET } from './vocabulary-banking-set';
+import { FINANCE_VOCABULARY_SET } from './vocabulary-finance-set';
 
 const SETS: VocabularySeedSet[] = [
   TRAVEL_VOCABULARY_SET,
@@ -16,6 +21,11 @@ const SETS: VocabularySeedSet[] = [
   OFFICE_VOCABULARY_SET,
   MOVIE_VOCABULARY_SET,
   ...TECH_VOCABULARY_SETS,
+  EDUCATION_VOCABULARY_SET,
+  ECONOMY_VOCABULARY_SET,
+  BUSINESS_VOCABULARY_SET,
+  BANKING_VOCABULARY_SET,
+  FINANCE_VOCABULARY_SET,
 ];
 
 @Injectable()

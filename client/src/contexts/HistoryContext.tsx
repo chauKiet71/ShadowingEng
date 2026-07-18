@@ -341,7 +341,7 @@ export function useListeningStats() {
     const activeDays = countActiveDays(entries, todayListeningSeconds);
     const avgHoursPerDay =
       activeDays > 0
-        ? Math.round((totalSeconds / 3600 / activeDays) * 10) / 10
+        ? Math.floor(totalSeconds / 3600 / activeDays)
         : 0;
 
     return {

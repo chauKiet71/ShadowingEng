@@ -17,8 +17,10 @@ import {
   Flame,
   Gamepad2,
   Globe,
+  GraduationCap,
   HardDrive,
   Languages,
+  Landmark,
   Loader2,
   MessageCircle,
   Plane,
@@ -28,7 +30,9 @@ import {
   Shield,
   Smartphone,
   Sparkles,
+  TrendingUp,
   Volume2,
+  Wallet,
   Wifi,
   X,
 } from 'lucide-react';
@@ -62,9 +66,13 @@ const iconMap = {
   cloud: Cloud,
   smartphone: Smartphone,
   globe: Globe,
+  'graduation-cap': GraduationCap,
   'gamepad-2': Gamepad2,
   sparkles: Sparkles,
+  'trending-up': TrendingUp,
   'building-2': Building2,
+  landmark: Landmark,
+  wallet: Wallet,
 } as const;
 
 const colorMap: Record<string, { bg: string; text: string; soft: string }> = {

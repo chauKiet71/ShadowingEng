@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Headphones, BookOpen, Mic, Play, User } from 'lucide-react';
+import { Headphones, BookOpen, Mic, Clapperboard, Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import Logo from '../components/Logo';
 import HorizontalScroll from '../components/HorizontalScroll';
@@ -29,6 +29,14 @@ const quickLinks = [
   { icon: Headphones, label: 'Bài nghe', sub: 'Theo chủ đề', color: 'bg-blue-500', to: '/kham-pha' },
   { icon: BookOpen, label: 'Từ vựng', sub: 'Học & ôn tập', color: 'bg-orange-500', to: '/tu-vung' },
   { icon: Mic, label: 'Luyện nói', sub: 'Tình huống thật', color: 'bg-indigo-500', to: '/luyen-noi' },
+  {
+    icon: Clapperboard,
+    label: 'Sắp mở',
+    sub: 'Nghe EN + text VI',
+    color: 'bg-rose-500',
+    to: '/dich-video',
+    disabled: true,
+  },
 ];
 
 export default function HomePage() {
@@ -131,18 +139,40 @@ export default function HomePage() {
 
       {/* Quick Links */}
       <div className="px-4 mb-6">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {quickLinks.map((item) => {
-            const { icon: Icon, label, sub, color } = item;
+            const { icon: Icon, label, sub, color, disabled } = item;
             const content = (
               <>
-                <div className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center`}>
+                <div
+                  className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center ${
+                    disabled ? 'opacity-50' : ''
+                  }`}
+                >
                   <Icon size={22} className="text-white" />
                 </div>
-                <span className="text-[10px] font-semibold text-gray-800">{label}</span>
+                <span
+                  className={`text-[10px] font-semibold ${
+                    disabled ? 'text-gray-400' : 'text-gray-800'
+                  }`}
+                >
+                  {label}
+                </span>
                 <span className="text-[9px] text-gray-400">{sub}</span>
               </>
             );
+
+            if (disabled) {
+              return (
+                <div
+                  key={label}
+                  className="flex flex-col items-center gap-1 cursor-not-allowed select-none opacity-70"
+                  aria-disabled="true"
+                >
+                  {content}
+                </div>
+              );
+            }
 
             return (
               <Link key={label} to={item.to} className="flex flex-col items-center gap-1">
