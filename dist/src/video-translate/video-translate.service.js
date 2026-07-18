@@ -129,7 +129,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             select: { id: true },
         });
         if (!job)
-            throw new common_1.NotFoundException('KhÃ´ng tÃ¬m tháº¥y job dá»‹ch video');
+            throw new common_1.NotFoundException('Không tìm thấy job dịch video');
         await this.prisma.videoTranslateJob.delete({
             where: { id: job.id },
         });

@@ -13,11 +13,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
-<<<<<<< HEAD
     "dev": "npm run build:client && npm run start:dev",
-=======
-    "dev": "concurrently -n api,client -c blue,magenta \"npm run start:dev\" \"npm run dev:client\"",
->>>>>>> e162bce51dc80dd606c75f0a5fc5f5988ba45b30
     "dev:client": "vite --config client/vite.config.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",

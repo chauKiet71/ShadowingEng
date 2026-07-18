@@ -32,11 +32,7 @@ const quickLinks = [
   {
     icon: Clapperboard,
     label: 'Dịch video',
-<<<<<<< HEAD
     sub: 'Video Youtube',
-=======
-    sub: 'Nghe EN + text VI',
->>>>>>> e162bce51dc80dd606c75f0a5fc5f5988ba45b30
     color: 'bg-rose-500',
     to: '/dich-video',
     disabled: false,

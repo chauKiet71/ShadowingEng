@@ -104,4 +104,9 @@ export declare class VideoTranslateController {
         };
         fromCache: boolean;
     }>;
+    deleteJob(user: {
+        id: string;
+    }, id: string): Promise<{
+        deleted: boolean;
+    }>;
 }
