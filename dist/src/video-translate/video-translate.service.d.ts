@@ -141,6 +141,11 @@ export declare class VideoTranslateService {
     private fetchVideoMeta;
     private resolveYtDlpPath;
     private resolveFfmpegPath;
+    private ytDlpConnectionArgs;
+    private commandErrorDetail;
+    private commandErrorLog;
+    private redactCommandSecrets;
+    private commandOutput;
     private localToolCandidates;
     private runFfmpeg;
     private serializeJob;

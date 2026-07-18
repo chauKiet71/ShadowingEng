@@ -10,6 +10,12 @@ Set `YT_DLP_PATH` to use a preinstalled binary instead. Set
 `YT_DLP_SKIP_INSTALL=true` to skip the download, or
 `YT_DLP_FORCE_INSTALL=true` to replace an existing local binary.
 
+Optional production settings:
+
+- `YT_DLP_PROXY`: proxy URL used for YouTube requests
+- `YT_DLP_COOKIES_PATH`: absolute path to a Netscape-format cookies file
+- `YT_DLP_FORCE_IPV4=true`: disable IPv6 for yt-dlp requests
+
 Required for:
 
 - video metadata

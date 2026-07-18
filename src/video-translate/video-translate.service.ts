@@ -54,6 +54,11 @@ const TRANSCRIPT_RULES = {
 
 const execFileAsync = promisify(execFile);
 
+type CommandExecutionError = Error & {
+  stderr?: string | Buffer;
+  stdout?: string | Buffer;
+};
+
 export type VideoSegment = {
   start: number;
   end: number;
@@ -1016,12 +1021,14 @@ export class VideoTranslateService {
     const ytDlp = this.resolveYtDlpPath();
     const ffmpeg = this.resolveFfmpegPath();
     const outTemplate = join(workDir, 'audio.%(ext)s');
+    const connectionArgs = this.ytDlpConnectionArgs();
     try {
       await execFileAsync(
         ytDlp,
         [
           '--js-runtimes',
           'node',
+          ...connectionArgs,
           '-f',
           'bestaudio/best',
           '-x',
@@ -1039,9 +1046,12 @@ export class VideoTranslateService {
         { timeout: 180_000, maxBuffer: 10 * 1024 * 1024 },
       );
     } catch (error) {
-      const detail = error instanceof Error ? error.message : String(error);
+      const detail = this.commandErrorDetail(error);
+      this.logger.error(
+        `yt-dlp download failed: ${this.commandErrorLog(error)}`,
+      );
       throw new ServiceUnavailableException(
-        `Không tải được audio YouTube. Kiểm tra yt-dlp/ffmpeg. Chi tiết: ${detail.slice(0, 240)}`,
+        `Không tải được audio YouTube. Chi tiết: ${detail.slice(0, 600)}`,
       );
     }
 
@@ -1112,6 +1122,7 @@ export class VideoTranslateService {
         [
           '--js-runtimes',
           'node',
+          ...this.ytDlpConnectionArgs(),
           '--dump-json',
           '--no-playlist',
           youtubeUrl,
@@ -1181,6 +1192,56 @@ export class VideoTranslateService {
     return 'ffmpeg';
   }
 
+  private ytDlpConnectionArgs() {
+    const args: string[] = [];
+    const proxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
+    const cookiesPath = this.config.get<string>('YT_DLP_COOKIES_PATH')?.trim();
+    const forceIpv4 =
+      this.config.get<string>('YT_DLP_FORCE_IPV4')?.trim().toLowerCase() ===
+      'true';
+
+    if (proxy) args.push('--proxy', proxy);
+    if (cookiesPath) args.push('--cookies', cookiesPath);
+    if (forceIpv4) args.push('--force-ipv4');
+
+    return args;
+  }
+
+  private commandErrorDetail(error: unknown) {
+    const commandError = error as Partial<CommandExecutionError> | undefined;
+    const stderr = this.commandOutput(commandError?.stderr);
+    const stdout = this.commandOutput(commandError?.stdout);
+    const fallback = error instanceof Error ? error.message : String(error);
+    const output = stderr || stdout || fallback;
+    const lines = output
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    const explicitError = lines.filter((line) => /^error:/i.test(line)).at(-1);
+
+    return this.redactCommandSecrets(
+      (explicitError || lines.at(-1) || output).replace(/\s+/g, ' ').trim(),
+    );
+  }
+
+  private commandErrorLog(error: unknown) {
+    const commandError = error as Partial<CommandExecutionError> | undefined;
+    return this.redactCommandSecrets(
+      this.commandOutput(commandError?.stderr) ||
+        this.commandOutput(commandError?.stdout) ||
+        (error instanceof Error ? error.message : String(error)),
+    );
+  }
+
+  private redactCommandSecrets(value: string) {
+    const proxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
+    return proxy ? value.split(proxy).join('[redacted proxy]') : value;
+  }
+
+  private commandOutput(output: string | Buffer | undefined) {
+    return output ? String(output).trim() : '';
+  }
+
   private localToolCandidates(...names: string[]) {
     const projectRoots = [
       process.cwd(),
@@ -1205,9 +1266,10 @@ export class VideoTranslateService {
         maxBuffer: 10 * 1024 * 1024,
       });
     } catch (error) {
-      const detail = error instanceof Error ? error.message : String(error);
+      const detail = this.commandErrorDetail(error);
+      this.logger.error(`ffmpeg failed: ${this.commandErrorLog(error)}`);
       throw new ServiceUnavailableException(
-        `ffmpeg lỗi: ${detail.slice(0, 240)}`,
+        `ffmpeg lỗi: ${detail.slice(0, 600)}`,
       );
     }
   }

@@ -115,3 +115,61 @@ describe('VideoTranslateService transcript segmentation', () => {
     ]);
   });
 });
+
+describe('VideoTranslateService yt-dlp integration', () => {
+  function createService(config: Record<string, string | undefined> = {}) {
+    return new VideoTranslateService(
+      {} as never,
+      {
+        get: jest.fn((key: string) => config[key]),
+      } as never,
+    );
+  }
+
+  it('shows the yt-dlp stderr error instead of the generated command', () => {
+    const service = createService() as unknown as {
+      commandErrorDetail: (error: unknown) => string;
+    };
+    const error = Object.assign(new Error('Command failed: yt-dlp ...'), {
+      stderr: [
+        'WARNING: retrying',
+        'ERROR: [youtube] Video unavailable from this IP',
+      ].join('\n'),
+    });
+
+    expect(service.commandErrorDetail(error)).toBe(
+      'ERROR: [youtube] Video unavailable from this IP',
+    );
+  });
+
+  it('builds optional Railway connection arguments', () => {
+    const service = createService({
+      YT_DLP_PROXY: 'http://proxy.example:8080',
+      YT_DLP_COOKIES_PATH: '/data/youtube-cookies.txt',
+      YT_DLP_FORCE_IPV4: 'true',
+    }) as unknown as {
+      ytDlpConnectionArgs: () => string[];
+    };
+
+    expect(service.ytDlpConnectionArgs()).toEqual([
+      '--proxy',
+      'http://proxy.example:8080',
+      '--cookies',
+      '/data/youtube-cookies.txt',
+      '--force-ipv4',
+    ]);
+  });
+
+  it('redacts proxy credentials from command failures', () => {
+    const proxy = 'http://user:secret@proxy.example:8080';
+    const service = createService({
+      YT_DLP_PROXY: proxy,
+    }) as unknown as {
+      commandErrorDetail: (error: unknown) => string;
+    };
+
+    expect(
+      service.commandErrorDetail(new Error(`Command failed with ${proxy}`)),
+    ).toBe('Command failed with [redacted proxy]');
+  });
+});
