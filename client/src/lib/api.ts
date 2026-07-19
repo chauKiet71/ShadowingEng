@@ -1,6 +1,9 @@
 import type { AuthResponse, LoginPayload, RegisterPayload, User } from '../types/auth';
 
 const TOKEN_KEY = 'accessToken';
+const GUEST_TOKEN_KEY = 'guestToken';
+const GUEST_TOKEN_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -12,6 +15,15 @@ export function setToken(token: string) {
 
 export function removeToken() {
   localStorage.removeItem(TOKEN_KEY);
+}
+
+export function getGuestToken(): string {
+  const existing = localStorage.getItem(GUEST_TOKEN_KEY);
+  if (existing && GUEST_TOKEN_PATTERN.test(existing)) return existing;
+
+  const token = crypto.randomUUID();
+  localStorage.setItem(GUEST_TOKEN_KEY, token);
+  return token;
 }
 
 async function request<T>(
@@ -26,6 +38,8 @@ async function request<T>(
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
+  } else {
+    headers['X-Guest-Token'] = getGuestToken();
   }
 
   const res = await fetch(`/api${path}`, { ...options, headers });
@@ -305,6 +319,9 @@ export const api = {
     durationMs?: number,
   ) {
     const token = getToken();
+    const headers: Record<string, string> = token
+      ? { Authorization: `Bearer ${token}` }
+      : { 'X-Guest-Token': getGuestToken() };
     const form = new FormData();
     form.append('audio', audio, 'speaking.webm');
     if (typeof durationMs === 'number') {
@@ -315,7 +332,7 @@ export const api = {
       `/api/speaking/sessions/${encodeURIComponent(sessionId)}/turns`,
       {
         method: 'POST',
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers,
         body: form,
       },
     );

@@ -121,19 +121,11 @@ export default function App() {
           />
           <Route
             path="/luyen-noi"
-            element={
-              <ProtectedRoute>
-                <SpeakingPage />
-              </ProtectedRoute>
-            }
+            element={<SpeakingPage />}
           />
           <Route
             path="/dich-video"
-            element={
-              <ProtectedRoute>
-                <VideoTranslatePage />
-              </ProtectedRoute>
-            }
+            element={<VideoTranslatePage />}
           />
           <Route path="/nang-cap" element={<UpgradePage />} />
           <Route path="/nang-cap/thanh-toan" element={<PaymentPage />} />

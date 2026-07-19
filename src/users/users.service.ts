@@ -1,21 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, UserStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { GUEST_EMAIL_SUFFIX } from '../auth/guest-identity.service';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async getStats() {
+    const registeredUserWhere: Prisma.UserWhereInput = {
+      NOT: { email: { endsWith: GUEST_EMAIL_SUFFIX } },
+    };
     const [total, newUsers, proUsers, activeUsers] = await Promise.all([
-      this.prisma.user.count(),
+      this.prisma.user.count({ where: registeredUserWhere }),
       this.prisma.user.count({
         where: {
+          ...registeredUserWhere,
           createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
         },
       }),
-      this.prisma.user.count({ where: { isPremium: true } }),
-      this.prisma.user.count({ where: { status: UserStatus.ACTIVE } }),
+      this.prisma.user.count({
+        where: { ...registeredUserWhere, isPremium: true },
+      }),
+      this.prisma.user.count({
+        where: { ...registeredUserWhere, status: UserStatus.ACTIVE },
+      }),
     ]);
     return { total, newUsers, proUsers, activeUsers };
   }
@@ -29,7 +38,9 @@ export class UsersService {
   }) {
     const page = params.page || 1;
     const limit = params.limit || 10;
-    const where: Prisma.UserWhereInput = {};
+    const where: Prisma.UserWhereInput = {
+      NOT: { email: { endsWith: GUEST_EMAIL_SUFFIX } },
+    };
 
     if (params.status) where.status = params.status;
     if (params.isPremium !== undefined) where.isPremium = params.isPremium;

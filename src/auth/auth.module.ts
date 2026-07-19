@@ -9,6 +9,7 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { GoogleStrategy } from './google.strategy';
 import { AdminGuard } from './admin.guard';
+import { GuestIdentityService } from './guest-identity.service';
 
 const googleOAuthEnabled =
   !!process.env.GOOGLE_CLIENT_ID && !!process.env.GOOGLE_CLIENT_SECRET;
@@ -28,7 +29,14 @@ const googleOAuthEnabled =
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PasswordResetService, JwtStrategy, AdminGuard, ...(googleOAuthEnabled ? [GoogleStrategy] : [])],
-  exports: [AuthService, JwtModule, AdminGuard],
+  providers: [
+    AuthService,
+    PasswordResetService,
+    JwtStrategy,
+    AdminGuard,
+    GuestIdentityService,
+    ...(googleOAuthEnabled ? [GoogleStrategy] : []),
+  ],
+  exports: [AuthService, JwtModule, AdminGuard, GuestIdentityService],
 })
 export class AuthModule {}

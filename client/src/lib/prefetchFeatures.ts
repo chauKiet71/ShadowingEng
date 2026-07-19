@@ -70,13 +70,13 @@ export function prefetchHomeFeatures(isAuthenticated: boolean) {
   const tasks: Promise<unknown>[] = [
     fetchActivePackages(),
     fetchVocabularyOverview(),
+    fetchSpeakingScenarios(),
+    fetchSpeakingQuota(),
   ];
 
   if (isAuthenticated) {
     tasks.push(
       fetchLessonStats(),
-      fetchSpeakingScenarios(),
-      fetchSpeakingQuota(),
     );
   }
 

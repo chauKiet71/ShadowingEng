@@ -24,11 +24,10 @@ export default function LessonLink({
   onClick,
   ...rest
 }: LessonLinkProps) {
-  const { isAuthenticated, user } = useAuth();
+  const { user } = useAuth();
   const { isLessonLocked } = useLessonAccess();
   const path = lessonPath(lessonId);
-  const needsPremium =
-    isAuthenticated && isLessonLocked(lessonId) && !user?.isPremium;
+  const needsPremium = isLessonLocked(lessonId) && !user?.isPremium;
 
   if (needsPremium) {
     return (

@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   Param,
   Post,
   UploadedFile,
@@ -11,13 +12,11 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { GuestIdentityService } from '../auth/guest-identity.service';
+import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
 import { CreateSpeakingSessionDto } from './dto/create-speaking-session.dto';
 import { TranslateSpeakingDto } from './dto/translate-speaking.dto';
-import {
-  MAX_SPEAKING_AUDIO_BYTES,
-  SpeakingService,
-} from './speaking.service';
+import { MAX_SPEAKING_AUDIO_BYTES, SpeakingService } from './speaking.service';
 
 type UploadedAudio = {
   buffer: Buffer;
@@ -27,9 +26,12 @@ type UploadedAudio = {
 };
 
 @Controller('speaking')
-@UseGuards(JwtAuthGuard)
+@UseGuards(OptionalJwtAuthGuard)
 export class SpeakingController {
-  constructor(private readonly speakingService: SpeakingService) {}
+  constructor(
+    private readonly speakingService: SpeakingService,
+    private readonly guestIdentity: GuestIdentityService,
+  ) {}
 
   @Get('scenarios')
   listScenarios() {
@@ -37,17 +39,23 @@ export class SpeakingController {
   }
 
   @Get('quota')
-  getQuota(@CurrentUser() user: { id: string }) {
-    return this.speakingService.getQuota(user.id);
+  async getQuota(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken?: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.speakingService.getQuota(userId);
   }
 
   @Post('sessions')
-  createSession(
-    @CurrentUser() user: { id: string },
+  async createSession(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
     @Body() dto: CreateSpeakingSessionDto,
   ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
     return this.speakingService.createSession(
-      user.id,
+      userId,
       dto.scenarioId,
       dto.level,
       dto.dialect,
@@ -60,11 +68,13 @@ export class SpeakingController {
   }
 
   @Get('sessions/:id')
-  getSession(
-    @CurrentUser() user: { id: string },
+  async getSession(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
     @Param('id') id: string,
   ) {
-    return this.speakingService.getSession(user.id, id);
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.speakingService.getSession(userId, id);
   }
 
   @Post('sessions/:id/turns')
@@ -73,8 +83,9 @@ export class SpeakingController {
       limits: { fileSize: MAX_SPEAKING_AUDIO_BYTES },
     }),
   )
-  submitTurn(
-    @CurrentUser() user: { id: string },
+  async submitTurn(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
     @Param('id') id: string,
     @UploadedFile() file: UploadedAudio,
     @Body('durationMs') durationMsRaw?: string,
@@ -88,8 +99,9 @@ export class SpeakingController {
         ? Number(durationMsRaw)
         : undefined;
 
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
     return this.speakingService.submitTurn(
-      user.id,
+      userId,
       id,
       file,
       Number.isFinite(durationMs) ? durationMs : undefined,
@@ -97,10 +109,12 @@ export class SpeakingController {
   }
 
   @Post('sessions/:id/complete')
-  completeSession(
-    @CurrentUser() user: { id: string },
+  async completeSession(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
     @Param('id') id: string,
   ) {
-    return this.speakingService.completeSession(user.id, id);
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.speakingService.completeSession(userId, id);
   }
 }

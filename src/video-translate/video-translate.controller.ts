@@ -3,45 +3,70 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { GuestIdentityService } from '../auth/guest-identity.service';
+import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
 import { CreateVideoTranslateDto } from './dto/create-video-translate.dto';
 import { VideoTranslateService } from './video-translate.service';
 
 @Controller('video-translate')
-@UseGuards(JwtAuthGuard)
+@UseGuards(OptionalJwtAuthGuard)
 export class VideoTranslateController {
-  constructor(private readonly videoTranslateService: VideoTranslateService) {}
+  constructor(
+    private readonly videoTranslateService: VideoTranslateService,
+    private readonly guestIdentity: GuestIdentityService,
+  ) {}
 
   @Get('quota')
-  getQuota(@CurrentUser() user: { id: string }) {
-    return this.videoTranslateService.getQuota(user.id);
+  async getQuota(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken?: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.videoTranslateService.getQuota(userId);
   }
 
   @Get('jobs')
-  listJobs(@CurrentUser() user: { id: string }) {
-    return this.videoTranslateService.listJobs(user.id);
+  async listJobs(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken?: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.videoTranslateService.listJobs(userId);
   }
 
   @Get('jobs/:id')
-  getJob(@CurrentUser() user: { id: string }, @Param('id') id: string) {
-    return this.videoTranslateService.getJob(user.id, id);
+  async getJob(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
+    @Param('id') id: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.videoTranslateService.getJob(userId, id);
   }
 
   @Post('jobs')
-  createJob(
-    @CurrentUser() user: { id: string },
+  async createJob(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
     @Body() dto: CreateVideoTranslateDto,
   ) {
-    return this.videoTranslateService.createJob(user.id, dto.url);
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.videoTranslateService.createJob(userId, dto.url);
   }
 
   @Delete('jobs/:id')
-  deleteJob(@CurrentUser() user: { id: string }, @Param('id') id: string) {
-    return this.videoTranslateService.deleteJob(user.id, id);
+  async deleteJob(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken: string | undefined,
+    @Param('id') id: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.videoTranslateService.deleteJob(userId, id);
   }
 }
