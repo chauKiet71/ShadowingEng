@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft, Bookmark, RotateCcw, RotateCw, Turtle,
   Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
@@ -52,8 +52,11 @@ function scrollSentenceIntoView(
 export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const lesson = id ? getLessonById(id) : undefined;
   const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
+  const autoPlayOnOpen =
+    (location.state as { autoPlay?: boolean } | null)?.autoPlay !== false;
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isAuthenticated } = useAuth();
   const { updateListeningProgress, markLessonCompleted } = useHistory();
@@ -137,10 +140,50 @@ export default function LessonPage() {
     setIsSlowPlayback(false);
     setShowTranslation(true);
     setShowPhonetic(true);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setActiveIndex(0);
     if (audioRef.current) {
       audioRef.current.playbackRate = NORMAL_PLAYBACK_RATE;
     }
   }, [lesson?.id]);
+
+  /** Click vào bài nghe → phát audio ngay khi vào trang */
+  useEffect(() => {
+    if (!lesson || !autoPlayOnOpen) return;
+    if (accessLoading || (locked && !canAccess)) return;
+
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    let cancelled = false;
+
+    const tryPlay = () => {
+      if (cancelled) return;
+      audio.playbackRate = NORMAL_PLAYBACK_RATE;
+      void audio.play().catch(() => {
+        /* trình duyệt chặn autoplay — người dùng bấm Play */
+      });
+    };
+
+    if (audio.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      tryPlay();
+    } else {
+      const onReady = () => tryPlay();
+      audio.addEventListener('canplay', onReady, { once: true });
+      audio.load();
+      return () => {
+        cancelled = true;
+        audio.removeEventListener('canplay', onReady);
+        audio.pause();
+      };
+    }
+
+    return () => {
+      cancelled = true;
+      audio.pause();
+    };
+  }, [lesson?.id, lesson?.audioUrl, autoPlayOnOpen, accessLoading, locked, canAccess]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -371,7 +414,7 @@ export default function LessonPage() {
 
   return (
     <div className="h-screen max-w-lg mx-auto flex flex-col bg-gray-50 overflow-hidden">
-      <audio ref={audioRef} src={lesson.audioUrl} preload="metadata" loop={isLooping} />
+      <audio ref={audioRef} src={lesson.audioUrl} preload="auto" loop={isLooping} />
 
       <div className="flex-shrink-0 bg-white px-4 py-3 grid grid-cols-[auto_1fr_auto] items-center gap-2 border-b border-gray-100 z-20">
         <button

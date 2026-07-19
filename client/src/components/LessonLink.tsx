@@ -44,7 +44,13 @@ export default function LessonLink({
   }
 
   return (
-    <Link to={path} className={className} onClick={onClick} {...rest}>
+    <Link
+      to={path}
+      state={{ autoPlay: true }}
+      className={className}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </Link>
   );
