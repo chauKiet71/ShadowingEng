@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft,
   ChevronRight,
@@ -44,12 +44,6 @@ function FeatureCell({ value }: { value: boolean | 'limited' }) {
 export default function UpgradePage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const location = useLocation();
-  const locationState = location.state as
-    | { from?: string; message?: string }
-    | null;
-  const backTo = locationState?.from || '/ca-nhan';
-  const upgradeMessage = locationState?.message?.trim() || '';
 
   const cachedPackages = peekCache<PackageRow[]>(PrefetchKeys.packages);
   const [plans, setPlans] = useState<Plan[]>(() =>
@@ -94,6 +88,13 @@ export default function UpgradePage() {
   }, []);
 
   const activePlan = plans.find((p) => p.id === selectedPlanId);
+  const handleBack = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+      return;
+    }
+    navigate('/ca-nhan');
+  };
 
   return (
     <MobileLayout showPlayer={false}>
@@ -102,7 +103,7 @@ export default function UpgradePage() {
           <div className="max-w-lg mx-auto px-4 py-3 flex items-center gap-3">
             <button
               type="button"
-              onClick={() => navigate(backTo)}
+              onClick={handleBack}
               className="text-gray-600 p-1 -ml-1"
               aria-label="Quay lại"
             >
@@ -115,12 +116,6 @@ export default function UpgradePage() {
         </div>
 
         <div className="max-w-lg mx-auto px-4 pt-5">
-          {upgradeMessage && (
-            <div className="mb-4 rounded-2xl bg-amber-50 border border-amber-100 px-4 py-3 text-sm text-amber-800">
-              {upgradeMessage}
-            </div>
-          )}
-
           <div className="flex items-start gap-3 mb-6">
             <div className="flex-1">
               <h2 className="text-xl font-bold text-gray-900 leading-snug">
