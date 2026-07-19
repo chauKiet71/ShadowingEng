@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Headphones, BookOpen, Mic, Clapperboard, Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
@@ -7,16 +7,12 @@ import HorizontalScroll from '../components/HorizontalScroll';
 import UserAvatar from '../components/UserAvatar';
 import LessonLink from '../components/LessonLink';
 import { useAuth } from '../contexts/AuthContext';
-import { useListeningStats } from '../contexts/HistoryContext';
-import { type LessonHistoryStats } from '../lib/api';
 import {
   fetchLessonStats,
-  PrefetchKeys,
   prefetchHomeFeatures,
 } from '../lib/prefetchFeatures';
-import { peekCache } from '../lib/prefetchCache';
 import { featuredLessons, formatDuration } from '../data/mockData';
-import { lessons, formatLevelLabel } from '../data/lessons';
+import { formatLevelLabel } from '../data/lessons';
 import { categories } from '../data/categories';
 
 const levelColors: Record<string, string> = {
@@ -41,10 +37,6 @@ const quickLinks = [
 
 export default function HomePage() {
   const { isAuthenticated, user, loading: authLoading } = useAuth();
-  const localStats = useListeningStats();
-  const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(
-    () => peekCache<LessonHistoryStats>(PrefetchKeys.lessonStats) ?? null,
-  );
 
   // Chỉ prefetch sau khi trang chủ mount và auth đã sẵn sàng.
   useEffect(() => {
@@ -52,21 +44,10 @@ export default function HomePage() {
 
     void prefetchHomeFeatures(isAuthenticated);
 
-    if (!user?.id) {
-      setRemoteStats(null);
-      return;
+    if (user?.id) {
+      void fetchLessonStats().catch(() => undefined);
     }
-
-    void fetchLessonStats()
-      .then(setRemoteStats)
-      .catch(() => setRemoteStats(null));
   }, [authLoading, isAuthenticated, user?.id]);
-
-  const streakDays = Math.max(
-    localStats.streakDays,
-    user?.streakDays ?? 0,
-    remoteStats?.streakDays ?? 0,
-  );
 
   return (
     <MobileLayout>
@@ -116,24 +97,6 @@ export default function HomePage() {
           >
             Bắt đầu nghe
           </Link>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="px-4 mb-4">
-        <div className="bg-white rounded-2xl card-shadow p-4 grid grid-cols-3 gap-2 text-center">
-          <div>
-            <p className="text-xl font-bold text-gray-900">{lessons.length.toLocaleString('vi-VN')}</p>
-            <p className="text-[10px] text-gray-500 leading-tight">Bài nghe chất lượng cao</p>
-          </div>
-          <div>
-            <p className="text-xl font-bold text-gray-900">{categories.length.toLocaleString('vi-VN')}</p>
-            <p className="text-[10px] text-gray-500 leading-tight">Chủ đề đa dạng</p>
-          </div>
-          <div>
-            <p className="text-xl font-bold text-primary">{streakDays}</p>
-            <p className="text-[10px] text-gray-500 leading-tight">Ngày streak Liên tục học tập</p>
-          </div>
         </div>
       </div>
 
