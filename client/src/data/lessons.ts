@@ -39,10 +39,13 @@ export function getLessonById(id: string): Lesson | undefined {
 }
 
 export function getFeaturedLessons(): Lesson[] {
-  return lessons.slice(0, 10).map((lesson) => ({
-    ...lesson,
-    audioUrl: resolveAudioUrl(lesson),
-  }));
+  return lessons
+    .filter((lesson) => lesson.level === 'BEGINNER')
+    .slice(0, 10)
+    .map((lesson) => ({
+      ...lesson,
+      audioUrl: resolveAudioUrl(lesson),
+    }));
 }
 
 export function getLessonsByCategory(categoryId: string): Lesson[] {
