@@ -55,6 +55,7 @@ export default function LessonPage() {
   const lesson = id ? getLessonById(id) : undefined;
   const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isAuthenticated } = useAuth();
   const { updateListeningProgress, markLessonCompleted } = useHistory();
   const {
     result: shadowingResult,
@@ -66,6 +67,20 @@ export default function LessonPage() {
     reset: resetShadowing,
   } = useShadowing();
   const saved = lesson ? isFavorite(lesson.id) : false;
+
+  const handleToggleFavorite = () => {
+    if (!lesson) return;
+    if (!isAuthenticated) {
+      navigate('/dang-nhap', {
+        state: {
+          from: `/bai-hoc/${lesson.id}`,
+          message: 'Vui lòng đăng nhập để lưu bài học.',
+        },
+      });
+      return;
+    }
+    toggleFavorite(lesson.id);
+  };
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const completedRef = useRef(false);
@@ -373,7 +388,7 @@ export default function LessonPage() {
         <div className="flex gap-3 flex-shrink-0 justify-end">
           <button
             type="button"
-            onClick={() => lesson && toggleFavorite(lesson.id)}
+            onClick={handleToggleFavorite}
             className="p-0.5"
             aria-label={saved ? 'Bỏ khỏi yêu thích' : 'Lưu vào yêu thích'}
             title={saved ? 'Bỏ khỏi yêu thích' : 'Lưu vào yêu thích'}

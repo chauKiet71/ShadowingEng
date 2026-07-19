@@ -6,7 +6,7 @@ export declare class VocabularyService {
     private addDays;
     private ensureCatalog;
     private syncCatalog;
-    getOverview(userId: string): Promise<{
+    getOverview(userId?: string): Promise<{
         stats: {
             totalLearned: number;
             mastered: number;
@@ -75,7 +75,7 @@ export declare class VocabularyService {
             exampleTranslation: string;
         }[];
     }>;
-    getSets(userId: string): Promise<{
+    getSets(userId?: string): Promise<{
         id: string;
         slug: string;
         title: string;
@@ -89,7 +89,34 @@ export declare class VocabularyService {
         learnedCount: number;
         saved: boolean;
     }[]>;
-    getSet(userId: string, id: string): Promise<{
+    getSet(userId: string | undefined, id: string): Promise<{
+        saved: boolean;
+        words: {
+            progress: null;
+            id: string;
+            createdAt: Date;
+            sortOrder: number;
+            audioUrl: string | null;
+            setId: string;
+            word: string;
+            phonetic: string | null;
+            meaning: string;
+            example: string;
+            exampleTranslation: string;
+        }[];
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        sortOrder: number;
+        icon: string;
+        isFeatured: boolean;
+        title: string;
+        topic: string;
+        slug: string;
+        color: string;
+        cefrLevel: import("@prisma/client").$Enums.CefrLevel;
+    } | {
         saved: boolean;
         words: {
             progress: {

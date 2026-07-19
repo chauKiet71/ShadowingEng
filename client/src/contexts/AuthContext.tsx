@@ -57,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (payload: LoginPayload) => {
     const { user: loggedInUser, accessToken } = await api.login(payload);
+    clearAuthenticatedPrefetch();
     setToken(accessToken);
     setUser(loggedInUser);
     return loggedInUser;
@@ -64,12 +65,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = useCallback(async (payload: RegisterPayload) => {
     const { user: newUser, accessToken } = await api.register(payload);
+    clearAuthenticatedPrefetch();
     setToken(accessToken);
     setUser(newUser);
     return newUser;
   }, []);
 
   const loginWithToken = useCallback(async (accessToken: string) => {
+    clearAuthenticatedPrefetch();
     setToken(accessToken);
     const profile = await api.getMe();
     setUser(profile);

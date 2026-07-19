@@ -65,14 +65,16 @@ export function fetchSpeakingQuota(force = false) {
   );
 }
 
-/** Prefetch feature APIs only after HomePage is ready. Guest: packages only. */
+/** Prefetch public APIs for guests and add account-specific data after login. */
 export function prefetchHomeFeatures(isAuthenticated: boolean) {
-  const tasks: Promise<unknown>[] = [fetchActivePackages()];
+  const tasks: Promise<unknown>[] = [
+    fetchActivePackages(),
+    fetchVocabularyOverview(),
+  ];
 
   if (isAuthenticated) {
     tasks.push(
       fetchLessonStats(),
-      fetchVocabularyOverview(),
       fetchSpeakingScenarios(),
       fetchSpeakingQuota(),
     );

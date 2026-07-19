@@ -16,6 +16,7 @@ exports.VocabularyController = void 0;
 const common_1 = require("@nestjs/common");
 const current_user_decorator_1 = require("../auth/current-user.decorator");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const optional_jwt_auth_guard_1 = require("../auth/optional-jwt-auth.guard");
 const vocabulary_dto_1 = require("./dto/vocabulary.dto");
 const vocabulary_service_1 = require("./vocabulary.service");
 let VocabularyController = class VocabularyController {
@@ -24,13 +25,13 @@ let VocabularyController = class VocabularyController {
         this.vocabularyService = vocabularyService;
     }
     getOverview(user) {
-        return this.vocabularyService.getOverview(user.id);
+        return this.vocabularyService.getOverview(user?.id);
     }
     getSets(user) {
-        return this.vocabularyService.getSets(user.id);
+        return this.vocabularyService.getSets(user?.id);
     }
     getSet(user, id) {
-        return this.vocabularyService.getSet(user.id, id);
+        return this.vocabularyService.getSet(user?.id, id);
     }
     saveSet(user, id) {
         return this.vocabularyService.saveSet(user.id, id);
@@ -48,6 +49,7 @@ let VocabularyController = class VocabularyController {
 exports.VocabularyController = VocabularyController;
 __decorate([
     (0, common_1.Get)('overview'),
+    (0, common_1.UseGuards)(optional_jwt_auth_guard_1.OptionalJwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -55,6 +57,7 @@ __decorate([
 ], VocabularyController.prototype, "getOverview", null);
 __decorate([
     (0, common_1.Get)('sets'),
+    (0, common_1.UseGuards)(optional_jwt_auth_guard_1.OptionalJwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -62,6 +65,7 @@ __decorate([
 ], VocabularyController.prototype, "getSets", null);
 __decorate([
     (0, common_1.Get)('sets/:id'),
+    (0, common_1.UseGuards)(optional_jwt_auth_guard_1.OptionalJwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -70,6 +74,7 @@ __decorate([
 ], VocabularyController.prototype, "getSet", null);
 __decorate([
     (0, common_1.Post)('sets/:id/save'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -78,6 +83,7 @@ __decorate([
 ], VocabularyController.prototype, "saveSet", null);
 __decorate([
     (0, common_1.Delete)('sets/:id/save'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -86,6 +92,7 @@ __decorate([
 ], VocabularyController.prototype, "removeSet", null);
 __decorate([
     (0, common_1.Post)('words/learn'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -94,6 +101,7 @@ __decorate([
 ], VocabularyController.prototype, "learnWord", null);
 __decorate([
     (0, common_1.Post)('words/:id/review'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __param(1, (0, common_1.Param)('id')),
     __param(2, (0, common_1.Body)()),
@@ -103,7 +111,6 @@ __decorate([
 ], VocabularyController.prototype, "reviewWord", null);
 exports.VocabularyController = VocabularyController = __decorate([
     (0, common_1.Controller)('vocabulary'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [vocabulary_service_1.VocabularyService])
 ], VocabularyController);
 //# sourceMappingURL=vocabulary.controller.js.map

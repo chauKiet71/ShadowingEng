@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import type { CSSProperties, MouseEvent, ReactNode } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLessonAccess } from '../contexts/LessonAccessContext';
-import { LESSON_LOGIN_MESSAGE, lessonPath } from '../lib/authMessages';
+import { lessonPath } from '../lib/authMessages';
 
 const LESSON_PREMIUM_MESSAGE =
   'Bài học này dành cho thành viên Pro. Nâng cấp để mở khóa.';
@@ -29,20 +29,6 @@ export default function LessonLink({
   const path = lessonPath(lessonId);
   const needsPremium =
     isAuthenticated && isLessonLocked(lessonId) && !user?.isPremium;
-
-  if (!isAuthenticated) {
-    return (
-      <Link
-        to="/dang-nhap"
-        state={{ from: path, message: LESSON_LOGIN_MESSAGE }}
-        className={className}
-        onClick={onClick}
-        {...rest}
-      >
-        {children}
-      </Link>
-    );
-  }
 
   if (needsPremium) {
     return (

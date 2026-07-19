@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AppWindow,
   ArrowLeft,
@@ -37,6 +38,7 @@ import {
   X,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
+import { useAuth } from '../contexts/AuthContext';
 import {
   api,
   type VocabularyOverview,
@@ -216,6 +218,8 @@ function SetCard({
 }
 
 export default function VocabularyPage() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const cachedOverview = peekCache<VocabularyOverview>(
     PrefetchKeys.vocabularyOverview,
   );
@@ -295,6 +299,15 @@ export default function VocabularyPage() {
 
   async function toggleSave() {
     if (!selectedSet) return;
+    if (!isAuthenticated) {
+      navigate('/dang-nhap', {
+        state: {
+          from: '/tu-vung',
+          message: 'Vui lòng đăng nhập để lưu bộ từ vựng.',
+        },
+      });
+      return;
+    }
     setBusyId(selectedSet.id);
     try {
       if (selectedSet.saved) {
@@ -342,6 +355,7 @@ export default function VocabularyPage() {
   }
 
   function saveLearnedWord(word: VocabularyWord) {
+    if (!isAuthenticated) return;
     void api
       .learnVocabularyWord(word.id)
       .then((progress) => {
@@ -364,6 +378,7 @@ export default function VocabularyPage() {
   }
 
   function saveReviewedWord(word: VocabularyWord, correct: boolean) {
+    if (!isAuthenticated) return;
     void api
       .reviewVocabularyWord(word.id, correct)
       .then((progress) => {

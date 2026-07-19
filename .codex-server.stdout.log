@@ -1,0 +1,92 @@
+
+> shadowing-english@1.0.0 start:prod
+> node dist/src/main
+
+[32m[Nest] 13964  - [39m07/19/2026, 10:14:59 AM [32m    LOG[39m [38;5;3m[DatabaseSync] [39m[32mĐang đồng bộ schema database (tạo bảng/cột nếu chưa có)...[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[DatabaseSync] [39m[32mĐồng bộ schema database thành công[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m[38;5;3m +7ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +27ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +22ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mServeStaticModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMailModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mShadowingModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCategoriesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPackagesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPaymentsModule dependencies initialized[39m[38;5;3m +4ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLessonsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mChatModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mVocabularyModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mSpeakingModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mVideoTranslateModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/api}:[39m[38;5;3m +93ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/health, GET} route[39m[38;5;3m +5ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/api/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/register, POST} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/login, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/google, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/google/callback, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/me, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/avatar, PATCH} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/forgot-password, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/resend-reset-code, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/verify-reset-code, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/auth/reset-password, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/api/users}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/users/stats, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/users, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/users/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLessonsController {/api/lessons}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/access, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/access/:lessonId, PUT} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/me/stats, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/history/:userId, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/history/:userId/stats, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/lessons/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCategoriesController {/api/categories}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/categories, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/categories/popular, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPackagesController {/api/packages}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/packages, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/packages/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/packages, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/packages/:id, PUT} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/packages/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPaymentsController {/api/payments}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/payments/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/payments/orders/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/payments/webhooks/sepay, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mChatController {/api/chat}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/chat/quota, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/chat/conversations, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/chat/conversations/:id/messages, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mVocabularyController {/api/vocabulary}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/overview, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/sets, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/sets/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/sets/:id/save, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/sets/:id/save, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/words/learn, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/vocabulary/words/:id/review, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mSpeakingController {/api/speaking}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/scenarios, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/quota, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/sessions, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/translate, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/sessions/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/sessions/:id/turns, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/speaking/sessions/:id/complete, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mVideoTranslateController {/api/video-translate}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/video-translate/quota, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/video-translate/jobs, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/video-translate/jobs/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/video-translate/jobs, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/video-translate/jobs/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 13964  - [39m07/19/2026, 10:15:18 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +128ms[39m
+🚀 Shadowing ENGLISH running at http://localhost:3000

@@ -49,11 +49,7 @@ export default function App() {
           <Route path="/kham-pha" element={<ExplorePage />} />
           <Route
             path="/bai-hoc/:id"
-            element={
-              <ProtectedRoute>
-                <LessonPageRoute />
-              </ProtectedRoute>
-            }
+            element={<LessonPageRoute />}
           />
           <Route
             path="/ca-nhan"
@@ -65,11 +61,7 @@ export default function App() {
           />
           <Route
             path="/lich-su"
-            element={
-              <ProtectedRoute>
-                <HistoryPage />
-              </ProtectedRoute>
-            }
+            element={<HistoryPage />}
           />
           <Route
             path="/dang-nhap"
@@ -121,19 +113,11 @@ export default function App() {
           />
           <Route
             path="/trinh-do"
-            element={
-              <ProtectedRoute>
-                <LevelPage />
-              </ProtectedRoute>
-            }
+            element={<LevelPage />}
           />
           <Route
             path="/tu-vung"
-            element={
-              <ProtectedRoute>
-                <VocabularyPage />
-              </ProtectedRoute>
-            }
+            element={<VocabularyPage />}
           />
           <Route
             path="/luyen-noi"

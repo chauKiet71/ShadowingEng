@@ -140,6 +140,37 @@ let VocabularyService = class VocabularyService {
     }
     async getOverview(userId) {
         await this.ensureCatalog();
+        if (!userId) {
+            const sets = await this.prisma.vocabularySet.findMany({
+                orderBy: { sortOrder: 'asc' },
+                include: { _count: { select: { words: true } } },
+            });
+            return {
+                stats: {
+                    totalLearned: 0,
+                    mastered: 0,
+                    learning: 0,
+                    dueCount: 0,
+                    learnedToday: 0,
+                },
+                sets: sets.map((set) => ({
+                    id: set.id,
+                    slug: set.slug,
+                    title: set.title,
+                    description: set.description,
+                    icon: set.icon,
+                    color: set.color,
+                    cefrLevel: set.cefrLevel,
+                    topic: set.topic,
+                    isFeatured: set.isFeatured,
+                    wordCount: set._count.words,
+                    learnedCount: 0,
+                    saved: false,
+                })),
+                mySets: [],
+                dueWords: [],
+            };
+        }
         const now = new Date();
         const startOfDay = new Date(now);
         startOfDay.setHours(0, 0, 0, 0);
@@ -239,6 +270,27 @@ let VocabularyService = class VocabularyService {
     }
     async getSet(userId, id) {
         await this.ensureCatalog();
+        if (!userId) {
+            const set = await this.prisma.vocabularySet.findUnique({
+                where: { id },
+                include: {
+                    words: {
+                        orderBy: { sortOrder: 'asc' },
+                    },
+                },
+            });
+            if (!set) {
+                throw new common_1.NotFoundException('KhÃ´ng tÃ¬m tháº¥y bá»™ tá»« vá»±ng');
+            }
+            return {
+                ...set,
+                saved: false,
+                words: set.words.map((word) => ({
+                    ...word,
+                    progress: null,
+                })),
+            };
+        }
         const set = await this.prisma.vocabularySet.findUnique({
             where: { id },
             include: {

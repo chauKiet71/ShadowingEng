@@ -3,16 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import { useLevel } from '../contexts/LevelContext';
+import { useAuth } from '../contexts/AuthContext';
 import type { UserLevelId } from '../data/userLevels';
 
 export default function LevelPage() {
   const navigate = useNavigate();
   const { level, setLevel, options } = useLevel();
+  const { isAuthenticated } = useAuth();
+  const returnTo = isAuthenticated ? '/ca-nhan' : '/';
   const [selected, setSelected] = useState<UserLevelId>(level);
 
   const handleSave = () => {
     setLevel(selected);
-    navigate('/ca-nhan', { replace: true });
+    navigate(returnTo, { replace: true });
   };
 
   return (
@@ -20,7 +23,7 @@ export default function LevelPage() {
       <div className="min-h-screen gradient-bg pb-8">
         <div className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-white/60">
           <div className="max-w-lg mx-auto px-4 py-3 flex items-center gap-3">
-            <Link to="/ca-nhan" className="text-gray-600 p-1 -ml-1">
+            <Link to={returnTo} className="text-gray-600 p-1 -ml-1">
               <ChevronLeft size={24} />
             </Link>
             <h1 className="flex-1 text-center font-semibold text-gray-900 pr-7">

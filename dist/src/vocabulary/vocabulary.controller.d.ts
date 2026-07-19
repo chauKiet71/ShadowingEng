@@ -5,7 +5,7 @@ export declare class VocabularyController {
     constructor(vocabularyService: VocabularyService);
     getOverview(user: {
         id: string;
-    }): Promise<{
+    } | null): Promise<{
         stats: {
             totalLearned: number;
             mastered: number;
@@ -76,7 +76,7 @@ export declare class VocabularyController {
     }>;
     getSets(user: {
         id: string;
-    }): Promise<{
+    } | null): Promise<{
         id: string;
         slug: string;
         title: string;
@@ -92,7 +92,34 @@ export declare class VocabularyController {
     }[]>;
     getSet(user: {
         id: string;
-    }, id: string): Promise<{
+    } | null, id: string): Promise<{
+        saved: boolean;
+        words: {
+            progress: null;
+            id: string;
+            createdAt: Date;
+            sortOrder: number;
+            audioUrl: string | null;
+            setId: string;
+            word: string;
+            phonetic: string | null;
+            meaning: string;
+            example: string;
+            exampleTranslation: string;
+        }[];
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        sortOrder: number;
+        icon: string;
+        isFeatured: boolean;
+        title: string;
+        topic: string;
+        slug: string;
+        color: string;
+        cefrLevel: import("@prisma/client").$Enums.CefrLevel;
+    } | {
         saved: boolean;
         words: {
             progress: {

@@ -17,6 +17,7 @@ import {
   Circle,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
+import { useAuth } from '../contexts/AuthContext';
 import { formatPrice, getUnitPriceLabel, mapPackageToPlan, type Plan } from '../data/plans';
 import { peekCache } from '../lib/prefetchCache';
 import { PrefetchKeys, fetchActivePackages } from '../lib/prefetchFeatures';
@@ -42,6 +43,7 @@ function FeatureCell({ value }: { value: boolean | 'limited' }) {
 
 export default function UpgradePage() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const location = useLocation();
   const locationState = location.state as
     | { from?: string; message?: string }
@@ -249,9 +251,20 @@ export default function UpgradePage() {
           <button
             type="button"
             disabled={!activePlan}
-            onClick={() =>
-              activePlan && navigate(`/nang-cap/thanh-toan?package=${activePlan.id}`)
-            }
+            onClick={() => {
+              if (!activePlan) return;
+              const paymentPath = `/nang-cap/thanh-toan?package=${activePlan.id}`;
+              if (!isAuthenticated) {
+                navigate('/dang-nhap', {
+                  state: {
+                    from: paymentPath,
+                    message: 'Vui lòng đăng nhập để nâng cấp Premium.',
+                  },
+                });
+                return;
+              }
+              navigate(paymentPath);
+            }}
             className="w-full gradient-btn text-white rounded-2xl p-4 flex items-center gap-3 card-shadow hover:opacity-95 transition-opacity disabled:opacity-50"
           >
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">

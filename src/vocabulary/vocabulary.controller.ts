@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
 import {
   LearnVocabularyWordDto,
   ReviewVocabularyWordDto,
@@ -16,45 +17,41 @@ import {
 import { VocabularyService } from './vocabulary.service';
 
 @Controller('vocabulary')
-@UseGuards(JwtAuthGuard)
 export class VocabularyController {
   constructor(private readonly vocabularyService: VocabularyService) {}
 
   @Get('overview')
-  getOverview(@CurrentUser() user: { id: string }) {
-    return this.vocabularyService.getOverview(user.id);
+  @UseGuards(OptionalJwtAuthGuard)
+  getOverview(@CurrentUser() user: { id: string } | null) {
+    return this.vocabularyService.getOverview(user?.id);
   }
 
   @Get('sets')
-  getSets(@CurrentUser() user: { id: string }) {
-    return this.vocabularyService.getSets(user.id);
+  @UseGuards(OptionalJwtAuthGuard)
+  getSets(@CurrentUser() user: { id: string } | null) {
+    return this.vocabularyService.getSets(user?.id);
   }
 
   @Get('sets/:id')
-  getSet(
-    @CurrentUser() user: { id: string },
-    @Param('id') id: string,
-  ) {
-    return this.vocabularyService.getSet(user.id, id);
+  @UseGuards(OptionalJwtAuthGuard)
+  getSet(@CurrentUser() user: { id: string } | null, @Param('id') id: string) {
+    return this.vocabularyService.getSet(user?.id, id);
   }
 
   @Post('sets/:id/save')
-  saveSet(
-    @CurrentUser() user: { id: string },
-    @Param('id') id: string,
-  ) {
+  @UseGuards(JwtAuthGuard)
+  saveSet(@CurrentUser() user: { id: string }, @Param('id') id: string) {
     return this.vocabularyService.saveSet(user.id, id);
   }
 
   @Delete('sets/:id/save')
-  removeSet(
-    @CurrentUser() user: { id: string },
-    @Param('id') id: string,
-  ) {
+  @UseGuards(JwtAuthGuard)
+  removeSet(@CurrentUser() user: { id: string }, @Param('id') id: string) {
     return this.vocabularyService.removeSet(user.id, id);
   }
 
   @Post('words/learn')
+  @UseGuards(JwtAuthGuard)
   learnWord(
     @CurrentUser() user: { id: string },
     @Body() dto: LearnVocabularyWordDto,
@@ -63,6 +60,7 @@ export class VocabularyController {
   }
 
   @Post('words/:id/review')
+  @UseGuards(JwtAuthGuard)
   reviewWord(
     @CurrentUser() user: { id: string },
     @Param('id') id: string,
