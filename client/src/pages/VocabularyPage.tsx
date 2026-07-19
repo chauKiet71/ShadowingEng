@@ -458,48 +458,28 @@ export default function VocabularyPage() {
 
     return (
       <MobileLayout showPlayer={false} showNav={false}>
-        <div
-          className={`px-4 pt-5 min-h-screen ${
-            checked ? 'bg-neutral-950 text-white' : ''
-          }`}
-        >
+        <div className="px-4 pt-5 min-h-screen bg-gray-50 dark:bg-neutral-950 text-gray-900 dark:text-white">
           <div className="flex items-center justify-between">
             <button
               type="button"
               onClick={exitLearning}
-              className={`w-9 h-9 rounded-full flex items-center justify-center ${
-                checked
-                  ? 'bg-neutral-900 text-white'
-                  : 'bg-white dark:bg-neutral-900 card-shadow'
-              }`}
+              className="w-9 h-9 rounded-full flex items-center justify-center bg-white dark:bg-neutral-900 card-shadow text-gray-900 dark:text-white"
               aria-label="Quay lại bộ từ"
             >
               <ArrowLeft size={18} />
             </button>
             <div className="text-center">
-              <p
-                className={`font-bold ${
-                  checked ? 'text-white' : 'text-gray-900'
-                }`}
-              >
+              <p className="font-bold text-gray-900 dark:text-white">
                 {learningMode === 'review' ? 'Ôn tập từ vựng' : 'Học từ mới'}
               </p>
-              <p
-                className={`text-[11px] ${
-                  checked ? 'text-gray-400' : 'text-gray-500'
-                }`}
-              >
+              <p className="text-[11px] text-gray-500 dark:text-gray-400">
                 {learningIndex + 1}/{learningQueue.length} · Nghe và nhập từ
               </p>
             </div>
             <div className="w-9" />
           </div>
 
-          <div
-            className={`mt-5 h-2 rounded-full overflow-hidden ${
-              checked ? 'bg-neutral-800' : 'bg-gray-100'
-            }`}
-          >
+          <div className="mt-5 h-2 rounded-full overflow-hidden bg-gray-100 dark:bg-neutral-800">
             <div
               className="h-full bg-primary rounded-full"
               style={{
@@ -521,26 +501,26 @@ export default function VocabularyPage() {
                     <Volume2 size={27} />
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                   Nhấn để nghe lại cách phát âm
                 </p>
 
                 <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-gray-400">
                   Gợi ý ký tự
                 </p>
-                <p className="mt-2 text-2xl font-bold tracking-[0.14em] text-gray-900 break-words">
+                <p className="mt-2 text-2xl font-bold tracking-[0.14em] text-gray-900 dark:text-white break-words">
                   {createWordHint(learningWord.word)}
                 </p>
 
                 <div className="mt-6 rounded-2xl bg-amber-50 dark:bg-amber-950/30 p-4 text-left">
-                  <div className="flex items-center gap-2 text-amber-700">
+                  <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
                     <Sparkles size={16} />
                     <span className="text-xs font-bold">Gợi ý</span>
                   </div>
-                  <p className="mt-2 text-sm font-semibold text-gray-800">
+                  <p className="mt-2 text-sm font-semibold text-gray-800 dark:text-gray-100">
                     {learningWord.meaning}
                   </p>
-                  <p className="mt-2 text-xs text-gray-600">{exampleHint}</p>
+                  <p className="mt-2 text-xs text-gray-600 dark:text-gray-300">{exampleHint}</p>
                   {showExtraHint && (
                     <p className="mt-2 text-xs text-primary">
                       Phiên âm: {learningWord.phonetic || 'Chưa có phiên âm'}
@@ -550,7 +530,7 @@ export default function VocabularyPage() {
                     <button
                       type="button"
                       onClick={() => setShowExtraHint(true)}
-                      className="mt-3 text-xs font-semibold text-amber-700"
+                      className="mt-3 text-xs font-semibold text-amber-700 dark:text-amber-400"
                     >
                       Xem thêm gợi ý
                     </button>
@@ -563,13 +543,13 @@ export default function VocabularyPage() {
                     autoComplete="off"
                     value={learningAnswer}
                     onChange={(event) => setLearningAnswer(event.target.value)}
-                    placeholder="Nhập từ tiếng Anh..."
-                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-center text-lg font-semibold text-gray-900 outline-none focus:border-primary"
+                    placeholder="Câu trả lời"
+                    className="w-full rounded-2xl border border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800 px-4 py-3 text-center text-lg font-semibold text-gray-900 dark:text-white outline-none focus:border-primary"
                   />
                   <button
                     type="submit"
                     disabled={!learningAnswer.trim()}
-                    className="mt-5 w-full rounded-2xl bg-primary py-3.5 font-semibold text-white disabled:bg-gray-200 disabled:text-gray-400"
+                    className="mt-5 w-full rounded-2xl bg-primary py-3.5 font-semibold text-white disabled:bg-gray-200 dark:disabled:bg-neutral-700 disabled:text-gray-400"
                   >
                     Kiểm tra
                   </button>
@@ -608,12 +588,12 @@ export default function VocabularyPage() {
                 </p>
               </div>
 
-              <div className="mt-5 rounded-2xl bg-neutral-900 px-4 py-4 text-left">
+              <div className="mt-5 rounded-2xl bg-white dark:bg-neutral-900 card-shadow px-4 py-4 text-left">
                 <div
                   className={`flex items-center gap-1.5 text-xs font-semibold ${
                     learningResult === 'correct'
-                      ? 'text-green-400'
-                      : 'text-red-400'
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-red-600 dark:text-red-400'
                   }`}
                 >
                   {learningResult === 'correct' ? (
@@ -625,13 +605,13 @@ export default function VocabularyPage() {
                 </div>
 
                 <div className="mt-3 flex items-center gap-2">
-                  <p className="text-3xl font-extrabold text-white">
+                  <p className="text-3xl font-extrabold text-gray-900 dark:text-white">
                     {learningWord.word}
                   </p>
                   <button
                     type="button"
                     onClick={() => playWordAudio(learningWord)}
-                    className="w-9 h-9 rounded-full bg-violet-500/20 text-violet-300 flex items-center justify-center"
+                    className="w-9 h-9 rounded-full bg-violet-500/15 dark:bg-violet-500/20 text-violet-600 dark:text-violet-300 flex items-center justify-center"
                     aria-label="Nghe phát âm"
                   >
                     <Volume2 size={17} />
@@ -639,20 +619,20 @@ export default function VocabularyPage() {
                 </div>
 
                 {learningWord.phonetic && (
-                  <p className="mt-1 text-sm text-violet-300">
+                  <p className="mt-1 text-sm text-violet-600 dark:text-violet-300">
                     {learningWord.phonetic}
                   </p>
                 )}
-                <p className="mt-2 text-lg text-white">
+                <p className="mt-2 text-lg text-gray-800 dark:text-white">
                   {learningWord.meaning}
                 </p>
 
-                <div className="mt-4 border-t border-white/10 pt-4">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                <div className="mt-4 border-t border-gray-100 dark:border-white/10 pt-4">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
                     Ví dụ
                   </p>
                   <div className="mt-2 flex items-start gap-2">
-                    <p className="flex-1 text-sm leading-relaxed text-white">
+                    <p className="flex-1 text-sm leading-relaxed text-gray-800 dark:text-white">
                       {learningWord.example}
                     </p>
                     <button
@@ -663,7 +643,7 @@ export default function VocabularyPage() {
                       className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                         showExampleTranslation
                           ? 'bg-primary text-white'
-                          : 'bg-white/10 text-gray-300'
+                          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300'
                       }`}
                       aria-label={
                         showExampleTranslation
@@ -675,7 +655,7 @@ export default function VocabularyPage() {
                     </button>
                   </div>
                   {showExampleTranslation && (
-                    <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                    <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
                       {learningWord.exampleTranslation}
                     </p>
                   )}
@@ -683,18 +663,18 @@ export default function VocabularyPage() {
               </div>
 
               {learningResult === 'correct' ? (
-                <div className="mt-4 rounded-2xl bg-neutral-900 px-4 py-3 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-green-500/15 text-green-400 flex items-center justify-center shrink-0">
+                <div className="mt-4 rounded-2xl bg-white dark:bg-neutral-900 card-shadow px-4 py-3 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-green-500/15 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0">
                     <BookmarkCheck size={18} />
                   </div>
-                  <p className="text-sm text-gray-200">
+                  <p className="text-sm text-gray-700 dark:text-gray-200">
                     {learningMode === 'review'
                       ? 'Đã cập nhật lịch ôn tập của bạn'
                       : 'Đã thêm vào danh sách học của bạn'}
                   </p>
                 </div>
               ) : (
-                <p className="mt-4 text-center text-xs text-gray-400">
+                <p className="mt-4 text-center text-xs text-gray-500 dark:text-gray-400">
                   Hãy nhớ đáp án rồi sang từ tiếp theo.
                 </p>
               )}
