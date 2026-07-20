@@ -1050,9 +1050,7 @@ export class VideoTranslateService {
       this.logger.error(
         `yt-dlp download failed: ${this.commandErrorLog(error)}`,
       );
-      throw new ServiceUnavailableException(
-        `Không tải được audio YouTube. Chi tiết: ${detail.slice(0, 600)}`,
-      );
+      throw new ServiceUnavailableException(this.ytDlpUserFacingError(detail));
     }
 
     const files = readdirSync(workDir).filter((name) =>
@@ -1195,16 +1193,82 @@ export class VideoTranslateService {
   private ytDlpConnectionArgs() {
     const args: string[] = [];
     const proxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
-    const cookiesPath = this.config.get<string>('YT_DLP_COOKIES_PATH')?.trim();
+    const cookiesPath = this.resolveYtDlpCookiesPath();
     const forceIpv4 =
       this.config.get<string>('YT_DLP_FORCE_IPV4')?.trim().toLowerCase() ===
       'true';
+    const extractorArgs =
+      this.config.get<string>('YT_DLP_EXTRACTOR_ARGS')?.trim() ||
+      'youtube:player_client=android,tv,web';
 
     if (proxy) args.push('--proxy', proxy);
-    if (cookiesPath) args.push('--cookies', cookiesPath);
+    if (cookiesPath) {
+      args.push('--cookies', cookiesPath);
+    } else {
+      this.logger.warn(
+        'YT_DLP cookies chưa cấu hình — IP server dễ bị YouTube chặn bot. ' +
+          'Set YT_DLP_COOKIES_PATH hoặc YT_DLP_COOKIES_BASE64.',
+      );
+    }
     if (forceIpv4) args.push('--force-ipv4');
+    if (extractorArgs) args.push('--extractor-args', extractorArgs);
 
     return args;
+  }
+
+  /**
+   * Cookies Netscape cho yt-dlp (bắt buộc trên nhiều host production).
+   * Ưu tiên file path; fallback ghi từ env base64 vào storage/.
+   */
+  private resolveYtDlpCookiesPath(): string | null {
+    const configured = this.config.get<string>('YT_DLP_COOKIES_PATH')?.trim();
+    if (configured) {
+      if (existsSync(configured)) return configured;
+      this.logger.warn(`YT_DLP_COOKIES_PATH không tồn tại: ${configured}`);
+    }
+
+    const base64 = this.config.get<string>('YT_DLP_COOKIES_BASE64')?.trim();
+    if (!base64) return null;
+
+    try {
+      const content = Buffer.from(base64, 'base64').toString('utf8').trim();
+      if (!content || content.length < 20) {
+        this.logger.warn('YT_DLP_COOKIES_BASE64 rỗng hoặc không hợp lệ');
+        return null;
+      }
+
+      const outDir = join(process.cwd(), 'storage');
+      mkdirSync(outDir, { recursive: true });
+      const outPath = join(outDir, 'youtube-cookies.txt');
+      writeFileSync(outPath, `${content}\n`, { encoding: 'utf8', mode: 0o600 });
+      return outPath;
+    } catch (error) {
+      this.logger.warn(
+        `Không ghi được cookies từ YT_DLP_COOKIES_BASE64: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+      return null;
+    }
+  }
+
+  private ytDlpUserFacingError(detail: string) {
+    const lower = detail.toLowerCase();
+    if (
+      lower.includes('sign in to confirm') ||
+      lower.includes("you're not a bot") ||
+      lower.includes('not a bot') ||
+      lower.includes('cookies-from-browser')
+    ) {
+      return (
+        'YouTube chặn tải audio từ server (bot check). ' +
+        'Cần cấu hình cookies YouTube trên production: ' +
+        'YT_DLP_COOKIES_PATH hoặc YT_DLP_COOKIES_BASE64. ' +
+        'Xem backend/tools/README.md.'
+      );
+    }
+
+    return `Không tải được audio YouTube. Chi tiết: ${detail.slice(0, 500)}`;
   }
 
   private commandErrorDetail(error: unknown) {

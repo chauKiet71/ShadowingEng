@@ -28,10 +28,10 @@ const quickLinks = [
   {
     icon: Clapperboard,
     label: 'Dịch video',
-    sub: 'Video Youtube',
+    sub: 'Sắp mở',
     color: 'bg-rose-500',
     to: '/dich-video',
-    disabled: false,
+    disabled: true,
   },
 ];
 

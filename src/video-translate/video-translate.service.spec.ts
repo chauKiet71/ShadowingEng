@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import { VideoTranslateService } from './video-translate.service';
 
 type TimedSegment = {
@@ -143,10 +145,15 @@ describe('VideoTranslateService yt-dlp integration', () => {
   });
 
   it('builds optional Railway connection arguments', () => {
+    const cookiesFile = join(process.cwd(), 'storage', 'test-yt-cookies.txt');
+    mkdirSync(join(process.cwd(), 'storage'), { recursive: true });
+    writeFileSync(cookiesFile, '# Netscape HTTP Cookie File\n');
+
     const service = createService({
       YT_DLP_PROXY: 'http://proxy.example:8080',
-      YT_DLP_COOKIES_PATH: '/data/youtube-cookies.txt',
+      YT_DLP_COOKIES_PATH: cookiesFile,
       YT_DLP_FORCE_IPV4: 'true',
+      YT_DLP_EXTRACTOR_ARGS: 'youtube:player_client=android',
     }) as unknown as {
       ytDlpConnectionArgs: () => string[];
     };
@@ -155,9 +162,39 @@ describe('VideoTranslateService yt-dlp integration', () => {
       '--proxy',
       'http://proxy.example:8080',
       '--cookies',
-      '/data/youtube-cookies.txt',
+      cookiesFile,
       '--force-ipv4',
+      '--extractor-args',
+      'youtube:player_client=android',
     ]);
+  });
+
+  it('writes cookies from YT_DLP_COOKIES_BASE64', () => {
+    const netscape = [
+      '# Netscape HTTP Cookie File',
+      '.youtube.com\tTRUE\t/\tTRUE\t0\tLOGIN_INFO\tdummy',
+    ].join('\n');
+    const service = createService({
+      YT_DLP_COOKIES_BASE64: Buffer.from(netscape, 'utf8').toString('base64'),
+    }) as unknown as {
+      resolveYtDlpCookiesPath: () => string | null;
+    };
+
+    const path = service.resolveYtDlpCookiesPath();
+    expect(path).toBeTruthy();
+    expect(path!.replace(/\\/g, '/')).toMatch(/storage\/youtube-cookies\.txt$/);
+  });
+
+  it('maps YouTube bot-check errors to a setup hint', () => {
+    const service = createService() as unknown as {
+      ytDlpUserFacingError: (detail: string) => string;
+    };
+
+    expect(
+      service.ytDlpUserFacingError(
+        "ERROR: [youtube] abc: Sign in to confirm you're not a bot",
+      ),
+    ).toMatch(/YT_DLP_COOKIES/);
   });
 
   it('redacts proxy credentials from command failures', () => {
