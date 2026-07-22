@@ -14,8 +14,10 @@ import { ECONOMY_VOCABULARY_SET } from './vocabulary-economy-set';
 import { BUSINESS_VOCABULARY_SET } from './vocabulary-business-set';
 import { BANKING_VOCABULARY_SET } from './vocabulary-banking-set';
 import { FINANCE_VOCABULARY_SET } from './vocabulary-finance-set';
+import { COMMON_VOCABULARY_SET } from './vocabulary-common-set';
 
 const SETS: VocabularySeedSet[] = [
+  COMMON_VOCABULARY_SET,
   TRAVEL_VOCABULARY_SET,
   DAILY_VOCABULARY_SET,
   OFFICE_VOCABULARY_SET,

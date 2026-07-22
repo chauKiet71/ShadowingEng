@@ -12769,5 +12769,973 @@
         "time_end": 20.7
       }
     ]
+  },
+  {
+    "id": "lesson-113",
+    "categoryId": "2",
+    "title": "Dọn dẹp phòng ngủ",
+    "description": "Dọn phòng ngủ gọn gàng sau một tuần bận rộn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-113.mp3",
+    "duration": 41,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "113-1",
+        "english": "My bedroom was a little messy after a busy week.",
+        "phonetic": "",
+        "vietnamese": "Phòng ngủ của tôi hơi bừa bộn sau một tuần bận rộn.",
+        "time_start": 0,
+        "time_end": 2.3
+      },
+      {
+        "id": "113-2",
+        "english": "This morning, I decided to clean it before doing anything else.",
+        "phonetic": "",
+        "vietnamese": "Sáng nay, tôi quyết định dọn phòng trước khi làm bất cứ việc gì khác.",
+        "time_start": 2.66,
+        "time_end": 5.08
+      },
+      {
+        "id": "113-3",
+        "english": "First, I opened the windows to let in some fresh air.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi mở cửa sổ để không khí trong lành vào.",
+        "time_start": 5.6,
+        "time_end": 7.48
+      },
+      {
+        "id": "113-4",
+        "english": "The room immediately felt brighter and more comfortable.",
+        "phonetic": "",
+        "vietnamese": "Căn phòng ngay lập tức cảm thấy sáng hơn và dễ chịu hơn.",
+        "time_start": 7.78,
+        "time_end": 9.84
+      },
+      {
+        "id": "113-5",
+        "english": "Then, I made my bed and straightened the pillows.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi dọn giường và chỉnh lại gối.",
+        "time_start": 10.44,
+        "time_end": 12.48
+      },
+      {
+        "id": "113-6",
+        "english": "After that, I picked up the clothes from the floor and put them in the laundry basket.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi nhặt quần áo dưới sàn và bỏ vào giỏ đồ giặt.",
+        "time_start": 13.14,
+        "time_end": 16.22
+      },
+      {
+        "id": "113-7",
+        "english": "I placed my books back on the shelf.",
+        "phonetic": "",
+        "vietnamese": "Tôi đặt sách trở lại lên kệ.",
+        "time_start": 16.7,
+        "time_end": 18.48
+      },
+      {
+        "id": "113-8",
+        "english": "I also organized my desk because there were papers and pens everywhere.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng sắp xếp bàn làm việc vì giấy tờ và bút viết nằm khắp nơi.",
+        "time_start": 18.64,
+        "time_end": 21.82
+      },
+      {
+        "id": "113-9",
+        "english": "Next, I used a cloth to wipe the desk and the bedside table.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi dùng khăn lau bàn và tủ đầu giường.",
+        "time_start": 22.3,
+        "time_end": 24.96
+      },
+      {
+        "id": "113-10",
+        "english": "I swept the floor carefully and removed all the dust.",
+        "phonetic": "",
+        "vietnamese": "Tôi quét sàn cẩn thận và loại bỏ hết bụi bẩn.",
+        "time_start": 25.36,
+        "time_end": 27.76
+      },
+      {
+        "id": "113-11",
+        "english": "Finally, I emptied the trash bin and sprayed a little air freshener.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi đổ thùng rác và xịt một chút nước hoa phòng.",
+        "time_start": 28.4,
+        "time_end": 31.22
+      },
+      {
+        "id": "113-12",
+        "english": "Now my bedroom looks clean and organized.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ phòng ngủ của tôi trông sạch sẽ và ngăn nắp.",
+        "time_start": 31.62,
+        "time_end": 33.46
+      },
+      {
+        "id": "113-13",
+        "english": "It is much easier to relax and study in a tidy room.",
+        "phonetic": "",
+        "vietnamese": "Thật dễ thư giãn và học bài hơn trong một căn phòng gọn gàng.",
+        "time_start": 33.98,
+        "time_end": 36.58
+      },
+      {
+        "id": "113-14",
+        "english": "Cleaning my bedroom takes some time, but it always makes me feel happy and productive.",
+        "phonetic": "",
+        "vietnamese": "Dọn phòng ngủ mất khá nhiều thời gian, nhưng luôn khiến tôi cảm thấy vui và có năng suất hơn.",
+        "time_start": 37.16,
+        "time_end": 40.06
+      }
+    ]
+  },
+  {
+    "id": "lesson-114",
+    "categoryId": "2",
+    "title": "Lau nhà",
+    "description": "Quét và lau sàn nhà vào cuối tuần",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-114.mp3",
+    "duration": 38,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "114-1",
+        "english": "Every Saturday morning, I clean the floors in my apartment.",
+        "phonetic": "",
+        "vietnamese": "Mỗi sáng thứ Bảy, tôi lau sàn trong căn hộ của mình.",
+        "time_start": 0,
+        "time_end": 2.26
+      },
+      {
+        "id": "114-2",
+        "english": "I begin by moving the chairs and other small furniture.",
+        "phonetic": "",
+        "vietnamese": "Tôi bắt đầu bằng cách kê ghế và những món đồ nhỏ sang chỗ khác.",
+        "time_start": 2.66,
+        "time_end": 4.76
+      },
+      {
+        "id": "114-3",
+        "english": "Then, I sweep the floor to remove dust, hair, and small pieces of dirt.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi quét sàn để loại bỏ bụi, tóc và những mảnh bẩn nhỏ.",
+        "time_start": 5.34,
+        "time_end": 8.68
+      },
+      {
+        "id": "114-4",
+        "english": "After that, I fill a bucket with warm water and floor cleaner.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi đổ nước ấm và nước lau sàn vào xô.",
+        "time_start": 9.24,
+        "time_end": 11.46
+      },
+      {
+        "id": "114-5",
+        "english": "I dip the mop into the bucket and squeeze out the extra water.",
+        "phonetic": "",
+        "vietnamese": "Tôi nhúng cây lau vào xô và vắt hết nước thừa.",
+        "time_start": 11.72,
+        "time_end": 14.26
+      },
+      {
+        "id": "114-6",
+        "english": "I start mopping from the far corner of the room.",
+        "phonetic": "",
+        "vietnamese": "Tôi bắt đầu lau từ góc xa nhất của căn phòng.",
+        "time_start": 14.64,
+        "time_end": 16.48
+      },
+      {
+        "id": "114-7",
+        "english": "This helps me avoid stepping on the wet floor.",
+        "phonetic": "",
+        "vietnamese": "Cách này giúp tôi tránh bước lên sàn còn ướt.",
+        "time_start": 16.76,
+        "time_end": 18.46
+      },
+      {
+        "id": "114-8",
+        "english": "I move the mop slowly so I don't miss any spots.",
+        "phonetic": "",
+        "vietnamese": "Tôi di chuyển cây lau chậm rãi để không bỏ sót chỗ nào.",
+        "time_start": 18.46,
+        "time_end": 21.42
+      },
+      {
+        "id": "114-9",
+        "english": "When the water becomes dirty, I replace it with clean water.",
+        "phonetic": "",
+        "vietnamese": "Khi nước bẩn, tôi thay bằng nước sạch.",
+        "time_start": 21.42,
+        "time_end": 23.9
+      },
+      {
+        "id": "114-10",
+        "english": "After finishing the living room, I continue with the kitchen and the bedrooms.",
+        "phonetic": "",
+        "vietnamese": "Sau khi xong phòng khách, tôi tiếp tục với bếp và các phòng ngủ.",
+        "time_start": 24.58,
+        "time_end": 27.52
+      },
+      {
+        "id": "114-11",
+        "english": "Finally, I leave the windows open so the floor can dry faster.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi mở cửa sổ để sàn khô nhanh hơn.",
+        "time_start": 27.52,
+        "time_end": 31.04
+      },
+      {
+        "id": "114-12",
+        "english": "The whole apartment smells fresh and clean.",
+        "phonetic": "",
+        "vietnamese": "Cả căn hộ có mùi thơm và sạch sẽ.",
+        "time_start": 31.6,
+        "time_end": 33.54
+      },
+      {
+        "id": "114-13",
+        "english": "Although mopping the floor is a little tiring, I enjoy seeing everything shine when I finish.",
+        "phonetic": "",
+        "vietnamese": "Dù lau nhà hơi mệt, tôi vẫn thích nhìn mọi thứ bóng bẩy khi hoàn thành.",
+        "time_start": 33.8,
+        "time_end": 37.38
+      }
+    ]
+  },
+  {
+    "id": "lesson-115",
+    "categoryId": "2",
+    "title": "Nấu bữa tối",
+    "description": "Nấu bữa tối tại nhà cùng gia đình",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-115.mp3",
+    "duration": 41,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "115-1",
+        "english": "After work, I like to cook dinner instead of ordering takeout.",
+        "phonetic": "",
+        "vietnamese": "Sau giờ làm, tôi thích nấu bữa tối thay vì gọi đồ ăn mang về.",
+        "time_start": 0,
+        "time_end": 2.72
+      },
+      {
+        "id": "115-2",
+        "english": "Today, I decided to make grilled chicken with vegetables and rice.",
+        "phonetic": "",
+        "vietnamese": "Hôm nay, tôi quyết định làm gà nướng với rau và cơm.",
+        "time_start": 3.16,
+        "time_end": 5.78
+      },
+      {
+        "id": "115-3",
+        "english": "First, I washed all the vegetables carefully.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi rửa sạch tất cả rau củ.",
+        "time_start": 6.22,
+        "time_end": 7.82
+      },
+      {
+        "id": "115-4",
+        "english": "Then, I cut the carrots, broccoli, and onions into small pieces.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi cắt cà rốt, bông cải xanh và hành tây thành miếng nhỏ.",
+        "time_start": 8.26,
+        "time_end": 11.42
+      },
+      {
+        "id": "115-5",
+        "english": "Next, I seasoned the chicken with salt, pepper, garlic, and a little olive oil.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi ướp gà với muối, tiêu, tỏi và một chút dầu ô liu.",
+        "time_start": 12.22,
+        "time_end": 15.54
+      },
+      {
+        "id": "115-6",
+        "english": "While the chicken was cooking, I started preparing the rice.",
+        "phonetic": "",
+        "vietnamese": "Trong lúc gà đang chín, tôi bắt đầu chuẩn bị cơm.",
+        "time_start": 16.12,
+        "time_end": 18.5
+      },
+      {
+        "id": "115-7",
+        "english": "I also stir-fried the vegetables for a few minutes.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng xào rau trong vài phút.",
+        "time_start": 18.66,
+        "time_end": 20.94
+      },
+      {
+        "id": "115-8",
+        "english": "I wanted them to stay colorful and crispy.",
+        "phonetic": "",
+        "vietnamese": "Tôi muốn chúng vẫn giữ màu sắc và độ giòn.",
+        "time_start": 21,
+        "time_end": 22.78
+      },
+      {
+        "id": "115-9",
+        "english": "Soon, the kitchen was filled with a wonderful smell.",
+        "phonetic": "",
+        "vietnamese": "Chẳng bao lâu, căn bếp tràn ngập mùi thơm dễ chịu.",
+        "time_start": 23.4,
+        "time_end": 25.26
+      },
+      {
+        "id": "115-10",
+        "english": "Everything was ready in about forty minutes.",
+        "phonetic": "",
+        "vietnamese": "Mọi thứ sẵn sàng chỉ sau khoảng bốn mươi phút.",
+        "time_start": 25.26,
+        "time_end": 27.08
+      },
+      {
+        "id": "115-11",
+        "english": "I placed the food on the table and called my family to eat.",
+        "phonetic": "",
+        "vietnamese": "Tôi bày thức ăn lên bàn và gọi cả nhà vào ăn.",
+        "time_start": 27.08,
+        "time_end": 30.04
+      },
+      {
+        "id": "115-12",
+        "english": "We talked about our day while enjoying the meal together.",
+        "phonetic": "",
+        "vietnamese": "Chúng tôi trò chuyện về ngày hôm nay trong lúc thưởng thức bữa ăn cùng nhau.",
+        "time_start": 30.28,
+        "time_end": 32.36
+      },
+      {
+        "id": "115-13",
+        "english": "Cooking at home takes more time, but it is healthier and usually costs less than eating at a restaurant.",
+        "phonetic": "",
+        "vietnamese": "Nấu ăn ở nhà mất nhiều thời gian hơn, nhưng lành mạnh hơn và thường rẻ hơn ăn nhà hàng.",
+        "time_start": 32.86,
+        "time_end": 37.44
+      },
+      {
+        "id": "115-14",
+        "english": "Sharing dinner with my family is one of my favorite parts of the day.",
+        "phonetic": "",
+        "vietnamese": "Ăn tối cùng gia đình là một trong những phần yêu thích nhất trong ngày của tôi.",
+        "time_start": 38.08,
+        "time_end": 40.48
+      }
+    ]
+  },
+  {
+    "id": "lesson-116",
+    "categoryId": "2",
+    "title": "Sửa một đồ vật nhỏ",
+    "description": "Tự sửa tay nắm tủ bếp bị lỏng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1426927308491-6380b6a9936f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-116.mp3",
+    "duration": 38,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "116-1",
+        "english": "Yesterday, one of the handles on my kitchen cabinet became loose.",
+        "phonetic": "",
+        "vietnamese": "Hôm qua, một tay nắm tủ bếp của tôi bị lỏng.",
+        "time_start": 0,
+        "time_end": 3.26
+      },
+      {
+        "id": "116-2",
+        "english": "Instead of buying a new one, I decided to repair it myself.",
+        "phonetic": "",
+        "vietnamese": "Thay vì mua cái mới, tôi quyết định tự sửa.",
+        "time_start": 3.64,
+        "time_end": 5.94
+      },
+      {
+        "id": "116-3",
+        "english": "First, I looked for a screwdriver in my toolbox.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi tìm tô vít trong hộp dụng cụ.",
+        "time_start": 6.52,
+        "time_end": 8.52
+      },
+      {
+        "id": "116-4",
+        "english": "Luckily, I found the right one very quickly.",
+        "phonetic": "",
+        "vietnamese": "May mắn thay, tôi tìm thấy cái phù hợp rất nhanh.",
+        "time_start": 9.28,
+        "time_end": 11.3
+      },
+      {
+        "id": "116-5",
+        "english": "I removed the loose screw and checked the handle carefully.",
+        "phonetic": "",
+        "vietnamese": "Tôi tháo ốc vít bị lỏng và kiểm tra tay nắm cẩn thận.",
+        "time_start": 11.66,
+        "time_end": 14.16
+      },
+      {
+        "id": "116-6",
+        "english": "The screw was not broken, but it had become loose after many years of use.",
+        "phonetic": "",
+        "vietnamese": "Ốc vít không bị gãy, nhưng đã bị lỏng sau nhiều năm sử dụng.",
+        "time_start": 14.58,
+        "time_end": 17.94
+      },
+      {
+        "id": "116-7",
+        "english": "I tightened it slowly to make sure it stayed in place.",
+        "phonetic": "",
+        "vietnamese": "Tôi siết nó lại từ từ để chắc chắn nó giữ chặt.",
+        "time_start": 18.16,
+        "time_end": 20.74
+      },
+      {
+        "id": "116-8",
+        "english": "Then, I opened and closed the cabinet several times to test it.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi mở và đóng tủ vài lần để kiểm tra.",
+        "time_start": 21.12,
+        "time_end": 24.22
+      },
+      {
+        "id": "116-9",
+        "english": "Everything worked perfectly again.",
+        "phonetic": "",
+        "vietnamese": "Mọi thứ lại hoạt động hoàn hảo.",
+        "time_start": 24.54,
+        "time_end": 25.92
+      },
+      {
+        "id": "116-10",
+        "english": "The repair only took about ten minutes.",
+        "phonetic": "",
+        "vietnamese": "Việc sửa chỉ mất khoảng mười phút.",
+        "time_start": 26.34,
+        "time_end": 28.08
+      },
+      {
+        "id": "116-11",
+        "english": "I was happy because I solved the problem by myself.",
+        "phonetic": "",
+        "vietnamese": "Tôi vui vì đã tự giải quyết được vấn đề.",
+        "time_start": 28.64,
+        "time_end": 30.82
+      },
+      {
+        "id": "116-12",
+        "english": "Small repairs like this can save both time and money.",
+        "phonetic": "",
+        "vietnamese": "Những lần sửa chữa nhỏ như thế này có thể tiết kiệm cả thời gian lẫn tiền bạc.",
+        "time_start": 31.2,
+        "time_end": 33.44
+      },
+      {
+        "id": "116-13",
+        "english": "They also help me become more confident when something breaks at home.",
+        "phonetic": "",
+        "vietnamese": "Chúng cũng giúp tôi tự tin hơn khi có thứ gì đó hỏng ở nhà.",
+        "time_start": 34,
+        "time_end": 36.82
+      }
+    ]
+  },
+  {
+    "id": "lesson-117",
+    "categoryId": "2",
+    "title": "Trang trí nhà cửa",
+    "description": "Trang trí phòng khách ấm cúng hơn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-117.mp3",
+    "duration": 38,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "117-1",
+        "english": "Last weekend, I wanted to make my living room feel warmer and more welcoming.",
+        "phonetic": "",
+        "vietnamese": "Cuối tuần trước, tôi muốn làm phòng khách ấm áp và thân thiện hơn.",
+        "time_start": 0,
+        "time_end": 3.26
+      },
+      {
+        "id": "117-2",
+        "english": "I started by moving the sofa closer to the window.",
+        "phonetic": "",
+        "vietnamese": "Tôi bắt đầu bằng cách kê ghế sofa gần cửa sổ hơn.",
+        "time_start": 3.88,
+        "time_end": 6.1
+      },
+      {
+        "id": "117-3",
+        "english": "Then, I added a few colorful cushions.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi thêm vài chiếc gối màu sắc.",
+        "time_start": 6.7,
+        "time_end": 8.2
+      },
+      {
+        "id": "117-4",
+        "english": "I also placed a soft blanket on the couch.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng đặt một tấm chăn mềm lên ghế.",
+        "time_start": 8.54,
+        "time_end": 10.34
+      },
+      {
+        "id": "117-5",
+        "english": "Next, I hung a new picture on the wall.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi treo một bức tranh mới lên tường.",
+        "time_start": 11.04,
+        "time_end": 12.42
+      },
+      {
+        "id": "117-6",
+        "english": "It showed a beautiful mountain landscape.",
+        "phonetic": "",
+        "vietnamese": "Bức tranh vẽ một khung cảnh núi đẹp.",
+        "time_start": 12.68,
+        "time_end": 14.2
+      },
+      {
+        "id": "117-7",
+        "english": "After that, I put some fresh flowers on the coffee table.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi đặt vài bông hoa tươi lên bàn trà.",
+        "time_start": 14.98,
+        "time_end": 17.36
+      },
+      {
+        "id": "117-8",
+        "english": "The flowers made the whole room look brighter.",
+        "phonetic": "",
+        "vietnamese": "Những bông hoa khiến cả căn phòng trông sáng hơn.",
+        "time_start": 17.8,
+        "time_end": 19.54
+      },
+      {
+        "id": "117-9",
+        "english": "I also changed the curtains to lighter colors.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng đổi rèm sang màu sáng hơn.",
+        "time_start": 19.84,
+        "time_end": 21.82
+      },
+      {
+        "id": "117-10",
+        "english": "Finally, I turned on a small lamp with warm light.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi bật một chiếc đèn nhỏ với ánh sáng ấm.",
+        "time_start": 22.22,
+        "time_end": 24.34
+      },
+      {
+        "id": "117-11",
+        "english": "The room looked completely different after these small changes.",
+        "phonetic": "",
+        "vietnamese": "Căn phòng trông hoàn toàn khác sau những thay đổi nhỏ này.",
+        "time_start": 24.6,
+        "time_end": 27.06
+      },
+      {
+        "id": "117-12",
+        "english": "My friends visited that evening and said the living room felt cozy and comfortable.",
+        "phonetic": "",
+        "vietnamese": "Bạn tôi đến chơi tối đó và nói phòng khách cảm thấy ấm cúng và dễ chịu.",
+        "time_start": 27.06,
+        "time_end": 30.86
+      },
+      {
+        "id": "117-13",
+        "english": "I learned that decorating a home does not always require a lot of money.",
+        "phonetic": "",
+        "vietnamese": "Tôi học được rằng trang trí nhà không phải lúc nào cũng cần nhiều tiền.",
+        "time_start": 31.5,
+        "time_end": 34.18
+      },
+      {
+        "id": "117-14",
+        "english": "Sometimes a few simple changes can make a big difference.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi chỉ vài thay đổi đơn giản cũng tạo nên khác biệt lớn.",
+        "time_start": 34.5,
+        "time_end": 36.72
+      }
+    ]
+  },
+  {
+    "id": "lesson-118",
+    "categoryId": "2",
+    "title": "Chăm sóc cây cảnh",
+    "description": "Chăm sóc cây trong nhà mỗi tuần",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-118.mp3",
+    "duration": 41,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "118-1",
+        "english": "I have several indoor plants that I take care of every week.",
+        "phonetic": "",
+        "vietnamese": "Tôi có vài cây trong nhà mà tôi chăm sóc mỗi tuần.",
+        "time_start": 0,
+        "time_end": 2.64
+      },
+      {
+        "id": "118-2",
+        "english": "They make my apartment feel fresh and peaceful.",
+        "phonetic": "",
+        "vietnamese": "Chúng khiến căn hộ tôi cảm thấy tươi mới và yên bình.",
+        "time_start": 2.88,
+        "time_end": 4.92
+      },
+      {
+        "id": "118-3",
+        "english": "Every Sunday morning, I spend some time looking after them.",
+        "phonetic": "",
+        "vietnamese": "Mỗi sáng Chủ nhật, tôi dành thời gian chăm chúng.",
+        "time_start": 5.2,
+        "time_end": 8.16
+      },
+      {
+        "id": "118-4",
+        "english": "First, I check the soil to see if it is dry.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi kiểm tra đất xem đã khô chưa.",
+        "time_start": 8.88,
+        "time_end": 11.28
+      },
+      {
+        "id": "118-5",
+        "english": "If it is, I water the plants carefully.",
+        "phonetic": "",
+        "vietnamese": "Nếu khô, tôi tưới nước cẩn thận.",
+        "time_start": 11.72,
+        "time_end": 14.1
+      },
+      {
+        "id": "118-6",
+        "english": "I try not to give them too much water because that can damage the roots.",
+        "phonetic": "",
+        "vietnamese": "Tôi cố không tưới quá nhiều vì có thể làm hỏng rễ.",
+        "time_start": 14.44,
+        "time_end": 17.9
+      },
+      {
+        "id": "118-7",
+        "english": "Then, I remove any yellow or dead leaves.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi tỉa bỏ những lá vàng hoặc lá khô.",
+        "time_start": 18.32,
+        "time_end": 20.72
+      },
+      {
+        "id": "118-8",
+        "english": "I also clean the dust from the leaves with a soft cloth.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng lau bụi trên lá bằng khăn mềm.",
+        "time_start": 20.98,
+        "time_end": 23.82
+      },
+      {
+        "id": "118-9",
+        "english": "This helps the plants stay healthy and look beautiful.",
+        "phonetic": "",
+        "vietnamese": "Việc này giúp cây khỏe và trông đẹp hơn.",
+        "time_start": 24.36,
+        "time_end": 26.54
+      },
+      {
+        "id": "118-10",
+        "english": "Some of my plants need more sunlight than others.",
+        "phonetic": "",
+        "vietnamese": "Một số cây cần nhiều ánh nắng hơn những cây khác.",
+        "time_start": 26.54,
+        "time_end": 29.24
+      },
+      {
+        "id": "118-11",
+        "english": "So, I move them to different places depending on the weather.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, tôi di chuyển chúng đến chỗ khác tùy theo thời tiết.",
+        "time_start": 29.82,
+        "time_end": 32.84
+      },
+      {
+        "id": "118-12",
+        "english": "Watching my plants grow makes me feel relaxed.",
+        "phonetic": "",
+        "vietnamese": "Nhìn cây lớn lên khiến tôi cảm thấy thư giãn.",
+        "time_start": 33.66,
+        "time_end": 35.84
+      },
+      {
+        "id": "118-13",
+        "english": "Taking care of them reminds me to slow down and enjoy simple moments in life.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc chúng nhắc tôi hãy chậm lại và tận hưởng những khoảnh khắc đơn giản trong đời.",
+        "time_start": 36.46,
+        "time_end": 40.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-119",
+    "categoryId": "2",
+    "title": "Chuẩn bị đồ cho ngày mai",
+    "description": "Chuẩn bị sẵn đồ đạc từ tối hôm trước",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-119.mp3",
+    "duration": 36,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "119-1",
+        "english": "Every evening, I spend a few minutes preparing for the next day.",
+        "phonetic": "",
+        "vietnamese": "Mỗi tối, tôi dành vài phút để chuẩn bị cho ngày hôm sau.",
+        "time_start": 0,
+        "time_end": 3.06
+      },
+      {
+        "id": "119-2",
+        "english": "This habit helps me avoid stress in the morning.",
+        "phonetic": "",
+        "vietnamese": "Thói quen này giúp tôi tránh căng thẳng vào buổi sáng.",
+        "time_start": 3.48,
+        "time_end": 5.34
+      },
+      {
+        "id": "119-3",
+        "english": "First, I check my schedule on my phone.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi kiểm tra lịch trên điện thoại.",
+        "time_start": 5.82,
+        "time_end": 7.24
+      },
+      {
+        "id": "119-4",
+        "english": "Then, I choose the clothes I want to wear.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi chọn quần áo muốn mặc.",
+        "time_start": 7.62,
+        "time_end": 9.16
+      },
+      {
+        "id": "119-5",
+        "english": "If I have an important meeting, I make sure everything looks neat.",
+        "phonetic": "",
+        "vietnamese": "Nếu có cuộc họp quan trọng, tôi đảm bảo mọi thứ trông chỉn chu.",
+        "time_start": 9.54,
+        "time_end": 12.22
+      },
+      {
+        "id": "119-6",
+        "english": "Next, I pack my laptop, notebook, charger, and other things into my backpack.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi xếp laptop, sổ tay, sạc và những thứ khác vào balo.",
+        "time_start": 12.76,
+        "time_end": 16.16
+      },
+      {
+        "id": "119-7",
+        "english": "I also prepare my lunch if I plan to bring food from home.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng chuẩn bị bữa trưa nếu định mang đồ ăn từ nhà.",
+        "time_start": 16.44,
+        "time_end": 18.98
+      },
+      {
+        "id": "119-8",
+        "english": "After that, I put my keys, wallet, and phone near the front door.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi để chìa khóa, ví và điện thoại gần cửa ra vào.",
+        "time_start": 19.38,
+        "time_end": 22.18
+      },
+      {
+        "id": "119-9",
+        "english": "This way, I never forget them.",
+        "phonetic": "",
+        "vietnamese": "Nhờ vậy, tôi không bao giờ quên chúng.",
+        "time_start": 22.52,
+        "time_end": 24.06
+      },
+      {
+        "id": "119-10",
+        "english": "Finally, I set my alarm and check the weather forecast.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi đặt báo thức và kiểm tra dự báo thời tiết.",
+        "time_start": 24.82,
+        "time_end": 27.16
+      },
+      {
+        "id": "119-11",
+        "english": "If it might rain, I remember to pack an umbrella.",
+        "phonetic": "",
+        "vietnamese": "Nếu có thể mưa, tôi nhớ mang theo ô.",
+        "time_start": 27.16,
+        "time_end": 30.06
+      },
+      {
+        "id": "119-12",
+        "english": "Preparing everything the night before only takes about fifteen minutes.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị mọi thứ từ tối hôm trước chỉ mất khoảng mười lăm phút.",
+        "time_start": 30.06,
+        "time_end": 32.96
+      },
+      {
+        "id": "119-13",
+        "english": "However, it makes my mornings much calmer and more organized.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, nó khiến buổi sáng của tôi bình tĩnh và ngăn nắp hơn nhiều.",
+        "time_start": 32.96,
+        "time_end": 35.54
+      }
+    ]
+  },
+  {
+    "id": "lesson-120",
+    "categoryId": "2",
+    "title": "Thanh toán hóa đơn",
+    "description": "Thanh toán hóa đơn hàng tháng qua ứng dụng ngân hàng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-120.mp3",
+    "duration": 42,
+    "level": "INTERMEDIATE",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "120-1",
+        "english": "At the beginning of every month, I pay all my household bills.",
+        "phonetic": "",
+        "vietnamese": "Vào đầu mỗi tháng, tôi thanh toán tất cả hóa đơn trong nhà.",
+        "time_start": 0,
+        "time_end": 2.84
+      },
+      {
+        "id": "120-2",
+        "english": "These include electricity, water, internet, and my phone bill.",
+        "phonetic": "",
+        "vietnamese": "Chúng bao gồm điện, nước, internet và hóa đơn điện thoại.",
+        "time_start": 3.26,
+        "time_end": 6.08
+      },
+      {
+        "id": "120-3",
+        "english": "In the past, I went to the bank to make the payments.",
+        "phonetic": "",
+        "vietnamese": "Trước đây, tôi đến ngân hàng để thanh toán.",
+        "time_start": 6.58,
+        "time_end": 8.68
+      },
+      {
+        "id": "120-4",
+        "english": "Now, I usually pay everything online.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ, tôi thường thanh toán mọi thứ trực tuyến.",
+        "time_start": 9.4,
+        "time_end": 11.18
+      },
+      {
+        "id": "120-5",
+        "english": "First, I open my banking app on my phone.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi mở ứng dụng ngân hàng trên điện thoại.",
+        "time_start": 11.72,
+        "time_end": 13.42
+      },
+      {
+        "id": "120-6",
+        "english": "Then, I check each bill carefully to make sure the amount is correct.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi kiểm tra từng hóa đơn cẩn thận để chắc số tiền đúng.",
+        "time_start": 13.98,
+        "time_end": 17.32
+      },
+      {
+        "id": "120-7",
+        "english": "After that, I confirm the payment and save the digital receipt.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi xác nhận thanh toán và lưu biên lai điện tử.",
+        "time_start": 18.46,
+        "time_end": 21.04
+      },
+      {
+        "id": "120-8",
+        "english": "The whole process only takes a few minutes.",
+        "phonetic": "",
+        "vietnamese": "Cả quá trình chỉ mất vài phút.",
+        "time_start": 21.4,
+        "time_end": 23.08
+      },
+      {
+        "id": "120-9",
+        "english": "Paying bills on time helps me avoid late fees.",
+        "phonetic": "",
+        "vietnamese": "Thanh toán hóa đơn đúng hạn giúp tôi tránh phí trễ hạn.",
+        "time_start": 23.56,
+        "time_end": 25.58
+      },
+      {
+        "id": "120-10",
+        "english": "It also makes it easier to manage my monthly budget.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp quản lý ngân sách hàng tháng dễ hơn.",
+        "time_start": 25.92,
+        "time_end": 28.4
+      },
+      {
+        "id": "120-11",
+        "english": "Sometimes I write down all my expenses in a notebook.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi tôi ghi lại tất cả chi tiêu vào sổ tay.",
+        "time_start": 29,
+        "time_end": 31.12
+      },
+      {
+        "id": "120-12",
+        "english": "This helps me understand where my money goes each month.",
+        "phonetic": "",
+        "vietnamese": "Việc này giúp tôi hiểu tiền của mình đi đâu mỗi tháng.",
+        "time_start": 31.64,
+        "time_end": 33.98
+      },
+      {
+        "id": "120-13",
+        "english": "Keeping track of my bills is an important part of being responsible with my finances.",
+        "phonetic": "",
+        "vietnamese": "Theo dõi hóa đơn là phần quan trọng để trách nhiệm với tài chính của mình.",
+        "time_start": 34.24,
+        "time_end": 37.66
+      },
+      {
+        "id": "120-14",
+        "english": "It gives me peace of mind because I know everything has been taken care of.",
+        "phonetic": "",
+        "vietnamese": "Nó mang lại sự yên tâm vì tôi biết mọi thứ đã được lo liệu xong.",
+        "time_start": 38.22,
+        "time_end": 41.1
+      }
+    ]
   }
 ]

@@ -75,6 +75,7 @@ const iconMap = {
   'building-2': Building2,
   landmark: Landmark,
   wallet: Wallet,
+  'book-open': BookOpen,
 } as const;
 
 const colorMap: Record<string, { bg: string; text: string; soft: string }> = {
