@@ -7808,14 +7808,14 @@
         "phonetic": "",
         "vietnamese": "Trong quá khứ, bạn phải đến một trường học thật để học một kỹ năng mới.",
         "time_start": 3.04,
-        "time_end": 7.0
+        "time_end": 7
       },
       {
         "id": "73-3",
         "english": "Now, you can learn anything from your computer at home.",
         "phonetic": "",
         "vietnamese": "Bây giờ, bạn có thể học bất cứ điều gì từ máy tính của mình ở nhà.",
-        "time_start": 7.0,
+        "time_start": 7,
         "time_end": 10.14
       },
       {
@@ -7840,14 +7840,14 @@
         "phonetic": "",
         "vietnamese": "Bạn có thể học vào buổi sáng sớm hoặc tối muộn.",
         "time_start": 19.19,
-        "time_end": 22.20
+        "time_end": 22.2
       },
       {
         "id": "73-7",
         "english": "You do not have to wear a school uniform or travel on a busy bus.",
         "phonetic": "",
         "vietnamese": "Bạn không cần phải mặc đồng phục học sinh hay đi xe buýt đông đúc.",
-        "time_start": 22.20,
+        "time_start": 22.2,
         "time_end": 26.29
       },
       {
@@ -7941,14 +7941,14 @@
         "phonetic": "",
         "vietnamese": "Mỗi ngày, sinh viên đến các lớp học lớn để nghe giảng và ghi chép.",
         "time_start": 16.08,
-        "time_end": 21.10
+        "time_end": 21.1
       },
       {
         "id": "74-6",
         "english": "After class, they often go to the library to read heavy books and do group projects.",
         "phonetic": "",
         "vietnamese": "Sau giờ học, họ thường đến thư viện để đọc sách nặng và làm dự án nhóm.",
-        "time_start": 21.10,
+        "time_start": 21.1,
         "time_end": 26.01
       },
       {
@@ -7989,14 +7989,14 @@
         "phonetic": "",
         "vietnamese": "Đôi khi, sinh viên làm việc bán thời gian ở các nhà hàng để kiếm thêm chút tiền.",
         "time_start": 42.13,
-        "time_end": 47.10
+        "time_end": 47.1
       },
       {
         "id": "74-12",
         "english": "Student life can be difficult and tiring, but it is always full of fun memories.",
         "phonetic": "",
         "vietnamese": "Cuộc sống sinh viên có thể khó khăn và mệt mỏi, nhưng luôn đầy những kỷ niệm vui vẻ.",
-        "time_start": 47.10,
+        "time_start": 47.1,
         "time_end": 52.09
       }
     ]
@@ -8050,22 +8050,22 @@
         "phonetic": "",
         "vietnamese": "Đầu tiên, bạn nên sắp xếp ghi chú của mình.",
         "time_start": 17.08,
-        "time_end": 19.20
+        "time_end": 19.2
       },
       {
         "id": "75-6",
         "english": "Make sure you have all the information from your teacher.",
         "phonetic": "",
         "vietnamese": "Hãy chắc chắn rằng bạn có tất cả thông tin từ giáo viên của bạn.",
-        "time_start": 19.20,
-        "time_end": 22.20
+        "time_start": 19.2,
+        "time_end": 22.2
       },
       {
         "id": "75-7",
         "english": "Then, use colorful pens to highlight the most important words and numbers.",
         "phonetic": "",
         "vietnamese": "Sau đó, hãy sử dụng bút màu để làm nổi bật những từ và số quan trọng nhất.",
-        "time_start": 22.20,
+        "time_start": 22.2,
         "time_end": 27.04
       },
       {
@@ -8143,7 +8143,7 @@
         "phonetic": "",
         "vietnamese": "Đọc tiếng Anh có thể khó nếu có nhiều từ mới,",
         "time_start": 0,
-        "time_end": 3.0
+        "time_end": 3
       },
       {
         "id": "76-2",
@@ -8191,14 +8191,14 @@
         "phonetic": "",
         "vietnamese": "Điều này có nghĩa là bạn đọc văn bản rất nhanh để tìm ý chính.",
         "time_start": 21.16,
-        "time_end": 25.10
+        "time_end": 25.1
       },
       {
         "id": "76-8",
         "english": "You do not need to understand every single word.",
         "phonetic": "",
         "vietnamese": "Bạn không cần phải hiểu từng từ một.",
-        "time_start": 25.10,
+        "time_start": 25.1,
         "time_end": 28.05
       },
       {
@@ -8401,14 +8401,14 @@
         "phonetic": "",
         "vietnamese": "Chúng tôi gặp nhau ở một quán cà phê yên tĩnh một lần mỗi tuần.",
         "time_start": 14.25,
-        "time_end": 17.20
+        "time_end": 17.2
       },
       {
         "id": "78-6",
         "english": "For the first thirty minutes, we only speak in English, so I can practice.",
         "phonetic": "",
         "vietnamese": "Trong ba mươi phút đầu tiên, chúng tôi chỉ nói tiếng Anh, để tôi có thể luyện tập.",
-        "time_start": 17.20,
+        "time_start": 17.2,
         "time_end": 21.19
       },
       {
@@ -8510,14 +8510,14 @@
         "phonetic": "",
         "vietnamese": "Bạn có thể mắc những sai lầm lớn hoặc cảm thấy rằng bạn không học được gì mới.",
         "time_start": 9.06,
-        "time_end": 13.20
+        "time_end": 13.2
       },
       {
         "id": "79-3",
         "english": "When this happens, a small voice inside your head might say",
         "phonetic": "",
         "vietnamese": "Khi điều này xảy ra, một giọng nói nhỏ bên trong đầu bạn có thể nói rằng:",
-        "time_start": 13.20,
+        "time_start": 13.2,
         "time_end": 17.13
       },
       {
@@ -8574,14 +8574,14 @@
         "phonetic": "",
         "vietnamese": "Sau đó, hãy nhớ lý do tại sao bạn bắt đầu ngay từ đầu.",
         "time_start": 39.03,
-        "time_end": 42.20
+        "time_end": 42.2
       },
       {
         "id": "79-10",
         "english": "Think about the happy feeling you will have when you finally reach your goal.",
         "phonetic": "",
         "vietnamese": "Hãy nghĩ về cảm giác hạnh phúc mà bạn sẽ có khi cuối cùng đạt được mục tiêu.",
-        "time_start": 42.20,
+        "time_start": 42.2,
         "time_end": 47
       },
       {
@@ -8685,7 +8685,7 @@
         "time_start": 30.02,
         "time_end": 33.17
       },
-            {
+      {
         "id": "80-8",
         "english": "You can politely say, \"I understand your point, but I think differently.\"",
         "phonetic": "",
@@ -11869,6 +11869,904 @@
         "vietnamese": "Anh không thể đợi được đến ngày cuối cùng cũng được gọi em là vợ anh.",
         "time_start": 36.43,
         "time_end": 39.75
+      }
+    ]
+  },
+  {
+    "id": "lesson-103",
+    "categoryId": "2",
+    "title": "Đánh răng và rửa mặt",
+    "description": "Thói quen vệ sinh cá nhân buổi sáng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-103.mp3",
+    "duration": 24,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "103-1",
+        "english": "Every morning, I wake up at six thirty.",
+        "phonetic": "",
+        "vietnamese": "Mỗi sáng, tôi thức dậy lúc sáu giờ ba mươi.",
+        "time_start": 0,
+        "time_end": 0.8
+      },
+      {
+        "id": "103-2",
+        "english": "I walk to the bathroom and turn on the light.",
+        "phonetic": "",
+        "vietnamese": "Tôi đi vào phòng tắm và bật đèn.",
+        "time_start": 0.8,
+        "time_end": 3.68
+      },
+      {
+        "id": "103-3",
+        "english": "First, I wash my face with warm water.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi rửa mặt bằng nước ấm.",
+        "time_start": 4.5,
+        "time_end": 6.06
+      },
+      {
+        "id": "103-4",
+        "english": "It helps me feel fresh and awake.",
+        "phonetic": "",
+        "vietnamese": "Việc đó giúp tôi cảm thấy tươi tỉnh và tỉnh táo.",
+        "time_start": 6.18,
+        "time_end": 7.66
+      },
+      {
+        "id": "103-5",
+        "english": "Then I put toothpaste on my toothbrush.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi bôi kem đánh răng lên bàn chải.",
+        "time_start": 7.94,
+        "time_end": 9.82
+      },
+      {
+        "id": "103-6",
+        "english": "I brush my teeth carefully for about two minutes.",
+        "phonetic": "",
+        "vietnamese": "Tôi đánh răng cẩn thận khoảng hai phút.",
+        "time_start": 10.16,
+        "time_end": 12.14
+      },
+      {
+        "id": "103-7",
+        "english": "I make sure to brush every tooth.",
+        "phonetic": "",
+        "vietnamese": "Tôi đảm bảo đánh sạch mọi chiếc răng.",
+        "time_start": 12.28,
+        "time_end": 13.56
+      },
+      {
+        "id": "103-8",
+        "english": "After that, I rinse my mouth with water.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, tôi súc miệng bằng nước.",
+        "time_start": 14.02,
+        "time_end": 15.72
+      },
+      {
+        "id": "103-9",
+        "english": "Sometimes I use mouthwash to keep my breath fresh.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi tôi dùng nước súc miệng để hơi thở thơm mát.",
+        "time_start": 16.02,
+        "time_end": 18.46
+      },
+      {
+        "id": "103-10",
+        "english": "Finally, I dry my face with a clean towel.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi lau mặt bằng khăn sạch.",
+        "time_start": 19.2,
+        "time_end": 21.04
+      },
+      {
+        "id": "103-11",
+        "english": "Now I feel clean and ready to start my day.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ tôi cảm thấy sạch sẽ và sẵn sàng bắt đầu ngày mới.",
+        "time_start": 21.3,
+        "time_end": 22.9
+      }
+    ]
+  },
+  {
+    "id": "lesson-104",
+    "categoryId": "2",
+    "title": "Chuẩn bị bữa sáng",
+    "description": "Làm bữa sáng đơn giản trước khi ra ngoài",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-104.mp3",
+    "duration": 28,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "104-1",
+        "english": "I usually prepare breakfast after getting dressed.",
+        "phonetic": "",
+        "vietnamese": "Tôi thường chuẩn bị bữa sáng sau khi mặc quần áo.",
+        "time_start": 0,
+        "time_end": 2.28
+      },
+      {
+        "id": "104-2",
+        "english": "I open the refrigerator and take out some eggs and milk.",
+        "phonetic": "",
+        "vietnamese": "Tôi mở tủ lạnh và lấy ra vài quả trứng cùng sữa.",
+        "time_start": 2.62,
+        "time_end": 4.96
+      },
+      {
+        "id": "104-3",
+        "english": "Today I decide to make fried eggs and toast.",
+        "phonetic": "",
+        "vietnamese": "Hôm nay tôi quyết định làm trứng chiên và bánh mì nướng.",
+        "time_start": 5.3,
+        "time_end": 7.32
+      },
+      {
+        "id": "104-4",
+        "english": "While the bread is in the toaster, I cook the eggs.",
+        "phonetic": "",
+        "vietnamese": "Trong lúc bánh mì đang trong lò nướng, tôi chiên trứng.",
+        "time_start": 7.9,
+        "time_end": 10
+      },
+      {
+        "id": "104-5",
+        "english": "Then I pour a glass of orange juice.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi rót một cốc nước cam.",
+        "time_start": 10.5,
+        "time_end": 11.96
+      },
+      {
+        "id": "104-6",
+        "english": "Sometimes I also cut a banana or an apple.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi tôi cũng cắt một quả chuối hoặc táo.",
+        "time_start": 12.84,
+        "time_end": 14.72
+      },
+      {
+        "id": "104-7",
+        "english": "I put everything on a plate and sit at the table.",
+        "phonetic": "",
+        "vietnamese": "Tôi xếp mọi thứ ra đĩa và ngồi vào bàn.",
+        "time_start": 15.22,
+        "time_end": 17.3
+      },
+      {
+        "id": "104-8",
+        "english": "My breakfast is simple, but it gives me energy.",
+        "phonetic": "",
+        "vietnamese": "Bữa sáng của tôi đơn giản, nhưng mang lại năng lượng.",
+        "time_start": 18.04,
+        "time_end": 20.16
+      },
+      {
+        "id": "104-9",
+        "english": "I enjoy eating while listening to some relaxing music.",
+        "phonetic": "",
+        "vietnamese": "Tôi thưởng thức bữa ăn trong lúc nghe nhạc thư giãn.",
+        "time_start": 20.56,
+        "time_end": 23.5
+      },
+      {
+        "id": "104-10",
+        "english": "After breakfast, I wash the dishes before leaving the house.",
+        "phonetic": "",
+        "vietnamese": "Sau bữa sáng, tôi rửa bát trước khi ra khỏi nhà.",
+        "time_start": 24.14,
+        "time_end": 27.22
+      }
+    ]
+  },
+  {
+    "id": "lesson-105",
+    "categoryId": "2",
+    "title": "Dọn giường",
+    "description": "Dọn giường mỗi sáng để bắt đầu ngày mới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-105.mp3",
+    "duration": 22,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "105-1",
+        "english": "The first thing I do after waking up is making my bed.",
+        "phonetic": "",
+        "vietnamese": "Việc đầu tiên tôi làm sau khi thức dậy là dọn giường.",
+        "time_start": 0,
+        "time_end": 2.4
+      },
+      {
+        "id": "105-2",
+        "english": "I pull the blanket up neatly.",
+        "phonetic": "",
+        "vietnamese": "Tôi kéo chăn lên cho gọn gàng.",
+        "time_start": 2.84,
+        "time_end": 3.88
+      },
+      {
+        "id": "105-3",
+        "english": "Then I smooth the bedsheet with my hands.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi vuốt phẳng ga giường bằng tay.",
+        "time_start": 4.38,
+        "time_end": 6.02
+      },
+      {
+        "id": "105-4",
+        "english": "Next, I place the pillows in the right position.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi đặt gối đúng vị trí.",
+        "time_start": 6.56,
+        "time_end": 8.26
+      },
+      {
+        "id": "105-5",
+        "english": "A clean bed makes my room look tidy.",
+        "phonetic": "",
+        "vietnamese": "Một chiếc giường sạch sẽ khiến căn phòng trông gọn gàng hơn.",
+        "time_start": 8.44,
+        "time_end": 10.06
+      },
+      {
+        "id": "105-6",
+        "english": "It only takes a few minutes.",
+        "phonetic": "",
+        "vietnamese": "Việc này chỉ mất vài phút.",
+        "time_start": 10.36,
+        "time_end": 11.48
+      },
+      {
+        "id": "105-7",
+        "english": "When I come home in the evening, my room feels more comfortable.",
+        "phonetic": "",
+        "vietnamese": "Khi tôi về nhà vào buổi tối, căn phòng cảm thấy dễ chịu hơn.",
+        "time_start": 12.06,
+        "time_end": 14.72
+      },
+      {
+        "id": "105-8",
+        "english": "My parents always tell me that good habits start with small things.",
+        "phonetic": "",
+        "vietnamese": "Bố mẹ tôi luôn nói rằng thói quen tốt bắt đầu từ những việc nhỏ.",
+        "time_start": 15.32,
+        "time_end": 18.1
+      },
+      {
+        "id": "105-9",
+        "english": "Making my bed every morning helps me begin the day in a positive way.",
+        "phonetic": "",
+        "vietnamese": "Dọn giường mỗi sáng giúp tôi bắt đầu ngày mới một cách tích cực.",
+        "time_start": 18.44,
+        "time_end": 21.26
+      }
+    ]
+  },
+  {
+    "id": "lesson-106",
+    "categoryId": "2",
+    "title": "Mặc quần áo",
+    "description": "Chọn quần áo phù hợp với thời tiết và công việc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-106.mp3",
+    "duration": 19,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "106-1",
+        "english": "After taking a shower, I choose my clothes for the day.",
+        "phonetic": "",
+        "vietnamese": "Sau khi tắm, tôi chọn quần áo cho ngày hôm đó.",
+        "time_start": 0,
+        "time_end": 2.26
+      },
+      {
+        "id": "106-2",
+        "english": "I check the weather before making my choice.",
+        "phonetic": "",
+        "vietnamese": "Tôi xem thời tiết trước khi quyết định.",
+        "time_start": 2.48,
+        "time_end": 4.06
+      },
+      {
+        "id": "106-3",
+        "english": "If it is hot, I wear a T-shirt and shorts.",
+        "phonetic": "",
+        "vietnamese": "Nếu trời nóng, tôi mặc áo thun và quần short.",
+        "time_start": 4.4,
+        "time_end": 6.1
+      },
+      {
+        "id": "106-4",
+        "english": "If it is cold, I wear a jacket and long pants.",
+        "phonetic": "",
+        "vietnamese": "Nếu trời lạnh, tôi mặc áo khoác và quần dài.",
+        "time_start": 6.4,
+        "time_end": 8.24
+      },
+      {
+        "id": "106-5",
+        "english": "Today I need to go to work, so I choose a clean shirt and black pants.",
+        "phonetic": "",
+        "vietnamese": "Hôm nay tôi cần đi làm, nên tôi chọn một chiếc áo sơ mi sạch và quần đen.",
+        "time_start": 8.44,
+        "time_end": 11
+      },
+      {
+        "id": "106-6",
+        "english": "I also wear comfortable shoes because I walk a lot.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng mang giày thoải mái vì tôi đi bộ nhiều.",
+        "time_start": 11.12,
+        "time_end": 13.08
+      },
+      {
+        "id": "106-7",
+        "english": "Before leaving, I look in the mirror.",
+        "phonetic": "",
+        "vietnamese": "Trước khi ra ngoài, tôi nhìn vào gương.",
+        "time_start": 13.54,
+        "time_end": 14.94
+      },
+      {
+        "id": "106-8",
+        "english": "I make sure everything looks nice and tidy.",
+        "phonetic": "",
+        "vietnamese": "Tôi đảm bảo mọi thứ trông gọn gàng và chỉn chu.",
+        "time_start": 15.14,
+        "time_end": 16.76
+      },
+      {
+        "id": "106-9",
+        "english": "Now I am ready to go out.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ tôi đã sẵn sàng để đi ra ngoài.",
+        "time_start": 17.2,
+        "time_end": 18.26
+      }
+    ]
+  },
+  {
+    "id": "lesson-107",
+    "categoryId": "2",
+    "title": "Tìm chìa khóa",
+    "description": "Tìm chìa khóa bị thất lạc và giữ thói quen gọn gàng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-107.mp3",
+    "duration": 22,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "107-1",
+        "english": "This morning I couldn't find my keys.",
+        "phonetic": "",
+        "vietnamese": "Sáng nay tôi không tìm thấy chìa khóa.",
+        "time_start": 0,
+        "time_end": 1.91
+      },
+      {
+        "id": "107-2",
+        "english": "I looked on the table, but they weren't there.",
+        "phonetic": "",
+        "vietnamese": "Tôi nhìn trên bàn, nhưng chúng không ở đó.",
+        "time_start": 1.91,
+        "time_end": 3.82
+      },
+      {
+        "id": "107-3",
+        "english": "Then I checked my backpack and my jacket pocket.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi kiểm tra balo và túi áo khoác.",
+        "time_start": 3.82,
+        "time_end": 5.66
+      },
+      {
+        "id": "107-4",
+        "english": "I still couldn't find them.",
+        "phonetic": "",
+        "vietnamese": "Tôi vẫn không tìm thấy chúng.",
+        "time_start": 5.66,
+        "time_end": 7.01
+      },
+      {
+        "id": "107-5",
+        "english": "I started to feel worried because I was getting late.",
+        "phonetic": "",
+        "vietnamese": "Tôi bắt đầu lo lắng vì sắp bị muộn.",
+        "time_start": 7.06,
+        "time_end": 8.96
+      },
+      {
+        "id": "107-6",
+        "english": "Finally, I remembered that I put them near the front door last night.",
+        "phonetic": "",
+        "vietnamese": "Cuối cùng, tôi nhớ ra tối qua đã để chúng gần cửa ra vào.",
+        "time_start": 9.68,
+        "time_end": 12.16
+      },
+      {
+        "id": "107-7",
+        "english": "The keys were inside a small basket.",
+        "phonetic": "",
+        "vietnamese": "Chìa khóa nằm trong một cái giỏ nhỏ.",
+        "time_start": 12.62,
+        "time_end": 14.38
+      },
+      {
+        "id": "107-8",
+        "english": "I picked them up and smiled.",
+        "phonetic": "",
+        "vietnamese": "Tôi nhặt chúng lên và mỉm cười.",
+        "time_start": 14.7,
+        "time_end": 16.12
+      },
+      {
+        "id": "107-9",
+        "english": "Now I always keep my keys in the same place.",
+        "phonetic": "",
+        "vietnamese": "Bây giờ tôi luôn để chìa khóa ở cùng một chỗ.",
+        "time_start": 16.52,
+        "time_end": 18.8
+      },
+      {
+        "id": "107-10",
+        "english": "It saves me a lot of time every morning.",
+        "phonetic": "",
+        "vietnamese": "Điều đó giúp tôi tiết kiệm rất nhiều thời gian mỗi sáng.",
+        "time_start": 19.1,
+        "time_end": 21.06
+      }
+    ]
+  },
+  {
+    "id": "lesson-108",
+    "categoryId": "2",
+    "title": "Kiểm tra thời tiết",
+    "description": "Xem dự báo thời tiết trước khi ra ngoài",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-108.mp3",
+    "duration": 19,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "108-1",
+        "english": "Before leaving home, I always check the weather.",
+        "phonetic": "",
+        "vietnamese": "Trước khi ra khỏi nhà, tôi luôn kiểm tra thời tiết.",
+        "time_start": 0,
+        "time_end": 2.02
+      },
+      {
+        "id": "108-2",
+        "english": "I usually use a weather app on my phone.",
+        "phonetic": "",
+        "vietnamese": "Tôi thường dùng ứng dụng thời tiết trên điện thoại.",
+        "time_start": 2.26,
+        "time_end": 3.82
+      },
+      {
+        "id": "108-3",
+        "english": "Today it says it will rain in the afternoon.",
+        "phonetic": "",
+        "vietnamese": "Hôm nay ứng dụng báo chiều sẽ mưa.",
+        "time_start": 4.58,
+        "time_end": 6.18
+      },
+      {
+        "id": "108-4",
+        "english": "So I decide to bring an umbrella with me.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy tôi quyết định mang theo ô.",
+        "time_start": 6.42,
+        "time_end": 8.36
+      },
+      {
+        "id": "108-5",
+        "english": "The temperature is about twenty-four degrees.",
+        "phonetic": "",
+        "vietnamese": "Nhiệt độ khoảng hai mươi bốn độ.",
+        "time_start": 8.36,
+        "time_end": 10.22
+      },
+      {
+        "id": "108-6",
+        "english": "It is cool and cloudy outside.",
+        "phonetic": "",
+        "vietnamese": "Bên ngoài trời mát và nhiều mây.",
+        "time_start": 10.22,
+        "time_end": 11.48
+      },
+      {
+        "id": "108-7",
+        "english": "Sometimes the weather changes very quickly.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi thời tiết thay đổi rất nhanh.",
+        "time_start": 11.64,
+        "time_end": 13.32
+      },
+      {
+        "id": "108-8",
+        "english": "That is why I like to be prepared.",
+        "phonetic": "",
+        "vietnamese": "Đó là lý do tôi thích chuẩn bị trước.",
+        "time_start": 13.58,
+        "time_end": 15.12
+      },
+      {
+        "id": "108-9",
+        "english": "Checking the weather only takes a minute.",
+        "phonetic": "",
+        "vietnamese": "Kiểm tra thời tiết chỉ mất một phút.",
+        "time_start": 15.46,
+        "time_end": 16.82
+      },
+      {
+        "id": "108-10",
+        "english": "It helps me plan my day better.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp tôi lên kế hoạch cho ngày tốt hơn.",
+        "time_start": 16.98,
+        "time_end": 18.3
+      }
+    ]
+  },
+  {
+    "id": "lesson-109",
+    "categoryId": "2",
+    "title": "Tưới cây",
+    "description": "Chăm sóc cây cảnh trên ban công mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-109.mp3",
+    "duration": 21,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "109-1",
+        "english": "I have several small plants on my balcony.",
+        "phonetic": "",
+        "vietnamese": "Tôi có vài cây nhỏ trên ban công.",
+        "time_start": 0,
+        "time_end": 1.9
+      },
+      {
+        "id": "109-2",
+        "english": "Every morning I water them before breakfast.",
+        "phonetic": "",
+        "vietnamese": "Mỗi sáng tôi tưới chúng trước bữa sáng.",
+        "time_start": 2.2,
+        "time_end": 4.14
+      },
+      {
+        "id": "109-3",
+        "english": "I use a small watering can.",
+        "phonetic": "",
+        "vietnamese": "Tôi dùng một bình tưới nhỏ.",
+        "time_start": 4.34,
+        "time_end": 5.48
+      },
+      {
+        "id": "109-4",
+        "english": "I give each plant enough water, but not too much.",
+        "phonetic": "",
+        "vietnamese": "Tôi tưới đủ nước cho mỗi cây, nhưng không quá nhiều.",
+        "time_start": 5.74,
+        "time_end": 8.08
+      },
+      {
+        "id": "109-5",
+        "english": "Some plants need more sunlight than others.",
+        "phonetic": "",
+        "vietnamese": "Một số cây cần nhiều ánh nắng hơn những cây khác.",
+        "time_start": 8.64,
+        "time_end": 10.36
+      },
+      {
+        "id": "109-6",
+        "english": "I also remove dry leaves when I see them.",
+        "phonetic": "",
+        "vietnamese": "Tôi cũng tỉa bỏ lá khô khi nhìn thấy.",
+        "time_start": 10.76,
+        "time_end": 12.84
+      },
+      {
+        "id": "109-7",
+        "english": "Watching my plants grow makes me happy.",
+        "phonetic": "",
+        "vietnamese": "Nhìn cây lớn lên khiến tôi vui.",
+        "time_start": 13.26,
+        "time_end": 14.78
+      },
+      {
+        "id": "109-8",
+        "english": "They make my home look greener and more beautiful.",
+        "phonetic": "",
+        "vietnamese": "Chúng làm ngôi nhà tôi trông xanh và đẹp hơn.",
+        "time_start": 15.2,
+        "time_end": 17.24
+      },
+      {
+        "id": "109-9",
+        "english": "Taking care of plants is one of my favorite daily habits.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc cây là một trong những thói quen hàng ngày yêu thích của tôi.",
+        "time_start": 17.96,
+        "time_end": 20.14
+      }
+    ]
+  },
+  {
+    "id": "lesson-110",
+    "categoryId": "2",
+    "title": "Cho thú cưng ăn",
+    "description": "Cho chó ăn và đi dạo buổi sáng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-110.mp3",
+    "duration": 21,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "110-1",
+        "english": "I have a lovely dog named Max.",
+        "phonetic": "",
+        "vietnamese": "Tôi có một chú chó dễ thương tên Max.",
+        "time_start": 0,
+        "time_end": 1.52
+      },
+      {
+        "id": "110-2",
+        "english": "Every morning Max waits for me in the kitchen.",
+        "phonetic": "",
+        "vietnamese": "Mỗi sáng Max chờ tôi trong bếp.",
+        "time_start": 1.76,
+        "time_end": 3.48
+      },
+      {
+        "id": "110-3",
+        "english": "He knows it is breakfast time.",
+        "phonetic": "",
+        "vietnamese": "Nó biết đã đến giờ ăn sáng.",
+        "time_start": 3.88,
+        "time_end": 5
+      },
+      {
+        "id": "110-4",
+        "english": "I pour some dog food into his bowl.",
+        "phonetic": "",
+        "vietnamese": "Tôi đổ thức ăn chó vào bát của nó.",
+        "time_start": 5.2,
+        "time_end": 6.76
+      },
+      {
+        "id": "110-5",
+        "english": "Then I give him fresh water.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi cho nó nước sạch.",
+        "time_start": 6.92,
+        "time_end": 8.36
+      },
+      {
+        "id": "110-6",
+        "english": "While he is eating, I pet him and talk to him.",
+        "phonetic": "",
+        "vietnamese": "Trong lúc nó ăn, tôi xoa đầu và nói chuyện với nó.",
+        "time_start": 8.68,
+        "time_end": 10.78
+      },
+      {
+        "id": "110-7",
+        "english": "After breakfast, we usually go for a short walk.",
+        "phonetic": "",
+        "vietnamese": "Sau bữa sáng, chúng tôi thường đi dạo một chút.",
+        "time_start": 11.08,
+        "time_end": 13.24
+      },
+      {
+        "id": "110-8",
+        "english": "Max is always excited to go outside.",
+        "phonetic": "",
+        "vietnamese": "Max luôn háo hức được ra ngoài.",
+        "time_start": 13.6,
+        "time_end": 15.28
+      },
+      {
+        "id": "110-9",
+        "english": "Taking care of my dog is an important part of my daily routine.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc chó là một phần quan trọng trong thói quen hàng ngày của tôi.",
+        "time_start": 15.76,
+        "time_end": 18.52
+      },
+      {
+        "id": "110-10",
+        "english": "He makes every morning more enjoyable.",
+        "phonetic": "",
+        "vietnamese": "Nó khiến mọi buổi sáng trở nên vui vẻ hơn.",
+        "time_start": 18.82,
+        "time_end": 20.4
+      }
+    ]
+  },
+  {
+    "id": "lesson-111",
+    "categoryId": "2",
+    "title": "Giặt quần áo",
+    "description": "Giặt và phơi quần áo trong tuần",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-111.mp3",
+    "duration": 20,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "111-1",
+        "english": "I usually do the laundry twice a week.",
+        "phonetic": "",
+        "vietnamese": "Tôi thường giặt quần áo hai lần một tuần.",
+        "time_start": 0,
+        "time_end": 1.86
+      },
+      {
+        "id": "111-2",
+        "english": "First, I separate the white clothes from the colored ones.",
+        "phonetic": "",
+        "vietnamese": "Trước hết, tôi tách quần áo trắng khỏi quần áo màu.",
+        "time_start": 2.28,
+        "time_end": 4.5
+      },
+      {
+        "id": "111-3",
+        "english": "Then I put the dirty clothes into the washing machine.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi bỏ quần áo bẩn vào máy giặt.",
+        "time_start": 5.04,
+        "time_end": 7
+      },
+      {
+        "id": "111-4",
+        "english": "I add some laundry detergent.",
+        "phonetic": "",
+        "vietnamese": "Tôi cho thêm bột giặt.",
+        "time_start": 7.14,
+        "time_end": 8.32
+      },
+      {
+        "id": "111-5",
+        "english": "After choosing the right washing program, I press the start button.",
+        "phonetic": "",
+        "vietnamese": "Sau khi chọn chương trình giặt phù hợp, tôi nhấn nút bắt đầu.",
+        "time_start": 8.84,
+        "time_end": 11.2
+      },
+      {
+        "id": "111-6",
+        "english": "While the machine is running, I do other housework.",
+        "phonetic": "",
+        "vietnamese": "Trong lúc máy chạy, tôi làm việc nhà khác.",
+        "time_start": 11.88,
+        "time_end": 13.56
+      },
+      {
+        "id": "111-7",
+        "english": "About an hour later, the clothes are clean.",
+        "phonetic": "",
+        "vietnamese": "Khoảng một giờ sau, quần áo đã sạch.",
+        "time_start": 13.72,
+        "time_end": 15.2
+      },
+      {
+        "id": "111-8",
+        "english": "I take them out and hang them on the balcony.",
+        "phonetic": "",
+        "vietnamese": "Tôi lấy chúng ra và phơi trên ban công.",
+        "time_start": 15.4,
+        "time_end": 16.9
+      },
+      {
+        "id": "111-9",
+        "english": "Fresh and clean clothes always smell nice.",
+        "phonetic": "",
+        "vietnamese": "Quần áo sạch và mới luôn có mùi dễ chịu.",
+        "time_start": 17.22,
+        "time_end": 18.7
+      }
+    ]
+  },
+  {
+    "id": "lesson-112",
+    "categoryId": "2",
+    "title": "Gấp quần áo",
+    "description": "Gấp quần áo và sắp xếp ngăn nắp trong tủ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-112.mp3",
+    "duration": 21,
+    "level": "BEGINNER",
+    "topic": "Cuộc sống hằng ngày",
+    "sentences": [
+      {
+        "id": "112-1",
+        "english": "After the clothes are dry, I fold them neatly.",
+        "phonetic": "",
+        "vietnamese": "Sau khi quần áo khô, tôi gấp chúng gọn gàng.",
+        "time_start": 0,
+        "time_end": 2.18
+      },
+      {
+        "id": "112-2",
+        "english": "I start with the T-shirts.",
+        "phonetic": "",
+        "vietnamese": "Tôi bắt đầu với áo thun.",
+        "time_start": 2.56,
+        "time_end": 3.56
+      },
+      {
+        "id": "112-3",
+        "english": "Then I fold my pants and towels.",
+        "phonetic": "",
+        "vietnamese": "Sau đó tôi gấp quần và khăn.",
+        "time_start": 3.82,
+        "time_end": 5.14
+      },
+      {
+        "id": "112-4",
+        "english": "I match the socks and put them together.",
+        "phonetic": "",
+        "vietnamese": "Tôi ghép tất thành đôi và để chúng lại với nhau.",
+        "time_start": 5.32,
+        "time_end": 7
+      },
+      {
+        "id": "112-5",
+        "english": "Next, I place everything in the right drawer.",
+        "phonetic": "",
+        "vietnamese": "Tiếp theo, tôi xếp mọi thứ vào đúng ngăn kéo.",
+        "time_start": 7.26,
+        "time_end": 8.94
+      },
+      {
+        "id": "112-6",
+        "english": "When my clothes are organized, it is easy to find what I need.",
+        "phonetic": "",
+        "vietnamese": "Khi quần áo được sắp xếp, thật dễ tìm thứ tôi cần.",
+        "time_start": 9.32,
+        "time_end": 11.82
+      },
+      {
+        "id": "112-7",
+        "english": "My room also looks much cleaner.",
+        "phonetic": "",
+        "vietnamese": "Căn phòng tôi cũng trông sạch sẽ hơn nhiều.",
+        "time_start": 12.18,
+        "time_end": 13.68
+      },
+      {
+        "id": "112-8",
+        "english": "Folding clothes is not difficult, but it takes a little time.",
+        "phonetic": "",
+        "vietnamese": "Gấp quần áo không khó, nhưng hơi mất thời gian.",
+        "time_start": 14.54,
+        "time_end": 16.96
+      },
+      {
+        "id": "112-9",
+        "english": "I like finishing this task because everything looks neat and tidy afterward.",
+        "phonetic": "",
+        "vietnamese": "Tôi thích hoàn thành việc này vì mọi thứ trông gọn gàng và ngăn nắp sau đó.",
+        "time_start": 17.38,
+        "time_end": 20.7
       }
     ]
   }

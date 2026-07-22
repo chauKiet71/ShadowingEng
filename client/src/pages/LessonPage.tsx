@@ -390,7 +390,6 @@ export default function LessonPage() {
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
-  const activePhonetic = phoneticTexts[activeIndex] ?? '';
 
   const handleShadowingToggle = () => {
     if (isFetching) return;
@@ -464,16 +463,6 @@ export default function LessonPage() {
             <p className="text-white text-sm font-medium leading-relaxed">
               {lesson.sentences[activeIndex]?.english}
             </p>
-            {showPhonetic && activePhonetic && (
-              <p className="text-white/70 text-xs mt-1 italic">
-                {activePhonetic}
-              </p>
-            )}
-            {showTranslation && (
-              <p className="text-white/60 text-xs mt-1">
-                {lesson.sentences[activeIndex]?.vietnamese}
-              </p>
-            )}
           </div>
           <div>
             <div className="flex items-center justify-center gap-4 mb-2">

@@ -28,7 +28,7 @@ export const categories: Category[] = [
     icon: '🎧',
     iconColor: 'bg-purple-500',
     imageUrl: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=200&h=200&fit=crop',
-    lessonCount: 11,
+    lessonCount: 20,
   },
   {
     id: '3',
