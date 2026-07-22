@@ -7899,7 +7899,7 @@
     "description": "Đời sống sinh viên",
     "thumbnailUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 71,
+    "duration": 52,
     "level": "INTERMEDIATE",
     "topic": "Học tập & Giáo dục",
     "sentences": [
@@ -8008,7 +8008,7 @@
     "description": "Ôn thi",
     "thumbnailUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 52.28,
+    "duration": 52,
     "level": "INTERMEDIATE",
     "topic": "Học tập & Giáo dục",
     "sentences": [
@@ -8133,7 +8133,7 @@
     "description": "Chiến lược đọc hiểu",
     "thumbnailUrl": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=340&fit=crop",
     "audioUrl": "",
-    "duration": 48.23,
+    "duration": 48,
     "level": "INTERMEDIATE",
     "topic": "Học tập & Giáo dục",
     "sentences": [
@@ -8143,7 +8143,7 @@
         "phonetic": "",
         "vietnamese": "Đọc tiếng Anh có thể khó nếu có nhiều từ mới,",
         "time_start": 0,
-        "time_end": 3
+        "time_end": 3.0
       },
       {
         "id": "76-2",
