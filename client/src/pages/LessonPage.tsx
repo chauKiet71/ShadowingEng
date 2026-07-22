@@ -29,24 +29,51 @@ function speakSentence(text: string, slow = false) {
   window.speechSynthesis.speak(utterance);
 }
 
-/** Cố định câu active ở đầu vùng transcript (ngay dưới video). */
-const ACTIVE_SENTENCE_SLOT_TOP = 0;
+/** Cố định câu active ở đầu vùng transcript — chừa vài px để không cắt border trên */
+const ACTIVE_SENTENCE_SLOT_TOP = 6;
+const TRANSCRIPT_SCROLL_DURATION_MS = 360;
+
+function easeInOutCubic(progress: number) {
+  return progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+}
 
 function scrollSentenceIntoView(
   container: HTMLElement,
   element: HTMLElement,
   behavior: ScrollBehavior = 'smooth',
-) {
+): () => void {
   const containerRect = container.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
   const offsetTop = elementRect.top - containerRect.top + container.scrollTop;
   const targetTop = offsetTop - ACTIVE_SENTENCE_SLOT_TOP;
-  const maxScroll = container.scrollHeight - container.clientHeight;
+  const maxScroll = Math.max(0, container.scrollHeight - container.clientHeight);
+  const clampedTargetTop = Math.min(maxScroll, Math.max(0, targetTop));
 
-  container.scrollTo({
-    top: Math.min(maxScroll, Math.max(0, targetTop)),
-    behavior,
-  });
+  if (behavior !== 'smooth') {
+    container.scrollTo({ top: clampedTargetTop, behavior: 'auto' });
+    return () => undefined;
+  }
+
+  const startTop = container.scrollTop;
+  const distance = clampedTargetTop - startTop;
+  if (Math.abs(distance) < 1) return () => undefined;
+
+  const startedAt = performance.now();
+  let animationFrame = 0;
+
+  const animate = (now: number) => {
+    const progress = Math.min((now - startedAt) / TRANSCRIPT_SCROLL_DURATION_MS, 1);
+    container.scrollTop = startTop + distance * easeInOutCubic(progress);
+
+    if (progress < 1) {
+      animationFrame = requestAnimationFrame(animate);
+    }
+  };
+
+  animationFrame = requestAnimationFrame(animate);
+  return () => cancelAnimationFrame(animationFrame);
 }
 
 export default function LessonPage() {
@@ -199,15 +226,18 @@ export default function LessonPage() {
     const prev = prevActiveIndexRef.current;
     if (activeIndex === prev) return;
 
-    const behavior: ScrollBehavior =
-      prev >= 0 && Math.abs(activeIndex - prev) === 1 ? 'smooth' : 'auto';
+    const behavior: ScrollBehavior = prev >= 0 ? 'smooth' : 'auto';
     prevActiveIndexRef.current = activeIndex;
 
+    let cancelScroll: (() => void) | undefined;
     const frame = requestAnimationFrame(() => {
-      scrollSentenceIntoView(container, el, behavior);
+      cancelScroll = scrollSentenceIntoView(container, el, behavior);
     });
 
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelScroll?.();
+    };
   }, [activeIndex]);
 
   useEffect(() => {
@@ -403,8 +433,8 @@ export default function LessonPage() {
     ? 'bg-red-500 hover:bg-red-600 ring-2 ring-red-300 ring-offset-2'
     : isFetching
       ? 'bg-gray-400 cursor-not-allowed'
-      : 'bg-green-500 hover:bg-green-600';
-  const shadowingSubtextClass = isRecording ? 'text-red-100' : 'text-green-100';
+      : 'bg-gradient-to-r from-primary to-secondary hover:opacity-95 shadow-md shadow-primary/25';
+  const shadowingSubtextClass = isRecording ? 'text-red-100' : 'text-white/80';
   const shadowingHint = isRecording
     ? 'Đang ghi âm — bấm để dừng'
     : isFetching
@@ -419,7 +449,7 @@ export default function LessonPage() {
         <button
           type="button"
           onClick={handleBack}
-          className="flex-shrink-0 p-1 -ml-1 text-gray-600"
+          className="flex-shrink-0 p-1 -ml-1 text-gray-700"
           aria-label="Quay lại"
         >
           <ChevronLeft size={22} />
@@ -443,72 +473,83 @@ export default function LessonPage() {
         </div>
       </div>
 
-      <div className="flex-shrink-0 z-10 bg-gray-50 mb-[15px]">
-        <div className="bg-black aspect-video relative overflow-hidden">
-        <img
-          src={lesson.thumbnailUrl}
-          alt={lesson.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-70 scale-105"
-        />
-        <div
-          className="absolute inset-0 backdrop-blur-[3px] bg-black/15"
-          aria-hidden
-        />
-        <div className="absolute inset-0 flex flex-col justify-between p-3">
-          <div className="flex justify-between items-start">
-            <span className="text-white text-xs bg-black/50 px-2 py-1 rounded">{formatLevelLabel(lesson.level)}</span>
-            <span className="text-white text-xs bg-black/50 px-2 py-1 rounded">{lesson.topic}</span>
-          </div>
-          <div className="text-center px-4">
-            <p className="text-white text-sm font-medium leading-relaxed">
-              {lesson.sentences[activeIndex]?.english}
-            </p>
-          </div>
-          <div>
-            <div className="flex items-center justify-center gap-4 mb-2">
-              <button
-                type="button"
-                className="text-white disabled:opacity-40"
-                disabled={activeIndex === 0}
-                onClick={() => goToAdjacentSentence(-1)}
-                aria-label="Câu trước"
-              >
-                <RotateCcw size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={togglePlay}
-                className="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center"
-              >
-                {isPlaying ? (
-                  <Pause size={24} className="text-white" />
-                ) : (
-                  <Play size={24} className="text-white ml-1" fill="white" />
-                )}
-              </button>
-              <button
-                type="button"
-                className="text-white disabled:opacity-40"
-                disabled={activeIndex >= lesson.sentences.length - 1}
-                onClick={() => goToAdjacentSentence(1)}
-                aria-label="Câu sau"
-              >
-                <RotateCw size={20} />
-              </button>
+      <div className="flex-shrink-0 z-10 bg-gray-50 px-0 mb-3">
+        <div className="bg-black aspect-[20/11] relative overflow-hidden w-full">
+          <img
+            src={lesson.thumbnailUrl}
+            alt={lesson.title}
+            className="absolute inset-0 w-full h-full object-cover opacity-75 scale-105"
+          />
+          <div
+            className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-black/25 via-black/35 to-black/55"
+            aria-hidden
+          />
+          <div className="absolute inset-0 flex flex-col justify-between p-3.5">
+            <div className="flex justify-between items-start gap-2">
+              <span className="text-white text-[11px] font-medium bg-black/45 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                {formatLevelLabel(lesson.level)}
+              </span>
+              <span className="text-white text-[11px] font-medium bg-black/45 backdrop-blur-sm px-2.5 py-1 rounded-full max-w-[60%] truncate">
+                {lesson.topic}
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-white text-xs">{formatTime(currentTime)}</span>
-              <div className="flex-1 h-1 bg-white/30 rounded-full">
-                <div
-                  className="h-full bg-green-500 rounded-full transition-all"
-                  style={{ width: `${Math.min(progress, 100)}%` }}
-                />
+
+            <div className="text-center px-3">
+              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm">
+                {lesson.sentences[activeIndex]?.english}
+              </p>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-center gap-5 mb-2.5">
+                <button
+                  type="button"
+                  className="text-white disabled:opacity-40"
+                  disabled={activeIndex === 0}
+                  onClick={() => goToAdjacentSentence(-1)}
+                  aria-label="Câu trước"
+                >
+                  <RotateCcw size={20} />
+                </button>
+                <button
+                  type="button"
+                  onClick={togglePlay}
+                  className="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/40"
+                  aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
+                >
+                  {isPlaying ? (
+                    <Pause size={26} className="text-white" />
+                  ) : (
+                    <Play size={26} className="text-white ml-0.5" fill="white" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className="text-white disabled:opacity-40"
+                  disabled={activeIndex >= lesson.sentences.length - 1}
+                  onClick={() => goToAdjacentSentence(1)}
+                  aria-label="Câu sau"
+                >
+                  <RotateCw size={20} />
+                </button>
               </div>
-              <span className="text-white text-xs">{formatTime(duration)}</span>
-              <Maximize size={14} className="text-white" />
+              <div className="flex items-center gap-2">
+                <span className="text-white/90 text-[11px] tabular-nums w-9">
+                  {formatTime(currentTime)}
+                </span>
+                <div className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-primary rounded-full transition-all"
+                    style={{ width: `${Math.min(progress, 100)}%` }}
+                  />
+                </div>
+                <span className="text-white/90 text-[11px] tabular-nums w-9 text-right">
+                  {formatTime(duration)}
+                </span>
+                <Maximize size={14} className="text-white/90" />
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
 
@@ -516,115 +557,128 @@ export default function LessonPage() {
         ref={transcriptRef}
         className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain px-4 pb-4"
       >
-        <div className="space-y-3 pb-[45vh]">
-        {lesson.sentences.map((item, index) => {
-          const phoneticText = phoneticTexts[index] ?? '';
-          return (
-          <div
-            key={item.id}
-            ref={(el) => {
-              sentenceRefs.current[index] = el;
-            }}
-            onClick={() => seekToSentence(index)}
-            className={`p-4 rounded-xl border cursor-pointer transition-colors duration-300 ease-out ${
-              activeIndex === index
-                ? 'bg-green-50 border-green-300 shadow-sm ring-1 ring-green-200'
-                : 'bg-white border-gray-100'
-            }`}
-          >
-            <div className="min-w-0">
-                {shadowingResultIndex === index && shadowingResult ? (
-                  <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
-                    {shadowingResult.words.map((word, wordIndex) => {
-                      const displayWord =
-                        item.english.split(/\s+/)[wordIndex] ?? word.word;
-                      return (
-                        <span
-                          key={`${word.word}-${wordIndex}`}
-                          className={word.correct ? 'text-green-600' : 'text-red-500'}
-                        >
-                          {displayWord}
-                        </span>
-                      );
-                    })}
+        <div className="space-y-3 pt-1.5 pb-[45vh]">
+          {lesson.sentences.map((item, index) => {
+            const phoneticText = phoneticTexts[index] ?? '';
+            const isActive = activeIndex === index;
+            return (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  sentenceRefs.current[index] = el;
+                }}
+                onClick={() => seekToSentence(index)}
+                className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
+                  isActive
+                    ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(99,102,241,0.35)]'
+                    : 'bg-white border-gray-100'
+                }`}
+              >
+                <div className="min-w-0">
+                  {shadowingResultIndex === index && shadowingResult ? (
+                    <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
+                      {shadowingResult.words.map((word, wordIndex) => {
+                        const displayWord =
+                          item.english.split(/\s+/)[wordIndex] ?? word.word;
+                        return (
+                          <span
+                            key={`${word.word}-${wordIndex}`}
+                            className={word.correct ? 'text-emerald-600' : 'text-red-500'}
+                          >
+                            {displayWord}
+                          </span>
+                        );
+                      })}
+                    </p>
+                  ) : (
+                    <p
+                      className={`text-sm font-semibold leading-relaxed ${
+                        isActive
+                          ? 'text-slate-900 dark:text-white'
+                          : 'text-gray-900 dark:text-white'
+                      }`}
+                    >
+                      {item.english}
+                    </p>
+                  )}
+                  {shadowingResultIndex === index && shadowingResult && (
+                    <p className="text-xs text-gray-500 mt-2">
+                      Bạn nói:{' '}
+                      <span className="italic">{shadowingResult.transcript || '—'}</span>
+                    </p>
+                  )}
+                  {shadowingResultIndex === index && shadowingError && (
+                    <p className="text-xs text-red-500 mt-2">{shadowingError}</p>
+                  )}
+                  {shadowingResultIndex === index && isProcessing && (
+                    <p className="text-xs text-gray-400 mt-2">Đang chấm điểm...</p>
+                  )}
+                  {showPhonetic && phoneticText && (
+                    <p className="text-xs text-primary mt-1.5 italic leading-relaxed">
+                      {phoneticText}
+                    </p>
+                  )}
+                  {showTranslation && (
+                    <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                      {item.vietnamese}
+                    </p>
+                  )}
+                  <p className="text-[10px] text-gray-300 mt-2 tabular-nums">
+                    {formatTime(item.time_start)} – {formatTime(item.time_end)}
                   </p>
-                ) : (
-                  <p className="text-sm font-semibold text-gray-900 leading-relaxed">
-                    {item.english}
-                  </p>
-                )}
-                {shadowingResultIndex === index && shadowingResult && (
-                  <p className="text-xs text-gray-500 mt-2">
-                    Bạn nói:{' '}
-                    <span className="italic">{shadowingResult.transcript || '—'}</span>
-                  </p>
-                )}
-                {shadowingResultIndex === index && shadowingError && (
-                  <p className="text-xs text-red-500 mt-2">{shadowingError}</p>
-                )}
-                {shadowingResultIndex === index && isProcessing && (
-                  <p className="text-xs text-gray-400 mt-2">Đang chấm điểm...</p>
-                )}
-                {showPhonetic && phoneticText && (
-                  <p className="text-xs text-indigo-500 mt-1 italic">{phoneticText}</p>
-                )}
-                {showTranslation && (
-                  <p className="text-sm text-gray-400 mt-1">{item.vietnamese}</p>
-                )}
-                <p className="text-[10px] text-gray-300 mt-1.5">
-                  {formatTime(item.time_start)} – {formatTime(item.time_end)}
-                </p>
-            </div>
-          </div>
-          );
-        })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50">
-        <div className="max-w-lg mx-auto px-4 py-3">
-          <div className="flex items-center justify-around mb-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800 z-50">
+        <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">
+          <div className="flex items-center justify-around mb-3 rounded-2xl bg-slate-50 dark:bg-neutral-950 px-1 py-2">
             {[
               {
                 icon: Languages,
                 label: 'Dịch',
                 active: showTranslation,
-                activeClass: 'text-green-600',
                 action: () => setShowTranslation((prev) => !prev),
               },
               {
                 icon: BookOpen,
                 label: 'Phiên âm',
                 active: showPhonetic,
-                activeClass: 'text-indigo-600',
                 action: () => setShowPhonetic((prev) => !prev),
               },
               {
                 icon: Repeat,
                 label: 'Lặp lại',
                 active: isLooping,
-                activeClass: 'text-green-600',
                 action: () => void toggleLoop(),
               },
               {
                 icon: Turtle,
                 label: 'Nghe chậm',
                 active: isSlowPlayback,
-                activeClass: 'text-amber-600',
                 action: toggleSlowPlayback,
               },
-            ].map(({ icon: Icon, label, action, active, activeClass }) => (
+            ].map(({ icon: Icon, label, action, active }) => (
               <button
                 key={label}
                 type="button"
                 onClick={action}
                 aria-pressed={!!active}
-                className={`flex flex-col items-center gap-1 transition-colors ${
-                  active && activeClass ? activeClass : 'text-gray-500'
+                className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                  active ? 'text-primary' : 'text-gray-400'
                 }`}
               >
                 <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-                <span className="text-[10px]">{label}</span>
+                <span
+                  className={`text-[10px] font-medium ${
+                    active ? 'border-b-2 border-primary pb-0.5' : ''
+                  }`}
+                >
+                  {label}
+                </span>
               </button>
             ))}
           </div>
@@ -632,7 +686,7 @@ export default function LessonPage() {
             type="button"
             onClick={handleShadowingToggle}
             disabled={isFetching}
-            className={`w-full py-3.5 text-white font-semibold rounded-2xl flex items-center justify-center gap-2 transition-colors ${shadowingButtonClass}`}
+            className={`w-full py-3.5 text-white font-semibold rounded-full flex items-center justify-center gap-2.5 transition-all ${shadowingButtonClass}`}
           >
             {isFetching ? (
               <div className="loader" aria-hidden />
@@ -643,7 +697,7 @@ export default function LessonPage() {
               <p className="text-sm font-bold leading-none">
                 {isRecording ? 'Đang ghi âm...' : isFetching ? 'Đang xử lý...' : 'Shadowing'}
               </p>
-              <p className={`text-[10px] ${shadowingSubtextClass}`}>{shadowingHint}</p>
+              <p className={`text-[10px] mt-0.5 ${shadowingSubtextClass}`}>{shadowingHint}</p>
             </div>
           </button>
         </div>
