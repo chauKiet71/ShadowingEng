@@ -168,7 +168,7 @@ export class PaymentsService {
         }
 
         const expectedAccount = this.config
-          .get<string>('SEPAY_ACCOUNT_NUMBER', '12897891')
+          .get<string>('SEPAY_ACCOUNT_NUMBER', '8858802106')
           .replace(/\s+/g, '');
         if (dto.accountNumber.replace(/\s+/g, '') !== expectedAccount) {
           return reject('Sai tài khoản nhận');
@@ -316,10 +316,10 @@ export class PaymentsService {
       months: number;
     },
   >(order: T, pkg: P) {
-    const bank = this.config.get<string>('SEPAY_BANK', 'ACB');
+    const bank = this.config.get<string>('SEPAY_BANK', 'BIDV');
     const accountNumber = this.config.get<string>(
       'SEPAY_ACCOUNT_NUMBER',
-      '12897891',
+      '8858802106',
     );
     const accountHolder = this.config.get<string>(
       'SEPAY_ACCOUNT_HOLDER',
