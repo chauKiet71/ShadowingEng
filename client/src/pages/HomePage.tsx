@@ -99,10 +99,10 @@ export default function HomePage() {
 
       {/* For You */}
       <div className="px-4 mb-6">
-        <h2 className="text-[22px] font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+        <h2 className="font-bold text-gray-900 dark:text-white mb-3">
           Dành cho bạn
         </h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2.5">
           {forYouLinks.map((item) => {
             const { label, sub, image, cardClass, disabled } = item;
             const content = (
@@ -110,12 +110,12 @@ export default function HomePage() {
                 <img
                   src={image}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-contain object-center p-3 pb-14 dark:brightness-90 dark:contrast-105"
+                  className="absolute inset-0 w-full h-full object-contain object-center p-2 pb-8 dark:brightness-90 dark:contrast-105"
                   draggable={false}
                 />
-                <div className="absolute inset-x-0 bottom-0 px-2 pb-3.5 pt-2 text-center z-10">
+                <div className="absolute inset-x-0 bottom-0 px-1.5 pb-2 pt-1 text-center z-10">
                   <span
-                    className={`block text-[15px] font-bold leading-tight ${
+                    className={`block text-[12px] font-bold leading-tight ${
                       disabled
                         ? 'text-rose-300 dark:text-rose-300/70'
                         : 'text-slate-900 dark:text-white'
@@ -124,7 +124,7 @@ export default function HomePage() {
                     {label}
                   </span>
                   <span
-                    className={`block text-[12px] mt-0.5 leading-tight ${
+                    className={`block text-[10px] mt-0.5 leading-tight ${
                       disabled
                         ? 'text-rose-200 dark:text-rose-200/50'
                         : 'text-slate-400 dark:text-gray-400'
@@ -136,7 +136,7 @@ export default function HomePage() {
               </>
             );
 
-            const className = `relative block rounded-[22px] overflow-hidden aspect-[1/1.05] shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)] ${cardClass} ${
+            const className = `relative block rounded-[14px] overflow-hidden aspect-[2/1.05] shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)] ${cardClass} ${
               disabled
                 ? 'opacity-90 cursor-not-allowed select-none'
                 : 'active:scale-[0.98] transition-transform'

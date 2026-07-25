@@ -112,7 +112,7 @@ export default function PopularTopics({
   return (
     <div className={className}>
       <div className="mb-3">
-        <h2 className="text-[17px] font-bold text-slate-900 dark:text-white">Chủ đề phổ biến</h2>
+        <h2 className="font-bold text-gray-900 dark:text-white">Chủ đề phổ biến</h2>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

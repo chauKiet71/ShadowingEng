@@ -1,10 +1,11 @@
-import { Play, Lock } from 'lucide-react';
+import { Play, Lock, Check } from 'lucide-react';
 import LessonLink from './LessonLink';
 import type { Lesson } from '../data/lessons';
 import { formatLevelLabel } from '../data/lessons';
 import { formatDuration } from '../data/mockData';
 import { useAuth } from '../contexts/AuthContext';
 import { useLessonAccess } from '../contexts/LessonAccessContext';
+import { useHistory } from '../contexts/HistoryContext';
 
 const levelBadgeStyles: Record<string, string> = {
   BEGINNER:
@@ -28,6 +29,10 @@ export default function LessonGrid({
 }: LessonGridProps) {
   const { user } = useAuth();
   const { isLessonLocked } = useLessonAccess();
+  const { entries } = useHistory();
+  const completedIds = new Set(
+    entries.filter((e) => e.status === 'COMPLETED').map((e) => e.lessonId),
+  );
 
   if (lessons.length === 0) {
     return (
@@ -43,6 +48,7 @@ export default function LessonGrid({
     <div className="flex flex-col gap-3">
       {lessons.map((lesson) => {
         const locked = isLessonLocked(lesson.id) && !user?.isPremium;
+        const completed = completedIds.has(lesson.id);
         return (
           <LessonLink
             key={lesson.id}
@@ -83,9 +89,20 @@ export default function LessonGrid({
                   {formatDuration(lesson.duration)}
                 </span>
               )}
-              <div className="w-9 h-9 rounded-full bg-white dark:bg-neutral-700 shadow-[0_2px_8px_rgba(37,99,235,0.18)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.55)] flex items-center justify-center ring-1 ring-transparent dark:ring-white/10">
+              <div
+                className={`w-9 h-9 rounded-full flex items-center justify-center ring-1 ${
+                  completed && !locked
+                    ? 'bg-primary shadow-[0_2px_8px_rgba(99,102,241,0.35)] ring-primary/30'
+                    : 'bg-white dark:bg-neutral-700 shadow-[0_2px_8px_rgba(37,99,235,0.18)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.55)] ring-transparent dark:ring-white/10'
+                }`}
+                aria-label={
+                  locked ? 'Bài học bị khóa' : completed ? 'Đã hoàn thành' : 'Phát bài học'
+                }
+              >
                 {locked ? (
                   <Lock size={14} className="text-amber-500" />
+                ) : completed ? (
+                  <Check size={16} className="text-white" strokeWidth={2.75} />
                 ) : (
                   <Play size={14} className="text-primary ml-0.5" fill="currentColor" />
                 )}
