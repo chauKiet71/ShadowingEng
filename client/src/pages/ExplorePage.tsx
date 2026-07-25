@@ -3,7 +3,6 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ChevronLeft,
   Search,
-  Crown,
   Star,
   Heart,
   Sparkles,
@@ -11,7 +10,8 @@ import {
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import LessonGrid from '../components/LessonGrid';
-import { categories, getCategoryById } from '../data/categories';
+import PopularTopics from '../components/PopularTopics';
+import { getCategoryById } from '../data/categories';
 import {
   getFeaturedLessons,
   getLessonsByCategory,
@@ -111,32 +111,40 @@ export default function ExplorePage() {
 
     return (
       <MobileLayout>
-        <div className="px-4 pt-5 pb-4">
-          <div className="flex items-center gap-2 mb-1">
-            <button
-              type="button"
-              onClick={handleBack}
-              className="-ml-1 p-1 text-gray-700 dark:text-gray-200"
-              aria-label="Quay lại trang trước"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-              {activeCategory.name}
-            </h1>
-          </div>
-          <div className="ml-8 flex items-center justify-between gap-3">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {activeCategory.description}
-            </p>
-            <span className="text-xs text-gray-400 whitespace-nowrap">
-              {categoryLessons.length} bài
-            </span>
-          </div>
-        </div>
+        <div className="min-h-screen bg-gradient-to-b from-[#F3EEFF] via-[#F7F5FC] to-gray-50 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 -mx-0">
+          <div className="px-4 pt-5 pb-3">
+            <div className="flex items-center gap-2 mb-3">
+              <button
+                type="button"
+                onClick={handleBack}
+                className="-ml-1 p-1 text-slate-700 dark:text-gray-200"
+                aria-label="Quay lại trang trước"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-xl font-bold text-slate-900 dark:text-white truncate">
+                  {activeCategory.name}
+                </h1>
+                <p className="text-xs text-slate-400 dark:text-gray-400 mt-0.5">
+                  {categoryLessons.length} bài · {activeCategory.description}
+                </p>
+              </div>
+            </div>
 
-        <div className="px-4 mb-4">
-          <LessonGrid lessons={categoryLessons} />
+            <div className="rounded-[22px] overflow-hidden aspect-[16/9] shadow-[0_2px_12px_rgba(99,102,241,0.1)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
+              <img
+                src={activeCategory.imageUrl}
+                alt={activeCategory.name}
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
+          </div>
+
+          <div className="px-4 mb-4 pt-1">
+            <LessonGrid lessons={categoryLessons} variant="soft" />
+          </div>
         </div>
       </MobileLayout>
     );
@@ -153,31 +161,26 @@ export default function ExplorePage() {
           Khám phá các chủ đề nghe thú vị và nâng cao kỹ năng mỗi ngày
         </p>
 
-        <div className="flex gap-2 mb-4">
-          <div className="flex-1 relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Tìm tất cả bài học..."
-              aria-label="Tìm kiếm bài học"
-              className="w-full pl-9 pr-10 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                aria-label="Xóa nội dung tìm kiếm"
-              >
-                <X size={16} />
-              </button>
-            )}
-          </div>
-          <button className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
-            <Crown size={18} className="text-yellow-600" />
-          </button>
+        <div className="relative mb-4">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Tìm tất cả bài học..."
+            aria-label="Tìm kiếm bài học"
+            className="w-full pl-9 pr-10 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              aria-label="Xóa nội dung tìm kiếm"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
 
         {/* Filter chips */}
@@ -247,49 +250,7 @@ export default function ExplorePage() {
 
       {!hasSearch && activeFilter === 'all' && (
       <>
-      {/* Popular Topics */}
-      <div className="px-4 mb-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="font-bold text-gray-900">Chủ đề phổ biến</h2>
-          <button className="text-sm text-primary font-medium">Xem tất cả &gt;</button>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              to={`/kham-pha?category=${cat.id}`}
-              className="bg-white rounded-2xl card-shadow overflow-hidden min-w-0"
-            >
-              <div className="flex h-[7.5rem]">
-                <img
-                  src={cat.imageUrl}
-                  alt=""
-                  className="w-[4.5rem] h-full object-cover flex-shrink-0"
-                />
-                <div className="flex-1 min-w-0 p-2 flex flex-col overflow-hidden">
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <div
-                      className={`w-6 h-6 flex-shrink-0 ${cat.iconColor} rounded-full flex items-center justify-center text-xs shadow`}
-                    >
-                      {cat.icon}
-                    </div>
-                  </div>
-                  <p className="text-[11px] font-bold text-gray-900 leading-tight line-clamp-2">
-                    {cat.name}
-                  </p>
-                  <p className="text-[10px] text-gray-400 mt-0.5 line-clamp-1">
-                    {cat.description}
-                  </p>
-                  <p className="text-[10px] text-gray-400 mt-auto truncate">
-                    🎧 {cat.lessonCount} bài nghe
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <PopularTopics />
 
       {/* Streak Banner */}
       <div className="px-4 mb-4">

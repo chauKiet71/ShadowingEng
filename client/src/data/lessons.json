@@ -19706,5 +19706,4344 @@
         "time_end": 55.4
       }
     ]
+  },
+  {
+    "id": "lesson-166",
+    "categoryId": "15",
+    "title": "Giao tiếp trong gia đình",
+    "description": "Lắng nghe, nói thật và gắn kết thành viên trong nhà",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-166.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "166-1",
+        "english": "Family communication is an important part of everyday life.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp trong gia đình là một phần quan trọng của cuộc sống hàng ngày.",
+        "time_start": 0,
+        "time_end": 2.68
+      },
+      {
+        "id": "166-2",
+        "english": "It helps family members understand, respect, and support one another.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp các thành viên trong gia đình hiểu, tôn trọng và hỗ trợ lẫn nhau.",
+        "time_start": 2.96,
+        "time_end": 5.54
+      },
+      {
+        "id": "166-3",
+        "english": "Good communication starts with listening carefully and speaking honestly.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp tốt bắt đầu bằng việc lắng nghe cẩn thận và nói thật lòng.",
+        "time_start": 5.82,
+        "time_end": 8.9
+      },
+      {
+        "id": "166-4",
+        "english": "Many families enjoy talking during dinner or while spending time together at home.",
+        "phonetic": "",
+        "vietnamese": "Nhiều gia đình thích trò chuyện trong bữa tối hoặc khi dành thời gian bên nhau ở nhà.",
+        "time_start": 9.8,
+        "time_end": 13.14
+      },
+      {
+        "id": "166-5",
+        "english": "Parents often give advice, and children share their experiences at school or with friends.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ thường đưa ra lời khuyên, và trẻ em chia sẻ kinh nghiệm ở trường hoặc với bạn bè.",
+        "time_start": 14,
+        "time_end": 18.32
+      },
+      {
+        "id": "166-6",
+        "english": "Sometimes people have different opinions, but they can solve problems by talking calmly and respectfully.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi mọi người có ý kiến khác nhau, nhưng họ có thể giải quyết vấn đề bằng cách nói chuyện một cách bình tĩnh và tôn trọng.",
+        "time_start": 18.92,
+        "time_end": 23.58
+      },
+      {
+        "id": "166-7",
+        "english": "Simple words like \"please,\" \"thank you,\" and \"I'm sorry\" can make conversations more positive.",
+        "phonetic": "",
+        "vietnamese": "Những từ đơn giản như \"làm ơn,\" \"cảm ơn,\" và \"xin lỗi\" có thể làm cho cuộc trò chuyện tích cực hơn.",
+        "time_start": 23.58,
+        "time_end": 28.86
+      },
+      {
+        "id": "166-8",
+        "english": "Spending quality time together also strengthens family relationships.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian chất lượng bên nhau cũng củng cố mối quan hệ trong gia đình.",
+        "time_start": 28.86,
+        "time_end": 32.52
+      },
+      {
+        "id": "166-9",
+        "english": "When family members communicate well, they build trust, feel closer to each other, and create a happy and caring home.",
+        "phonetic": "",
+        "vietnamese": "Khi các thành viên trong gia đình giao tiếp tốt, họ xây dựng được niềm tin, cảm thấy gần gũi với nhau hơn, và tạo ra một ngôi nhà hạnh phúc và ấm áp.",
+        "time_start": 33.26,
+        "time_end": 38.72
+      }
+    ]
+  },
+  {
+    "id": "lesson-167",
+    "categoryId": "15",
+    "title": "Dành thời gian cùng gia đình",
+    "description": "Hoạt động đơn giản giúp xây dựng tình cảm gia đình",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-167.mp3",
+    "duration": 49,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "167-1",
+        "english": "Spending time with family is one of the best ways to build strong relationships.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian bên gia đình là một trong những cách tốt nhất để xây dựng mối quan hệ vững mạnh.",
+        "time_start": 0,
+        "time_end": 3.5
+      },
+      {
+        "id": "167-2",
+        "english": "In today's busy world, many people spend most of their time studying or working, so they have fewer opportunities to be with their families.",
+        "phonetic": "",
+        "vietnamese": "Trong thế giới bận rộn ngày nay, nhiều người dành phần lớn thời gian để học tập hoặc làm việc, vì vậy họ có ít cơ hội ở bên gia đình.",
+        "time_start": 3.5,
+        "time_end": 11.28
+      },
+      {
+        "id": "167-3",
+        "english": "However, even simple activities like having dinner together, watching a movie, taking a walk, or playing games can create happy memories.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, ngay cả những hoạt động đơn giản như ăn tối cùng nhau, xem phim, đi dạo hoặc chơi trò chơi cũng có thể tạo ra những kỷ niệm hạnh phúc.",
+        "time_start": 11.28,
+        "time_end": 17.78
+      },
+      {
+        "id": "167-4",
+        "english": "Spending time together also gives family members a chance to share their thoughts, solve problems, and support one another.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian bên nhau cũng cho phép các thành viên trong gia đình chia sẻ suy nghĩ, giải quyết vấn đề và hỗ trợ lẫn nhau.",
+        "time_start": 18.62,
+        "time_end": 24.18
+      },
+      {
+        "id": "167-5",
+        "english": "Parents can better understand their children, and children can learn valuable lessons from their parents.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ có thể hiểu con cái tốt hơn, và trẻ em có thể học được những bài học quý giá từ cha mẹ.",
+        "time_start": 25.26,
+        "time_end": 29.58
+      },
+      {
+        "id": "167-6",
+        "english": "Family activities help reduce stress and make everyone feel loved and appreciated.",
+        "phonetic": "",
+        "vietnamese": "Các hoạt động gia đình giúp giảm căng thẳng và khiến mọi người cảm thấy được yêu thương và trân trọng.",
+        "time_start": 30.82,
+        "time_end": 34.72
+      },
+      {
+        "id": "167-7",
+        "english": "Although people may have different schedules, making time for family should always be a priority.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mọi người có thể có lịch trình khác nhau, nhưng dành thời gian cho gia đình luôn nên là ưu tiên hàng đầu.",
+        "time_start": 35.4,
+        "time_end": 39.62
+      },
+      {
+        "id": "167-8",
+        "english": "Strong families are built through love, communication, and quality time.",
+        "phonetic": "",
+        "vietnamese": "Những gia đình mạnh mẽ được xây dựng qua tình yêu, giao tiếp và thời gian chất lượng.",
+        "time_start": 40.42,
+        "time_end": 43.8
+      },
+      {
+        "id": "167-9",
+        "english": "By spending more time together, families can become closer and enjoy a happier, healthier life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách dành nhiều thời gian bên nhau, các gia đình có thể trở nên gần gũi hơn và tận hưởng một cuộc sống hạnh phúc, khỏe mạnh hơn.",
+        "time_start": 44.02,
+        "time_end": 48.6
+      }
+    ]
+  },
+  {
+    "id": "lesson-168",
+    "categoryId": "15",
+    "title": "Tôn trọng cha mẹ",
+    "description": "Thể hiện lòng biết ơn và tôn trọng với cha mẹ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-168.mp3",
+    "duration": 45,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "168-1",
+        "english": "Parents play an important role in our lives.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ đóng vai trò quan trọng trong cuộc sống của chúng ta.",
+        "time_start": 0,
+        "time_end": 2.2
+      },
+      {
+        "id": "168-2",
+        "english": "They work hard to provide food, education, and support for their children.",
+        "phonetic": "",
+        "vietnamese": "Họ làm việc chăm chỉ để cung cấp thực phẩm, giáo dục và hỗ trợ cho con cái.",
+        "time_start": 2.66,
+        "time_end": 6.34
+      },
+      {
+        "id": "168-3",
+        "english": "Respecting parents is one of the most important values in many cultures.",
+        "phonetic": "",
+        "vietnamese": "Tôn trọng cha mẹ là một trong những giá trị quan trọng nhất trong nhiều nền văn hóa.",
+        "time_start": 7.08,
+        "time_end": 10.14
+      },
+      {
+        "id": "168-4",
+        "english": "We can show respect by listening to their advice, speaking politely, and appreciating everything they do for us.",
+        "phonetic": "",
+        "vietnamese": "Chúng ta có thể thể hiện sự tôn trọng bằng cách lắng nghe lời khuyên của họ, nói chuyện lịch sự và trân trọng mọi điều họ làm cho chúng ta.",
+        "time_start": 11.02,
+        "time_end": 16.26
+      },
+      {
+        "id": "168-5",
+        "english": "Even when we have different opinions, we should remain calm and communicate with kindness instead of arguing.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả khi chúng ta có ý kiến khác nhau, chúng ta nên giữ bình tĩnh và giao tiếp một cách tử tế thay vì cãi nhau.",
+        "time_start": 16.8,
+        "time_end": 21.9
+      },
+      {
+        "id": "168-6",
+        "english": "Respect also means helping our parents with daily tasks and spending time with them whenever possible.",
+        "phonetic": "",
+        "vietnamese": "Tôn trọng cũng có nghĩa là giúp cha mẹ với các công việc hàng ngày và dành thời gian bên họ bất cứ khi nào có thể.",
+        "time_start": 22.68,
+        "time_end": 27.44
+      },
+      {
+        "id": "168-7",
+        "english": "As children grow older, they should become more responsible and understand the efforts their parents make every day.",
+        "phonetic": "",
+        "vietnamese": "Khi trẻ em lớn lên, chúng nên trở nên có trách nhiệm hơn và hiểu những nỗ lực mà cha mẹ họ làm mỗi ngày.",
+        "time_start": 27.74,
+        "time_end": 33.12
+      },
+      {
+        "id": "168-8",
+        "english": "A strong relationship between parents and children is built on trust, love, and mutual respect.",
+        "phonetic": "",
+        "vietnamese": "Một mối quan hệ mạnh mẽ giữa cha mẹ và con cái được xây dựng trên sự tin tưởng, tình yêu và sự tôn trọng lẫn nhau.",
+        "time_start": 33.66,
+        "time_end": 38.56
+      },
+      {
+        "id": "168-9",
+        "english": "By treating our parents with care and gratitude, we can create a happier family and strengthen the bond that lasts a lifetime.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách đối xử với cha mẹ bằng sự quan tâm và lòng biết ơn, chúng ta có thể tạo ra một gia đình hạnh phúc hơn và củng cố mối liên kết kéo dài suốt đời.",
+        "time_start": 39.26,
+        "time_end": 44.5
+      }
+    ]
+  },
+  {
+    "id": "lesson-169",
+    "categoryId": "15",
+    "title": "Truyền thống gia đình",
+    "description": "Giữ gìn phong tục và kỷ niệm qua các thế hệ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-169.mp3",
+    "duration": 44,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "169-1",
+        "english": "Every family has its own traditions that make it unique.",
+        "phonetic": "",
+        "vietnamese": "Mỗi gia đình có những truyền thống riêng làm cho họ trở nên đặc biệt.",
+        "time_start": 0,
+        "time_end": 2.72
+      },
+      {
+        "id": "169-2",
+        "english": "Family traditions are special activities or customs that are passed down from one generation to the next.",
+        "phonetic": "",
+        "vietnamese": "Truyền thống gia đình là những hoạt động hoặc phong tục đặc biệt được truyền từ thế hệ này sang thế hệ khác.",
+        "time_start": 3.12,
+        "time_end": 7.72
+      },
+      {
+        "id": "169-3",
+        "english": "Some families celebrate birthdays with a special meal, while others gather together during holidays or festivals.",
+        "phonetic": "",
+        "vietnamese": "Một số gia đình tổ chức sinh nhật bằng một bữa ăn đặc biệt, trong khi những gia đình khác tụ tập vào các ngày lễ hoặc lễ hội.",
+        "time_start": 8.14,
+        "time_end": 12.76
+      },
+      {
+        "id": "169-4",
+        "english": "These traditions help family members stay connected and create lasting memories.",
+        "phonetic": "",
+        "vietnamese": "Những truyền thống này giúp các thành viên trong gia đình gắn kết và tạo ra những kỷ niệm lâu dài.",
+        "time_start": 13.34,
+        "time_end": 16.4
+      },
+      {
+        "id": "169-5",
+        "english": "They also teach children about their family's history, culture, and values.",
+        "phonetic": "",
+        "vietnamese": "Chúng cũng dạy cho trẻ em về lịch sử, văn hóa và giá trị của gia đình mình.",
+        "time_start": 16.4,
+        "time_end": 20.94
+      },
+      {
+        "id": "169-6",
+        "english": "Even simple traditions, such as eating dinner together every Sunday or watching a movie on weekends, can strengthen family relationships.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả những truyền thống đơn giản, như ăn tối cùng nhau mỗi Chủ nhật hoặc xem phim vào cuối tuần, cũng có thể củng cố mối quan hệ gia đình.",
+        "time_start": 20.94,
+        "time_end": 27.44
+      },
+      {
+        "id": "169-7",
+        "english": "In today's busy world, many people have less time to spend with their loved ones, so family traditions become even more meaningful.",
+        "phonetic": "",
+        "vietnamese": "Trong thế giới bận rộn ngày nay, nhiều người có ít thời gian hơn để dành cho những người thân yêu, vì vậy các truyền thống gia đình trở nên có ý nghĩa hơn.",
+        "time_start": 27.44,
+        "time_end": 34.44
+      },
+      {
+        "id": "169-8",
+        "english": "They remind us of the importance of love, respect, and togetherness.",
+        "phonetic": "",
+        "vietnamese": "Chúng nhắc nhở chúng ta về tầm quan trọng của tình yêu, sự tôn trọng và sự đoàn kết.",
+        "time_start": 34.44,
+        "time_end": 37.38
+      },
+      {
+        "id": "169-9",
+        "english": "By keeping family traditions alive, families can build stronger relationships and pass happy memories on to future generations.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách giữ gìn các truyền thống gia đình, các gia đình có thể xây dựng mối quan hệ mạnh mẽ hơn và truyền lại những kỷ niệm hạnh phúc cho các thế hệ tương lai.",
+        "time_start": 37.86,
+        "time_end": 43.3
+      }
+    ]
+  },
+  {
+    "id": "lesson-170",
+    "categoryId": "15",
+    "title": "Kỷ niệm những dịp đặc biệt",
+    "description": "Sinh nhật, ngày lễ và những khoảnh khắc đáng nhớ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-170.mp3",
+    "duration": 48,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "170-1",
+        "english": "Special occasions are meaningful moments that bring families together.",
+        "phonetic": "",
+        "vietnamese": "Các dịp đặc biệt là những khoảnh khắc ý nghĩa giúp gia đình sum họp.",
+        "time_start": 0,
+        "time_end": 3
+      },
+      {
+        "id": "170-2",
+        "english": "These occasions may include birthdays, weddings, anniversaries, family reunions, or important holidays.",
+        "phonetic": "",
+        "vietnamese": "Những dịp này có thể bao gồm sinh nhật, đám cưới, kỷ niệm, đoàn tụ gia đình hoặc các ngày lễ quan trọng.",
+        "time_start": 3.46,
+        "time_end": 8.08
+      },
+      {
+        "id": "170-3",
+        "english": "During these events, family members often gather to share meals, exchange gifts, and enjoy fun activities.",
+        "phonetic": "",
+        "vietnamese": "Trong những sự kiện này, các thành viên trong gia đình thường tụ họp để chia sẻ bữa ăn, trao đổi quà tặng và tham gia các hoạt động vui vẻ.",
+        "time_start": 8.52,
+        "time_end": 13.74
+      },
+      {
+        "id": "170-4",
+        "english": "Celebrating together gives everyone a chance to relax, laugh, and create unforgettable memories.",
+        "phonetic": "",
+        "vietnamese": "Kỷ niệm cùng nhau mang lại cho mọi người cơ hội thư giãn, cười đùa và tạo ra những kỷ niệm không thể quên.",
+        "time_start": 14.38,
+        "time_end": 18.76
+      },
+      {
+        "id": "170-5",
+        "english": "It also helps strengthen family relationships and reminds people of the importance of love and appreciation.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp củng cố mối quan hệ gia đình và nhắc nhở mọi người về tầm quan trọng của tình yêu và sự trân trọng.",
+        "time_start": 19,
+        "time_end": 23.94
+      },
+      {
+        "id": "170-6",
+        "english": "Every family celebrates in its own way.",
+        "phonetic": "",
+        "vietnamese": "Mỗi gia đình có cách kỷ niệm riêng.",
+        "time_start": 24.48,
+        "time_end": 26.16
+      },
+      {
+        "id": "170-7",
+        "english": "Some families organize large parties, while others prefer quiet dinners at home.",
+        "phonetic": "",
+        "vietnamese": "Một số gia đình tổ chức tiệc lớn, trong khi những gia đình khác thích bữa tối yên tĩnh ở nhà.",
+        "time_start": 26.44,
+        "time_end": 30.04
+      },
+      {
+        "id": "170-8",
+        "english": "The size of the celebration is not as important as the time spent together.",
+        "phonetic": "",
+        "vietnamese": "Kích thước của buổi lễ không quan trọng bằng thời gian ở bên nhau.",
+        "time_start": 30.62,
+        "time_end": 33.64
+      },
+      {
+        "id": "170-9",
+        "english": "Taking photos, telling stories, and expressing gratitude can make these occasions even more meaningful.",
+        "phonetic": "",
+        "vietnamese": "Chụp ảnh, kể chuyện và bày tỏ lòng biết ơn có thể làm cho những dịp này trở nên ý nghĩa hơn.",
+        "time_start": 34.14,
+        "time_end": 38.58
+      },
+      {
+        "id": "170-10",
+        "english": "No matter how busy life becomes, celebrating special occasions with loved ones is a wonderful way to stay connected and make every family member feel valued and appreciated.",
+        "phonetic": "",
+        "vietnamese": "Dù cuộc sống có bận rộn đến đâu, việc kỷ niệm những dịp đặc biệt với những người thân yêu là một cách tuyệt vời để giữ liên lạc và làm cho mỗi thành viên trong gia đình cảm thấy được trân trọng và quý giá.",
+        "time_start": 39,
+        "time_end": 47.3
+      }
+    ]
+  },
+  {
+    "id": "lesson-171",
+    "categoryId": "15",
+    "title": "Giải quyết mâu thuẫn trong gia đình",
+    "description": "Nói chuyện bình tĩnh để hóa giải bất đồng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-171.mp3",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "171-1",
+        "english": "Conflicts are a normal part of family life because everyone has different opinions, feelings, and expectations.",
+        "phonetic": "",
+        "vietnamese": "Xung đột là một phần bình thường của cuộc sống gia đình vì mọi người có những ý kiến, cảm xúc và mong đợi khác nhau.",
+        "time_start": 0,
+        "time_end": 5.04
+      },
+      {
+        "id": "171-2",
+        "english": "Sometimes family members disagree about household rules, school, work, or daily responsibilities.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi các thành viên trong gia đình không đồng ý về quy tắc trong nhà, trường học, công việc hoặc trách nhiệm hàng ngày.",
+        "time_start": 6.06,
+        "time_end": 9.94
+      },
+      {
+        "id": "171-3",
+        "english": "Although arguments may happen, it is important to solve problems in a calm and respectful way.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù có thể xảy ra cãi vã, nhưng điều quan trọng là giải quyết vấn đề một cách bình tĩnh và tôn trọng.",
+        "time_start": 10.98,
+        "time_end": 15.06
+      },
+      {
+        "id": "171-4",
+        "english": "Listening carefully to each other's opinions can help people understand the real cause of the conflict.",
+        "phonetic": "",
+        "vietnamese": "Lắng nghe cẩn thận ý kiến của nhau có thể giúp mọi người hiểu nguyên nhân thực sự của xung đột.",
+        "time_start": 15.06,
+        "time_end": 20.28
+      },
+      {
+        "id": "171-5",
+        "english": "Instead of shouting or blaming others, family members should speak honestly and politely.",
+        "phonetic": "",
+        "vietnamese": "Thay vì la hét hoặc đổ lỗi cho người khác, các thành viên trong gia đình nên nói chuyện một cách trung thực và lịch sự.",
+        "time_start": 20.28,
+        "time_end": 24.16
+      },
+      {
+        "id": "171-6",
+        "english": "Saying \"I'm sorry\" or admitting a mistake can help rebuild trust and improve relationships.",
+        "phonetic": "",
+        "vietnamese": "Nói \"Xin lỗi\" hoặc thừa nhận sai lầm có thể giúp xây dựng lại niềm tin và cải thiện mối quan hệ.",
+        "time_start": 24.16,
+        "time_end": 28.78
+      },
+      {
+        "id": "171-7",
+        "english": "It is also important to forgive each other and focus on finding a solution rather than winning an argument.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng là tha thứ cho nhau và tập trung vào việc tìm giải pháp thay vì thắng cãi.",
+        "time_start": 28.78,
+        "time_end": 34.52
+      },
+      {
+        "id": "171-8",
+        "english": "Families that communicate openly and respect different viewpoints are usually happier and stronger.",
+        "phonetic": "",
+        "vietnamese": "Các gia đình giao tiếp cởi mở và tôn trọng những quan điểm khác nhau thường hạnh phúc và mạnh mẽ hơn.",
+        "time_start": 35.14,
+        "time_end": 39.06
+      },
+      {
+        "id": "171-9",
+        "english": "By solving conflicts with patience, understanding, and kindness, family members can grow closer and create a peaceful home where everyone feels respected and supported.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách giải quyết xung đột với sự kiên nhẫn, hiểu biết và lòng tốt, các thành viên trong gia đình có thể gần gũi hơn và tạo ra một ngôi nhà hòa bình nơi mọi người đều cảm thấy được tôn trọng và hỗ trợ.",
+        "time_start": 39.42,
+        "time_end": 46.1
+      }
+    ]
+  },
+  {
+    "id": "lesson-172",
+    "categoryId": "15",
+    "title": "Chăm sóc người lớn tuổi trong gia đình",
+    "description": "Yêu thương và hỗ trợ ông bà, người lớn tuổi",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-172.mp3",
+    "duration": 44,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "172-1",
+        "english": "Older family members have spent many years caring for their families, so they deserve love, respect, and attention.",
+        "phonetic": "",
+        "vietnamese": "Các thành viên lớn tuổi trong gia đình đã dành nhiều năm để chăm sóc cho gia đình của họ, vì vậy họ xứng đáng nhận được tình yêu, sự tôn trọng và sự chú ý.",
+        "time_start": 0,
+        "time_end": 5.5
+      },
+      {
+        "id": "172-2",
+        "english": "As people grow older, they may need more help with daily activities and medical care.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người lớn tuổi, họ có thể cần nhiều sự giúp đỡ hơn với các hoạt động hàng ngày và chăm sóc y tế.",
+        "time_start": 6.14,
+        "time_end": 10.12
+      },
+      {
+        "id": "172-3",
+        "english": "Family members can support them by spending time together, helping with household tasks, accompanying them to medical appointments, or simply having conversations with them.",
+        "phonetic": "",
+        "vietnamese": "Các thành viên trong gia đình có thể hỗ trợ họ bằng cách dành thời gian bên nhau, giúp đỡ các công việc trong nhà, đi cùng họ đến các cuộc hẹn y tế, hoặc đơn giản là trò chuyện với họ.",
+        "time_start": 11.04,
+        "time_end": 19
+      },
+      {
+        "id": "172-4",
+        "english": "Even small acts of kindness, such as listening to their stories or celebrating special occasions together, can make them feel happy and valued.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả những hành động nhỏ như lắng nghe câu chuyện của họ hoặc cùng nhau kỷ niệm những dịp đặc biệt cũng có thể khiến họ cảm thấy hạnh phúc và được trân trọng.",
+        "time_start": 19.76,
+        "time_end": 26.14
+      },
+      {
+        "id": "172-5",
+        "english": "Caring for elderly family members also teaches younger generations the importance of responsibility, gratitude, and compassion.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc cho các thành viên lớn tuổi trong gia đình cũng dạy cho thế hệ trẻ về tầm quan trọng của trách nhiệm, lòng biết ơn và sự đồng cảm.",
+        "time_start": 27,
+        "time_end": 32.58
+      },
+      {
+        "id": "172-6",
+        "english": "A family that respects and cares for its older members creates a warm and supportive environment for everyone.",
+        "phonetic": "",
+        "vietnamese": "Một gia đình tôn trọng và chăm sóc cho các thành viên lớn tuổi tạo ra một môi trường ấm áp và hỗ trợ cho tất cả mọi người.",
+        "time_start": 33.4,
+        "time_end": 37.86
+      },
+      {
+        "id": "172-7",
+        "english": "By showing patience, love, and understanding, we can help older family members enjoy a healthier and happier life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thể hiện sự kiên nhẫn, tình yêu và sự thấu hiểu, chúng ta có thể giúp các thành viên lớn tuổi trong gia đình có một cuộc sống khỏe mạnh và hạnh phúc hơn.",
+        "time_start": 38.16,
+        "time_end": 43.5
+      }
+    ]
+  },
+  {
+    "id": "lesson-173",
+    "categoryId": "15",
+    "title": "Giá trị gia đình",
+    "description": "Những nguyên tắc giúp gia đình gắn bó và hạnh phúc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-173.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "173-1",
+        "english": "Family values are the beliefs and principles that guide how family members treat one another.",
+        "phonetic": "",
+        "vietnamese": "Giá trị gia đình là những niềm tin và nguyên tắc hướng dẫn cách các thành viên trong gia đình đối xử với nhau.",
+        "time_start": 0,
+        "time_end": 4.08
+      },
+      {
+        "id": "173-2",
+        "english": "These values may include honesty, kindness, respect, responsibility, and trust.",
+        "phonetic": "",
+        "vietnamese": "Những giá trị này có thể bao gồm sự trung thực, lòng tốt, sự tôn trọng, trách nhiệm và niềm tin.",
+        "time_start": 4.6,
+        "time_end": 9.3
+      },
+      {
+        "id": "173-3",
+        "english": "Parents often teach these values through their words and actions, while children learn by observing and practicing them every day.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ thường dạy những giá trị này qua lời nói và hành động của họ, trong khi trẻ em học hỏi bằng cách quan sát và thực hành chúng mỗi ngày.",
+        "time_start": 9.56,
+        "time_end": 15.02
+      },
+      {
+        "id": "173-4",
+        "english": "Strong family values help people make good decisions and build healthy relationships both at home and in society.",
+        "phonetic": "",
+        "vietnamese": "Giá trị gia đình vững mạnh giúp mọi người đưa ra quyết định đúng đắn và xây dựng mối quan hệ lành mạnh cả ở nhà và trong xã hội.",
+        "time_start": 15.96,
+        "time_end": 20.92
+      },
+      {
+        "id": "173-5",
+        "english": "Families with shared values are more likely to support each other during difficult times and celebrate achievements together.",
+        "phonetic": "",
+        "vietnamese": "Các gia đình có giá trị chung thường hỗ trợ lẫn nhau trong những lúc khó khăn và cùng nhau ăn mừng những thành tựu.",
+        "time_start": 21.54,
+        "time_end": 26.96
+      },
+      {
+        "id": "173-6",
+        "english": "Although every family is different, having common values helps create a peaceful and loving home.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mỗi gia đình là khác nhau, nhưng có những giá trị chung giúp tạo ra một ngôi nhà hòa bình và đầy yêu thương.",
+        "time_start": 26.96,
+        "time_end": 32.08
+      },
+      {
+        "id": "173-7",
+        "english": "By practicing positive values every day, families can build stronger relationships and prepare children to become responsible and caring adults.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thực hành những giá trị tích cực mỗi ngày, các gia đình có thể xây dựng mối quan hệ mạnh mẽ hơn và chuẩn bị cho trẻ em trở thành những người lớn có trách nhiệm và biết quan tâm.",
+        "time_start": 32.6,
+        "time_end": 39.52
+      }
+    ]
+  },
+  {
+    "id": "lesson-174",
+    "categoryId": "15",
+    "title": "Mối quan hệ anh chị em",
+    "description": "Xây dựng tình anh chị em dựa trên tôn trọng và hỗ trợ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-174.mp3",
+    "duration": 46,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "174-1",
+        "english": "Siblings are often our first friends and lifelong companions.",
+        "phonetic": "",
+        "vietnamese": "Anh chị em thường là những người bạn đầu tiên và là bạn đồng hành suốt đời của chúng ta.",
+        "time_start": 0,
+        "time_end": 2.98
+      },
+      {
+        "id": "174-2",
+        "english": "Brothers and sisters usually grow up together, share many experiences, and learn from one another.",
+        "phonetic": "",
+        "vietnamese": "Anh trai và chị gái thường lớn lên cùng nhau, chia sẻ nhiều trải nghiệm và học hỏi từ nhau.",
+        "time_start": 3.46,
+        "time_end": 7.6
+      },
+      {
+        "id": "174-3",
+        "english": "Although siblings sometimes argue over small things, these disagreements are a normal part of family life.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù anh chị em đôi khi cãi nhau về những điều nhỏ nhặt, nhưng những bất đồng này là một phần bình thường của cuộc sống gia đình.",
+        "time_start": 8.12,
+        "time_end": 13.26
+      },
+      {
+        "id": "174-4",
+        "english": "What matters most is learning how to communicate, apologize, and forgive each other.",
+        "phonetic": "",
+        "vietnamese": "Điều quan trọng nhất là học cách giao tiếp, xin lỗi và tha thứ cho nhau.",
+        "time_start": 13.76,
+        "time_end": 18
+      },
+      {
+        "id": "174-5",
+        "english": "A good sibling relationship is built on trust, respect, and support.",
+        "phonetic": "",
+        "vietnamese": "Một mối quan hệ tốt giữa anh chị em được xây dựng trên sự tin tưởng, tôn trọng và hỗ trợ.",
+        "time_start": 18.68,
+        "time_end": 22.36
+      },
+      {
+        "id": "174-6",
+        "english": "Older siblings can guide and encourage younger ones, while younger siblings can bring happiness and energy to the family.",
+        "phonetic": "",
+        "vietnamese": "Anh chị lớn có thể hướng dẫn và khuyến khích các em nhỏ, trong khi các em nhỏ có thể mang lại niềm vui và năng lượng cho gia đình.",
+        "time_start": 22.94,
+        "time_end": 28.6
+      },
+      {
+        "id": "174-7",
+        "english": "Spending time together through games, conversations, or family activities helps strengthen the relationship.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian bên nhau qua các trò chơi, cuộc trò chuyện hoặc hoạt động gia đình giúp củng cố mối quan hệ.",
+        "time_start": 29.16,
+        "time_end": 34.78
+      },
+      {
+        "id": "174-8",
+        "english": "As they grow older, siblings often become important sources of emotional support.",
+        "phonetic": "",
+        "vietnamese": "Khi lớn lên, anh chị em thường trở thành nguồn hỗ trợ tinh thần quan trọng.",
+        "time_start": 35.5,
+        "time_end": 39.5
+      },
+      {
+        "id": "174-9",
+        "english": "Maintaining a close relationship with brothers and sisters can bring comfort and happiness throughout life.",
+        "phonetic": "",
+        "vietnamese": "Duy trì mối quan hệ gần gũi với anh chị em có thể mang lại sự an ủi và hạnh phúc suốt cuộc đời.",
+        "time_start": 40.38,
+        "time_end": 44.84
+      }
+    ]
+  },
+  {
+    "id": "lesson-175",
+    "categoryId": "15",
+    "title": "Cân bằng giữa gia đình và công việc",
+    "description": "Sắp xếp thời gian để vừa làm việc vừa gắn bó gia đình",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-175.mp3",
+    "duration": 44,
+    "level": "BEGINNER",
+    "topic": "Gia đình & Nuôi dạy con",
+    "sentences": [
+      {
+        "id": "175-1",
+        "english": "Many people today have busy schedules because of work, school, and other responsibilities.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người ngày nay có lịch trình bận rộn vì công việc, trường học và các trách nhiệm khác.",
+        "time_start": 0,
+        "time_end": 4.3
+      },
+      {
+        "id": "175-2",
+        "english": "As a result, finding time for family can be difficult.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, việc tìm thời gian cho gia đình có thể khó khăn.",
+        "time_start": 5,
+        "time_end": 7.18
+      },
+      {
+        "id": "175-3",
+        "english": "However, maintaining a balance between work and family is essential for a happy life.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, duy trì sự cân bằng giữa công việc và gia đình là rất quan trọng cho một cuộc sống hạnh phúc.",
+        "time_start": 7.36,
+        "time_end": 11.6
+      },
+      {
+        "id": "175-4",
+        "english": "People can achieve this balance by planning their time carefully, avoiding unnecessary overtime, and setting aside quality time for their loved ones.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể đạt được sự cân bằng này bằng cách lên kế hoạch thời gian cẩn thận, tránh làm thêm giờ không cần thiết và dành thời gian chất lượng cho những người thân yêu.",
+        "time_start": 11.96,
+        "time_end": 19.12
+      },
+      {
+        "id": "175-5",
+        "english": "Simple activities such as eating dinner together, talking about the day, or enjoying a weekend outing can strengthen family relationships.",
+        "phonetic": "",
+        "vietnamese": "Những hoạt động đơn giản như ăn tối cùng nhau, nói chuyện về ngày hôm đó, hoặc tận hưởng một chuyến đi cuối tuần có thể củng cố mối quan hệ gia đình.",
+        "time_start": 19.52,
+        "time_end": 25.98
+      },
+      {
+        "id": "175-6",
+        "english": "Spending time with family also helps reduce stress and improves emotional well-being.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian cho gia đình cũng giúp giảm căng thẳng và cải thiện sức khỏe tinh thần.",
+        "time_start": 25.98,
+        "time_end": 30.68
+      },
+      {
+        "id": "175-7",
+        "english": "Success at work is important, but strong family relationships provide lasting support and happiness.",
+        "phonetic": "",
+        "vietnamese": "Thành công trong công việc là quan trọng, nhưng mối quan hệ gia đình vững mạnh mang lại sự hỗ trợ và hạnh phúc lâu dài.",
+        "time_start": 31.26,
+        "time_end": 35.72
+      },
+      {
+        "id": "175-8",
+        "english": "By managing time wisely and making family a priority, people can enjoy both a successful career and a fulfilling family life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách quản lý thời gian một cách khôn ngoan và đặt gia đình lên hàng đầu, mọi người có thể tận hưởng cả sự nghiệp thành công và cuộc sống gia đình viên mãn.",
+        "time_start": 36.42,
+        "time_end": 42.9
+      }
+    ]
+  },
+  {
+    "id": "lesson-176",
+    "categoryId": "16",
+    "title": "Tiết kiệm tiền",
+    "description": "Xây dựng thói quen tiết kiệm và chuẩn bị cho tương lai",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-176.mp3",
+    "duration": 53,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "176-1",
+        "english": "Saving money is an important habit that everyone should learn.",
+        "phonetic": "",
+        "vietnamese": "Tiết kiệm tiền là một thói quen quan trọng mà ai cũng nên học.",
+        "time_start": 0,
+        "time_end": 3.04
+      },
+      {
+        "id": "176-2",
+        "english": "It helps people prepare for the future and deal with unexpected situations.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp mọi người chuẩn bị cho tương lai và đối phó với những tình huống bất ngờ.",
+        "time_start": 3.36,
+        "time_end": 7.14
+      },
+      {
+        "id": "176-3",
+        "english": "Many people think they need a lot of money to start saving, but even a small amount can make a big difference over time.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người nghĩ rằng họ cần nhiều tiền để bắt đầu tiết kiệm, nhưng ngay cả một số tiền nhỏ cũng có thể tạo ra sự khác biệt lớn theo thời gian.",
+        "time_start": 7.94,
+        "time_end": 13.62
+      },
+      {
+        "id": "176-4",
+        "english": "One simple way to save money is by making a budget and avoiding unnecessary spending.",
+        "phonetic": "",
+        "vietnamese": "Một cách đơn giản để tiết kiệm tiền là lập ngân sách và tránh chi tiêu không cần thiết.",
+        "time_start": 14.26,
+        "time_end": 19.12
+      },
+      {
+        "id": "176-5",
+        "english": "Instead of buying things on impulse, people can compare prices and think carefully before making a purchase.",
+        "phonetic": "",
+        "vietnamese": "Thay vì mua sắm theo cảm hứng, mọi người có thể so sánh giá cả và suy nghĩ cẩn thận trước khi mua hàng.",
+        "time_start": 19.92,
+        "time_end": 26.06
+      },
+      {
+        "id": "176-6",
+        "english": "Saving money also helps people achieve their goals, such as buying a new phone, traveling, or paying for school.",
+        "phonetic": "",
+        "vietnamese": "Tiết kiệm tiền cũng giúp mọi người đạt được mục tiêu của mình, như mua một chiếc điện thoại mới, đi du lịch hoặc trả học phí.",
+        "time_start": 26.92,
+        "time_end": 33.22
+      },
+      {
+        "id": "176-7",
+        "english": "In addition, having savings can reduce stress during emergencies, such as medical expenses or job loss.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, có tiền tiết kiệm có thể giảm bớt căng thẳng trong các tình huống khẩn cấp, như chi phí y tế hoặc mất việc.",
+        "time_start": 33.78,
+        "time_end": 39.98
+      },
+      {
+        "id": "176-8",
+        "english": "Learning to manage money wisely is an important life skill.",
+        "phonetic": "",
+        "vietnamese": "Học cách quản lý tiền một cách khôn ngoan là một kỹ năng sống quan trọng.",
+        "time_start": 40.44,
+        "time_end": 43.46
+      },
+      {
+        "id": "176-9",
+        "english": "By saving regularly and spending responsibly, people can enjoy greater financial security and build a better future for themselves and their families.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tiết kiệm thường xuyên và chi tiêu có trách nhiệm, mọi người có thể tận hưởng sự an toàn tài chính lớn hơn và xây dựng một tương lai tốt đẹp hơn cho bản thân và gia đình.",
+        "time_start": 43.86,
+        "time_end": 51.78
+      }
+    ]
+  },
+  {
+    "id": "lesson-177",
+    "categoryId": "16",
+    "title": "Lập ngân sách",
+    "description": "Theo dõi thu chi và lập ngân sách hàng tháng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-177.mp3",
+    "duration": 41,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "177-1",
+        "english": "Making a budget is one of the best ways to manage personal finances.",
+        "phonetic": "",
+        "vietnamese": "Lập ngân sách là một trong những cách tốt nhất để quản lý tài chính cá nhân.",
+        "time_start": 0,
+        "time_end": 2.68
+      },
+      {
+        "id": "177-2",
+        "english": "A budget helps people understand how much money they earn, how much they spend, and how much they can save each month.",
+        "phonetic": "",
+        "vietnamese": "Ngân sách giúp mọi người hiểu họ kiếm được bao nhiêu tiền, chi tiêu bao nhiêu và có thể tiết kiệm bao nhiêu mỗi tháng.",
+        "time_start": 3.16,
+        "time_end": 7.68
+      },
+      {
+        "id": "177-3",
+        "english": "By writing down all income and expenses, people can easily identify unnecessary spending and make better financial decisions.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách ghi lại tất cả thu nhập và chi phí, mọi người có thể dễ dàng xác định chi tiêu không cần thiết và đưa ra quyết định tài chính tốt hơn.",
+        "time_start": 8.06,
+        "time_end": 13.42
+      },
+      {
+        "id": "177-4",
+        "english": "A good budget should include essential expenses such as food, transportation, housing, and education before spending money on entertainment or shopping.",
+        "phonetic": "",
+        "vietnamese": "Một ngân sách tốt nên bao gồm các chi phí thiết yếu như thực phẩm, giao thông, nhà ở và giáo dục trước khi chi tiền cho giải trí hoặc mua sắm.",
+        "time_start": 13.7,
+        "time_end": 20.66
+      },
+      {
+        "id": "177-5",
+        "english": "It is also important to set aside some money for savings and emergencies.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng là để dành một ít tiền cho tiết kiệm và các trường hợp khẩn cấp.",
+        "time_start": 21.22,
+        "time_end": 24.12
+      },
+      {
+        "id": "177-6",
+        "english": "Following a budget requires discipline, but it can reduce financial stress and help people reach their goals more quickly.",
+        "phonetic": "",
+        "vietnamese": "Theo dõi ngân sách đòi hỏi kỷ luật, nhưng nó có thể giảm căng thẳng tài chính và giúp mọi người đạt được mục tiêu nhanh hơn.",
+        "time_start": 24.96,
+        "time_end": 30.08
+      },
+      {
+        "id": "177-7",
+        "english": "Whether someone is a student or a working adult, learning to manage money through budgeting is an important life skill.",
+        "phonetic": "",
+        "vietnamese": "Dù ai đó là sinh viên hay người trưởng thành đi làm, học cách quản lý tiền thông qua lập ngân sách là một kỹ năng sống quan trọng.",
+        "time_start": 30.44,
+        "time_end": 35.06
+      },
+      {
+        "id": "177-8",
+        "english": "With careful planning and regular review, a budget can lead to greater financial stability and a more secure future.",
+        "phonetic": "",
+        "vietnamese": "Với kế hoạch cẩn thận và xem xét thường xuyên, một ngân sách có thể dẫn đến sự ổn định tài chính lớn hơn và một tương lai an toàn hơn.",
+        "time_start": 35.44,
+        "time_end": 40.56
+      }
+    ]
+  },
+  {
+    "id": "lesson-178",
+    "categoryId": "16",
+    "title": "Mua sắm thông minh",
+    "description": "So sánh giá và tránh mua sắm bốc đồng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-178.mp3",
+    "duration": 39,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "178-1",
+        "english": "Smart shopping is an important skill that helps people save money and make better financial decisions.",
+        "phonetic": "",
+        "vietnamese": "Mua sắm thông minh là một kỹ năng quan trọng giúp mọi người tiết kiệm tiền và đưa ra quyết định tài chính tốt hơn.",
+        "time_start": 0,
+        "time_end": 4.48
+      },
+      {
+        "id": "178-2",
+        "english": "Before buying something, people should compare prices, check product reviews, and think carefully about whether they really need the item.",
+        "phonetic": "",
+        "vietnamese": "Trước khi mua một món đồ, mọi người nên so sánh giá cả, kiểm tra đánh giá sản phẩm và suy nghĩ kỹ về việc họ có thực sự cần món đồ đó hay không.",
+        "time_start": 4.94,
+        "time_end": 10.92
+      },
+      {
+        "id": "178-3",
+        "english": "Making a shopping list before going to the store can also prevent unnecessary purchases.",
+        "phonetic": "",
+        "vietnamese": "Lập danh sách mua sắm trước khi đi đến cửa hàng cũng có thể ngăn chặn việc mua sắm không cần thiết.",
+        "time_start": 11.22,
+        "time_end": 14.98
+      },
+      {
+        "id": "178-4",
+        "english": "Many people are attracted by discounts and special offers, but not every sale is a good deal.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người bị thu hút bởi các chương trình giảm giá và ưu đãi đặc biệt, nhưng không phải mọi đợt giảm giá đều là một món hời tốt.",
+        "time_start": 15.42,
+        "time_end": 19.58
+      },
+      {
+        "id": "178-5",
+        "english": "Sometimes buying cheaper products with poor quality can cost more in the long run.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi, việc mua sản phẩm rẻ hơn nhưng chất lượng kém có thể tốn kém hơn về lâu dài.",
+        "time_start": 20.02,
+        "time_end": 23.5
+      },
+      {
+        "id": "178-6",
+        "english": "Smart shoppers focus on value instead of price alone.",
+        "phonetic": "",
+        "vietnamese": "Những người mua sắm thông minh tập trung vào giá trị thay vì chỉ giá cả.",
+        "time_start": 23.5,
+        "time_end": 27.06
+      },
+      {
+        "id": "178-7",
+        "english": "By planning purchases carefully and avoiding impulse buying, people can manage their money more effectively and reduce waste.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách lên kế hoạch mua sắm cẩn thận và tránh mua sắm bốc đồng, mọi người có thể quản lý tiền bạc hiệu quả hơn và giảm lãng phí.",
+        "time_start": 27.06,
+        "time_end": 32.84
+      },
+      {
+        "id": "178-8",
+        "english": "Developing good shopping habits leads to better financial health and helps people reach their saving goals more quickly.",
+        "phonetic": "",
+        "vietnamese": "Phát triển thói quen mua sắm tốt dẫn đến sức khỏe tài chính tốt hơn và giúp mọi người đạt được mục tiêu tiết kiệm nhanh hơn.",
+        "time_start": 33.48,
+        "time_end": 38.5
+      }
+    ]
+  },
+  {
+    "id": "lesson-179",
+    "categoryId": "16",
+    "title": "Nhu cầu và mong muốn",
+    "description": "Phân biệt nhu cầu thiết yếu và mong muốn cá nhân",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-179.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "179-1",
+        "english": "Understanding the difference between needs and wants is an important part of managing money.",
+        "phonetic": "",
+        "vietnamese": "Hiểu sự khác biệt giữa nhu cầu và mong muốn là một phần quan trọng trong việc quản lý tiền bạc.",
+        "time_start": 0,
+        "time_end": 3.7
+      },
+      {
+        "id": "179-2",
+        "english": "Needs are things that people must have to live, such as food, clean water, housing, clothing, and healthcare.",
+        "phonetic": "",
+        "vietnamese": "Nhu cầu là những thứ mà con người phải có để sống, như thực phẩm, nước sạch, nhà ở, quần áo và chăm sóc sức khỏe.",
+        "time_start": 4.4,
+        "time_end": 9.14
+      },
+      {
+        "id": "179-3",
+        "english": "Wants are things that make life more enjoyable but are not necessary, such as expensive gadgets, luxury clothes, or entertainment.",
+        "phonetic": "",
+        "vietnamese": "Mong muốn là những thứ làm cho cuộc sống thú vị hơn nhưng không cần thiết, như đồ điện tử đắt tiền, quần áo sang trọng, hoặc giải trí.",
+        "time_start": 9.64,
+        "time_end": 15.76
+      },
+      {
+        "id": "179-4",
+        "english": "Many people spend too much money because they confuse wants with needs.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người chi tiêu quá nhiều tiền vì họ nhầm lẫn mong muốn với nhu cầu.",
+        "time_start": 16.28,
+        "time_end": 19.42
+      },
+      {
+        "id": "179-5",
+        "english": "Before making a purchase, it is helpful to ask whether the item is truly necessary or simply something desirable.",
+        "phonetic": "",
+        "vietnamese": "Trước khi mua sắm, có ích khi hỏi xem món đồ đó có thực sự cần thiết hay chỉ là thứ mong muốn.",
+        "time_start": 19.8,
+        "time_end": 24.86
+      },
+      {
+        "id": "179-6",
+        "english": "Learning to prioritize needs before wants helps people avoid unnecessary spending and save more money.",
+        "phonetic": "",
+        "vietnamese": "Học cách ưu tiên nhu cầu trước mong muốn giúp mọi người tránh chi tiêu không cần thiết và tiết kiệm nhiều hơn.",
+        "time_start": 25.38,
+        "time_end": 30.2
+      },
+      {
+        "id": "179-7",
+        "english": "This habit also encourages responsible financial decisions and prepares people for future goals.",
+        "phonetic": "",
+        "vietnamese": "Thói quen này cũng khuyến khích quyết định tài chính có trách nhiệm và chuẩn bị cho những mục tiêu trong tương lai.",
+        "time_start": 30.74,
+        "time_end": 35.32
+      },
+      {
+        "id": "179-8",
+        "english": "Knowing the difference between needs and wants is a simple but valuable life skill.",
+        "phonetic": "",
+        "vietnamese": "Biết sự khác biệt giữa nhu cầu và mong muốn là một kỹ năng sống đơn giản nhưng quý giá.",
+        "time_start": 36,
+        "time_end": 39.2
+      }
+    ]
+  },
+  {
+    "id": "lesson-180",
+    "categoryId": "16",
+    "title": "Ngân hàng trực tuyến",
+    "description": "Sử dụng ngân hàng online tiện lợi và an toàn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-180.mp3",
+    "duration": 36,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "180-1",
+        "english": "Online banking has made managing money easier and more convenient than ever before.",
+        "phonetic": "",
+        "vietnamese": "Ngân hàng trực tuyến đã làm cho việc quản lý tiền bạc trở nên dễ dàng và thuận tiện hơn bao giờ hết.",
+        "time_start": 0,
+        "time_end": 3.62
+      },
+      {
+        "id": "180-2",
+        "english": "People can check their account balance, transfer money, pay bills, and manage their savings using a smartphone or computer.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể kiểm tra số dư tài khoản, chuyển tiền, thanh toán hóa đơn và quản lý tiết kiệm bằng điện thoại thông minh hoặc máy tính.",
+        "time_start": 4.2,
+        "time_end": 8.78
+      },
+      {
+        "id": "180-3",
+        "english": "Online banking saves time because customers no longer need to visit a bank for many everyday transactions.",
+        "phonetic": "",
+        "vietnamese": "Ngân hàng trực tuyến tiết kiệm thời gian vì khách hàng không còn cần phải đến ngân hàng cho nhiều giao dịch hàng ngày.",
+        "time_start": 9.46,
+        "time_end": 13.7
+      },
+      {
+        "id": "180-4",
+        "english": "However, it is important to use online banking safely.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, điều quan trọng là sử dụng ngân hàng trực tuyến một cách an toàn.",
+        "time_start": 14.34,
+        "time_end": 16.7
+      },
+      {
+        "id": "180-5",
+        "english": "People should create strong passwords, avoid sharing personal information, and be careful when using public Wi-Fi.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên tạo mật khẩu mạnh, tránh chia sẻ thông tin cá nhân và cẩn thận khi sử dụng Wi-Fi công cộng.",
+        "time_start": 17.4,
+        "time_end": 22.22
+      },
+      {
+        "id": "180-6",
+        "english": "They should also watch out for fake websites and online scams.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng nên cảnh giác với các trang web giả mạo và lừa đảo trực tuyến.",
+        "time_start": 22.42,
+        "time_end": 25.34
+      },
+      {
+        "id": "180-7",
+        "english": "By using online banking responsibly, people can enjoy fast and secure financial services.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách sử dụng ngân hàng trực tuyến một cách có trách nhiệm, mọi người có thể tận hưởng dịch vụ tài chính nhanh chóng và an toàn.",
+        "time_start": 25.34,
+        "time_end": 30.3
+      },
+      {
+        "id": "180-8",
+        "english": "As technology continues to improve, online banking is becoming an essential part of modern life.",
+        "phonetic": "",
+        "vietnamese": "Khi công nghệ tiếp tục phát triển, ngân hàng trực tuyến đang trở thành một phần thiết yếu của cuộc sống hiện đại.",
+        "time_start": 30.8,
+        "time_end": 35.18
+      }
+    ]
+  },
+  {
+    "id": "lesson-181",
+    "categoryId": "16",
+    "title": "Sử dụng thẻ tín dụng thông minh",
+    "description": "Dùng thẻ tín dụng có trách nhiệm, tránh nợ xấu",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-181.mp3",
+    "duration": 37,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "181-1",
+        "english": "Credit cards are useful financial tools when they are used responsibly.",
+        "phonetic": "",
+        "vietnamese": "Thẻ tín dụng là công cụ tài chính hữu ích khi được sử dụng một cách có trách nhiệm.",
+        "time_start": 0,
+        "time_end": 3.18
+      },
+      {
+        "id": "181-2",
+        "english": "They allow people to make purchases even if they do not have cash at the moment.",
+        "phonetic": "",
+        "vietnamese": "Chúng cho phép mọi người mua sắm ngay cả khi họ không có tiền mặt trong tay.",
+        "time_start": 3.62,
+        "time_end": 6.72
+      },
+      {
+        "id": "181-3",
+        "english": "Credit cards can also provide rewards, improve credit history, and make online shopping more convenient.",
+        "phonetic": "",
+        "vietnamese": "Thẻ tín dụng cũng có thể cung cấp phần thưởng, cải thiện lịch sử tín dụng và làm cho việc mua sắm trực tuyến trở nên thuận tiện hơn.",
+        "time_start": 7.44,
+        "time_end": 12.28
+      },
+      {
+        "id": "181-4",
+        "english": "However, spending too much with a credit card can lead to debt and financial problems.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, chi tiêu quá nhiều bằng thẻ tín dụng có thể dẫn đến nợ nần và các vấn đề tài chính.",
+        "time_start": 12.9,
+        "time_end": 16.84
+      },
+      {
+        "id": "181-5",
+        "english": "It is important to pay the balance on time and avoid buying things that are beyond one's budget.",
+        "phonetic": "",
+        "vietnamese": "Quan trọng là phải thanh toán số dư đúng hạn và tránh mua những thứ vượt quá ngân sách của mình.",
+        "time_start": 16.84,
+        "time_end": 21.86
+      },
+      {
+        "id": "181-6",
+        "english": "People should always keep track of their spending and understand the terms and conditions of their credit card.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên luôn theo dõi chi tiêu của mình và hiểu các điều khoản và điều kiện của thẻ tín dụng.",
+        "time_start": 21.86,
+        "time_end": 26.02
+      },
+      {
+        "id": "181-7",
+        "english": "Responsible use of credit cards helps people build good financial habits and avoid unnecessary stress.",
+        "phonetic": "",
+        "vietnamese": "Sử dụng thẻ tín dụng một cách có trách nhiệm giúp mọi người xây dựng thói quen tài chính tốt và tránh căng thẳng không cần thiết.",
+        "time_start": 26.02,
+        "time_end": 31.74
+      },
+      {
+        "id": "181-8",
+        "english": "Learning how to use credit wisely is an important step toward financial independence.",
+        "phonetic": "",
+        "vietnamese": "Học cách sử dụng tín dụng một cách khôn ngoan là một bước quan trọng hướng tới sự độc lập tài chính.",
+        "time_start": 32.16,
+        "time_end": 35.66
+      }
+    ]
+  },
+  {
+    "id": "lesson-182",
+    "categoryId": "16",
+    "title": "Tránh nợ nần",
+    "description": "Kiểm soát vay mượn và giữ ổn định tài chính",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-182.mp3",
+    "duration": 39,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "182-1",
+        "english": "Debt is a common part of modern life, but too much debt can create serious financial problems.",
+        "phonetic": "",
+        "vietnamese": "Nợ là một phần phổ biến trong cuộc sống hiện đại, nhưng nợ quá nhiều có thể gây ra những vấn đề tài chính nghiêm trọng.",
+        "time_start": 0,
+        "time_end": 4.58
+      },
+      {
+        "id": "182-2",
+        "english": "Many people borrow money to buy a house, pay for education, or start a business.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người vay tiền để mua nhà, trả tiền học hoặc bắt đầu kinh doanh.",
+        "time_start": 5,
+        "time_end": 8.4
+      },
+      {
+        "id": "182-3",
+        "english": "However, borrowing more money than they can repay may lead to stress and financial difficulties.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, vay nhiều tiền hơn khả năng trả nợ có thể dẫn đến căng thẳng và khó khăn tài chính.",
+        "time_start": 8.88,
+        "time_end": 13.46
+      },
+      {
+        "id": "182-4",
+        "english": "One of the best ways to avoid debt is by spending within your budget and saving money for future needs.",
+        "phonetic": "",
+        "vietnamese": "Một trong những cách tốt nhất để tránh nợ là chi tiêu trong giới hạn ngân sách và tiết kiệm tiền cho những nhu cầu trong tương lai.",
+        "time_start": 14.32,
+        "time_end": 18.8
+      },
+      {
+        "id": "182-5",
+        "english": "People should also avoid making unnecessary purchases with borrowed money or credit cards.",
+        "phonetic": "",
+        "vietnamese": "Mọi người cũng nên tránh mua sắm không cần thiết bằng tiền vay hoặc thẻ tín dụng.",
+        "time_start": 19.44,
+        "time_end": 23.34
+      },
+      {
+        "id": "182-6",
+        "english": "Before taking out a loan, it is important to understand the interest rate, repayment period, and total cost.",
+        "phonetic": "",
+        "vietnamese": "Trước khi vay tiền, điều quan trọng là hiểu lãi suất, thời gian trả nợ và tổng chi phí.",
+        "time_start": 23.6,
+        "time_end": 28.42
+      },
+      {
+        "id": "182-7",
+        "english": "Managing debt responsibly helps people maintain financial stability and avoid unnecessary pressure.",
+        "phonetic": "",
+        "vietnamese": "Quản lý nợ một cách có trách nhiệm giúp mọi người duy trì sự ổn định tài chính và tránh áp lực không cần thiết.",
+        "time_start": 28.88,
+        "time_end": 33.18
+      },
+      {
+        "id": "182-8",
+        "english": "By making smart financial decisions, people can enjoy greater peace of mind and a more secure future.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách đưa ra những quyết định tài chính thông minh, mọi người có thể tận hưởng sự an tâm lớn hơn và một tương lai an toàn hơn.",
+        "time_start": 33.82,
+        "time_end": 38.32
+      }
+    ]
+  },
+  {
+    "id": "lesson-183",
+    "categoryId": "16",
+    "title": "Quỹ tiết kiệm khẩn cấp",
+    "description": "Xây quỹ dự phòng cho các tình huống bất ngờ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-183.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "183-1",
+        "english": "Life is full of unexpected events, so having an emergency savings fund is very important.",
+        "phonetic": "",
+        "vietnamese": "Cuộc sống đầy rẫy những sự kiện bất ngờ, vì vậy việc có quỹ tiết kiệm khẩn cấp là rất quan trọng.",
+        "time_start": 0,
+        "time_end": 4.82
+      },
+      {
+        "id": "183-2",
+        "english": "Unexpected situations such as medical expenses, car repairs, or losing a job can happen at any time.",
+        "phonetic": "",
+        "vietnamese": "Những tình huống bất ngờ như chi phí y tế, sửa chữa xe hơi, hoặc mất việc có thể xảy ra bất cứ lúc nào.",
+        "time_start": 5.58,
+        "time_end": 10.64
+      },
+      {
+        "id": "183-3",
+        "english": "Without savings, people may need to borrow money and face financial difficulties.",
+        "phonetic": "",
+        "vietnamese": "Nếu không có tiền tiết kiệm, mọi người có thể phải vay tiền và đối mặt với khó khăn tài chính.",
+        "time_start": 11.12,
+        "time_end": 14.62
+      },
+      {
+        "id": "183-4",
+        "english": "Building an emergency fund does not require a large amount of money at the beginning.",
+        "phonetic": "",
+        "vietnamese": "Xây dựng quỹ khẩn cấp không cần một số tiền lớn ngay từ đầu.",
+        "time_start": 15.34,
+        "time_end": 18.44
+      },
+      {
+        "id": "183-5",
+        "english": "Saving a small amount regularly can gradually create a financial safety net.",
+        "phonetic": "",
+        "vietnamese": "Tiết kiệm một số tiền nhỏ thường xuyên có thể dần dần tạo ra một mạng lưới an toàn tài chính.",
+        "time_start": 19.2,
+        "time_end": 22.66
+      },
+      {
+        "id": "183-6",
+        "english": "Experts often recommend saving enough money to cover several months of living expenses.",
+        "phonetic": "",
+        "vietnamese": "Các chuyên gia thường khuyên nên tiết kiệm đủ tiền để trang trải cho vài tháng chi phí sinh hoạt.",
+        "time_start": 23.54,
+        "time_end": 27.44
+      },
+      {
+        "id": "183-7",
+        "english": "It is also a good idea to keep emergency savings in a separate account so they are only used when truly necessary.",
+        "phonetic": "",
+        "vietnamese": "Cũng là một ý tưởng tốt khi giữ quỹ tiết kiệm khẩn cấp trong một tài khoản riêng để chỉ sử dụng khi thật sự cần thiết.",
+        "time_start": 28.22,
+        "time_end": 33.46
+      },
+      {
+        "id": "183-8",
+        "english": "Having emergency savings provides financial security and reduces stress during difficult times.",
+        "phonetic": "",
+        "vietnamese": "Có quỹ tiết kiệm khẩn cấp mang lại sự an toàn tài chính và giảm căng thẳng trong những thời điểm khó khăn.",
+        "time_start": 34.3,
+        "time_end": 38.76
+      }
+    ]
+  },
+  {
+    "id": "lesson-184",
+    "categoryId": "16",
+    "title": "Mục tiêu tài chính",
+    "description": "Đặt mục tiêu ngắn hạn và dài hạn về tiền bạc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-184.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "184-1",
+        "english": "Setting financial goals helps people stay motivated and make better decisions about their money.",
+        "phonetic": "",
+        "vietnamese": "Đặt ra mục tiêu tài chính giúp mọi người duy trì động lực và đưa ra quyết định tốt hơn về tiền bạc của họ.",
+        "time_start": 0,
+        "time_end": 4.3
+      },
+      {
+        "id": "184-2",
+        "english": "Financial goals can be short-term, such as buying a new phone or saving for a vacation, or long-term, such as purchasing a house or preparing for retirement.",
+        "phonetic": "",
+        "vietnamese": "Mục tiêu tài chính có thể là ngắn hạn, như mua một chiếc điện thoại mới hoặc tiết kiệm cho một kỳ nghỉ, hoặc dài hạn, như mua một ngôi nhà hoặc chuẩn bị cho hưu trí.",
+        "time_start": 5.06,
+        "time_end": 12.16
+      },
+      {
+        "id": "184-3",
+        "english": "The first step is to decide what you want to achieve and estimate how much money you will need.",
+        "phonetic": "",
+        "vietnamese": "Bước đầu tiên là quyết định bạn muốn đạt được điều gì và ước lượng số tiền bạn cần.",
+        "time_start": 12.48,
+        "time_end": 16.7
+      },
+      {
+        "id": "184-4",
+        "english": "Then, create a realistic plan and save money regularly.",
+        "phonetic": "",
+        "vietnamese": "Sau đó, hãy tạo một kế hoạch thực tế và tiết kiệm tiền đều đặn.",
+        "time_start": 17.22,
+        "time_end": 20.42
+      },
+      {
+        "id": "184-5",
+        "english": "Tracking your progress can help you stay focused and make adjustments when necessary.",
+        "phonetic": "",
+        "vietnamese": "Theo dõi tiến trình của bạn có thể giúp bạn tập trung và điều chỉnh khi cần thiết.",
+        "time_start": 21.1,
+        "time_end": 24.56
+      },
+      {
+        "id": "184-6",
+        "english": "Achieving financial goals takes time, patience, and self-discipline, but every small step brings you closer to success.",
+        "phonetic": "",
+        "vietnamese": "Đạt được mục tiêu tài chính cần thời gian, kiên nhẫn và kỷ luật bản thân, nhưng mỗi bước nhỏ sẽ đưa bạn gần hơn đến thành công.",
+        "time_start": 25.52,
+        "time_end": 32.02
+      },
+      {
+        "id": "184-7",
+        "english": "With clear goals and consistent effort, people can build a stable financial future and enjoy greater confidence in managing their money.",
+        "phonetic": "",
+        "vietnamese": "Với mục tiêu rõ ràng và nỗ lực nhất quán, mọi người có thể xây dựng một tương lai tài chính ổn định và tận hưởng sự tự tin hơn trong việc quản lý tiền bạc.",
+        "time_start": 32.74,
+        "time_end": 39.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-185",
+    "categoryId": "16",
+    "title": "Đầu tư cơ bản",
+    "description": "Hiểu rủi ro và cách bắt đầu đầu tư dài hạn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-185.mp3",
+    "duration": 42,
+    "level": "BEGINNER",
+    "topic": "Tài chính cá nhân",
+    "sentences": [
+      {
+        "id": "185-1",
+        "english": "Investing is one way to grow your money over time and achieve long-term financial goals.",
+        "phonetic": "",
+        "vietnamese": "Đầu tư là một cách để làm tăng tiền của bạn theo thời gian và đạt được các mục tiêu tài chính lâu dài.",
+        "time_start": 0,
+        "time_end": 3.76
+      },
+      {
+        "id": "185-2",
+        "english": "Unlike saving, investing involves putting money into assets such as stocks, bonds, or mutual funds with the hope of earning a return.",
+        "phonetic": "",
+        "vietnamese": "Khác với việc tiết kiệm, đầu tư liên quan đến việc bỏ tiền vào các tài sản như cổ phiếu, trái phiếu hoặc quỹ tương hỗ với hy vọng kiếm được lợi nhuận.",
+        "time_start": 4.14,
+        "time_end": 10.5
+      },
+      {
+        "id": "185-3",
+        "english": "Although investing offers the opportunity to increase wealth, it also involves risks because the value of investments can rise or fall.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù đầu tư mang lại cơ hội để gia tăng tài sản, nhưng nó cũng có rủi ro vì giá trị của các khoản đầu tư có thể tăng hoặc giảm.",
+        "time_start": 11.38,
+        "time_end": 18.8
+      },
+      {
+        "id": "185-4",
+        "english": "Before investing, people should learn the basics, understand their financial goals, and avoid investing money they may need in the near future.",
+        "phonetic": "",
+        "vietnamese": "Trước khi đầu tư, mọi người nên học những điều cơ bản, hiểu rõ mục tiêu tài chính của mình và tránh đầu tư tiền mà họ có thể cần trong tương lai gần.",
+        "time_start": 19.04,
+        "time_end": 25.6
+      },
+      {
+        "id": "185-5",
+        "english": "Diversifying investments and making informed decisions can help reduce risk.",
+        "phonetic": "",
+        "vietnamese": "Đa dạng hóa các khoản đầu tư và đưa ra quyết định thông minh có thể giúp giảm rủi ro.",
+        "time_start": 26.54,
+        "time_end": 29.94
+      },
+      {
+        "id": "185-6",
+        "english": "It is also important to be patient because successful investing usually takes time.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng là phải kiên nhẫn vì đầu tư thành công thường mất thời gian.",
+        "time_start": 30,
+        "time_end": 34.28
+      },
+      {
+        "id": "185-7",
+        "english": "By learning about investing and making careful choices, people can build wealth and improve their financial future over the long term.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tìm hiểu về đầu tư và đưa ra những lựa chọn cẩn thận, mọi người có thể xây dựng tài sản và cải thiện tương lai tài chính của họ trong dài hạn.",
+        "time_start": 34.96,
+        "time_end": 40.86
+      }
+    ]
+  },
+  {
+    "id": "lesson-186",
+    "categoryId": "17",
+    "title": "Lợi ích của việc tập thể dục",
+    "description": "Tập thể dục giúp khỏe mạnh hơn cả thể chất và tinh thần",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-186.mp3",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "186-1",
+        "english": "Exercise is an important part of a healthy lifestyle.",
+        "phonetic": "",
+        "vietnamese": "Tập thể dục là một phần quan trọng của lối sống lành mạnh.",
+        "time_start": 0,
+        "time_end": 2.52
+      },
+      {
+        "id": "186-2",
+        "english": "It helps people stay fit, improve their health, and feel more energetic.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp mọi người giữ dáng, cải thiện sức khỏe và cảm thấy tràn đầy năng lượng hơn.",
+        "time_start": 2.92,
+        "time_end": 6.36
+      },
+      {
+        "id": "186-3",
+        "english": "There are many ways to exercise, such as walking, running, swimming, cycling, or playing sports.",
+        "phonetic": "",
+        "vietnamese": "Có nhiều cách để tập thể dục, như đi bộ, chạy, bơi lội, đạp xe hoặc chơi thể thao.",
+        "time_start": 7.1,
+        "time_end": 12.3
+      },
+      {
+        "id": "186-4",
+        "english": "People do not have to spend hours at the gym because even thirty minutes of exercise each day can bring many benefits.",
+        "phonetic": "",
+        "vietnamese": "Mọi người không cần phải dành hàng giờ ở phòng tập gym vì chỉ cần ba mươi phút tập thể dục mỗi ngày cũng mang lại nhiều lợi ích.",
+        "time_start": 12.3,
+        "time_end": 20.02
+      },
+      {
+        "id": "186-5",
+        "english": "Regular exercise can strengthen the heart, improve sleep, and reduce stress.",
+        "phonetic": "",
+        "vietnamese": "Tập thể dục thường xuyên có thể làm mạnh tim, cải thiện giấc ngủ và giảm căng thẳng.",
+        "time_start": 20.02,
+        "time_end": 23.68
+      },
+      {
+        "id": "186-6",
+        "english": "It also helps people maintain a healthy weight and lowers the risk of many diseases.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp mọi người duy trì cân nặng khỏe mạnh và giảm nguy cơ mắc nhiều bệnh.",
+        "time_start": 23.88,
+        "time_end": 27.74
+      },
+      {
+        "id": "186-7",
+        "english": "Besides the physical benefits, exercise is also good for mental health.",
+        "phonetic": "",
+        "vietnamese": "Ngoài những lợi ích về thể chất, tập thể dục cũng tốt cho sức khỏe tâm thần.",
+        "time_start": 28.78,
+        "time_end": 32
+      },
+      {
+        "id": "186-8",
+        "english": "It can improve mood, increase confidence, and help people feel happier.",
+        "phonetic": "",
+        "vietnamese": "Nó có thể cải thiện tâm trạng, tăng cường sự tự tin và giúp mọi người cảm thấy hạnh phúc hơn.",
+        "time_start": 32.56,
+        "time_end": 35.68
+      },
+      {
+        "id": "186-9",
+        "english": "The most important thing is to choose an activity you enjoy so that you can continue doing it regularly.",
+        "phonetic": "",
+        "vietnamese": "Điều quan trọng nhất là chọn một hoạt động mà bạn thích để có thể tiếp tục làm nó thường xuyên.",
+        "time_start": 35.92,
+        "time_end": 41.1
+      },
+      {
+        "id": "186-10",
+        "english": "By making exercise a daily habit, people can live healthier, happier, and more active lives.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách biến tập thể dục thành thói quen hàng ngày, mọi người có thể sống khỏe mạnh, hạnh phúc và năng động hơn.",
+        "time_start": 41.56,
+        "time_end": 46.28
+      }
+    ]
+  },
+  {
+    "id": "lesson-187",
+    "categoryId": "17",
+    "title": "Hoạt động thể chất hằng ngày",
+    "description": "Các hoạt động đơn giản giúp duy trì sức khỏe mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-187.mp3",
+    "duration": 34,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "187-1",
+        "english": "Daily physical activities are simple ways to stay healthy without joining a gym or playing competitive sports.",
+        "phonetic": "",
+        "vietnamese": "Các hoạt động thể chất hàng ngày là cách đơn giản để giữ sức khỏe mà không cần tham gia phòng gym hay chơi thể thao cạnh tranh.",
+        "time_start": 0,
+        "time_end": 4.6
+      },
+      {
+        "id": "187-2",
+        "english": "Walking to school or work, taking the stairs instead of the elevator, riding a bicycle, or doing housework are all forms of physical activity.",
+        "phonetic": "",
+        "vietnamese": "Đi bộ đến trường hoặc nơi làm việc, đi cầu thang thay vì thang máy, đạp xe, hoặc làm việc nhà đều là các hình thức hoạt động thể chất.",
+        "time_start": 5.02,
+        "time_end": 11.32
+      },
+      {
+        "id": "187-3",
+        "english": "These activities help improve heart health, strengthen muscles, and increase energy levels.",
+        "phonetic": "",
+        "vietnamese": "Những hoạt động này giúp cải thiện sức khỏe tim mạch, tăng cường cơ bắp và tăng mức năng lượng.",
+        "time_start": 11.6,
+        "time_end": 15.56
+      },
+      {
+        "id": "187-4",
+        "english": "They also reduce the risk of obesity and other health problems.",
+        "phonetic": "",
+        "vietnamese": "Chúng cũng giảm nguy cơ béo phì và các vấn đề sức khỏe khác.",
+        "time_start": 15.74,
+        "time_end": 18.58
+      },
+      {
+        "id": "187-5",
+        "english": "Many people think they are too busy to exercise, but adding small activities to a daily routine is easier than they imagine.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người nghĩ rằng họ quá bận rộn để tập thể dục, nhưng thêm những hoạt động nhỏ vào thói quen hàng ngày dễ hơn họ tưởng.",
+        "time_start": 18.78,
+        "time_end": 24.24
+      },
+      {
+        "id": "187-6",
+        "english": "Even a short walk after dinner can improve both physical and mental health.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả một cuộc đi bộ ngắn sau bữa tối cũng có thể cải thiện cả sức khỏe thể chất và tinh thần.",
+        "time_start": 24.64,
+        "time_end": 28.02
+      },
+      {
+        "id": "187-7",
+        "english": "Staying active every day is an effective way to build healthy habits and enjoy a better quality of life.",
+        "phonetic": "",
+        "vietnamese": "Giữ cho cơ thể hoạt động mỗi ngày là một cách hiệu quả để xây dựng thói quen lành mạnh và tận hưởng chất lượng cuộc sống tốt hơn.",
+        "time_start": 28.02,
+        "time_end": 32.8
+      }
+    ]
+  },
+  {
+    "id": "lesson-188",
+    "categoryId": "17",
+    "title": "Thể thao đồng đội",
+    "description": "Học teamwork và gắn kết qua bóng đá, bóng rổ, bóng chuyền",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-188.mp3",
+    "duration": 36,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "188-1",
+        "english": "Team sports are popular because they combine physical activity with cooperation and communication.",
+        "phonetic": "",
+        "vietnamese": "Thể thao đồng đội rất phổ biến vì chúng kết hợp hoạt động thể chất với sự hợp tác và giao tiếp.",
+        "time_start": 0,
+        "time_end": 4.72
+      },
+      {
+        "id": "188-2",
+        "english": "Sports such as football, basketball, volleyball, and baseball require players to work together to achieve a common goal.",
+        "phonetic": "",
+        "vietnamese": "Các môn thể thao như bóng đá, bóng rổ, bóng chuyền và bóng chày yêu cầu người chơi làm việc cùng nhau để đạt được mục tiêu chung.",
+        "time_start": 5.6,
+        "time_end": 10.72
+      },
+      {
+        "id": "188-3",
+        "english": "By participating in team sports, people learn important skills such as teamwork, leadership, discipline, and respect for others.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tham gia vào thể thao đồng đội, mọi người học được những kỹ năng quan trọng như làm việc nhóm, lãnh đạo, kỷ luật và tôn trọng người khác.",
+        "time_start": 11.28,
+        "time_end": 17.14
+      },
+      {
+        "id": "188-4",
+        "english": "Winning is exciting, but learning how to accept defeat is also an important lesson.",
+        "phonetic": "",
+        "vietnamese": "Chiến thắng thì thú vị, nhưng học cách chấp nhận thất bại cũng là một bài học quan trọng.",
+        "time_start": 17.64,
+        "time_end": 21.4
+      },
+      {
+        "id": "188-5",
+        "english": "Team sports help build friendships and create a strong sense of community.",
+        "phonetic": "",
+        "vietnamese": "Thể thao đồng đội giúp xây dựng tình bạn và tạo ra một cảm giác cộng đồng mạnh mẽ.",
+        "time_start": 21.92,
+        "time_end": 25.04
+      },
+      {
+        "id": "188-6",
+        "english": "They also improve physical fitness and encourage people to stay active.",
+        "phonetic": "",
+        "vietnamese": "Chúng cũng cải thiện thể lực và khuyến khích mọi người duy trì hoạt động.",
+        "time_start": 25.42,
+        "time_end": 28.9
+      },
+      {
+        "id": "188-7",
+        "english": "Whether playing for fun or in competitions, team sports provide valuable experiences that benefit people throughout their lives.",
+        "phonetic": "",
+        "vietnamese": "Dù chơi để vui vẻ hay trong các cuộc thi, thể thao đồng đội mang lại những trải nghiệm quý giá có lợi cho mọi người suốt cuộc đời.",
+        "time_start": 29,
+        "time_end": 35.3
+      }
+    ]
+  },
+  {
+    "id": "lesson-189",
+    "categoryId": "17",
+    "title": "Thể thao cá nhân",
+    "description": "Bơi lội, chạy bộ và các môn phát triển kỷ luật bản thân",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-189.mp3",
+    "duration": 36,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "189-1",
+        "english": "Individual sports allow people to compete and improve based on their own efforts.",
+        "phonetic": "",
+        "vietnamese": "Các môn thể thao cá nhân cho phép mọi người thi đấu và cải thiện dựa trên nỗ lực của chính họ.",
+        "time_start": 0,
+        "time_end": 3.72
+      },
+      {
+        "id": "189-2",
+        "english": "Popular individual sports include swimming, tennis, badminton, cycling, and running.",
+        "phonetic": "",
+        "vietnamese": "Các môn thể thao cá nhân phổ biến bao gồm bơi lội, quần vợt, cầu lông, đạp xe và chạy bộ.",
+        "time_start": 4.36,
+        "time_end": 8.48
+      },
+      {
+        "id": "189-3",
+        "english": "Unlike team sports, athletes are responsible for their own performance and decisions.",
+        "phonetic": "",
+        "vietnamese": "Khác với các môn thể thao đồng đội, các vận động viên phải chịu trách nhiệm về hiệu suất và quyết định của chính mình.",
+        "time_start": 8.64,
+        "time_end": 12.96
+      },
+      {
+        "id": "189-4",
+        "english": "This helps them develop self-discipline, confidence, and determination.",
+        "phonetic": "",
+        "vietnamese": "Điều này giúp họ phát triển tính kỷ luật, sự tự tin và quyết tâm.",
+        "time_start": 13.66,
+        "time_end": 17.64
+      },
+      {
+        "id": "189-5",
+        "english": "Individual sports also allow people to set personal goals and track their progress over time.",
+        "phonetic": "",
+        "vietnamese": "Các môn thể thao cá nhân cũng cho phép mọi người đặt ra mục tiêu cá nhân và theo dõi tiến bộ của họ theo thời gian.",
+        "time_start": 18.18,
+        "time_end": 22.94
+      },
+      {
+        "id": "189-6",
+        "english": "Although athletes train alone most of the time, they still receive support from coaches, family, and friends.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù các vận động viên thường tập luyện một mình, nhưng họ vẫn nhận được sự hỗ trợ từ huấn luyện viên, gia đình và bạn bè.",
+        "time_start": 23.26,
+        "time_end": 28.38
+      },
+      {
+        "id": "189-7",
+        "english": "Participating in individual sports is an excellent way to stay healthy, challenge yourself, and develop a strong mindset.",
+        "phonetic": "",
+        "vietnamese": "Tham gia vào các môn thể thao cá nhân là một cách tuyệt vời để giữ sức khỏe, thử thách bản thân và phát triển tư duy mạnh mẽ.",
+        "time_start": 28.88,
+        "time_end": 34.58
+      }
+    ]
+  },
+  {
+    "id": "lesson-190",
+    "categoryId": "17",
+    "title": "Hoạt động thể thao ngoài trời",
+    "description": "Trekking, đạp xe và khám phá thiên nhiên an toàn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-190.mp3",
+    "duration": 36,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "190-1",
+        "english": "Outdoor activities are enjoyable ways to stay active while exploring nature.",
+        "phonetic": "",
+        "vietnamese": "Các hoạt động ngoài trời là cách thú vị để giữ sức khỏe trong khi khám phá thiên nhiên.",
+        "time_start": 0,
+        "time_end": 3.48
+      },
+      {
+        "id": "190-2",
+        "english": "Popular outdoor activities include hiking, camping, mountain climbing, kayaking, and cycling.",
+        "phonetic": "",
+        "vietnamese": "Các hoạt động ngoài trời phổ biến bao gồm đi bộ đường dài, cắm trại, leo núi, chèo thuyền kayak và đạp xe.",
+        "time_start": 4,
+        "time_end": 8.48
+      },
+      {
+        "id": "190-3",
+        "english": "These activities provide both physical exercise and opportunities to relax away from busy city life.",
+        "phonetic": "",
+        "vietnamese": "Những hoạt động này không chỉ mang lại bài tập thể chất mà còn tạo cơ hội để thư giãn xa khỏi cuộc sống bận rộn ở thành phố.",
+        "time_start": 8.8,
+        "time_end": 13.94
+      },
+      {
+        "id": "190-4",
+        "english": "Spending time outdoors can reduce stress, improve mood, and increase appreciation for the natural environment.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian ở ngoài trời có thể giảm căng thẳng, cải thiện tâm trạng và tăng cường sự trân trọng đối với môi trường tự nhiên.",
+        "time_start": 14.38,
+        "time_end": 19.08
+      },
+      {
+        "id": "190-5",
+        "english": "However, safety is very important during outdoor adventures.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, an toàn là rất quan trọng trong các cuộc phiêu lưu ngoài trời.",
+        "time_start": 19.6,
+        "time_end": 22.32
+      },
+      {
+        "id": "190-6",
+        "english": "People should prepare suitable equipment, check the weather, and follow safety instructions.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên chuẩn bị thiết bị phù hợp, kiểm tra thời tiết và tuân theo hướng dẫn an toàn.",
+        "time_start": 22.68,
+        "time_end": 26.4
+      },
+      {
+        "id": "190-7",
+        "english": "Respecting nature by keeping the environment clean is also essential.",
+        "phonetic": "",
+        "vietnamese": "Tôn trọng thiên nhiên bằng cách giữ gìn môi trường sạch sẽ cũng rất cần thiết.",
+        "time_start": 26.92,
+        "time_end": 29.54
+      },
+      {
+        "id": "190-8",
+        "english": "Outdoor activities not only improve health but also create unforgettable experiences with family and friends.",
+        "phonetic": "",
+        "vietnamese": "Các hoạt động ngoài trời không chỉ cải thiện sức khỏe mà còn tạo ra những trải nghiệm khó quên với gia đình và bạn bè.",
+        "time_start": 30.1,
+        "time_end": 35.14
+      }
+    ]
+  },
+  {
+    "id": "lesson-191",
+    "categoryId": "17",
+    "title": "Tinh thần thể thao",
+    "description": "Tôn trọng đối thủ, trung thực và chấp nhận kết quả",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-191.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "191-1",
+        "english": "Sportsmanship is one of the most important values in sports.",
+        "phonetic": "",
+        "vietnamese": "Tinh thần thể thao là một trong những giá trị quan trọng nhất trong thể thao.",
+        "time_start": 0,
+        "time_end": 2.86
+      },
+      {
+        "id": "191-2",
+        "english": "It means treating teammates, opponents, coaches, and referees with respect and fairness.",
+        "phonetic": "",
+        "vietnamese": "Nó có nghĩa là đối xử với đồng đội, đối thủ, huấn luyện viên và trọng tài bằng sự tôn trọng và công bằng.",
+        "time_start": 3.1,
+        "time_end": 7.08
+      },
+      {
+        "id": "191-3",
+        "english": "A good athlete follows the rules, accepts the referee's decisions, and behaves politely whether they win or lose.",
+        "phonetic": "",
+        "vietnamese": "Một vận động viên giỏi tuân thủ các quy tắc, chấp nhận quyết định của trọng tài và cư xử lịch sự dù thắng hay thua.",
+        "time_start": 7.08,
+        "time_end": 13.74
+      },
+      {
+        "id": "191-4",
+        "english": "Winning is exciting, but losing is also an opportunity to learn and improve.",
+        "phonetic": "",
+        "vietnamese": "Chiến thắng thì thú vị, nhưng thua cũng là một cơ hội để học hỏi và cải thiện.",
+        "time_start": 13.74,
+        "time_end": 17.62
+      },
+      {
+        "id": "191-5",
+        "english": "Athletes with good sportsmanship encourage others, admit their mistakes, and never cheat to achieve success.",
+        "phonetic": "",
+        "vietnamese": "Các vận động viên có tinh thần thể thao tốt khuyến khích người khác, thừa nhận sai lầm của mình và không bao giờ gian lận để đạt được thành công.",
+        "time_start": 18.34,
+        "time_end": 23.44
+      },
+      {
+        "id": "191-6",
+        "english": "These positive attitudes help create a friendly and enjoyable environment for everyone.",
+        "phonetic": "",
+        "vietnamese": "Những thái độ tích cực này giúp tạo ra một môi trường thân thiện và thú vị cho mọi người.",
+        "time_start": 23.72,
+        "time_end": 27.66
+      },
+      {
+        "id": "191-7",
+        "english": "Sportsmanship is not only important in competitions but also in everyday life.",
+        "phonetic": "",
+        "vietnamese": "Tinh thần thể thao không chỉ quan trọng trong các cuộc thi mà còn trong cuộc sống hàng ngày.",
+        "time_start": 28.34,
+        "time_end": 32.1
+      },
+      {
+        "id": "191-8",
+        "english": "By showing respect, honesty, and kindness, people can build stronger relationships and become better individuals both on and off the field.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thể hiện sự tôn trọng, trung thực và lòng tốt, mọi người có thể xây dựng mối quan hệ mạnh mẽ hơn và trở thành những cá nhân tốt hơn cả trên sân cỏ lẫn ngoài đời.",
+        "time_start": 32.4,
+        "time_end": 39.3
+      }
+    ]
+  },
+  {
+    "id": "lesson-192",
+    "categoryId": "17",
+    "title": "Chọn môn thể thao phù hợp",
+    "description": "Chọn môn phù hợp sở thích và thể lực để duy trì lâu dài",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-192.mp3",
+    "duration": 43,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "192-1",
+        "english": "Choosing the right sport is important because it helps people stay motivated and enjoy exercising.",
+        "phonetic": "",
+        "vietnamese": "Chọn môn thể thao phù hợp là rất quan trọng vì nó giúp mọi người giữ động lực và thích thú khi tập thể dục.",
+        "time_start": 0,
+        "time_end": 4.48
+      },
+      {
+        "id": "192-2",
+        "english": "Everyone has different interests, abilities, and fitness levels, so there is no perfect sport for everyone.",
+        "phonetic": "",
+        "vietnamese": "Mỗi người có sở thích, khả năng và mức độ thể lực khác nhau, vì vậy không có môn thể thao nào hoàn hảo cho tất cả mọi người.",
+        "time_start": 5.12,
+        "time_end": 9.88
+      },
+      {
+        "id": "192-3",
+        "english": "Some people enjoy team sports like football or volleyball because they like working with others.",
+        "phonetic": "",
+        "vietnamese": "Một số người thích các môn thể thao đồng đội như bóng đá hoặc bóng chuyền vì họ thích làm việc với người khác.",
+        "time_start": 10.42,
+        "time_end": 14.84
+      },
+      {
+        "id": "192-4",
+        "english": "Others prefer individual sports such as swimming, badminton, or running because they can focus on their own goals.",
+        "phonetic": "",
+        "vietnamese": "Người khác lại thích các môn thể thao cá nhân như bơi lội, cầu lông hoặc chạy bộ vì họ có thể tập trung vào mục tiêu của riêng mình.",
+        "time_start": 15.88,
+        "time_end": 20.84
+      },
+      {
+        "id": "192-5",
+        "english": "Before choosing a sport, people should consider their physical condition, available time, and personal interests.",
+        "phonetic": "",
+        "vietnamese": "Trước khi chọn môn thể thao, mọi người nên xem xét tình trạng sức khỏe, thời gian có sẵn và sở thích cá nhân.",
+        "time_start": 21.1,
+        "time_end": 26.26
+      },
+      {
+        "id": "192-6",
+        "english": "Trying different sports is also a good way to discover what they truly enjoy.",
+        "phonetic": "",
+        "vietnamese": "Thử nghiệm các môn thể thao khác nhau cũng là một cách tốt để khám phá những gì họ thực sự thích.",
+        "time_start": 26.26,
+        "time_end": 31.27
+      },
+      {
+        "id": "192-7",
+        "english": "The best sport is not always the most popular one, but the one that fits a person's lifestyle and encourages them to stay active.",
+        "phonetic": "",
+        "vietnamese": "Môn thể thao tốt nhất không phải lúc nào cũng là môn phổ biến nhất, mà là môn phù hợp với lối sống của một người và khuyến khích họ giữ hoạt động.",
+        "time_start": 31.27,
+        "time_end": 36.28
+      },
+      {
+        "id": "192-8",
+        "english": "By choosing the right sport, people are more likely to exercise regularly, improve their health, and have fun at the same time.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách chọn môn thể thao phù hợp, mọi người có khả năng tập thể dục thường xuyên, cải thiện sức khỏe và cùng lúc đó có niềm vui.",
+        "time_start": 36.28,
+        "time_end": 41.98
+      }
+    ]
+  },
+  {
+    "id": "lesson-193",
+    "categoryId": "17",
+    "title": "Chuẩn bị cho một cuộc thi đấu",
+    "description": "Luyện tập, dinh dưỡng và tâm lý trước khi thi đấu",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-193.mp3",
+    "duration": 37,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "193-1",
+        "english": "Preparing for a sports competition requires dedication, planning, and hard work.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị cho một cuộc thi thể thao đòi hỏi sự cống hiến, lập kế hoạch và làm việc chăm chỉ.",
+        "time_start": 0,
+        "time_end": 4.02
+      },
+      {
+        "id": "193-2",
+        "english": "Athletes usually follow a training schedule to improve their strength, speed, and skills.",
+        "phonetic": "",
+        "vietnamese": "Vận động viên thường theo một lịch tập luyện để cải thiện sức mạnh, tốc độ và kỹ năng.",
+        "time_start": 4.5,
+        "time_end": 7.82
+      },
+      {
+        "id": "193-3",
+        "english": "They also pay attention to their diet, get enough sleep, and stay hydrated before the competition.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng chú ý đến chế độ ăn uống, ngủ đủ giấc và giữ nước trước cuộc thi.",
+        "time_start": 7.96,
+        "time_end": 12.1
+      },
+      {
+        "id": "193-4",
+        "english": "Mental preparation is just as important as physical training.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị tinh thần cũng quan trọng như tập luyện thể chất.",
+        "time_start": 12.5,
+        "time_end": 15.12
+      },
+      {
+        "id": "193-5",
+        "english": "Staying confident, managing stress, and maintaining a positive attitude can help athletes perform at their best.",
+        "phonetic": "",
+        "vietnamese": "Giữ vững sự tự tin, quản lý căng thẳng và duy trì thái độ tích cực có thể giúp vận động viên thi đấu tốt nhất.",
+        "time_start": 15.66,
+        "time_end": 20.8
+      },
+      {
+        "id": "193-6",
+        "english": "Coaches also play an important role by providing guidance and motivation.",
+        "phonetic": "",
+        "vietnamese": "Huấn luyện viên cũng đóng vai trò quan trọng bằng cách cung cấp hướng dẫn và động lực.",
+        "time_start": 21.34,
+        "time_end": 24.46
+      },
+      {
+        "id": "193-7",
+        "english": "Whether the competition is small or large, careful preparation increases the chance of success.",
+        "phonetic": "",
+        "vietnamese": "Dù cuộc thi nhỏ hay lớn, chuẩn bị kỹ lưỡng sẽ tăng cơ hội thành công.",
+        "time_start": 24.46,
+        "time_end": 29.88
+      },
+      {
+        "id": "193-8",
+        "english": "More importantly, athletes learn valuable lessons about discipline, perseverance, and determination through the training process.",
+        "phonetic": "",
+        "vietnamese": "Quan trọng hơn, vận động viên học được những bài học quý giá về kỷ luật, kiên trì và quyết tâm qua quá trình tập luyện.",
+        "time_start": 30.48,
+        "time_end": 36.36
+      }
+    ]
+  },
+  {
+    "id": "lesson-194",
+    "categoryId": "17",
+    "title": "Các môn thể thao nổi tiếng trên thế giới",
+    "description": "Khám phá các môn thể thao phổ biến và sự kiện quốc tế",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-194.mp3",
+    "duration": 36,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "194-1",
+        "english": "Sports are enjoyed by people of all ages around the world.",
+        "phonetic": "",
+        "vietnamese": "Mọi người ở mọi lứa tuổi trên thế giới đều thích thể thao.",
+        "time_start": 0,
+        "time_end": 2.98
+      },
+      {
+        "id": "194-2",
+        "english": "Football is the most popular sport in many countries because it is simple to play and brings people together.",
+        "phonetic": "",
+        "vietnamese": "Bóng đá là môn thể thao phổ biến nhất ở nhiều quốc gia vì nó dễ chơi và gắn kết mọi người lại với nhau.",
+        "time_start": 3.42,
+        "time_end": 8.34
+      },
+      {
+        "id": "194-3",
+        "english": "Basketball, tennis, cricket, swimming, and volleyball are also widely loved by millions of fans.",
+        "phonetic": "",
+        "vietnamese": "Bóng rổ, quần vợt, cricket, bơi lội và bóng chuyền cũng được hàng triệu người hâm mộ yêu thích.",
+        "time_start": 9,
+        "time_end": 13.52
+      },
+      {
+        "id": "194-4",
+        "english": "Each country has its own favorite sports based on its culture and traditions.",
+        "phonetic": "",
+        "vietnamese": "Mỗi quốc gia có những môn thể thao yêu thích riêng dựa trên văn hóa và truyền thống của mình.",
+        "time_start": 13.76,
+        "time_end": 17.32
+      },
+      {
+        "id": "194-5",
+        "english": "International events such as the Olympic Games and the FIFA World Cup allow athletes to represent their countries and inspire people around the world.",
+        "phonetic": "",
+        "vietnamese": "Các sự kiện quốc tế như Thế vận hội và World Cup FIFA cho phép các vận động viên đại diện cho đất nước của họ và truyền cảm hứng cho mọi người trên thế giới.",
+        "time_start": 18.06,
+        "time_end": 24.96
+      },
+      {
+        "id": "194-6",
+        "english": "Sports not only provide entertainment but also promote friendship, teamwork, and cultural exchange.",
+        "phonetic": "",
+        "vietnamese": "Thể thao không chỉ mang lại sự giải trí mà còn thúc đẩy tình bạn, làm việc nhóm và trao đổi văn hóa.",
+        "time_start": 24.96,
+        "time_end": 30.82
+      },
+      {
+        "id": "194-7",
+        "english": "Learning about different sports helps people understand and appreciate cultures from around the world.",
+        "phonetic": "",
+        "vietnamese": "Tìm hiểu về các môn thể thao khác nhau giúp mọi người hiểu và trân trọng các nền văn hóa trên thế giới.",
+        "time_start": 31.38,
+        "time_end": 35.64
+      }
+    ]
+  },
+  {
+    "id": "lesson-195",
+    "categoryId": "17",
+    "title": "Tầm quan trọng của việc tập thể dục thường xuyên",
+    "description": "Tập đều đặn để cải thiện sức khỏe thể chất và tinh thần",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-195.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Thể thao",
+    "sentences": [
+      {
+        "id": "195-1",
+        "english": "Regular exercise is one of the best ways to improve both physical and mental health.",
+        "phonetic": "",
+        "vietnamese": "Tập thể dục thường xuyên là một trong những cách tốt nhất để cải thiện sức khỏe thể chất và tinh thần.",
+        "time_start": 0,
+        "time_end": 3.98
+      },
+      {
+        "id": "195-2",
+        "english": "It helps control body weight, strengthen muscles and bones, improve heart health, and increase energy levels.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp kiểm soát cân nặng, tăng cường cơ bắp và xương, cải thiện sức khỏe tim mạch và tăng cường năng lượng.",
+        "time_start": 4.2,
+        "time_end": 9.1
+      },
+      {
+        "id": "195-3",
+        "english": "Exercise also reduces stress, improves sleep quality, and boosts self-confidence.",
+        "phonetic": "",
+        "vietnamese": "Tập thể dục cũng giảm căng thẳng, cải thiện chất lượng giấc ngủ và tăng cường sự tự tin.",
+        "time_start": 10.28,
+        "time_end": 14.02
+      },
+      {
+        "id": "195-4",
+        "english": "People do not need to perform intense workouts every day.",
+        "phonetic": "",
+        "vietnamese": "Mọi người không cần phải tập luyện cường độ cao mỗi ngày.",
+        "time_start": 14.98,
+        "time_end": 17.7
+      },
+      {
+        "id": "195-5",
+        "english": "Simple activities such as walking, jogging, cycling, or stretching can provide significant health benefits when done consistently.",
+        "phonetic": "",
+        "vietnamese": "Những hoạt động đơn giản như đi bộ, chạy bộ, đạp xe hoặc kéo dãn có thể mang lại lợi ích sức khỏe đáng kể khi được thực hiện thường xuyên.",
+        "time_start": 18.18,
+        "time_end": 24.24
+      },
+      {
+        "id": "195-6",
+        "english": "The key is to make exercise a regular part of your daily routine.",
+        "phonetic": "",
+        "vietnamese": "Chìa khóa là biến tập thể dục thành một phần thường xuyên trong thói quen hàng ngày của bạn.",
+        "time_start": 24.82,
+        "time_end": 28.28
+      },
+      {
+        "id": "195-7",
+        "english": "Even busy people can find time by exercising for thirty minutes a day.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả những người bận rộn cũng có thể tìm thời gian bằng cách tập thể dục trong ba mươi phút mỗi ngày.",
+        "time_start": 28.28,
+        "time_end": 30.16
+      },
+      {
+        "id": "195-8",
+        "english": "By staying active and exercising regularly, people can enjoy a healthier body, a happier mind, and a better quality of life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách duy trì hoạt động và tập thể dục thường xuyên, mọi người có thể tận hưởng một cơ thể khỏe mạnh, một tâm trí hạnh phúc và một chất lượng cuộc sống tốt hơn.",
+        "time_start": 30.16,
+        "time_end": 39.48
+      }
+    ]
+  },
+  {
+    "id": "lesson-196",
+    "categoryId": "18",
+    "title": "Ăn uống lành mạnh",
+    "description": "Chế độ ăn cân bằng giúp khỏe mạnh và đầy năng lượng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-196.mp3",
+    "duration": 41,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "196-1",
+        "english": "Healthy eating is one of the best ways to stay healthy and feel energetic.",
+        "phonetic": "",
+        "vietnamese": "Ăn uống lành mạnh là một trong những cách tốt nhất để giữ sức khỏe và cảm thấy tràn đầy năng lượng.",
+        "time_start": 0,
+        "time_end": 3.28
+      },
+      {
+        "id": "196-2",
+        "english": "A balanced diet includes vegetables, fruits, whole grains, lean meat, fish, eggs, and dairy products.",
+        "phonetic": "",
+        "vietnamese": "Một chế độ ăn cân bằng bao gồm rau, trái cây, ngũ cốc nguyên hạt, thịt nạc, cá, trứng và sản phẩm từ sữa.",
+        "time_start": 3.94,
+        "time_end": 8.82
+      },
+      {
+        "id": "196-3",
+        "english": "These foods provide the nutrients our bodies need to grow and function well.",
+        "phonetic": "",
+        "vietnamese": "Những thực phẩm này cung cấp các chất dinh dưỡng mà cơ thể chúng ta cần để phát triển và hoạt động tốt.",
+        "time_start": 9.2,
+        "time_end": 12.24
+      },
+      {
+        "id": "196-4",
+        "english": "It is also important to drink enough water every day and avoid eating too much fast food, sugary drinks, or snacks.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng là uống đủ nước mỗi ngày và tránh ăn quá nhiều đồ ăn nhanh, đồ uống có đường hoặc đồ ăn vặt.",
+        "time_start": 12.38,
+        "time_end": 17.64
+      },
+      {
+        "id": "196-5",
+        "english": "Eating healthy does not mean giving up your favorite foods completely.",
+        "phonetic": "",
+        "vietnamese": "Ăn uống lành mạnh không có nghĩa là phải từ bỏ hoàn toàn những món ăn yêu thích.",
+        "time_start": 18.2,
+        "time_end": 20.7
+      },
+      {
+        "id": "196-6",
+        "english": "Instead, people should enjoy them in moderation and make healthier choices most of the time.",
+        "phonetic": "",
+        "vietnamese": "Thay vào đó, mọi người nên thưởng thức chúng một cách vừa phải và chọn lựa thực phẩm lành mạnh hơn phần lớn thời gian.",
+        "time_start": 21.26,
+        "time_end": 25.02
+      },
+      {
+        "id": "196-7",
+        "english": "Preparing meals at home is another good habit because it allows people to control the ingredients and portion sizes.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị bữa ăn ở nhà là một thói quen tốt khác vì nó cho phép mọi người kiểm soát nguyên liệu và kích thước khẩu phần.",
+        "time_start": 25.02,
+        "time_end": 30.54
+      },
+      {
+        "id": "196-8",
+        "english": "A healthy diet, together with regular exercise and enough sleep, can improve both physical and mental health.",
+        "phonetic": "",
+        "vietnamese": "Một chế độ ăn uống lành mạnh, cùng với việc tập thể dục thường xuyên và ngủ đủ giấc, có thể cải thiện cả sức khỏe thể chất và tinh thần.",
+        "time_start": 30.54,
+        "time_end": 35.48
+      },
+      {
+        "id": "196-9",
+        "english": "By making smart food choices every day, people can enjoy a happier, healthier, and more active life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách đưa ra những lựa chọn thực phẩm thông minh mỗi ngày, mọi người có thể tận hưởng một cuộc sống hạnh phúc, khỏe mạnh và năng động hơn.",
+        "time_start": 35.78,
+        "time_end": 40.32
+      }
+    ]
+  },
+  {
+    "id": "lesson-197",
+    "categoryId": "18",
+    "title": "Nấu ăn tại nhà",
+    "description": "Nấu ăn tại nhà giúp tiết kiệm và gắn kết gia đình",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-197.mp3",
+    "duration": 57,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "197-1",
+        "english": "Cooking at home is a valuable skill that offers many benefits for both individuals and families.",
+        "phonetic": "",
+        "vietnamese": "Nấu ăn ở nhà là một kỹ năng quý giá mang lại nhiều lợi ích cho cả cá nhân và gia đình.",
+        "time_start": 0,
+        "time_end": 4.64
+      },
+      {
+        "id": "197-2",
+        "english": "Preparing meals at home allows people to choose fresh ingredients and control the amount of salt, sugar, and oil in their food.",
+        "phonetic": "",
+        "vietnamese": "Chuẩn bị bữa ăn tại nhà cho phép mọi người chọn nguyên liệu tươi ngon và kiểm soát lượng muối, đường và dầu trong thực phẩm.",
+        "time_start": 5.18,
+        "time_end": 11.42
+      },
+      {
+        "id": "197-3",
+        "english": "As a result, homemade meals are usually healthier than fast food or restaurant meals.",
+        "phonetic": "",
+        "vietnamese": "Do đó, bữa ăn tự nấu thường lành mạnh hơn so với đồ ăn nhanh hoặc bữa ăn ở nhà hàng.",
+        "time_start": 12.46,
+        "time_end": 16.68
+      },
+      {
+        "id": "197-4",
+        "english": "Cooking at home can also help people save money because buying ingredients is often less expensive than eating out.",
+        "phonetic": "",
+        "vietnamese": "Nấu ăn ở nhà cũng giúp mọi người tiết kiệm tiền vì mua nguyên liệu thường rẻ hơn ăn ngoài.",
+        "time_start": 17.08,
+        "time_end": 22.26
+      },
+      {
+        "id": "197-5",
+        "english": "In addition, cooking is a wonderful opportunity for family members to spend quality time together.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, nấu ăn là một cơ hội tuyệt vời để các thành viên trong gia đình dành thời gian chất lượng bên nhau.",
+        "time_start": 22.64,
+        "time_end": 27.56
+      },
+      {
+        "id": "197-6",
+        "english": "Parents can teach their children basic cooking skills, while children can help with simple tasks like washing vegetables or setting the table.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ có thể dạy con những kỹ năng nấu ăn cơ bản, trong khi trẻ em có thể giúp với những công việc đơn giản như rửa rau hoặc dọn bàn.",
+        "time_start": 27.56,
+        "time_end": 34.92
+      },
+      {
+        "id": "197-7",
+        "english": "Cooking also encourages creativity because people can try new recipes and experiment with different ingredients.",
+        "phonetic": "",
+        "vietnamese": "Nấu ăn cũng khuyến khích sự sáng tạo vì mọi người có thể thử những công thức mới và thử nghiệm với các nguyên liệu khác nhau.",
+        "time_start": 35.68,
+        "time_end": 41.1
+      },
+      {
+        "id": "197-8",
+        "english": "Although preparing meals may require time and effort, the experience is enjoyable and rewarding.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù chuẩn bị bữa ăn có thể đòi hỏi thời gian và công sức, nhưng trải nghiệm này rất thú vị và bổ ích.",
+        "time_start": 42.04,
+        "time_end": 46.58
+      },
+      {
+        "id": "197-9",
+        "english": "By cooking at home regularly, people can improve their health, strengthen family relationships, and develop an important life skill that will benefit them throughout their lives.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách nấu ăn ở nhà thường xuyên, mọi người có thể cải thiện sức khỏe, củng cố mối quan hệ gia đình và phát triển một kỹ năng sống quan trọng sẽ có lợi cho họ suốt đời.",
+        "time_start": 46.84,
+        "time_end": 55.96
+      }
+    ]
+  },
+  {
+    "id": "lesson-198",
+    "categoryId": "18",
+    "title": "Ẩm thực đường phố",
+    "description": "Khám phá món đường phố và lưu ý an toàn thực phẩm",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-198.mp3",
+    "duration": 49,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "198-1",
+        "english": "Street food is an important part of local culture in many countries around the world.",
+        "phonetic": "",
+        "vietnamese": "Đồ ăn đường phố là một phần quan trọng của văn hóa địa phương ở nhiều quốc gia trên thế giới.",
+        "time_start": 0,
+        "time_end": 3.62
+      },
+      {
+        "id": "198-2",
+        "english": "It offers a wide variety of delicious dishes at affordable prices, making it popular with both local people and tourists.",
+        "phonetic": "",
+        "vietnamese": "Nó cung cấp nhiều món ăn ngon với giá cả phải chăng, khiến nó trở nên phổ biến với cả người dân địa phương và khách du lịch.",
+        "time_start": 4.02,
+        "time_end": 10.2
+      },
+      {
+        "id": "198-3",
+        "english": "In many cities, street food vendors sell noodles, grilled meat, sandwiches, desserts, and refreshing drinks.",
+        "phonetic": "",
+        "vietnamese": "Ở nhiều thành phố, các quầy bán đồ ăn đường phố bán mì, thịt nướng, bánh mì, món tráng miệng và đồ uống giải khát.",
+        "time_start": 10.58,
+        "time_end": 16.1
+      },
+      {
+        "id": "198-4",
+        "english": "Trying street food is a great way to experience the unique flavors and traditions of a place.",
+        "phonetic": "",
+        "vietnamese": "Thử đồ ăn đường phố là một cách tuyệt vời để trải nghiệm hương vị và truyền thống độc đáo của một nơi.",
+        "time_start": 16.8,
+        "time_end": 20.8
+      },
+      {
+        "id": "198-5",
+        "english": "However, food safety should always be considered when buying food from street vendors.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, an toàn thực phẩm luôn cần được xem xét khi mua đồ ăn từ các quầy bán hàng đường phố.",
+        "time_start": 21,
+        "time_end": 24.82
+      },
+      {
+        "id": "198-6",
+        "english": "People should choose clean stalls, observe how the food is prepared, and make sure the ingredients are fresh.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên chọn những quầy sạch sẽ, quan sát cách thức chế biến thực phẩm và đảm bảo nguyên liệu tươi ngon.",
+        "time_start": 25.42,
+        "time_end": 30.2
+      },
+      {
+        "id": "198-7",
+        "english": "Street food not only provides convenient and tasty meals but also supports small businesses and local communities.",
+        "phonetic": "",
+        "vietnamese": "Đồ ăn đường phố không chỉ cung cấp những bữa ăn tiện lợi và ngon miệng mà còn hỗ trợ các doanh nghiệp nhỏ và cộng đồng địa phương.",
+        "time_start": 30.68,
+        "time_end": 35.82
+      },
+      {
+        "id": "198-8",
+        "english": "For many travelers, tasting local street food becomes one of the most memorable parts of their journey.",
+        "phonetic": "",
+        "vietnamese": "Đối với nhiều du khách, việc nếm thử đồ ăn đường phố địa phương trở thành một trong những phần đáng nhớ nhất của hành trình.",
+        "time_start": 36.34,
+        "time_end": 40.76
+      },
+      {
+        "id": "198-9",
+        "english": "By choosing safe and hygienic food stalls, people can enjoy authentic local cuisine while learning more about different cultures and traditions.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách chọn những quầy thực phẩm an toàn và vệ sinh, mọi người có thể thưởng thức ẩm thực địa phương chính hiệu trong khi tìm hiểu thêm về các nền văn hóa và truyền thống khác nhau.",
+        "time_start": 41.4,
+        "time_end": 48.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-199",
+    "categoryId": "18",
+    "title": "Món ăn truyền thống",
+    "description": "Giữ gìn văn hóa qua các món ăn truyền thống",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-199.mp3",
+    "duration": 49,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "199-1",
+        "english": "Traditional foods play an important role in preserving a country's culture and history.",
+        "phonetic": "",
+        "vietnamese": "Món ăn truyền thống đóng vai trò quan trọng trong việc bảo tồn văn hóa và lịch sử của một quốc gia.",
+        "time_start": 0,
+        "time_end": 4.84
+      },
+      {
+        "id": "199-2",
+        "english": "Every nation has its own special dishes that reflect its customs, local ingredients, and cooking techniques.",
+        "phonetic": "",
+        "vietnamese": "Mỗi quốc gia có những món ăn đặc trưng phản ánh phong tục, nguyên liệu địa phương và kỹ thuật nấu ăn của họ.",
+        "time_start": 4.84,
+        "time_end": 9.76
+      },
+      {
+        "id": "199-3",
+        "english": "In Vietnam, for example, dishes such as pho, bánh chưng, and spring rolls are enjoyed by both local people and international visitors.",
+        "phonetic": "",
+        "vietnamese": "Tại Việt Nam, chẳng hạn, các món như phở, bánh chưng và nem rán được cả người dân địa phương và du khách quốc tế yêu thích.",
+        "time_start": 9.76,
+        "time_end": 17.42
+      },
+      {
+        "id": "199-4",
+        "english": "Traditional foods are often prepared during important festivals, family reunions, and special celebrations.",
+        "phonetic": "",
+        "vietnamese": "Món ăn truyền thống thường được chuẩn bị trong các lễ hội quan trọng, các buổi đoàn tụ gia đình và các dịp đặc biệt.",
+        "time_start": 17.42,
+        "time_end": 21.9
+      },
+      {
+        "id": "199-5",
+        "english": "Sharing these meals brings family members together and helps younger generations learn about their cultural heritage.",
+        "phonetic": "",
+        "vietnamese": "Chia sẻ những bữa ăn này giúp các thành viên trong gia đình gắn kết với nhau và giúp thế hệ trẻ tìm hiểu về di sản văn hóa của họ.",
+        "time_start": 23.2,
+        "time_end": 28.18
+      },
+      {
+        "id": "199-6",
+        "english": "Although modern lifestyles have introduced many new types of food, traditional dishes continue to be loved because they represent identity and tradition.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù lối sống hiện đại đã mang đến nhiều loại thực phẩm mới, nhưng các món ăn truyền thống vẫn được yêu thích vì chúng đại diện cho bản sắc và truyền thống.",
+        "time_start": 29.06,
+        "time_end": 35.36
+      },
+      {
+        "id": "199-7",
+        "english": "Many families pass recipes from parents to children so that these dishes will not be forgotten.",
+        "phonetic": "",
+        "vietnamese": "Nhiều gia đình truyền lại công thức từ cha mẹ cho con cái để những món ăn này không bị lãng quên.",
+        "time_start": 36,
+        "time_end": 40.14
+      },
+      {
+        "id": "199-8",
+        "english": "By preserving traditional foods, people can protect their culture, strengthen family bonds, and introduce their country's unique cuisine to visitors from around the world.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách bảo tồn món ăn truyền thống, mọi người có thể bảo vệ văn hóa của mình, củng cố mối quan hệ gia đình và giới thiệu ẩm thực độc đáo của đất nước mình đến du khách từ khắp nơi trên thế giới.",
+        "time_start": 40.14,
+        "time_end": 48.66
+      }
+    ]
+  },
+  {
+    "id": "lesson-200",
+    "categoryId": "18",
+    "title": "Ẩm thực quốc tế",
+    "description": "Khám phá hương vị và văn hóa ẩm thực các nước",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-200.mp3",
+    "duration": 51,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "200-1",
+        "english": "International cuisine gives people the opportunity to discover different cultures through food.",
+        "phonetic": "",
+        "vietnamese": "Ẩm thực quốc tế mang đến cho mọi người cơ hội khám phá các nền văn hóa khác nhau qua món ăn.",
+        "time_start": 0,
+        "time_end": 4.38
+      },
+      {
+        "id": "200-2",
+        "english": "Today, it is easy to find restaurants serving dishes from many countries, such as Japanese sushi, Italian pizza, Korean barbecue, Mexican tacos, or Indian curry.",
+        "phonetic": "",
+        "vietnamese": "Ngày nay, thật dễ dàng để tìm thấy các nhà hàng phục vụ món ăn từ nhiều quốc gia, như sushi Nhật Bản, pizza Ý, thịt nướng Hàn Quốc, tacos Mexico, hoặc cà ri Ấn Độ.",
+        "time_start": 5.06,
+        "time_end": 13.3
+      },
+      {
+        "id": "200-3",
+        "english": "Each cuisine has its own unique ingredients, cooking methods, and flavors that reflect the history and traditions of its country.",
+        "phonetic": "",
+        "vietnamese": "Mỗi nền ẩm thực có những nguyên liệu, phương pháp nấu ăn và hương vị độc đáo phản ánh lịch sử và truyền thống của quốc gia đó.",
+        "time_start": 13.78,
+        "time_end": 19.3
+      },
+      {
+        "id": "200-4",
+        "english": "Trying food from different cultures can be an exciting experience because it introduces people to new tastes and eating habits.",
+        "phonetic": "",
+        "vietnamese": "Thử món ăn từ các nền văn hóa khác nhau có thể là một trải nghiệm thú vị vì nó giới thiệu cho mọi người những hương vị và thói quen ăn uống mới.",
+        "time_start": 19.96,
+        "time_end": 25.28
+      },
+      {
+        "id": "200-5",
+        "english": "Some dishes may seem unusual at first, but being open to new experiences helps people become more adventurous.",
+        "phonetic": "",
+        "vietnamese": "Một số món ăn có thể có vẻ lạ lẫm lúc đầu, nhưng việc cởi mở với những trải nghiệm mới giúp mọi người trở nên mạo hiểm hơn.",
+        "time_start": 25.96,
+        "time_end": 31.16
+      },
+      {
+        "id": "200-6",
+        "english": "Sharing international meals with friends and family also creates enjoyable moments and encourages cultural exchange.",
+        "phonetic": "",
+        "vietnamese": "Chia sẻ bữa ăn quốc tế với bạn bè và gia đình cũng tạo ra những khoảnh khắc thú vị và khuyến khích sự giao lưu văn hóa.",
+        "time_start": 32.14,
+        "time_end": 37.34
+      },
+      {
+        "id": "200-7",
+        "english": "Although everyone has their favorite foods, exploring international cuisine allows people to appreciate the diversity of the world.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù ai cũng có món ăn yêu thích của mình, nhưng khám phá ẩm thực quốc tế cho phép mọi người trân trọng sự đa dạng của thế giới.",
+        "time_start": 38.18,
+        "time_end": 43.86
+      },
+      {
+        "id": "200-8",
+        "english": "Through food, people can learn about other cultures, respect different traditions, and create unforgettable dining experiences.",
+        "phonetic": "",
+        "vietnamese": "Thông qua món ăn, mọi người có thể tìm hiểu về các nền văn hóa khác, tôn trọng những truyền thống khác nhau và tạo ra những trải nghiệm ẩm thực khó quên.",
+        "time_start": 44.32,
+        "time_end": 49.74
+      }
+    ]
+  },
+  {
+    "id": "lesson-201",
+    "categoryId": "18",
+    "title": "Ăn tại nhà hàng",
+    "description": "Trải nghiệm nhà hàng và phép lịch sự khi dùng bữa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-201.mp3",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "201-1",
+        "english": "Eating at restaurants is a popular activity for families, friends, and colleagues.",
+        "phonetic": "",
+        "vietnamese": "Ăn uống tại nhà hàng là một hoạt động phổ biến cho gia đình, bạn bè và đồng nghiệp.",
+        "time_start": 0,
+        "time_end": 3.62
+      },
+      {
+        "id": "201-2",
+        "english": "People often choose restaurants to celebrate birthdays, anniversaries, or other special occasions.",
+        "phonetic": "",
+        "vietnamese": "Mọi người thường chọn nhà hàng để tổ chức sinh nhật, kỷ niệm hoặc những dịp đặc biệt khác.",
+        "time_start": 3.98,
+        "time_end": 8.26
+      },
+      {
+        "id": "201-3",
+        "english": "Restaurants offer a wide variety of dishes, making it easy for customers to try different foods without cooking at home.",
+        "phonetic": "",
+        "vietnamese": "Nhà hàng cung cấp nhiều món ăn khác nhau, giúp khách hàng dễ dàng thử các món ăn mà không cần nấu nướng ở nhà.",
+        "time_start": 9.36,
+        "time_end": 14.46
+      },
+      {
+        "id": "201-4",
+        "english": "Besides enjoying delicious meals, customers also expect good service, a clean environment, and a comfortable atmosphere.",
+        "phonetic": "",
+        "vietnamese": "Ngoài việc thưởng thức những bữa ăn ngon, khách hàng cũng mong đợi dịch vụ tốt, môi trường sạch sẽ và không khí thoải mái.",
+        "time_start": 15.24,
+        "time_end": 20.6
+      },
+      {
+        "id": "201-5",
+        "english": "When dining at a restaurant, it is important to follow good table manners, such as speaking politely, waiting patiently for your meal, and treating the staff with respect.",
+        "phonetic": "",
+        "vietnamese": "Khi ăn tại nhà hàng, điều quan trọng là tuân theo những quy tắc ứng xử tốt, như nói chuyện lịch sự, chờ đợi kiên nhẫn cho bữa ăn của bạn và đối xử với nhân viên bằng sự tôn trọng.",
+        "time_start": 21.32,
+        "time_end": 29
+      },
+      {
+        "id": "201-6",
+        "english": "Customers should also avoid wasting food by ordering only what they can finish.",
+        "phonetic": "",
+        "vietnamese": "Khách hàng cũng nên tránh lãng phí thực phẩm bằng cách chỉ gọi những gì họ có thể ăn hết.",
+        "time_start": 30.16,
+        "time_end": 33.56
+      },
+      {
+        "id": "201-7",
+        "english": "Eating at restaurants can be a relaxing and enjoyable experience, especially when people spend quality time with their loved ones.",
+        "phonetic": "",
+        "vietnamese": "Ăn uống tại nhà hàng có thể là một trải nghiệm thư giãn và thú vị, đặc biệt khi mọi người dành thời gian chất lượng với những người thân yêu.",
+        "time_start": 34.6,
+        "time_end": 40.44
+      },
+      {
+        "id": "201-8",
+        "english": "By showing respect to restaurant staff and practicing good dining manners, everyone can enjoy a pleasant and memorable meal.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thể hiện sự tôn trọng đối với nhân viên nhà hàng và thực hành những quy tắc ăn uống tốt, mọi người có thể thưởng thức một bữa ăn dễ chịu và đáng nhớ.",
+        "time_start": 40.6,
+        "time_end": 46.36
+      }
+    ]
+  },
+  {
+    "id": "lesson-202",
+    "categoryId": "18",
+    "title": "An toàn thực phẩm",
+    "description": "Thói quen giữ thực phẩm sạch và an toàn mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-202.mp3",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "202-1",
+        "english": "Food safety is essential for protecting our health and preventing food-related illnesses.",
+        "phonetic": "",
+        "vietnamese": "An toàn thực phẩm rất quan trọng để bảo vệ sức khỏe và ngăn ngừa bệnh tật liên quan đến thực phẩm.",
+        "time_start": 0,
+        "time_end": 4.12
+      },
+      {
+        "id": "202-2",
+        "english": "Every day, people eat a variety of foods, so it is important to make sure they are clean and safe.",
+        "phonetic": "",
+        "vietnamese": "Mỗi ngày, mọi người ăn nhiều loại thực phẩm khác nhau, vì vậy điều quan trọng là phải đảm bảo chúng sạch và an toàn.",
+        "time_start": 4.54,
+        "time_end": 9.34
+      },
+      {
+        "id": "202-3",
+        "english": "Before preparing meals, people should wash their hands, clean fruits and vegetables carefully, and cook meat thoroughly.",
+        "phonetic": "",
+        "vietnamese": "Trước khi chuẩn bị bữa ăn, mọi người nên rửa tay, làm sạch trái cây và rau củ cẩn thận, và nấu chín thịt hoàn toàn.",
+        "time_start": 9.76,
+        "time_end": 14.96
+      },
+      {
+        "id": "202-4",
+        "english": "Food should also be stored at the correct temperature to prevent bacteria from growing.",
+        "phonetic": "",
+        "vietnamese": "Thực phẩm cũng nên được bảo quản ở nhiệt độ đúng để ngăn vi khuẩn phát triển.",
+        "time_start": 15.68,
+        "time_end": 19.08
+      },
+      {
+        "id": "202-5",
+        "english": "Checking expiration dates before buying or eating food is another important habit.",
+        "phonetic": "",
+        "vietnamese": "Kiểm tra ngày hết hạn trước khi mua hoặc ăn thực phẩm là một thói quen quan trọng khác.",
+        "time_start": 19.64,
+        "time_end": 23.26
+      },
+      {
+        "id": "202-6",
+        "english": "Restaurants, supermarkets, and food vendors also have the responsibility to follow hygiene standards and provide safe food for customers.",
+        "phonetic": "",
+        "vietnamese": "Nhà hàng, siêu thị và người bán thực phẩm cũng có trách nhiệm tuân thủ tiêu chuẩn vệ sinh và cung cấp thực phẩm an toàn cho khách hàng.",
+        "time_start": 24.04,
+        "time_end": 30.32
+      },
+      {
+        "id": "202-7",
+        "english": "When people ignore food safety, they may suffer from food poisoning or other health problems.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người phớt lờ an toàn thực phẩm, họ có thể bị ngộ độc thực phẩm hoặc các vấn đề sức khỏe khác.",
+        "time_start": 31.06,
+        "time_end": 35.36
+      },
+      {
+        "id": "202-8",
+        "english": "By following simple food safety practices every day, families can enjoy healthy meals with confidence.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thực hiện những thói quen an toàn thực phẩm đơn giản mỗi ngày, các gia đình có thể thưởng thức bữa ăn lành mạnh với sự tự tin.",
+        "time_start": 35.94,
+        "time_end": 40.76
+      },
+      {
+        "id": "202-9",
+        "english": "Good food safety habits not only protect individuals but also contribute to a healthier community.",
+        "phonetic": "",
+        "vietnamese": "Những thói quen an toàn thực phẩm tốt không chỉ bảo vệ cá nhân mà còn góp phần tạo ra một cộng đồng khỏe mạnh hơn.",
+        "time_start": 41.32,
+        "time_end": 45.76
+      }
+    ]
+  },
+  {
+    "id": "lesson-203",
+    "categoryId": "18",
+    "title": "Chế độ ăn chay và thuần chay",
+    "description": "Hiểu chế độ vegetarian và vegan một cách cân bằng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-203.mp3",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "203-1",
+        "english": "Vegetarian and vegan diets have become increasingly popular in many parts of the world.",
+        "phonetic": "",
+        "vietnamese": "Chế độ ăn chay và thuần chay ngày càng trở nên phổ biến ở nhiều nơi trên thế giới.",
+        "time_start": 0,
+        "time_end": 4.02
+      },
+      {
+        "id": "203-2",
+        "english": "People choose these diets for different reasons, including improving their health, protecting the environment, or caring about animal welfare.",
+        "phonetic": "",
+        "vietnamese": "Mọi người chọn những chế độ ăn này vì nhiều lý do khác nhau, bao gồm cải thiện sức khỏe, bảo vệ môi trường hoặc quan tâm đến phúc lợi động vật.",
+        "time_start": 4.54,
+        "time_end": 10.7
+      },
+      {
+        "id": "203-3",
+        "english": "Vegetarians usually avoid eating meat but may still consume eggs and dairy products, while vegans avoid all foods that come from animals.",
+        "phonetic": "",
+        "vietnamese": "Người ăn chay thường tránh ăn thịt nhưng có thể vẫn tiêu thụ trứng và sản phẩm từ sữa, trong khi người thuần chay tránh tất cả các loại thực phẩm có nguồn gốc từ động vật.",
+        "time_start": 11.44,
+        "time_end": 18.14
+      },
+      {
+        "id": "203-4",
+        "english": "A balanced vegetarian or vegan diet includes vegetables, fruits, beans, nuts, seeds, and whole grains.",
+        "phonetic": "",
+        "vietnamese": "Một chế độ ăn chay hoặc thuần chay cân bằng bao gồm rau, trái cây, đậu, hạt, hạt giống và ngũ cốc nguyên hạt.",
+        "time_start": 18.84,
+        "time_end": 24.94
+      },
+      {
+        "id": "203-5",
+        "english": "These foods provide many important nutrients that help the body stay healthy.",
+        "phonetic": "",
+        "vietnamese": "Những thực phẩm này cung cấp nhiều chất dinh dưỡng quan trọng giúp cơ thể khỏe mạnh.",
+        "time_start": 25.42,
+        "time_end": 29.08
+      },
+      {
+        "id": "203-6",
+        "english": "However, people who follow these diets should make sure they get enough protein, iron, calcium, and vitamins by planning their meals carefully.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, những người theo chế độ ăn này nên đảm bảo họ nhận đủ protein, sắt, canxi và vitamin bằng cách lên kế hoạch bữa ăn cẩn thận.",
+        "time_start": 29.08,
+        "time_end": 36.24
+      },
+      {
+        "id": "203-7",
+        "english": "With the right knowledge and preparation, vegetarian and vegan diets can support a healthy lifestyle.",
+        "phonetic": "",
+        "vietnamese": "Với kiến thức và sự chuẩn bị đúng đắn, chế độ ăn chay và thuần chay có thể hỗ trợ một lối sống lành mạnh.",
+        "time_start": 36.82,
+        "time_end": 41.32
+      },
+      {
+        "id": "203-8",
+        "english": "They also encourage people to eat more fresh foods and become more aware of their eating habits.",
+        "phonetic": "",
+        "vietnamese": "Chúng cũng khuyến khích mọi người ăn nhiều thực phẩm tươi sống hơn và nhận thức rõ hơn về thói quen ăn uống của mình.",
+        "time_start": 41.76,
+        "time_end": 46.54
+      }
+    ]
+  },
+  {
+    "id": "lesson-204",
+    "categoryId": "18",
+    "title": "Đồ ăn nhanh – Lợi ích và hạn chế",
+    "description": "Cân nhắc lợi ích và rủi ro của đồ ăn nhanh",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-204.mp3",
+    "duration": 46,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "204-1",
+        "english": "Fast food has become a popular choice for many people because it is quick, convenient, and easy to find.",
+        "phonetic": "",
+        "vietnamese": "Thức ăn nhanh đã trở thành lựa chọn phổ biến cho nhiều người vì nó nhanh, tiện lợi và dễ tìm.",
+        "time_start": 0,
+        "time_end": 4.48
+      },
+      {
+        "id": "204-2",
+        "english": "Busy students and office workers often choose fast food when they do not have enough time to cook.",
+        "phonetic": "",
+        "vietnamese": "Sinh viên bận rộn và nhân viên văn phòng thường chọn thức ăn nhanh khi họ không có đủ thời gian để nấu ăn.",
+        "time_start": 5.14,
+        "time_end": 9.4
+      },
+      {
+        "id": "204-3",
+        "english": "Meals such as burgers, fried chicken, pizza, and French fries are widely available and usually taste delicious.",
+        "phonetic": "",
+        "vietnamese": "Các bữa ăn như bánh burger, gà rán, pizza và khoai tây chiên rất phổ biến và thường có vị ngon.",
+        "time_start": 10.22,
+        "time_end": 15.66
+      },
+      {
+        "id": "204-4",
+        "english": "However, eating fast food too often can have negative effects on our health.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, ăn thức ăn nhanh quá thường xuyên có thể có tác động tiêu cực đến sức khỏe của chúng ta.",
+        "time_start": 16.42,
+        "time_end": 19.8
+      },
+      {
+        "id": "204-5",
+        "english": "Many fast-food meals contain large amounts of fat, sugar, and salt, which may increase the risk of obesity, heart disease, and diabetes.",
+        "phonetic": "",
+        "vietnamese": "Nhiều bữa ăn nhanh chứa lượng lớn chất béo, đường và muối, có thể làm tăng nguy cơ béo phì, bệnh tim và tiểu đường.",
+        "time_start": 20.54,
+        "time_end": 26.96
+      },
+      {
+        "id": "204-6",
+        "english": "In addition, fast food often contains fewer vitamins and nutrients than freshly prepared meals.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, thức ăn nhanh thường chứa ít vitamin và chất dinh dưỡng hơn so với bữa ăn được chuẩn bị tươi ngon.",
+        "time_start": 27.72,
+        "time_end": 32.32
+      },
+      {
+        "id": "204-7",
+        "english": "This does not mean people should never eat fast food, but it should be enjoyed in moderation as part of a balanced diet.",
+        "phonetic": "",
+        "vietnamese": "Điều này không có nghĩa là mọi người không bao giờ nên ăn thức ăn nhanh, nhưng nó nên được thưởng thức một cách điều độ như một phần của chế độ ăn uống cân bằng.",
+        "time_start": 33.2,
+        "time_end": 38.4
+      },
+      {
+        "id": "204-8",
+        "english": "By making healthier food choices most of the time and limiting fast food, people can enjoy better health while still treating themselves occasionally.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách chọn thực phẩm lành mạnh hơn phần lớn thời gian và hạn chế thức ăn nhanh, mọi người có thể tận hưởng sức khỏe tốt hơn trong khi vẫn thỉnh thoảng tự thưởng cho mình.",
+        "time_start": 39.38,
+        "time_end": 45.48
+      }
+    ]
+  },
+  {
+    "id": "lesson-205",
+    "categoryId": "18",
+    "title": "Thử những món ăn mới",
+    "description": "Mở rộng trải nghiệm bằng cách khám phá món mới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-205.mp3",
+    "duration": 44,
+    "level": "BEGINNER",
+    "topic": "Ẩm thực",
+    "sentences": [
+      {
+        "id": "205-1",
+        "english": "Trying new foods is an exciting way to discover different cultures and broaden our experiences.",
+        "phonetic": "",
+        "vietnamese": "Thử những món ăn mới là một cách thú vị để khám phá các nền văn hóa khác nhau và mở rộng trải nghiệm của chúng ta.",
+        "time_start": 0,
+        "time_end": 4.08
+      },
+      {
+        "id": "205-2",
+        "english": "Every country has its own traditional dishes, ingredients, and cooking methods that reflect its history and lifestyle.",
+        "phonetic": "",
+        "vietnamese": "Mỗi quốc gia có những món ăn truyền thống, nguyên liệu và phương pháp nấu ăn riêng, phản ánh lịch sử và lối sống của họ.",
+        "time_start": 5.12,
+        "time_end": 9.86
+      },
+      {
+        "id": "205-3",
+        "english": "When people travel or visit international restaurants, they have the opportunity to taste foods they have never tried before.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người đi du lịch hoặc đến các nhà hàng quốc tế, họ có cơ hội nếm thử những món ăn mà họ chưa bao giờ thử trước đây.",
+        "time_start": 10.6,
+        "time_end": 15.26
+      },
+      {
+        "id": "205-4",
+        "english": "At first, some dishes may look or smell unusual, but being willing to try them can lead to pleasant surprises.",
+        "phonetic": "",
+        "vietnamese": "Ban đầu, một số món ăn có thể trông hoặc có mùi lạ, nhưng sẵn sàng thử chúng có thể mang lại những bất ngờ thú vị.",
+        "time_start": 15.74,
+        "time_end": 20.5
+      },
+      {
+        "id": "205-5",
+        "english": "Exploring new foods also helps people become more open-minded and appreciate cultural diversity.",
+        "phonetic": "",
+        "vietnamese": "Khám phá những món ăn mới cũng giúp mọi người trở nên cởi mở hơn và trân trọng sự đa dạng văn hóa.",
+        "time_start": 21.44,
+        "time_end": 25.46
+      },
+      {
+        "id": "205-6",
+        "english": "In addition, trying different cuisines can inspire people to learn new recipes and improve their cooking skills at home.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, việc thử các món ăn khác nhau có thể truyền cảm hứng cho mọi người học các công thức mới và cải thiện kỹ năng nấu ăn tại nhà.",
+        "time_start": 25.46,
+        "time_end": 31.3
+      },
+      {
+        "id": "205-7",
+        "english": "Even if someone does not enjoy every dish, each experience teaches them something new about food and culture.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả khi ai đó không thích mọi món ăn, mỗi trải nghiệm đều dạy họ điều gì đó mới về thực phẩm và văn hóa.",
+        "time_start": 31.9,
+        "time_end": 36.34
+      },
+      {
+        "id": "205-8",
+        "english": "By keeping an open mind and being adventurous, people can make every meal a chance to learn, explore, and create unforgettable memories.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách giữ tâm trí cởi mở và dám mạo hiểm, mọi người có thể biến mỗi bữa ăn thành cơ hội để học hỏi, khám phá và tạo ra những kỷ niệm khó quên.",
+        "time_start": 36.58,
+        "time_end": 43.26
+      }
+    ]
+  },
+  {
+    "id": "lesson-206",
+    "categoryId": "19",
+    "title": "Mạng xã hội",
+    "description": "Sử dụng mạng xã hội có trách nhiệm và cân bằng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-206.mp3",
+    "duration": 45,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "206-1",
+        "english": "Social media has become an important part of modern life.",
+        "phonetic": "",
+        "vietnamese": "Mạng xã hội đã trở thành một phần quan trọng của cuộc sống hiện đại.",
+        "time_start": 0,
+        "time_end": 2.42
+      },
+      {
+        "id": "206-2",
+        "english": "Millions of people use platforms like Facebook, Instagram, TikTok, and YouTube every day to communicate, learn, and share experiences.",
+        "phonetic": "",
+        "vietnamese": "Hàng triệu người sử dụng các nền tảng như Facebook, Instagram, TikTok và YouTube mỗi ngày để giao tiếp, học hỏi và chia sẻ trải nghiệm.",
+        "time_start": 2.96,
+        "time_end": 8.86
+      },
+      {
+        "id": "206-3",
+        "english": "Social media makes it easy to stay in touch with family and friends, even if they live far away.",
+        "phonetic": "",
+        "vietnamese": "Mạng xã hội giúp dễ dàng giữ liên lạc với gia đình và bạn bè, ngay cả khi họ sống xa.",
+        "time_start": 9.38,
+        "time_end": 13.24
+      },
+      {
+        "id": "206-4",
+        "english": "It is also a useful place to discover new ideas, follow current events, and learn new skills through videos and online communities.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng là một nơi hữu ích để khám phá ý tưởng mới, theo dõi các sự kiện hiện tại và học các kỹ năng mới qua video và cộng đồng trực tuyến.",
+        "time_start": 13.58,
+        "time_end": 19.6
+      },
+      {
+        "id": "206-5",
+        "english": "However, using social media too much can have negative effects.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, việc sử dụng mạng xã hội quá nhiều có thể có những tác động tiêu cực.",
+        "time_start": 19.78,
+        "time_end": 22.86
+      },
+      {
+        "id": "206-6",
+        "english": "People may spend less time studying, working, or talking with others in real life.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể dành ít thời gian hơn cho việc học, làm việc hoặc trò chuyện với người khác trong cuộc sống thực.",
+        "time_start": 23.22,
+        "time_end": 26.8
+      },
+      {
+        "id": "206-7",
+        "english": "Some information online is also inaccurate, so it is important to think carefully before believing or sharing it.",
+        "phonetic": "",
+        "vietnamese": "Một số thông tin trên mạng cũng không chính xác, vì vậy điều quan trọng là phải suy nghĩ cẩn thận trước khi tin tưởng hoặc chia sẻ nó.",
+        "time_start": 27.46,
+        "time_end": 32.36
+      },
+      {
+        "id": "206-8",
+        "english": "By using social media responsibly and balancing online and offline activities, people can enjoy its benefits while avoiding its disadvantages.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách sử dụng mạng xã hội một cách có trách nhiệm và cân bằng giữa hoạt động trực tuyến và ngoại tuyến, mọi người có thể tận hưởng những lợi ích của nó trong khi tránh được những bất lợi.",
+        "time_start": 32.86,
+        "time_end": 39.44
+      },
+      {
+        "id": "206-9",
+        "english": "Responsible use of social media can improve communication, learning, and personal growth.",
+        "phonetic": "",
+        "vietnamese": "Việc sử dụng mạng xã hội có trách nhiệm có thể cải thiện giao tiếp, học tập và phát triển cá nhân.",
+        "time_start": 40.14,
+        "time_end": 44.32
+      }
+    ]
+  },
+  {
+    "id": "lesson-207",
+    "categoryId": "19",
+    "title": "Tạo video ngắn",
+    "description": "Lên ý tưởng, quay và dựng video ngắn hấp dẫn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-207.mp3",
+    "duration": 44,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "207-1",
+        "english": "Creating short videos has become a popular hobby and even a career for many people.",
+        "phonetic": "",
+        "vietnamese": "Tạo video ngắn đã trở thành một sở thích phổ biến và thậm chí là một nghề nghiệp cho nhiều người.",
+        "time_start": 0,
+        "time_end": 3.84
+      },
+      {
+        "id": "207-2",
+        "english": "Platforms such as TikTok, Instagram Reels, and YouTube Shorts allow users to share creative ideas with millions of viewers around the world.",
+        "phonetic": "",
+        "vietnamese": "Các nền tảng như TikTok, Instagram Reels và YouTube Shorts cho phép người dùng chia sẻ ý tưởng sáng tạo với hàng triệu người xem trên toàn thế giới.",
+        "time_start": 4.62,
+        "time_end": 10.76
+      },
+      {
+        "id": "207-3",
+        "english": "A successful short video usually has an interesting topic, clear content, and good editing.",
+        "phonetic": "",
+        "vietnamese": "Một video ngắn thành công thường có chủ đề thú vị, nội dung rõ ràng và biên tập tốt.",
+        "time_start": 11.22,
+        "time_end": 15.4
+      },
+      {
+        "id": "207-4",
+        "english": "Content creators also need to think about lighting, sound, and video quality to attract more viewers.",
+        "phonetic": "",
+        "vietnamese": "Những người sáng tạo nội dung cũng cần suy nghĩ về ánh sáng, âm thanh và chất lượng video để thu hút nhiều người xem hơn.",
+        "time_start": 16.06,
+        "time_end": 20.8
+      },
+      {
+        "id": "207-5",
+        "english": "Although creating videos may look easy, it often requires careful planning, creativity, and patience.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù việc tạo video có vẻ dễ dàng, nhưng nó thường đòi hỏi kế hoạch cẩn thận, sự sáng tạo và kiên nhẫn.",
+        "time_start": 21.18,
+        "time_end": 26.34
+      },
+      {
+        "id": "207-6",
+        "english": "Many creators spend hours writing scripts, filming scenes, and editing their videos before publishing them.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người sáng tạo dành hàng giờ để viết kịch bản, quay phim và chỉnh sửa video của họ trước khi phát hành.",
+        "time_start": 26.94,
+        "time_end": 31.66
+      },
+      {
+        "id": "207-7",
+        "english": "They also need to listen to feedback and improve their content over time.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng cần lắng nghe phản hồi và cải thiện nội dung của mình theo thời gian.",
+        "time_start": 32.2,
+        "time_end": 35.56
+      },
+      {
+        "id": "207-8",
+        "english": "By creating useful and entertaining videos, people can share knowledge, express their creativity, and build meaningful connections with their audience.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tạo ra những video hữu ích và giải trí, mọi người có thể chia sẻ kiến thức, thể hiện sự sáng tạo và xây dựng mối quan hệ ý nghĩa với khán giả của họ.",
+        "time_start": 36.12,
+        "time_end": 43.38
+      }
+    ]
+  },
+  {
+    "id": "lesson-208",
+    "categoryId": "19",
+    "title": "Trở thành nhà sáng tạo nội dung",
+    "description": "Xây dựng sự nghiệp sáng tạo nội dung bền vững",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-208.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "208-1",
+        "english": "Becoming a content creator is a dream for many young people today.",
+        "phonetic": "",
+        "vietnamese": "Trở thành một người sáng tạo nội dung là ước mơ của nhiều bạn trẻ ngày nay.",
+        "time_start": 0,
+        "time_end": 2.9
+      },
+      {
+        "id": "208-2",
+        "english": "Content creators produce videos, photos, articles, or podcasts to educate, entertain, or inspire others.",
+        "phonetic": "",
+        "vietnamese": "Người sáng tạo nội dung sản xuất video, hình ảnh, bài viết hoặc podcast để giáo dục, giải trí hoặc truyền cảm hứng cho người khác.",
+        "time_start": 3.36,
+        "time_end": 8.38
+      },
+      {
+        "id": "208-3",
+        "english": "Success in content creation does not happen overnight.",
+        "phonetic": "",
+        "vietnamese": "Thành công trong việc sáng tạo nội dung không xảy ra chỉ sau một đêm.",
+        "time_start": 8.8,
+        "time_end": 10.62
+      },
+      {
+        "id": "208-4",
+        "english": "It requires creativity, consistency, and a good understanding of the audience.",
+        "phonetic": "",
+        "vietnamese": "Nó đòi hỏi sự sáng tạo, tính nhất quán và hiểu biết tốt về khán giả.",
+        "time_start": 10.86,
+        "time_end": 14.28
+      },
+      {
+        "id": "208-5",
+        "english": "Instead of copying others, successful creators focus on developing their own style and creating original content.",
+        "phonetic": "",
+        "vietnamese": "Thay vì sao chép người khác, những người sáng tạo thành công tập trung vào việc phát triển phong cách riêng và tạo ra nội dung gốc.",
+        "time_start": 14.84,
+        "time_end": 19.76
+      },
+      {
+        "id": "208-6",
+        "english": "They also need to communicate well with their followers and respond to comments politely.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng cần giao tiếp tốt với người theo dõi và phản hồi bình luận một cách lịch sự.",
+        "time_start": 20.02,
+        "time_end": 23.32
+      },
+      {
+        "id": "208-7",
+        "english": "Sometimes a video may receive only a few views, but creators should continue learning and improving instead of giving up.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi một video chỉ nhận được vài lượt xem, nhưng những người sáng tạo nên tiếp tục học hỏi và cải thiện thay vì từ bỏ.",
+        "time_start": 24.1,
+        "time_end": 29.34
+      },
+      {
+        "id": "208-8",
+        "english": "Building a loyal audience takes time and effort.",
+        "phonetic": "",
+        "vietnamese": "Xây dựng một khán giả trung thành cần thời gian và nỗ lực.",
+        "time_start": 29.92,
+        "time_end": 31.92
+      },
+      {
+        "id": "208-9",
+        "english": "By sharing valuable content regularly, people can develop useful skills, build their personal brand, and even create career opportunities in the future.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách chia sẻ nội dung giá trị thường xuyên, mọi người có thể phát triển kỹ năng hữu ích, xây dựng thương hiệu cá nhân và thậm chí tạo ra cơ hội nghề nghiệp trong tương lai.",
+        "time_start": 32.28,
+        "time_end": 38.8
+      }
+    ]
+  },
+  {
+    "id": "lesson-209",
+    "categoryId": "19",
+    "title": "Xây dựng thương hiệu cá nhân",
+    "description": "Tạo hình ảnh cá nhân chân thực và đáng tin trên mạng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-209.mp3",
+    "duration": 41,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "209-1",
+        "english": "A personal brand is the way people present themselves to others, especially on social media.",
+        "phonetic": "",
+        "vietnamese": "Thương hiệu cá nhân là cách mà mọi người thể hiện bản thân với người khác, đặc biệt là trên mạng xã hội.",
+        "time_start": 0,
+        "time_end": 4.42
+      },
+      {
+        "id": "209-2",
+        "english": "A strong personal brand helps people build trust and become more recognizable.",
+        "phonetic": "",
+        "vietnamese": "Một thương hiệu cá nhân mạnh mẽ giúp mọi người xây dựng lòng tin và trở nên dễ nhận biết hơn.",
+        "time_start": 4.86,
+        "time_end": 8.4
+      },
+      {
+        "id": "209-3",
+        "english": "To build a positive image, people should share honest, useful, and respectful content.",
+        "phonetic": "",
+        "vietnamese": "Để xây dựng hình ảnh tích cực, mọi người nên chia sẻ nội dung trung thực, hữu ích và tôn trọng.",
+        "time_start": 8.98,
+        "time_end": 12.56
+      },
+      {
+        "id": "209-4",
+        "english": "They should also communicate politely and behave responsibly online because everything posted on the internet can affect their reputation.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng nên giao tiếp lịch sự và cư xử có trách nhiệm trên mạng vì mọi thứ được đăng trên internet có thể ảnh hưởng đến danh tiếng của họ.",
+        "time_start": 13.06,
+        "time_end": 18.72
+      },
+      {
+        "id": "209-5",
+        "english": "Consistency is another important factor.",
+        "phonetic": "",
+        "vietnamese": "Sự nhất quán là một yếu tố quan trọng khác.",
+        "time_start": 19.4,
+        "time_end": 21.02
+      },
+      {
+        "id": "209-6",
+        "english": "Using the same style, values, and message helps people remember who you are.",
+        "phonetic": "",
+        "vietnamese": "Sử dụng cùng một phong cách, giá trị và thông điệp giúp mọi người nhớ bạn là ai.",
+        "time_start": 21.78,
+        "time_end": 25.84
+      },
+      {
+        "id": "209-7",
+        "english": "A good personal brand can create opportunities for study, work, and business.",
+        "phonetic": "",
+        "vietnamese": "Một thương hiệu cá nhân tốt có thể tạo ra cơ hội cho việc học, làm việc và kinh doanh.",
+        "time_start": 25.84,
+        "time_end": 30.03
+      },
+      {
+        "id": "209-8",
+        "english": "However, people should always be authentic instead of pretending to be someone else.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, mọi người nên luôn chân thật thay vì giả vờ là người khác.",
+        "time_start": 30.03,
+        "time_end": 34.22
+      },
+      {
+        "id": "209-9",
+        "english": "By staying true to themselves and sharing meaningful content, they can build a positive reputation and earn the trust of others.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách trung thực với bản thân và chia sẻ nội dung có ý nghĩa, họ có thể xây dựng danh tiếng tích cực và nhận được lòng tin từ người khác.",
+        "time_start": 34.22,
+        "time_end": 39.96
+      }
+    ]
+  },
+  {
+    "id": "lesson-210",
+    "categoryId": "19",
+    "title": "An toàn trên Internet",
+    "description": "Bảo vệ thông tin cá nhân và tránh rủi ro trực tuyến",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-210.mp3",
+    "duration": 40,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "210-1",
+        "english": "The internet offers many opportunities, but it also brings certain risks.",
+        "phonetic": "",
+        "vietnamese": "Internet mang đến nhiều cơ hội, nhưng cũng có những rủi ro nhất định.",
+        "time_start": 0,
+        "time_end": 3.5
+      },
+      {
+        "id": "210-2",
+        "english": "Therefore, online safety is an important skill for everyone.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, an toàn trực tuyến là một kỹ năng quan trọng cho mọi người.",
+        "time_start": 4.06,
+        "time_end": 6.78
+      },
+      {
+        "id": "210-3",
+        "english": "People should create strong passwords, avoid sharing personal information with strangers, and be careful when clicking unknown links or downloading files.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên tạo mật khẩu mạnh, tránh chia sẻ thông tin cá nhân với người lạ, và cẩn thận khi nhấp vào các liên kết không rõ hoặc tải xuống tệp.",
+        "time_start": 7.16,
+        "time_end": 14.18
+      },
+      {
+        "id": "210-4",
+        "english": "It is also important to recognize fake websites and online scams that try to steal personal information.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng để nhận biết các trang web giả mạo và lừa đảo trực tuyến cố gắng đánh cắp thông tin cá nhân.",
+        "time_start": 14.42,
+        "time_end": 19.32
+      },
+      {
+        "id": "210-5",
+        "english": "Before posting photos or personal details online, people should think carefully because information on the internet can remain available for a long time.",
+        "phonetic": "",
+        "vietnamese": "Trước khi đăng ảnh hoặc thông tin cá nhân lên mạng, mọi người nên suy nghĩ cẩn thận vì thông tin trên internet có thể tồn tại lâu dài.",
+        "time_start": 19.96,
+        "time_end": 27.16
+      },
+      {
+        "id": "210-6",
+        "english": "Parents and teachers should also help young people learn how to use social media safely and responsibly.",
+        "phonetic": "",
+        "vietnamese": "Cha mẹ và giáo viên cũng nên giúp giới trẻ học cách sử dụng mạng xã hội một cách an toàn và có trách nhiệm.",
+        "time_start": 27.16,
+        "time_end": 32.52
+      },
+      {
+        "id": "210-7",
+        "english": "By developing good online habits, people can enjoy the benefits of technology while protecting themselves from potential dangers.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách phát triển thói quen trực tuyến tốt, mọi người có thể tận hưởng lợi ích của công nghệ trong khi bảo vệ bản thân khỏi những nguy hiểm tiềm ẩn.",
+        "time_start": 33.16,
+        "time_end": 39.58
+      }
+    ]
+  },
+  {
+    "id": "lesson-211",
+    "categoryId": "19",
+    "title": "Giao tiếp trực tuyến",
+    "description": "Giao tiếp lịch sự và rõ ràng trên các nền tảng số",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-211.mp3",
+    "duration": 38,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "211-1",
+        "english": "Digital communication has changed the way people connect with each other.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp kỹ thuật số đã thay đổi cách mọi người kết nối với nhau.",
+        "time_start": 0,
+        "time_end": 2.96
+      },
+      {
+        "id": "211-2",
+        "english": "Today, people can send messages, make video calls, or share information instantly through social media and messaging applications.",
+        "phonetic": "",
+        "vietnamese": "Ngày nay, mọi người có thể gửi tin nhắn, thực hiện cuộc gọi video, hoặc chia sẻ thông tin ngay lập tức qua mạng xã hội và ứng dụng nhắn tin.",
+        "time_start": 3.36,
+        "time_end": 8.82
+      },
+      {
+        "id": "211-3",
+        "english": "This makes communication faster and more convenient than ever before.",
+        "phonetic": "",
+        "vietnamese": "Điều này làm cho giao tiếp nhanh hơn và thuận tiện hơn bao giờ hết.",
+        "time_start": 9.52,
+        "time_end": 12.74
+      },
+      {
+        "id": "211-4",
+        "english": "However, communicating online also requires good manners and responsibility.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, giao tiếp trực tuyến cũng đòi hỏi phép lịch sự và trách nhiệm.",
+        "time_start": 13.12,
+        "time_end": 16.5
+      },
+      {
+        "id": "211-5",
+        "english": "People should use polite language, respect different opinions, and avoid spreading false information.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên sử dụng ngôn ngữ lịch sự, tôn trọng ý kiến khác nhau, và tránh lan truyền thông tin sai lệch.",
+        "time_start": 17.32,
+        "time_end": 21.44
+      },
+      {
+        "id": "211-6",
+        "english": "Misunderstandings can happen because text messages do not show facial expressions or tone of voice.",
+        "phonetic": "",
+        "vietnamese": "Sự hiểu lầm có thể xảy ra vì tin nhắn văn bản không thể hiện biểu cảm khuôn mặt hoặc giọng điệu.",
+        "time_start": 22.28,
+        "time_end": 26.64
+      },
+      {
+        "id": "211-7",
+        "english": "Therefore, it is important to write clearly and think carefully before sending a message.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, điều quan trọng là viết rõ ràng và suy nghĩ cẩn thận trước khi gửi tin nhắn.",
+        "time_start": 27.28,
+        "time_end": 31.26
+      },
+      {
+        "id": "211-8",
+        "english": "By communicating respectfully and responsibly, people can build positive relationships and create a friendlier online environment.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách giao tiếp một cách tôn trọng và có trách nhiệm, mọi người có thể xây dựng mối quan hệ tích cực và tạo ra một môi trường trực tuyến thân thiện hơn.",
+        "time_start": 31.96,
+        "time_end": 37.22
+      }
+    ]
+  },
+  {
+    "id": "lesson-212",
+    "categoryId": "19",
+    "title": "Tiếp thị qua người có sức ảnh hưởng",
+    "description": "Hiểu influencer marketing và cách tiếp cận thông minh",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-212.mp3",
+    "duration": 48,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "212-1",
+        "english": "Influencer marketing has become one of the most popular forms of online advertising.",
+        "phonetic": "",
+        "vietnamese": "Tiếp thị qua người ảnh hưởng đã trở thành một trong những hình thức quảng cáo trực tuyến phổ biến nhất.",
+        "time_start": 0,
+        "time_end": 4.08
+      },
+      {
+        "id": "212-2",
+        "english": "Instead of promoting products through traditional television or newspaper advertisements, many companies now work with content creators who have a large number of followers on social media.",
+        "phonetic": "",
+        "vietnamese": "Thay vì quảng bá sản phẩm qua quảng cáo truyền thống trên truyền hình hoặc báo chí, nhiều công ty hiện nay làm việc với những người sáng tạo nội dung có số lượng người theo dõi lớn trên mạng xã hội.",
+        "time_start": 4.62,
+        "time_end": 12.88
+      },
+      {
+        "id": "212-3",
+        "english": "These influencers introduce products by sharing their own experiences, making reviews, or creating interesting videos.",
+        "phonetic": "",
+        "vietnamese": "Những người ảnh hưởng này giới thiệu sản phẩm bằng cách chia sẻ trải nghiệm của chính họ, làm đánh giá hoặc tạo ra những video thú vị.",
+        "time_start": 13.34,
+        "time_end": 18.86
+      },
+      {
+        "id": "212-4",
+        "english": "Many people trust influencers because they seem more relatable than traditional advertisements.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người tin tưởng vào những người ảnh hưởng vì họ có vẻ gần gũi hơn so với quảng cáo truyền thống.",
+        "time_start": 19.48,
+        "time_end": 24.02
+      },
+      {
+        "id": "212-5",
+        "english": "However, influencers should always be honest when recommending products.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, những người ảnh hưởng nên luôn trung thực khi giới thiệu sản phẩm.",
+        "time_start": 24.28,
+        "time_end": 27.76
+      },
+      {
+        "id": "212-6",
+        "english": "They should only promote items that they have used or truly believe are useful.",
+        "phonetic": "",
+        "vietnamese": "Họ chỉ nên quảng bá những món đồ mà họ đã sử dụng hoặc thực sự tin rằng hữu ích.",
+        "time_start": 27.86,
+        "time_end": 31.56
+      },
+      {
+        "id": "212-7",
+        "english": "At the same time, viewers should not buy a product simply because a famous person recommends it.",
+        "phonetic": "",
+        "vietnamese": "Cùng lúc đó, người xem không nên mua sản phẩm chỉ vì một người nổi tiếng giới thiệu.",
+        "time_start": 32.32,
+        "time_end": 36.6
+      },
+      {
+        "id": "212-8",
+        "english": "It is important to compare different opinions and read customer reviews before making a purchase.",
+        "phonetic": "",
+        "vietnamese": "Điều quan trọng là so sánh các ý kiến khác nhau và đọc đánh giá của khách hàng trước khi quyết định mua hàng.",
+        "time_start": 36.78,
+        "time_end": 41.56
+      },
+      {
+        "id": "212-9",
+        "english": "When influencer marketing is done honestly and responsibly, it benefits both businesses and consumers.",
+        "phonetic": "",
+        "vietnamese": "Khi tiếp thị qua người ảnh hưởng được thực hiện một cách trung thực và có trách nhiệm, nó mang lại lợi ích cho cả doanh nghiệp và người tiêu dùng.",
+        "time_start": 42.06,
+        "time_end": 46.96
+      }
+    ]
+  },
+  {
+    "id": "lesson-213",
+    "categoryId": "19",
+    "title": "Đối mặt với bình luận tiêu cực",
+    "description": "Giữ bình tĩnh và xử lý phản hồi tiêu cực trên mạng",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-213.mp3",
+    "duration": 46,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "213-1",
+        "english": "Negative comments are something that many people experience on social media, especially content creators.",
+        "phonetic": "",
+        "vietnamese": "Những bình luận tiêu cực là điều mà nhiều người gặp phải trên mạng xã hội, đặc biệt là những người sáng tạo nội dung.",
+        "time_start": 0,
+        "time_end": 4.26
+      },
+      {
+        "id": "213-2",
+        "english": "While some comments provide helpful suggestions, others may be rude or unfair.",
+        "phonetic": "",
+        "vietnamese": "Trong khi một số bình luận đưa ra những gợi ý hữu ích, thì những bình luận khác có thể thô lỗ hoặc không công bằng.",
+        "time_start": 5.08,
+        "time_end": 8.68
+      },
+      {
+        "id": "213-3",
+        "english": "Receiving negative feedback can be disappointing, but it is important to stay calm and avoid responding with anger.",
+        "phonetic": "",
+        "vietnamese": "Nhận phản hồi tiêu cực có thể khiến bạn thất vọng, nhưng điều quan trọng là giữ bình tĩnh và tránh phản ứng bằng sự tức giận.",
+        "time_start": 9.26,
+        "time_end": 14.24
+      },
+      {
+        "id": "213-4",
+        "english": "Instead, people should carefully decide whether the comment is useful.",
+        "phonetic": "",
+        "vietnamese": "Thay vào đó, mọi người nên cẩn thận quyết định xem bình luận đó có hữu ích hay không.",
+        "time_start": 14.8,
+        "time_end": 17.62
+      },
+      {
+        "id": "213-5",
+        "english": "Constructive criticism can help creators improve their content, while harmful comments should not affect their confidence.",
+        "phonetic": "",
+        "vietnamese": "Phê bình mang tính xây dựng có thể giúp những người sáng tạo cải thiện nội dung của họ, trong khi những bình luận gây hại không nên ảnh hưởng đến sự tự tin của họ.",
+        "time_start": 18.42,
+        "time_end": 23.42
+      },
+      {
+        "id": "213-6",
+        "english": "In some cases, blocking or reporting users who repeatedly post offensive messages is the best solution.",
+        "phonetic": "",
+        "vietnamese": "Trong một số trường hợp, chặn hoặc báo cáo những người dùng thường xuyên đăng tin nhắn xúc phạm là giải pháp tốt nhất.",
+        "time_start": 23.42,
+        "time_end": 30.2
+      },
+      {
+        "id": "213-7",
+        "english": "Content creators should also remember that it is impossible to satisfy everyone.",
+        "phonetic": "",
+        "vietnamese": "Những người sáng tạo nội dung cũng nên nhớ rằng không thể làm hài lòng tất cả mọi người.",
+        "time_start": 30.2,
+        "time_end": 33.82
+      },
+      {
+        "id": "213-8",
+        "english": "By focusing on positive feedback and continuing to improve, they can become more confident and successful over time.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tập trung vào phản hồi tích cực và tiếp tục cải thiện, họ có thể trở nên tự tin và thành công hơn theo thời gian.",
+        "time_start": 34.34,
+        "time_end": 39.96
+      },
+      {
+        "id": "213-9",
+        "english": "A positive attitude is one of the keys to building a healthy online community.",
+        "phonetic": "",
+        "vietnamese": "Thái độ tích cực là một trong những chìa khóa để xây dựng một cộng đồng trực tuyến lành mạnh.",
+        "time_start": 40.52,
+        "time_end": 44.84
+      }
+    ]
+  },
+  {
+    "id": "lesson-214",
+    "categoryId": "19",
+    "title": "Tạo nội dung có giá trị",
+    "description": "Tạo nội dung hữu ích thay vì chỉ chạy theo lượt xem",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-214.mp3",
+    "duration": 41,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "214-1",
+        "english": "Creating valuable content is more important than simply gaining a large number of views.",
+        "phonetic": "",
+        "vietnamese": "Tạo ra nội dung giá trị quan trọng hơn việc chỉ đơn giản là có nhiều lượt xem.",
+        "time_start": 0,
+        "time_end": 3.8
+      },
+      {
+        "id": "214-2",
+        "english": "Good content should provide useful information, solve problems, entertain people, or inspire them in a positive way.",
+        "phonetic": "",
+        "vietnamese": "Nội dung tốt nên cung cấp thông tin hữu ích, giải quyết vấn đề, giải trí cho mọi người hoặc truyền cảm hứng cho họ theo cách tích cực.",
+        "time_start": 4.32,
+        "time_end": 9.62
+      },
+      {
+        "id": "214-3",
+        "english": "Before creating a video or writing a post, content creators should think about what their audience wants to learn or enjoy.",
+        "phonetic": "",
+        "vietnamese": "Trước khi tạo video hoặc viết bài, những người sáng tạo nội dung nên suy nghĩ về những gì khán giả của họ muốn học hỏi hoặc thưởng thức.",
+        "time_start": 10.28,
+        "time_end": 15.84
+      },
+      {
+        "id": "214-4",
+        "english": "High-quality content often requires careful planning, research, and editing.",
+        "phonetic": "",
+        "vietnamese": "Nội dung chất lượng cao thường yêu cầu lập kế hoạch cẩn thận, nghiên cứu và chỉnh sửa.",
+        "time_start": 16.46,
+        "time_end": 19.9
+      },
+      {
+        "id": "214-5",
+        "english": "It is also important to use reliable information and avoid sharing false or misleading content.",
+        "phonetic": "",
+        "vietnamese": "Cũng quan trọng là sử dụng thông tin đáng tin cậy và tránh chia sẻ nội dung sai lệch hoặc gây hiểu lầm.",
+        "time_start": 20.24,
+        "time_end": 24.64
+      },
+      {
+        "id": "214-6",
+        "english": "Creators who consistently produce valuable content are more likely to build trust and attract loyal followers.",
+        "phonetic": "",
+        "vietnamese": "Những người sáng tạo thường xuyên sản xuất nội dung giá trị có khả năng xây dựng lòng tin và thu hút người theo dõi trung thành.",
+        "time_start": 25.24,
+        "time_end": 30.27
+      },
+      {
+        "id": "214-7",
+        "english": "Although creating quality content takes more time and effort, it often leads to long-term success.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù việc tạo ra nội dung chất lượng tốn nhiều thời gian và công sức hơn, nhưng nó thường dẫn đến thành công lâu dài.",
+        "time_start": 30.87,
+        "time_end": 35.03
+      },
+      {
+        "id": "214-8",
+        "english": "By focusing on value instead of popularity alone, creators can make a positive impact on their audience.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tập trung vào giá trị thay vì chỉ nổi tiếng, những người sáng tạo có thể tạo ra ảnh hưởng tích cực đến khán giả của họ.",
+        "time_start": 35.79,
+        "time_end": 40.43
+      }
+    ]
+  },
+  {
+    "id": "lesson-215",
+    "categoryId": "19",
+    "title": "Quản lý thời gian sử dụng màn hình",
+    "description": "Cân bằng thời gian online và offline để sống khỏe hơn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-215.mp3",
+    "duration": 45,
+    "level": "BEGINNER",
+    "topic": "Mạng xã hội & Sáng tạo nội dung",
+    "sentences": [
+      {
+        "id": "215-1",
+        "english": "Smartphones, computers, and social media have become an important part of everyday life.",
+        "phonetic": "",
+        "vietnamese": "Smartphone, máy tính và mạng xã hội đã trở thành một phần quan trọng trong cuộc sống hàng ngày.",
+        "time_start": 0,
+        "time_end": 3.92
+      },
+      {
+        "id": "215-2",
+        "english": "They help people study, work, communicate, and entertain themselves.",
+        "phonetic": "",
+        "vietnamese": "Chúng giúp mọi người học tập, làm việc, giao tiếp và giải trí.",
+        "time_start": 4.12,
+        "time_end": 7.34
+      },
+      {
+        "id": "215-3",
+        "english": "However, spending too much time looking at screens can have negative effects on both physical and mental health.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, dành quá nhiều thời gian nhìn vào màn hình có thể ảnh hưởng tiêu cực đến sức khỏe thể chất và tinh thần.",
+        "time_start": 7.86,
+        "time_end": 13.12
+      },
+      {
+        "id": "215-4",
+        "english": "It may reduce sleep quality, cause eye strain, and make it difficult to concentrate on important tasks.",
+        "phonetic": "",
+        "vietnamese": "Nó có thể làm giảm chất lượng giấc ngủ, gây căng thẳng cho mắt và khiến khó tập trung vào những nhiệm vụ quan trọng.",
+        "time_start": 13.38,
+        "time_end": 18.34
+      },
+      {
+        "id": "215-5",
+        "english": "One effective way to manage screen time is by setting daily limits and taking regular breaks from electronic devices.",
+        "phonetic": "",
+        "vietnamese": "Một cách hiệu quả để quản lý thời gian sử dụng màn hình là đặt giới hạn hàng ngày và thường xuyên nghỉ ngơi khỏi các thiết bị điện tử.",
+        "time_start": 18.86,
+        "time_end": 24.46
+      },
+      {
+        "id": "215-6",
+        "english": "People should also spend more time exercising, reading books, or talking with family and friends instead of staying online all day.",
+        "phonetic": "",
+        "vietnamese": "Mọi người cũng nên dành nhiều thời gian hơn cho việc tập thể dục, đọc sách hoặc trò chuyện với gia đình và bạn bè thay vì ở trực tuyến cả ngày.",
+        "time_start": 25.26,
+        "time_end": 31.6
+      },
+      {
+        "id": "215-7",
+        "english": "Creating a healthy balance between online and offline activities helps people enjoy technology without becoming dependent on it.",
+        "phonetic": "",
+        "vietnamese": "Tạo ra một sự cân bằng lành mạnh giữa các hoạt động trực tuyến và ngoại tuyến giúp mọi người tận hưởng công nghệ mà không trở nên phụ thuộc vào nó.",
+        "time_start": 32.5,
+        "time_end": 38.74
+      },
+      {
+        "id": "215-8",
+        "english": "By using digital devices wisely, people can improve their health, productivity, and overall quality of life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách sử dụng các thiết bị kỹ thuật số một cách khôn ngoan, mọi người có thể cải thiện sức khỏe, năng suất và chất lượng cuộc sống tổng thể.",
+        "time_start": 39.46,
+        "time_end": 44.22
+      }
+    ]
+  },
+  {
+    "id": "lesson-216",
+    "categoryId": "20",
+    "title": "Quản lý thời gian",
+    "description": "Lập kế hoạch và dùng thời gian hiệu quả hơn mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-216.mp3",
+    "duration": 50,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "216-1",
+        "english": "Time management is an important skill that helps people use their time effectively.",
+        "phonetic": "",
+        "vietnamese": "Quản lý thời gian là một kỹ năng quan trọng giúp mọi người sử dụng thời gian của họ một cách hiệu quả.",
+        "time_start": 0,
+        "time_end": 3.64
+      },
+      {
+        "id": "216-2",
+        "english": "Good time management allows students and workers to complete tasks on time and reduce stress.",
+        "phonetic": "",
+        "vietnamese": "Quản lý thời gian tốt cho phép học sinh và nhân viên hoàn thành công việc đúng hạn và giảm căng thẳng.",
+        "time_start": 4.22,
+        "time_end": 8.8
+      },
+      {
+        "id": "216-3",
+        "english": "One useful way to manage time is by making a daily or weekly schedule.",
+        "phonetic": "",
+        "vietnamese": "Một cách hữu ích để quản lý thời gian là lập lịch hàng ngày hoặc hàng tuần.",
+        "time_start": 9.3,
+        "time_end": 12.76
+      },
+      {
+        "id": "216-4",
+        "english": "Writing down important tasks and setting priorities can help people stay organized.",
+        "phonetic": "",
+        "vietnamese": "Ghi lại các nhiệm vụ quan trọng và đặt ưu tiên có thể giúp mọi người giữ tổ chức.",
+        "time_start": 13.54,
+        "time_end": 17.34
+      },
+      {
+        "id": "216-5",
+        "english": "It is also helpful to avoid distractions such as spending too much time on social media or playing games when work needs to be finished.",
+        "phonetic": "",
+        "vietnamese": "Cũng hữu ích để tránh những điều phân tâm như dành quá nhiều thời gian trên mạng xã hội hoặc chơi game khi công việc cần hoàn thành.",
+        "time_start": 17.84,
+        "time_end": 24.22
+      },
+      {
+        "id": "216-6",
+        "english": "Taking short breaks during study or work can improve focus and increase productivity.",
+        "phonetic": "",
+        "vietnamese": "Nghỉ ngơi ngắn trong thời gian học hoặc làm việc có thể cải thiện sự tập trung và tăng năng suất.",
+        "time_start": 24.22,
+        "time_end": 29.84
+      },
+      {
+        "id": "216-7",
+        "english": "Although everyone has the same twenty-four hours each day, successful people know how to use their time wisely.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mọi người đều có cùng hai mươi bốn giờ mỗi ngày, nhưng những người thành công biết cách sử dụng thời gian của họ một cách khôn ngoan.",
+        "time_start": 29.84,
+        "time_end": 35.46
+      },
+      {
+        "id": "216-8",
+        "english": "Developing good time management habits takes practice, but it brings many benefits in both school and everyday life.",
+        "phonetic": "",
+        "vietnamese": "Phát triển thói quen quản lý thời gian tốt cần có sự luyện tập, nhưng nó mang lại nhiều lợi ích cả trong trường học và cuộc sống hàng ngày.",
+        "time_start": 35.46,
+        "time_end": 41.06
+      },
+      {
+        "id": "216-9",
+        "english": "By planning ahead and staying disciplined, people can achieve their goals more efficiently and enjoy a better balance between work, study, and personal life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách lập kế hoạch trước và giữ kỷ luật, mọi người có thể đạt được mục tiêu của mình hiệu quả hơn và tận hưởng sự cân bằng tốt hơn giữa công việc, học tập và cuộc sống cá nhân.",
+        "time_start": 41.14,
+        "time_end": 49.02
+      }
+    ]
+  },
+  {
+    "id": "lesson-217",
+    "categoryId": "20",
+    "title": "Đặt mục tiêu",
+    "description": "Đặt mục tiêu rõ ràng và theo dõi tiến độ thực hiện",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-217.mp3",
+    "duration": 43,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "217-1",
+        "english": "Setting goals is an important skill that helps people stay focused and motivated.",
+        "phonetic": "",
+        "vietnamese": "Đặt mục tiêu là một kỹ năng quan trọng giúp mọi người tập trung và có động lực.",
+        "time_start": 0,
+        "time_end": 3.62
+      },
+      {
+        "id": "217-2",
+        "english": "Without clear goals, it is easy to waste time and lose direction.",
+        "phonetic": "",
+        "vietnamese": "Nếu không có mục tiêu rõ ràng, rất dễ lãng phí thời gian và mất phương hướng.",
+        "time_start": 3.98,
+        "time_end": 6.54
+      },
+      {
+        "id": "217-3",
+        "english": "Goals can be short-term, such as finishing a school project, or long-term, such as graduating from university or starting a successful career.",
+        "phonetic": "",
+        "vietnamese": "Mục tiêu có thể là ngắn hạn, như hoàn thành một dự án ở trường, hoặc dài hạn, như tốt nghiệp đại học hoặc bắt đầu một sự nghiệp thành công.",
+        "time_start": 7.12,
+        "time_end": 13.76
+      },
+      {
+        "id": "217-4",
+        "english": "A good goal should be realistic, specific, and achievable.",
+        "phonetic": "",
+        "vietnamese": "Một mục tiêu tốt nên thực tế, cụ thể và có thể đạt được.",
+        "time_start": 14.68,
+        "time_end": 17.38
+      },
+      {
+        "id": "217-5",
+        "english": "It is also helpful to break a large goal into smaller steps because this makes progress easier to see.",
+        "phonetic": "",
+        "vietnamese": "Cũng hữu ích khi chia một mục tiêu lớn thành các bước nhỏ hơn vì điều này giúp dễ dàng thấy được tiến bộ.",
+        "time_start": 18,
+        "time_end": 22.54
+      },
+      {
+        "id": "217-6",
+        "english": "People should review their goals regularly and make changes when necessary.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên xem xét lại mục tiêu của mình thường xuyên và thay đổi khi cần thiết.",
+        "time_start": 23.04,
+        "time_end": 26
+      },
+      {
+        "id": "217-7",
+        "english": "Although challenges and setbacks are normal, giving up should never be the first choice.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù những thử thách và thất bại là điều bình thường, nhưng từ bỏ không bao giờ nên là lựa chọn đầu tiên.",
+        "time_start": 26.62,
+        "time_end": 30.48
+      },
+      {
+        "id": "217-8",
+        "english": "Every small achievement brings people closer to their dreams.",
+        "phonetic": "",
+        "vietnamese": "Mỗi thành tựu nhỏ đều đưa mọi người gần hơn đến ước mơ của họ.",
+        "time_start": 31.2,
+        "time_end": 33.74
+      },
+      {
+        "id": "217-9",
+        "english": "By setting clear goals and working hard every day, people can improve their confidence, develop good habits, and achieve greater success in both their studies and personal lives.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách đặt ra mục tiêu rõ ràng và làm việc chăm chỉ mỗi ngày, mọi người có thể cải thiện sự tự tin, phát triển thói quen tốt và đạt được thành công lớn hơn trong cả học tập và cuộc sống cá nhân.",
+        "time_start": 34.28,
+        "time_end": 42.08
+      }
+    ]
+  },
+  {
+    "id": "lesson-218",
+    "categoryId": "20",
+    "title": "Giao tiếp hiệu quả",
+    "description": "Nói rõ ràng, lắng nghe chủ động và ứng xử lịch sự",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-218.mp3",
+    "duration": 45,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "218-1",
+        "english": "Effective communication is one of the most valuable skills in everyday life.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp hiệu quả là một trong những kỹ năng quý giá nhất trong cuộc sống hàng ngày.",
+        "time_start": 0,
+        "time_end": 3.84
+      },
+      {
+        "id": "218-2",
+        "english": "Good communication helps people express their ideas clearly and understand others more easily.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp tốt giúp mọi người diễn đạt ý tưởng của mình một cách rõ ràng và hiểu người khác dễ dàng hơn.",
+        "time_start": 4.24,
+        "time_end": 8.6
+      },
+      {
+        "id": "218-3",
+        "english": "It is important not only to speak confidently but also to listen carefully.",
+        "phonetic": "",
+        "vietnamese": "Quan trọng không chỉ là nói một cách tự tin mà còn là lắng nghe một cách cẩn thận.",
+        "time_start": 8.92,
+        "time_end": 12.4
+      },
+      {
+        "id": "218-4",
+        "english": "Active listening shows respect and helps avoid misunderstandings.",
+        "phonetic": "",
+        "vietnamese": "Lắng nghe chủ động thể hiện sự tôn trọng và giúp tránh hiểu lầm.",
+        "time_start": 13.4,
+        "time_end": 16.38
+      },
+      {
+        "id": "218-5",
+        "english": "In conversations, people should use polite language, maintain eye contact, and think before they speak.",
+        "phonetic": "",
+        "vietnamese": "Trong các cuộc trò chuyện, mọi người nên sử dụng ngôn ngữ lịch sự, duy trì giao tiếp bằng mắt và suy nghĩ trước khi nói.",
+        "time_start": 16.6,
+        "time_end": 21.68
+      },
+      {
+        "id": "218-6",
+        "english": "Communication is essential at school, at work, and in personal relationships.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp là điều cần thiết ở trường học, nơi làm việc và trong các mối quan hệ cá nhân.",
+        "time_start": 22.52,
+        "time_end": 26.06
+      },
+      {
+        "id": "218-7",
+        "english": "People with good communication skills often work better in teams, solve problems more effectively, and build stronger relationships.",
+        "phonetic": "",
+        "vietnamese": "Những người có kỹ năng giao tiếp tốt thường làm việc hiệu quả hơn trong nhóm, giải quyết vấn đề tốt hơn và xây dựng mối quan hệ vững chắc hơn.",
+        "time_start": 26.96,
+        "time_end": 33.68
+      },
+      {
+        "id": "218-8",
+        "english": "Even when disagreements happen, respectful communication can help find a solution.",
+        "phonetic": "",
+        "vietnamese": "Ngay cả khi có sự bất đồng, giao tiếp tôn trọng có thể giúp tìm ra giải pháp.",
+        "time_start": 34.48,
+        "time_end": 38.66
+      },
+      {
+        "id": "218-9",
+        "english": "By practicing communication skills every day, people can become more confident and successful in many areas of life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thực hành kỹ năng giao tiếp mỗi ngày, mọi người có thể trở nên tự tin và thành công hơn trong nhiều lĩnh vực của cuộc sống.",
+        "time_start": 39.38,
+        "time_end": 44.6
+      }
+    ]
+  },
+  {
+    "id": "lesson-219",
+    "categoryId": "20",
+    "title": "Làm việc nhóm",
+    "description": "Hợp tác, chia sẻ và hỗ trợ lẫn nhau trong nhóm",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-219.mp3",
+    "duration": 42,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "219-1",
+        "english": "Teamwork is an important skill in both school and the workplace.",
+        "phonetic": "",
+        "vietnamese": "Làm việc nhóm là một kỹ năng quan trọng cả ở trường học và nơi làm việc.",
+        "time_start": 0,
+        "time_end": 2.64
+      },
+      {
+        "id": "219-2",
+        "english": "Working in a team allows people to share ideas, divide responsibilities, and solve problems more efficiently.",
+        "phonetic": "",
+        "vietnamese": "Làm việc trong một nhóm cho phép mọi người chia sẻ ý tưởng, phân chia trách nhiệm và giải quyết vấn đề hiệu quả hơn.",
+        "time_start": 3.28,
+        "time_end": 8.06
+      },
+      {
+        "id": "219-3",
+        "english": "Every team member has different strengths and experiences, so cooperation can often produce better results than working alone.",
+        "phonetic": "",
+        "vietnamese": "Mỗi thành viên trong nhóm có những điểm mạnh và kinh nghiệm khác nhau, vì vậy sự hợp tác thường mang lại kết quả tốt hơn so với làm việc một mình.",
+        "time_start": 8.46,
+        "time_end": 14.4
+      },
+      {
+        "id": "219-4",
+        "english": "Good teamwork requires clear communication, mutual respect, and trust.",
+        "phonetic": "",
+        "vietnamese": "Làm việc nhóm tốt đòi hỏi phải có giao tiếp rõ ràng, tôn trọng lẫn nhau và sự tin tưởng.",
+        "time_start": 15.02,
+        "time_end": 19.08
+      },
+      {
+        "id": "219-5",
+        "english": "Team members should listen to one another, complete their assigned tasks, and support each other when challenges arise.",
+        "phonetic": "",
+        "vietnamese": "Các thành viên trong nhóm nên lắng nghe nhau, hoàn thành nhiệm vụ được giao và hỗ trợ nhau khi gặp khó khăn.",
+        "time_start": 19.46,
+        "time_end": 24.58
+      },
+      {
+        "id": "219-6",
+        "english": "Disagreements may happen, but they should be resolved through discussion rather than arguments.",
+        "phonetic": "",
+        "vietnamese": "Có thể xảy ra bất đồng, nhưng chúng nên được giải quyết qua thảo luận chứ không phải cãi nhau.",
+        "time_start": 25.26,
+        "time_end": 29.68
+      },
+      {
+        "id": "219-7",
+        "english": "Learning how to work well with others helps people become more responsible and improves their leadership skills.",
+        "phonetic": "",
+        "vietnamese": "Học cách làm việc tốt với người khác giúp mọi người trở nên có trách nhiệm hơn và cải thiện kỹ năng lãnh đạo của họ.",
+        "time_start": 30.46,
+        "time_end": 35.26
+      },
+      {
+        "id": "219-8",
+        "english": "Strong teamwork not only increases productivity but also creates a positive and supportive working environment.",
+        "phonetic": "",
+        "vietnamese": "Làm việc nhóm mạnh mẽ không chỉ tăng năng suất mà còn tạo ra một môi trường làm việc tích cực và hỗ trợ.",
+        "time_start": 36.08,
+        "time_end": 41.18
+      }
+    ]
+  },
+  {
+    "id": "lesson-220",
+    "categoryId": "20",
+    "title": "Giải quyết vấn đề",
+    "description": "Phân tích tình huống và tìm giải pháp hiệu quả",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "",
+    "duration": 47,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "220-1",
+        "english": "Problem-solving is a skill that everyone uses in daily life.",
+        "phonetic": "",
+        "vietnamese": "Giải quyết vấn đề là một kỹ năng mà mọi người sử dụng trong cuộc sống hàng ngày.",
+        "time_start": 0,
+        "time_end": 4.6
+      },
+      {
+        "id": "220-2",
+        "english": "People face different challenges at school, at work, and in their personal lives.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đối mặt với những thách thức khác nhau ở trường học, nơi làm việc và trong cuộc sống cá nhân.",
+        "time_start": 4.85,
+        "time_end": 10.59
+      },
+      {
+        "id": "220-3",
+        "english": "Instead of feeling stressed or giving up, they should learn to analyze the situation and look for possible solutions.",
+        "phonetic": "",
+        "vietnamese": "Thay vì cảm thấy căng thẳng hoặc bỏ cuộc, họ nên học cách phân tích tình huống và tìm kiếm các giải pháp khả thi.",
+        "time_start": 10.84,
+        "time_end": 18.86
+      },
+      {
+        "id": "220-4",
+        "english": "A good problem solver stays calm, gathers information, and considers different options before making a decision.",
+        "phonetic": "",
+        "vietnamese": "Một người giải quyết vấn đề giỏi giữ bình tĩnh, thu thập thông tin và xem xét các lựa chọn khác nhau trước khi đưa ra quyết định.",
+        "time_start": 19.11,
+        "time_end": 25.99
+      },
+      {
+        "id": "220-5",
+        "english": "Sometimes asking for advice from teachers, friends, or family members can also be helpful.",
+        "phonetic": "",
+        "vietnamese": "Đôi khi, việc xin lời khuyên từ giáo viên, bạn bè hoặc thành viên trong gia đình cũng có thể hữu ích.",
+        "time_start": 26.24,
+        "time_end": 32.36
+      },
+      {
+        "id": "220-6",
+        "english": "Making mistakes is a natural part of learning, and every challenge provides an opportunity to grow.",
+        "phonetic": "",
+        "vietnamese": "Sai lầm là một phần tự nhiên của việc học, và mỗi thách thức đều mang đến cơ hội để phát triển.",
+        "time_start": 32.61,
+        "time_end": 39.49
+      },
+      {
+        "id": "220-7",
+        "english": "By developing strong problem-solving skills, people become more confident, independent, and prepared for future challenges.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách phát triển kỹ năng giải quyết vấn đề mạnh mẽ, mọi người trở nên tự tin, độc lập và sẵn sàng cho những thách thức trong tương lai.",
+        "time_start": 39.74,
+        "time_end": 46.24
+      }
+    ]
   }
 ]

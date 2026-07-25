@@ -8,7 +8,6 @@ import {
   findActiveSentenceIndex,
   formatTime,
   getLessonById,
-  formatLevelLabel,
 } from '../data/lessons';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
@@ -485,14 +484,7 @@ export default function LessonPage() {
             aria-hidden
           />
           <div className="absolute inset-0 flex flex-col justify-between p-3.5">
-            <div className="flex justify-between items-start gap-2">
-              <span className="text-white text-[11px] font-medium bg-black/45 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                {formatLevelLabel(lesson.level)}
-              </span>
-              <span className="text-white text-[11px] font-medium bg-black/45 backdrop-blur-sm px-2.5 py-1 rounded-full max-w-[60%] truncate">
-                {lesson.topic}
-              </span>
-            </div>
+            <div />
 
             <div className="text-center px-3">
               <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm">

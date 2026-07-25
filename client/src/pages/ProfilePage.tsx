@@ -208,21 +208,21 @@ export default function ProfilePage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="bg-gray-900 rounded-2xl p-4 grid grid-cols-3 gap-2 mb-5">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl p-4 grid grid-cols-3 gap-2 mb-5 card-shadow">
           <div className="text-center">
             <Flame size={20} className="text-orange-400 mx-auto mb-1" />
-            <p className="text-white font-bold text-sm">{streakDays}</p>
-            <p className="text-gray-400 text-[9px]">Ngày streak</p>
+            <p className="text-gray-900 dark:text-white font-bold text-sm">{streakDays}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-[9px]">Ngày streak</p>
           </div>
           <div className="text-center">
             <Headphones size={20} className="text-blue-400 mx-auto mb-1" />
-            <p className="text-white font-bold text-sm">{completedLessons}</p>
-            <p className="text-gray-400 text-[9px]">Bài hoàn thành</p>
+            <p className="text-gray-900 dark:text-white font-bold text-sm">{completedLessons}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-[9px]">Bài hoàn thành</p>
           </div>
           <div className="text-center">
             <Clock size={20} className="text-green-400 mx-auto mb-1" />
-            <p className="text-white font-bold text-sm">{hoursListened}</p>
-            <p className="text-gray-400 text-[9px]">Giờ nghe</p>
+            <p className="text-gray-900 dark:text-white font-bold text-sm">{hoursListened}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-[9px]">Giờ nghe</p>
           </div>
         </div>
 

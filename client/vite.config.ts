@@ -8,7 +8,9 @@ export default defineConfig({
   root: resolve(__dirname),
   build: {
     outDir: resolve(__dirname, '../public'),
-    emptyOutDir: true,
+    // Keep false: public/audio is shared media and Windows often locks it,
+    // so wiping the whole outDir fails with EPERM.
+    emptyOutDir: false,
   },
   server: {
     port: 5173,

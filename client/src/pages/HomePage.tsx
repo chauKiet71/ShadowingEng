@@ -1,36 +1,52 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Headphones, BookOpen, Mic, Clapperboard, Play, User } from 'lucide-react';
+import { Play, User } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import Logo from '../components/Logo';
 import HorizontalScroll from '../components/HorizontalScroll';
 import UserAvatar from '../components/UserAvatar';
 import LessonLink from '../components/LessonLink';
+import PopularTopics from '../components/PopularTopics';
+import HeroBannerSlider from '../components/HeroBannerSlider';
 import { useAuth } from '../contexts/AuthContext';
 import {
   fetchLessonStats,
   prefetchHomeFeatures,
 } from '../lib/prefetchFeatures';
 import { featuredLessons, formatDuration } from '../data/mockData';
-import { formatLevelLabel } from '../data/lessons';
-import { categories } from '../data/categories';
 
-const levelColors: Record<string, string> = {
-  BEGINNER: 'bg-green-500',
-  INTERMEDIATE: 'bg-blue-500',
-  ADVANCED: 'bg-purple-500',
-};
-
-const quickLinks = [
-  { icon: Headphones, label: 'Bài nghe', sub: 'Theo chủ đề', color: 'bg-blue-500', to: '/kham-pha' },
-  { icon: BookOpen, label: 'Từ vựng', sub: 'Học & ôn tập', color: 'bg-orange-500', to: '/tu-vung' },
-  { icon: Mic, label: 'Luyện nói', sub: 'Tình huống thật', color: 'bg-indigo-500', to: '/luyen-noi' },
+const forYouLinks = [
   {
-    icon: Clapperboard,
+    label: 'Bài nghe',
+    sub: 'Theo chủ đề',
+    to: '/kham-pha',
+    image: '/images/home-feature-listening.png',
+    cardClass:
+      'bg-gradient-to-b from-sky-50 to-cyan-50/80 dark:from-sky-950/70 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
+  },
+  {
+    label: 'Từ vựng',
+    sub: 'Học & ôn tập',
+    to: '/tu-vung',
+    image: '/images/home-feature-vocab.png',
+    cardClass:
+      'bg-gradient-to-b from-violet-50 to-slate-50 dark:from-violet-950/70 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
+  },
+  {
+    label: 'Luyện nói',
+    sub: 'Tình huống thật',
+    to: '/luyen-noi',
+    image: '/images/home-feature-speaking.png',
+    cardClass:
+      'bg-gradient-to-b from-indigo-50 to-blue-50/70 dark:from-indigo-950/70 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
+  },
+  {
     label: 'Dịch video',
     sub: 'Sắp mở',
-    color: 'bg-rose-500',
     to: '/dich-video',
+    image: '/images/home-feature-video.png',
+    cardClass:
+      'bg-gradient-to-b from-rose-50 to-pink-50/80 dark:from-rose-950/60 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
     disabled: true,
   },
 ];
@@ -78,69 +94,64 @@ export default function HomePage() {
 
       {/* Hero */}
       <div className="px-4 py-4">
-        <div
-          className="rounded-2xl p-5 relative overflow-hidden bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/home-listening-hero.png')" }}
-        >
-          <h1 className="hero-title text-xl font-bold text-gray-900 leading-tight">
-            Nghe chủ động -<br />Nói tự nhiên
-          </h1>
-          <p className="text-gray-600 text-sm mt-2">Lắng nghe – Bắt chước – Tiến bộ mỗi ngày</p>
-          <div className="flex gap-2 mt-3">
-            {['Listen', 'Shadow', 'Improve'].map((tag) => (
-              <span key={tag} className="text-xs bg-white/70 text-primary px-2 py-1 rounded-full font-medium">{tag}</span>
-            ))}
-          </div>
-          <Link
-            to="/kham-pha"
-            className="mt-4 inline-block gradient-btn text-white text-sm font-semibold px-5 py-2.5 rounded-xl"
-          >
-            Bắt đầu nghe
-          </Link>
-        </div>
+        <HeroBannerSlider />
       </div>
 
-      {/* Quick Links */}
+      {/* For You */}
       <div className="px-4 mb-6">
-        <div className="grid grid-cols-4 gap-2 sm:gap-3">
-          {quickLinks.map((item) => {
-            const { icon: Icon, label, sub, color, disabled } = item;
+        <h2 className="text-[22px] font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+          Dành cho bạn
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          {forYouLinks.map((item) => {
+            const { label, sub, image, cardClass, disabled } = item;
             const content = (
               <>
-                <div
-                  className={`w-10 h-10 sm:w-12 sm:h-12 ${color} rounded-xl sm:rounded-2xl flex items-center justify-center ${
-                    disabled ? 'opacity-50' : ''
-                  }`}
-                >
-                  <Icon size={20} className="text-white" />
+                <img
+                  src={image}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-contain object-center p-3 pb-14 dark:brightness-90 dark:contrast-105"
+                  draggable={false}
+                />
+                <div className="absolute inset-x-0 bottom-0 px-2 pb-3.5 pt-2 text-center z-10">
+                  <span
+                    className={`block text-[15px] font-bold leading-tight ${
+                      disabled
+                        ? 'text-rose-300 dark:text-rose-300/70'
+                        : 'text-slate-900 dark:text-white'
+                    }`}
+                  >
+                    {label}
+                  </span>
+                  <span
+                    className={`block text-[12px] mt-0.5 leading-tight ${
+                      disabled
+                        ? 'text-rose-200 dark:text-rose-200/50'
+                        : 'text-slate-400 dark:text-gray-400'
+                    }`}
+                  >
+                    {sub}
+                  </span>
                 </div>
-                <span
-                  className={`text-[9px] sm:text-[10px] font-semibold text-center leading-tight ${
-                    disabled ? 'text-gray-400' : 'text-gray-800'
-                  }`}
-                >
-                  {label}
-                </span>
-                <span className="text-[8px] sm:text-[9px] text-gray-400 text-center leading-tight line-clamp-2">
-                  {sub}
-                </span>
               </>
             );
 
+            const className = `relative block rounded-[22px] overflow-hidden aspect-[1/1.05] shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)] ${cardClass} ${
+              disabled
+                ? 'opacity-90 cursor-not-allowed select-none'
+                : 'active:scale-[0.98] transition-transform'
+            }`;
+
             if (disabled) {
               return (
-                <div
-                  key={label}
-                  className="flex flex-col items-center gap-1 cursor-not-allowed select-none opacity-70"
-                  aria-disabled="true"
-                >
+                <div key={label} className={className} aria-disabled="true" aria-label={label}>
                   {content}
                 </div>
               );
             }
 
             return (
-              <Link key={label} to={item.to} className="flex flex-col items-center gap-1">
+              <Link key={label} to={item.to} className={className} aria-label={label}>
                 {content}
               </Link>
             );
@@ -178,9 +189,6 @@ export default function HomePage() {
                     className="w-full h-full object-cover pointer-events-none select-none"
                     draggable={false}
                   />
-                  <span className={`absolute top-2 left-2 text-[9px] font-bold text-white px-1.5 py-0.5 rounded ${levelColors[lesson.level]}`}>
-                    {formatLevelLabel(lesson.level)}
-                  </span>
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center">
                       <Play size={14} className="text-primary ml-0.5" fill="currentColor" />
@@ -198,48 +206,7 @@ export default function HomePage() {
       </div>
 
       {/* Popular Topics */}
-      <div className="px-4 mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="font-bold text-gray-900">Chủ đề phổ biến</h2>
-          <Link to="/kham-pha" className="text-sm text-primary font-medium">Xem tất cả &gt;</Link>
-        </div>
-
-        <div className="grid grid-cols-1 gap-3">
-          {categories.slice(0, 5).map((cat) => (
-            <Link
-              key={cat.id}
-              to={`/kham-pha?category=${cat.id}`}
-              className="bg-white rounded-2xl card-shadow overflow-hidden min-w-0"
-            >
-              <div className="flex h-[7.5rem]">
-                <img
-                  src={cat.imageUrl}
-                  alt=""
-                  className="w-[9rem] h-full object-cover flex-shrink-0"
-                />
-                <div className="flex-1 min-w-0 p-2.5 flex flex-col overflow-hidden">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className={`w-7 h-7 flex-shrink-0 ${cat.iconColor} rounded-full flex items-center justify-center text-sm shadow`}
-                    >
-                      {cat.icon}
-                    </div>
-                  </div>
-                  <p className="text-xs font-bold text-gray-900 leading-tight line-clamp-1">
-                    {cat.name}
-                  </p>
-                  <p className="text-[10px] text-gray-400 mt-0.5 line-clamp-2">
-                    {cat.description}
-                  </p>
-                  <p className="text-[10px] text-gray-400 mt-auto truncate">
-                    🎧 {cat.lessonCount} bài nghe
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <PopularTopics limit={6} className="px-4 mb-6" />
     </MobileLayout>
   );
 }
