@@ -1,11 +1,18 @@
-import { CreateVideoTranslateDto } from './dto/create-video-translate.dto';
+import { GuestIdentityService } from '../auth/guest-identity.service';
 import { VideoTranslateService } from './video-translate.service';
+interface UploadedMediaFile {
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
+    size: number;
+}
 export declare class VideoTranslateController {
     private readonly videoTranslateService;
-    constructor(videoTranslateService: VideoTranslateService);
+    private readonly guestIdentity;
+    constructor(videoTranslateService: VideoTranslateService, guestIdentity: GuestIdentityService);
     getQuota(user: {
         id: string;
-    }): Promise<{
+    } | null, guestToken?: string): Promise<{
         used: number;
         limit: number;
         remaining: number | null;
@@ -15,11 +22,13 @@ export declare class VideoTranslateController {
     }>;
     listJobs(user: {
         id: string;
-    }): Promise<{
+    } | null, guestToken?: string): Promise<{
         jobs: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -45,11 +54,13 @@ export declare class VideoTranslateController {
     }>;
     getJob(user: {
         id: string;
-    }, id: string): Promise<{
+    } | null, guestToken: string | undefined, id: string): Promise<{
         job: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -75,11 +86,13 @@ export declare class VideoTranslateController {
     }>;
     createJob(user: {
         id: string;
-    }, dto: CreateVideoTranslateDto): Promise<{
+    } | null, guestToken: string | undefined, file?: UploadedMediaFile): Promise<{
         job: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -106,7 +119,8 @@ export declare class VideoTranslateController {
     }>;
     deleteJob(user: {
         id: string;
-    }, id: string): Promise<{
+    } | null, guestToken: string | undefined, id: string): Promise<{
         deleted: boolean;
     }>;
 }
+export {};

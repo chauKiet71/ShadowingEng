@@ -210,3 +210,78 @@ describe('VideoTranslateService yt-dlp integration', () => {
     ).toBe('Command failed with [redacted proxy]');
   });
 });
+
+describe('VideoTranslateService RapidAPI helpers', () => {
+  function createService(config: Record<string, string | undefined> = {}) {
+    return new VideoTranslateService(
+      {} as never,
+      {
+        get: jest.fn((key: string) => config[key]),
+      } as never,
+    );
+  }
+
+  it('picks the best m4a audio stream', () => {
+    const service = createService() as unknown as {
+      pickBestAudioMedia: (
+        medias: Array<Record<string, unknown>>,
+      ) => Record<string, unknown> | null;
+    };
+
+    const best = service.pickBestAudioMedia([
+      {
+        type: 'video',
+        ext: 'mp4',
+        bitrate: 999999,
+        download_url: 'https://example.com/video',
+      },
+      {
+        type: 'audio',
+        ext: 'opus',
+        bitrate: 140000,
+        audioQuality: 'AUDIO_QUALITY_MEDIUM',
+        download_url: 'https://example.com/opus',
+      },
+      {
+        type: 'audio',
+        ext: 'm4a',
+        bitrate: 130000,
+        audioQuality: 'AUDIO_QUALITY_MEDIUM',
+        download_url: 'https://example.com/m4a',
+      },
+      {
+        type: 'audio',
+        ext: 'm4a',
+        bitrate: 50000,
+        audioQuality: 'AUDIO_QUALITY_LOW',
+        download_url: 'https://example.com/m4a-low',
+      },
+    ]);
+
+    expect(best?.download_url).toBe('https://example.com/m4a');
+  });
+
+  it('reads duration from googlevideo dur query param', () => {
+    const service = createService() as unknown as {
+      extractDurationFromUrl: (url: string) => number | null;
+      resolveDurationSec: (payload: {
+        medias?: Array<{ duration?: number; url?: string }>;
+      }) => number;
+    };
+
+    expect(
+      service.extractDurationFromUrl(
+        'https://redirector.googlevideo.com/videoplayback?dur=239.026&expire=1',
+      ),
+    ).toBeCloseTo(239.026);
+
+    expect(
+      service.resolveDurationSec({
+        medias: [
+          { duration: 3, url: 'https://x?dur=239.026' },
+          { duration: 3, url: 'https://y?dur=238.9' },
+        ],
+      }),
+    ).toBe(239);
+  });
+});

@@ -135,7 +135,7 @@ let PaymentsService = class PaymentsService {
                     return reject('Giao dịch không phải tiền vào');
                 }
                 const expectedAccount = this.config
-                    .get('SEPAY_ACCOUNT_NUMBER', '12897891')
+                    .get('SEPAY_ACCOUNT_NUMBER', '8858802106')
                     .replace(/\s+/g, '');
                 if (dto.accountNumber.replace(/\s+/g, '') !== expectedAccount) {
                     return reject('Sai tài khoản nhận');
@@ -242,8 +242,8 @@ let PaymentsService = class PaymentsService {
         throw new common_1.BadRequestException('Không thể tạo mã thanh toán, hãy thử lại');
     }
     mapOrder(order, pkg) {
-        const bank = this.config.get('SEPAY_BANK', 'ACB');
-        const accountNumber = this.config.get('SEPAY_ACCOUNT_NUMBER', '12897891');
+        const bank = this.config.get('SEPAY_BANK', 'BIDV');
+        const accountNumber = this.config.get('SEPAY_ACCOUNT_NUMBER', '8858802106');
         const accountHolder = this.config.get('SEPAY_ACCOUNT_HOLDER', 'LE CHAU KIET');
         const qr = new URL(`https://img.vietqr.io/image/${encodeURIComponent(bank)}-${encodeURIComponent(accountNumber)}-compact2.png`);
         qr.searchParams.set('amount', String(order.amount));

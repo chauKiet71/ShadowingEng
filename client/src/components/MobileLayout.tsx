@@ -11,7 +11,7 @@ export default function MobileLayout({
   children,
   showNav = true,
 }: MobileLayoutProps) {
-  const bottomPadding = showNav ? 'pb-24' : 'pb-4';
+  const bottomPadding = showNav ? 'pb-24' : 'pb-0';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">

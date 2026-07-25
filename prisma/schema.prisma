@@ -490,24 +490,26 @@ enum VideoTranslateStatus {
 }
 
 model VideoTranslateJob {
-  id             String               @id @default(uuid())
-  userId         String               @map("user_id")
-  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  youtubeVideoId String               @map("youtube_video_id")
-  youtubeUrl     String               @map("youtube_url")
-  title          String?
-  thumbnailUrl   String?              @map("thumbnail_url")
-  durationSec    Int?                 @map("duration_sec")
-  status         VideoTranslateStatus @default(PENDING)
-  source         String?
-  errorMessage   String?              @map("error_message") @db.Text
-  segmentsJson   Json?                @map("segments_json")
-  dubbedAudioUrl String?              @map("dubbed_audio_url")
-  pipelineVersion Int                 @default(1) @map("pipeline_version")
-  fromCache      Boolean              @default(false) @map("from_cache")
-  createdAt      DateTime             @default(now()) @map("created_at")
-  updatedAt      DateTime             @updatedAt @map("updated_at")
-  completedAt    DateTime?            @map("completed_at")
+  id               String               @id @default(uuid())
+  userId           String               @map("user_id")
+  user             User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  youtubeVideoId   String?              @map("youtube_video_id")
+  youtubeUrl       String?              @map("youtube_url")
+  originalFilename String?              @map("original_filename")
+  mediaUrl         String?              @map("media_url")
+  title            String?
+  thumbnailUrl     String?              @map("thumbnail_url")
+  durationSec      Int?                 @map("duration_sec")
+  status           VideoTranslateStatus @default(PENDING)
+  source           String?
+  errorMessage     String?              @map("error_message") @db.Text
+  segmentsJson     Json?                @map("segments_json")
+  dubbedAudioUrl   String?              @map("dubbed_audio_url")
+  pipelineVersion  Int                  @default(1) @map("pipeline_version")
+  fromCache        Boolean              @default(false) @map("from_cache")
+  createdAt        DateTime             @default(now()) @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
+  completedAt      DateTime?            @map("completed_at")
 
   @@index([userId, createdAt])
   @@index([youtubeVideoId, status])

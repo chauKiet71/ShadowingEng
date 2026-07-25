@@ -100,8 +100,8 @@ export declare class LessonsService {
             isHot: boolean;
         };
     } & {
-        status: import("@prisma/client").$Enums.HistoryStatus;
         id: string;
+        status: import("@prisma/client").$Enums.HistoryStatus;
         userId: string;
         lessonId: string;
         progressPercentage: number;

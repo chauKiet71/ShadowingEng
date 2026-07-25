@@ -10,6 +10,25 @@ Set `YT_DLP_PATH` to use a preinstalled binary instead. Set
 `YT_DLP_SKIP_INSTALL=true` to skip the download, or
 `YT_DLP_FORCE_INSTALL=true` to replace an existing local binary.
 
+## RapidAPI (preferred audio download)
+
+When captions are missing, the app can download audio via RapidAPI instead of yt-dlp:
+
+```bash
+RAPIDAPI_KEY=your-rapidapi-key
+# optional overrides
+RAPIDAPI_YT_HOST=youtube-video-downloader-fast.p.rapidapi.com
+RAPIDAPI_YT_PATH=/download.php
+```
+
+Flow:
+
+1. Try YouTube captions (`youtube-transcript`)
+2. If none → RapidAPI media list → pick best `type=audio` → download → Whisper
+3. If RapidAPI fails → fall back to yt-dlp
+
+Do not commit API keys. Rotate any key that was shared in chat/logs.
+
 ## Production: YouTube bot check
 
 Datacenter IPs (Railway, Render, AWS, …) often get:

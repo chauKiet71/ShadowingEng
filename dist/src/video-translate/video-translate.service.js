@@ -60,7 +60,7 @@ const youtube_transcript_1 = require("youtube-transcript");
 const prisma_service_1 = require("../prisma/prisma.service");
 const youtube_util_1 = require("./youtube.util");
 exports.FREE_VIDEO_TRANSLATE_PER_DAY = 3;
-exports.DEFAULT_MAX_SECONDS_FREE = 480;
+exports.DEFAULT_MAX_SECONDS_FREE = 600;
 exports.DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 exports.DUBBED_PIPELINE_VERSION = 9;
 const TRANSCRIPT_RULES = {
@@ -76,6 +76,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     logger = new common_1.Logger(VideoTranslateService_1.name);
     openai = null;
     processing = new Set();
+    rapidApiCache = new Map();
     constructor(prisma, config) {
         this.prisma = prisma;
         this.config = config;
@@ -137,6 +138,14 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         await this.prisma.videoTranslateJob.delete({
             where: { id: job.id },
         });
+        try {
+            (0, fs_1.rmSync)((0, path_1.join)(process.cwd(), 'storage', 'video-translate', job.id), {
+                recursive: true,
+                force: true,
+            });
+        }
+        catch {
+        }
         return { deleted: true };
     }
     async resolveDubbedFilePath(userId, jobId) {
@@ -154,56 +163,32 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         const filePath = (0, path_1.join)(process.cwd(), 'storage', 'video-translate', folderId, 'dubbed.mp3');
         return (0, fs_1.existsSync)(filePath) ? filePath : null;
     }
-    async createJob(userId, rawUrl) {
+    async createJobFromUpload(userId, file) {
         this.ensureOpenAi();
-        const videoId = (0, youtube_util_1.extractYoutubeVideoId)(rawUrl);
-        if (!videoId) {
-            throw new common_1.BadRequestException('Link YouTube không hợp lệ. Dán URL dạng youtube.com/watch?v=... hoặc youtu.be/...');
+        const originalName = String(file.originalname || 'video').trim() || 'video';
+        const ext = this.resolveUploadExtension(originalName, file.mimetype);
+        if (!ext) {
+            throw new common_1.BadRequestException('Định dạng không hỗ trợ. Hãy dùng mp4, webm, mov, mkv, mp3, m4a hoặc wav.');
         }
-        const youtubeUrl = (0, youtube_util_1.youtubeWatchUrl)(videoId);
-        const cached = await this.prisma.videoTranslateJob.findFirst({
-            where: {
-                youtubeVideoId: videoId,
-                status: client_1.VideoTranslateStatus.READY,
-                segmentsJson: { not: client_1.Prisma.DbNull },
-                pipelineVersion: { gte: exports.DUBBED_PIPELINE_VERSION },
-            },
-            orderBy: { completedAt: 'desc' },
-        });
-        if (cached) {
-            const cloned = await this.prisma.videoTranslateJob.create({
-                data: {
-                    userId,
-                    youtubeVideoId: videoId,
-                    youtubeUrl,
-                    title: cached.title,
-                    thumbnailUrl: cached.thumbnailUrl ?? (0, youtube_util_1.youtubeThumbnailUrl)(videoId),
-                    durationSec: cached.durationSec,
-                    status: client_1.VideoTranslateStatus.READY,
-                    source: cached.source,
-                    segmentsJson: cached.segmentsJson ?? client_1.Prisma.JsonNull,
-                    dubbedAudioUrl: null,
-                    pipelineVersion: cached.pipelineVersion,
-                    fromCache: true,
-                    completedAt: new Date(),
-                },
-            });
-            return {
-                job: this.serializeJob(cloned),
-                quota: await this.getQuota(userId),
-                fromCache: true,
-            };
+        if (!file.buffer?.length) {
+            throw new common_1.BadRequestException('File tải lên rỗng');
+        }
+        if (file.buffer.length > 120 * 1024 * 1024) {
+            throw new common_1.BadRequestException('File tối đa 120MB');
         }
         await this.assertAndReserveQuota(userId);
+        const title = this.titleFromFilename(originalName);
         let job;
         try {
             job = await this.prisma.videoTranslateJob.create({
                 data: {
                     userId,
-                    youtubeVideoId: videoId,
-                    youtubeUrl,
-                    thumbnailUrl: (0, youtube_util_1.youtubeThumbnailUrl)(videoId),
+                    youtubeVideoId: null,
+                    youtubeUrl: null,
+                    originalFilename: originalName.slice(0, 240),
+                    title,
                     status: client_1.VideoTranslateStatus.PENDING,
+                    pipelineVersion: exports.DUBBED_PIPELINE_VERSION,
                 },
             });
         }
@@ -211,6 +196,17 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             await this.releaseQuotaReservation(userId);
             throw error;
         }
+        const jobDir = (0, path_1.join)(process.cwd(), 'storage', 'video-translate', job.id);
+        (0, fs_1.mkdirSync)(jobDir, { recursive: true });
+        const sourceName = `source.${ext}`;
+        const sourcePath = (0, path_1.join)(jobDir, sourceName);
+        (0, fs_1.writeFileSync)(sourcePath, file.buffer);
+        const mediaUrl = `/media/video-translate/${job.id}/${sourceName}`;
+        await this.prisma.videoTranslateJob.update({
+            where: { id: job.id },
+            data: { mediaUrl },
+        });
+        job = { ...job, mediaUrl };
         void this.processJob(job.id).catch((error) => {
             this.logger.error(`Video translate job ${job.id} failed: ${error instanceof Error ? error.message : String(error)}`);
         });
@@ -219,6 +215,9 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             quota: await this.getQuota(userId),
             fromCache: false,
         };
+    }
+    async createJob(userId, rawUrl) {
+        throw new common_1.BadRequestException('Tính năng đã chuyển sang upload file. Hãy tải video/audio lên thay vì dán link.');
     }
     async processJob(jobId) {
         if (this.processing.has(jobId))
@@ -237,7 +236,14 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 where: { id: jobId },
                 data: { status: client_1.VideoTranslateStatus.PROCESSING, errorMessage: null },
             });
-            const meta = await this.fetchVideoMeta(job.youtubeVideoId, job.youtubeUrl);
+            if (!job.mediaUrl) {
+                throw new common_1.BadRequestException('Job thiếu file media tải lên');
+            }
+            const sourcePath = this.resolveMediaPath(job.mediaUrl);
+            if (!sourcePath || !(0, fs_1.existsSync)(sourcePath)) {
+                throw new common_1.BadRequestException('Không tìm thấy file đã tải lên');
+            }
+            const durationSec = Math.max(1, Math.round(await this.probeDurationSec(sourcePath)));
             const user = await this.prisma.user.findUniqueOrThrow({
                 where: { id: job.userId },
                 select: { isPremium: true, premiumExpiresAt: true },
@@ -246,24 +252,37 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             const maxSeconds = isPremium
                 ? this.maxSecondsPremium()
                 : this.maxSecondsFree();
-            if (meta.durationSec > maxSeconds) {
-                throw new common_1.BadRequestException(`Video dài ${Math.ceil(meta.durationSec / 60)} phút — tối đa ${Math.floor(maxSeconds / 60)} phút cho tài khoản ${isPremium ? 'Premium' : 'miễn phí'}.`);
+            if (durationSec > maxSeconds) {
+                throw new common_1.BadRequestException(`Video dài ${Math.ceil(durationSec / 60)} phút — tối đa ${Math.floor(maxSeconds / 60)} phút cho tài khoản ${isPremium ? 'Premium' : 'miễn phí'}.`);
             }
             await this.prisma.videoTranslateJob.update({
                 where: { id: jobId },
                 data: {
-                    title: meta.title,
-                    durationSec: meta.durationSec,
-                    thumbnailUrl: meta.thumbnailUrl ?? (0, youtube_util_1.youtubeThumbnailUrl)(job.youtubeVideoId),
+                    title: job.title || job.originalFilename || 'Video đã tải lên',
+                    durationSec,
                 },
             });
-            const { segments: timed, source } = await this.getTimedTranscript(job.youtubeVideoId, job.youtubeUrl, workDir, meta.durationSec);
+            const thumbnailUrl = await this.extractUploadThumbnail(sourcePath, jobDir, jobId);
+            if (thumbnailUrl) {
+                await this.prisma.videoTranslateJob.update({
+                    where: { id: jobId },
+                    data: { thumbnailUrl },
+                });
+            }
+            const audioPath = await this.prepareAudioForWhisper(sourcePath, workDir);
+            const whisperSegments = await this.transcribeWithWhisper(audioPath);
+            const normalized = whisperSegments.map((seg) => ({
+                start: seg.start,
+                end: seg.end || Math.min(durationSec, seg.start + 4),
+                en: seg.en,
+            }));
+            const timed = this.finalizeSegments(normalized, durationSec);
             const translated = await this.translateSegments(timed);
             await this.prisma.videoTranslateJob.update({
                 where: { id: jobId },
                 data: {
                     status: client_1.VideoTranslateStatus.READY,
-                    source,
+                    source: 'upload-whisper',
                     segmentsJson: translated,
                     dubbedAudioUrl: null,
                     pipelineVersion: exports.DUBBED_PIPELINE_VERSION,
@@ -303,6 +322,104 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             catch {
             }
         }
+    }
+    resolveUploadExtension(filename, mime) {
+        const fromName = filename.toLowerCase().match(/\.([a-z0-9]+)$/)?.[1];
+        const allowed = new Set([
+            'mp4',
+            'webm',
+            'mov',
+            'mkv',
+            'mp3',
+            'm4a',
+            'wav',
+            'mpeg',
+            'mpg',
+        ]);
+        if (fromName && allowed.has(fromName)) {
+            return fromName === 'mpeg' || fromName === 'mpg' ? 'mp4' : fromName;
+        }
+        const lowerMime = String(mime || '').toLowerCase();
+        if (lowerMime.includes('mp4') || lowerMime.includes('quicktime'))
+            return 'mp4';
+        if (lowerMime.includes('webm'))
+            return 'webm';
+        if (lowerMime.includes('audio/mpeg'))
+            return 'mp3';
+        if (lowerMime.includes('audio/mp4') || lowerMime.includes('m4a'))
+            return 'm4a';
+        if (lowerMime.includes('wav'))
+            return 'wav';
+        if (lowerMime.includes('matroska'))
+            return 'mkv';
+        return null;
+    }
+    titleFromFilename(filename) {
+        const base = filename.replace(/^.*[\\/]/, '').replace(/\.[^.]+$/, '');
+        const cleaned = base.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+        return cleaned.slice(0, 120) || 'Video đã tải lên';
+    }
+    resolveMediaPath(mediaUrl) {
+        const match = mediaUrl.match(/^\/media\/(.+)$/);
+        if (!match)
+            return null;
+        return (0, path_1.join)(process.cwd(), 'storage', ...match[1].split('/'));
+    }
+    async extractUploadThumbnail(sourcePath, jobDir, jobId) {
+        if (/\.(mp3|m4a|wav|opus)$/i.test(sourcePath)) {
+            return null;
+        }
+        const thumbName = 'thumb.jpg';
+        const thumbPath = (0, path_1.join)(jobDir, thumbName);
+        const ffmpeg = this.resolveFfmpegPath();
+        const attempts = [
+            ['-y', '-ss', '1', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
+            ['-y', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
+        ];
+        for (const args of attempts) {
+            try {
+                await execFileAsync(ffmpeg, args, {
+                    timeout: 60_000,
+                    maxBuffer: 4 * 1024 * 1024,
+                });
+                if ((0, fs_1.existsSync)(thumbPath)) {
+                    return `/media/video-translate/${jobId}/${thumbName}`;
+                }
+            }
+            catch {
+            }
+        }
+        this.logger.warn(`Không tạo được thumbnail cho job ${jobId}`);
+        return null;
+    }
+    async prepareAudioForWhisper(sourcePath, workDir) {
+        const lower = sourcePath.toLowerCase();
+        if (/\.(mp3|m4a|wav|opus)$/i.test(lower)) {
+            return sourcePath;
+        }
+        const outPath = (0, path_1.join)(workDir, 'audio.mp3');
+        const ffmpeg = this.resolveFfmpegPath();
+        try {
+            await execFileAsync(ffmpeg, [
+                '-y',
+                '-i',
+                sourcePath,
+                '-vn',
+                '-acodec',
+                'libmp3lame',
+                '-q:a',
+                '5',
+                outPath,
+            ], { timeout: 180_000, maxBuffer: 4 * 1024 * 1024 });
+        }
+        catch (error) {
+            this.logger.error(`ffmpeg extract audio failed: ${this.commandErrorLog(error)}`);
+            throw new common_1.ServiceUnavailableException('Không tách được audio từ file tải lên. Thử file mp3/m4a hoặc mp4 khác.');
+        }
+        if (!(0, fs_1.existsSync)(outPath)) {
+            throw new common_1.ServiceUnavailableException('Không tạo được file audio để nhận dạng');
+        }
+        return outPath;
     }
     async getTimedTranscript(videoId, youtubeUrl, workDir, durationSec) {
         const captionSegments = await this.tryFetchCaptions(videoId, durationSec);
@@ -785,6 +902,34 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         }
     }
     async downloadAudio(youtubeUrl, workDir) {
+        if (this.isRapidApiConfigured()) {
+            try {
+                const path = await this.downloadAudioViaRapidApi(youtubeUrl, workDir);
+                this.logger.log(`Audio downloaded via RapidAPI: ${path}`);
+                return path;
+            }
+            catch (error) {
+                this.logger.warn(`RapidAPI audio download failed, falling back to yt-dlp: ${error instanceof Error ? error.message : String(error)}`);
+            }
+        }
+        return this.downloadAudioViaYtDlp(youtubeUrl, workDir);
+    }
+    async downloadAudioViaRapidApi(youtubeUrl, workDir) {
+        const payload = await this.fetchRapidApiMedia(youtubeUrl);
+        const audio = this.pickBestAudioMedia(payload.medias ?? []);
+        if (!audio) {
+            throw new common_1.ServiceUnavailableException('RapidAPI không trả về stream audio cho video này');
+        }
+        const sourceUrl = (audio.download_url || audio.url || '').trim();
+        if (!sourceUrl) {
+            throw new common_1.ServiceUnavailableException('RapidAPI audio thiếu download_url');
+        }
+        const ext = this.normalizeAudioExt(audio.ext) || 'm4a';
+        const outPath = (0, path_1.join)(workDir, `audio.${ext}`);
+        await this.downloadBinaryToFile(sourceUrl, outPath);
+        return outPath;
+    }
+    async downloadAudioViaYtDlp(youtubeUrl, workDir) {
         const ytDlp = this.resolveYtDlpPath();
         const ffmpeg = this.resolveFfmpegPath();
         const outTemplate = (0, path_1.join)(workDir, 'audio.%(ext)s');
@@ -812,7 +957,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         catch (error) {
             const detail = this.commandErrorDetail(error);
             this.logger.error(`yt-dlp download failed: ${this.commandErrorLog(error)}`);
-            throw new common_1.ServiceUnavailableException(`Không tải được audio YouTube. Chi tiết: ${detail.slice(0, 600)}`);
+            throw new common_1.ServiceUnavailableException(this.ytDlpUserFacingError(detail));
         }
         const files = (0, fs_1.readdirSync)(workDir).filter((name) => /^audio\.(mp3|m4a|webm|opus|wav)$/i.test(name));
         if (!files.length) {
@@ -823,7 +968,16 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     async transcribeWithWhisper(audioPath) {
         this.ensureOpenAi();
         const buffer = (0, fs_1.readFileSync)(audioPath);
-        const file = await (0, openai_1.toFile)(buffer, 'audio.mp3', { type: 'audio/mpeg' });
+        const lower = audioPath.toLowerCase();
+        const mime = lower.endsWith('.m4a')
+            ? 'audio/mp4'
+            : lower.endsWith('.webm') || lower.endsWith('.opus')
+                ? 'audio/webm'
+                : lower.endsWith('.wav')
+                    ? 'audio/wav'
+                    : 'audio/mpeg';
+        const filename = lower.split(/[\\/]/).pop() || 'audio.mp3';
+        const file = await (0, openai_1.toFile)(buffer, filename, { type: mime });
         const result = await this.openai.audio.transcriptions.create({
             file,
             model: 'whisper-1',
@@ -861,6 +1015,20 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             .filter((seg) => seg.en.length > 0);
     }
     async fetchVideoMeta(videoId, youtubeUrl) {
+        if (this.isRapidApiConfigured()) {
+            try {
+                const payload = await this.fetchRapidApiMedia(youtubeUrl);
+                const durationSec = this.resolveDurationSec(payload);
+                return {
+                    title: payload.title?.trim() || `YouTube ${videoId}`,
+                    durationSec,
+                    thumbnailUrl: payload.thumbnail || (0, youtube_util_1.youtubeThumbnailUrl)(videoId),
+                };
+            }
+            catch (error) {
+                this.logger.warn(`RapidAPI meta failed, falling back: ${error instanceof Error ? error.message : String(error)}`);
+            }
+        }
         try {
             const ytDlp = this.resolveYtDlpPath();
             const { stdout } = await execFileAsync(ytDlp, [
@@ -899,6 +1067,180 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             };
         }
     }
+    isRapidApiConfigured() {
+        return Boolean(this.config.get('RAPIDAPI_KEY')?.trim());
+    }
+    rapidApiHost() {
+        return (this.config.get('RAPIDAPI_YT_HOST')?.trim() ||
+            'youtube-video-downloader-fast.p.rapidapi.com');
+    }
+    async fetchRapidApiMedia(youtubeUrl) {
+        const cached = this.rapidApiCache.get(youtubeUrl);
+        if (cached && Date.now() - cached.at < 120_000) {
+            return cached.data;
+        }
+        const apiKey = this.config.get('RAPIDAPI_KEY')?.trim();
+        if (!apiKey) {
+            throw new common_1.ServiceUnavailableException('RAPIDAPI_KEY chưa cấu hình');
+        }
+        const host = this.rapidApiHost();
+        const path = this.config.get('RAPIDAPI_YT_PATH')?.trim() || '/download.php';
+        const url = `https://${host}${path}?url=${encodeURIComponent(youtubeUrl)}`;
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 90_000);
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'x-rapidapi-key': apiKey,
+                    'x-rapidapi-host': host,
+                },
+                signal: controller.signal,
+            });
+            const text = await res.text();
+            let data = {};
+            try {
+                data = JSON.parse(text);
+            }
+            catch {
+                throw new common_1.ServiceUnavailableException(`RapidAPI trả về dữ liệu không hợp lệ (HTTP ${res.status})`);
+            }
+            if (!res.ok) {
+                throw new common_1.ServiceUnavailableException(data.message ||
+                    data.error ||
+                    `RapidAPI lỗi HTTP ${res.status}`);
+            }
+            if (!Array.isArray(data.medias) || data.medias.length === 0) {
+                throw new common_1.ServiceUnavailableException('RapidAPI không trả về danh sách media');
+            }
+            this.rapidApiCache.set(youtubeUrl, { at: Date.now(), data });
+            return data;
+        }
+        catch (error) {
+            if (error instanceof common_1.ServiceUnavailableException)
+                throw error;
+            if (error instanceof Error && error.name === 'AbortError') {
+                throw new common_1.ServiceUnavailableException('RapidAPI hết thời gian chờ');
+            }
+            throw new common_1.ServiceUnavailableException(error instanceof Error
+                ? `RapidAPI thất bại: ${error.message}`
+                : 'RapidAPI thất bại');
+        }
+        finally {
+            clearTimeout(timer);
+        }
+    }
+    pickBestAudioMedia(medias) {
+        const audios = medias.filter((item) => String(item.type || '').toLowerCase() === 'audio');
+        if (!audios.length)
+            return null;
+        const rankExt = (ext) => {
+            const value = String(ext || '').toLowerCase();
+            if (value === 'm4a' || value === 'mp4')
+                return 3;
+            if (value === 'mp3')
+                return 2;
+            if (value === 'webm' || value === 'opus')
+                return 1;
+            return 0;
+        };
+        const rankQuality = (quality) => {
+            const value = String(quality || '').toUpperCase();
+            if (value.includes('HIGH'))
+                return 3;
+            if (value.includes('MEDIUM'))
+                return 2;
+            if (value.includes('LOW'))
+                return 1;
+            return 0;
+        };
+        return [...audios].sort((a, b) => {
+            const extDiff = rankExt(b.ext) - rankExt(a.ext);
+            if (extDiff)
+                return extDiff;
+            const qDiff = rankQuality(b.audioQuality) - rankQuality(a.audioQuality);
+            if (qDiff)
+                return qDiff;
+            return (Number(b.bitrate) || 0) - (Number(a.bitrate) || 0);
+        })[0];
+    }
+    resolveDurationSec(payload) {
+        const medias = payload.medias ?? [];
+        for (const item of medias) {
+            const fromUrl = this.extractDurationFromUrl(item.url || item.download_url || '');
+            if (fromUrl && fromUrl >= 5)
+                return Math.round(fromUrl);
+        }
+        let best = 0;
+        for (const item of medias) {
+            const value = Number(item.duration) || 0;
+            if (value > best)
+                best = value;
+        }
+        if (best >= 5)
+            return Math.round(best);
+        return this.maxSecondsFree();
+    }
+    extractDurationFromUrl(rawUrl) {
+        if (!rawUrl)
+            return null;
+        try {
+            const decoded = decodeURIComponent(rawUrl);
+            const match = decoded.match(/[?&]dur=([0-9]+(?:\.[0-9]+)?)/);
+            if (!match)
+                return null;
+            const value = Number(match[1]);
+            return Number.isFinite(value) ? value : null;
+        }
+        catch {
+            return null;
+        }
+    }
+    normalizeAudioExt(ext) {
+        const value = String(ext || '')
+            .toLowerCase()
+            .replace(/^\./, '');
+        if (['mp3', 'm4a', 'webm', 'opus', 'wav'].includes(value))
+            return value;
+        if (value === 'mp4')
+            return 'm4a';
+        return null;
+    }
+    async downloadBinaryToFile(sourceUrl, outPath) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 180_000);
+        try {
+            const res = await fetch(sourceUrl, {
+                signal: controller.signal,
+                redirect: 'follow',
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                    Accept: '*/*',
+                },
+            });
+            if (!res.ok) {
+                throw new common_1.ServiceUnavailableException(`Không tải được audio (HTTP ${res.status})`);
+            }
+            const buffer = Buffer.from(await res.arrayBuffer());
+            if (buffer.length < 1024) {
+                throw new common_1.ServiceUnavailableException('File audio tải về quá nhỏ hoặc rỗng');
+            }
+            (0, fs_1.writeFileSync)(outPath, buffer);
+        }
+        catch (error) {
+            if (error instanceof common_1.ServiceUnavailableException)
+                throw error;
+            if (error instanceof Error && error.name === 'AbortError') {
+                throw new common_1.ServiceUnavailableException('Hết thời gian tải audio');
+            }
+            throw new common_1.ServiceUnavailableException(error instanceof Error
+                ? `Tải audio thất bại: ${error.message}`
+                : 'Tải audio thất bại');
+        }
+        finally {
+            clearTimeout(timer);
+        }
+    }
     resolveYtDlpPath() {
         const configured = this.config.get('YT_DLP_PATH')?.trim();
         if (configured && (0, fs_1.existsSync)(configured))
@@ -925,16 +1267,65 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     ytDlpConnectionArgs() {
         const args = [];
         const proxy = this.config.get('YT_DLP_PROXY')?.trim();
-        const cookiesPath = this.config.get('YT_DLP_COOKIES_PATH')?.trim();
+        const cookiesPath = this.resolveYtDlpCookiesPath();
         const forceIpv4 = this.config.get('YT_DLP_FORCE_IPV4')?.trim().toLowerCase() ===
             'true';
+        const extractorArgs = this.config.get('YT_DLP_EXTRACTOR_ARGS')?.trim() ||
+            'youtube:player_client=android,tv,web';
         if (proxy)
             args.push('--proxy', proxy);
-        if (cookiesPath)
+        if (cookiesPath) {
             args.push('--cookies', cookiesPath);
+        }
+        else {
+            this.logger.warn('YT_DLP cookies chưa cấu hình — IP server dễ bị YouTube chặn bot. ' +
+                'Set YT_DLP_COOKIES_PATH hoặc YT_DLP_COOKIES_BASE64.');
+        }
         if (forceIpv4)
             args.push('--force-ipv4');
+        if (extractorArgs)
+            args.push('--extractor-args', extractorArgs);
         return args;
+    }
+    resolveYtDlpCookiesPath() {
+        const configured = this.config.get('YT_DLP_COOKIES_PATH')?.trim();
+        if (configured) {
+            if ((0, fs_1.existsSync)(configured))
+                return configured;
+            this.logger.warn(`YT_DLP_COOKIES_PATH không tồn tại: ${configured}`);
+        }
+        const base64 = this.config.get('YT_DLP_COOKIES_BASE64')?.trim();
+        if (!base64)
+            return null;
+        try {
+            const content = Buffer.from(base64, 'base64').toString('utf8').trim();
+            if (!content || content.length < 20) {
+                this.logger.warn('YT_DLP_COOKIES_BASE64 rỗng hoặc không hợp lệ');
+                return null;
+            }
+            const outDir = (0, path_1.join)(process.cwd(), 'storage');
+            (0, fs_1.mkdirSync)(outDir, { recursive: true });
+            const outPath = (0, path_1.join)(outDir, 'youtube-cookies.txt');
+            (0, fs_1.writeFileSync)(outPath, `${content}\n`, { encoding: 'utf8', mode: 0o600 });
+            return outPath;
+        }
+        catch (error) {
+            this.logger.warn(`Không ghi được cookies từ YT_DLP_COOKIES_BASE64: ${error instanceof Error ? error.message : String(error)}`);
+            return null;
+        }
+    }
+    ytDlpUserFacingError(detail) {
+        const lower = detail.toLowerCase();
+        if (lower.includes('sign in to confirm') ||
+            lower.includes("you're not a bot") ||
+            lower.includes('not a bot') ||
+            lower.includes('cookies-from-browser')) {
+            return ('YouTube chặn tải audio từ server (bot check). ' +
+                'Cần cấu hình cookies YouTube trên production: ' +
+                'YT_DLP_COOKIES_PATH hoặc YT_DLP_COOKIES_BASE64. ' +
+                'Xem backend/tools/README.md.');
+        }
+        return `Không tải được audio YouTube. Chi tiết: ${detail.slice(0, 500)}`;
     }
     commandErrorDetail(error) {
         const commandError = error;
@@ -989,6 +1380,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             id: job.id,
             youtubeVideoId: job.youtubeVideoId,
             youtubeUrl: job.youtubeUrl,
+            originalFilename: job.originalFilename ?? null,
+            mediaUrl: job.mediaUrl ?? null,
             title: job.title,
             thumbnailUrl: job.thumbnailUrl,
             durationSec: job.durationSec,

@@ -23,7 +23,9 @@ const vocabulary_economy_set_1 = require("./vocabulary-economy-set");
 const vocabulary_business_set_1 = require("./vocabulary-business-set");
 const vocabulary_banking_set_1 = require("./vocabulary-banking-set");
 const vocabulary_finance_set_1 = require("./vocabulary-finance-set");
+const vocabulary_common_set_1 = require("./vocabulary-common-set");
 const SETS = [
+    vocabulary_common_set_1.COMMON_VOCABULARY_SET,
     vocabulary_travel_set_1.TRAVEL_VOCABULARY_SET,
     vocabulary_daily_set_1.DAILY_VOCABULARY_SET,
     vocabulary_office_set_1.OFFICE_VOCABULARY_SET,

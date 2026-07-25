@@ -379,10 +379,39 @@ export const api = {
     );
   },
 
-  createVideoTranslateJob(url: string) {
-    return request<CreateVideoTranslateResponse>('/video-translate/jobs', {
+  createVideoTranslateJob(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    const token = getToken();
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    } else {
+      headers['X-Guest-Token'] = getGuestToken();
+    }
+    return fetch('/api/video-translate/jobs', {
       method: 'POST',
-      body: JSON.stringify({ url }),
+      headers,
+      body: formData,
+    }).then(async (res) => {
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const rawMessage = data.message;
+        const message =
+          typeof rawMessage === 'string'
+            ? rawMessage
+            : Array.isArray(rawMessage)
+              ? rawMessage.join(', ')
+              : 'Không tạo được job dịch';
+        const code =
+          typeof data.code === 'string'
+            ? data.code
+            : typeof rawMessage?.code === 'string'
+              ? rawMessage.code
+              : undefined;
+        throw new ApiError(message, code, res.status);
+      }
+      return data as CreateVideoTranslateResponse;
     });
   },
 
@@ -655,8 +684,10 @@ export type VideoTranslateStatus =
 
 export interface VideoTranslateJob {
   id: string;
-  youtubeVideoId: string;
-  youtubeUrl: string;
+  youtubeVideoId: string | null;
+  youtubeUrl: string | null;
+  originalFilename: string | null;
+  mediaUrl: string | null;
   title: string | null;
   thumbnailUrl: string | null;
   durationSec: number | null;

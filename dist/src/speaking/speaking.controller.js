@@ -16,41 +16,49 @@ exports.SpeakingController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const current_user_decorator_1 = require("../auth/current-user.decorator");
-const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const guest_identity_service_1 = require("../auth/guest-identity.service");
+const optional_jwt_auth_guard_1 = require("../auth/optional-jwt-auth.guard");
 const create_speaking_session_dto_1 = require("./dto/create-speaking-session.dto");
 const translate_speaking_dto_1 = require("./dto/translate-speaking.dto");
 const speaking_service_1 = require("./speaking.service");
 let SpeakingController = class SpeakingController {
     speakingService;
-    constructor(speakingService) {
+    guestIdentity;
+    constructor(speakingService, guestIdentity) {
         this.speakingService = speakingService;
+        this.guestIdentity = guestIdentity;
     }
     listScenarios() {
         return this.speakingService.listScenarios();
     }
-    getQuota(user) {
-        return this.speakingService.getQuota(user.id);
+    async getQuota(user, guestToken) {
+        const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+        return this.speakingService.getQuota(userId);
     }
-    createSession(user, dto) {
-        return this.speakingService.createSession(user.id, dto.scenarioId, dto.level, dto.dialect);
+    async createSession(user, guestToken, dto) {
+        const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+        return this.speakingService.createSession(userId, dto.scenarioId, dto.level, dto.dialect);
     }
     translate(dto) {
         return this.speakingService.translateToVietnamese(dto.text);
     }
-    getSession(user, id) {
-        return this.speakingService.getSession(user.id, id);
+    async getSession(user, guestToken, id) {
+        const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+        return this.speakingService.getSession(userId, id);
     }
-    submitTurn(user, id, file, durationMsRaw) {
+    async submitTurn(user, guestToken, id, file, durationMsRaw) {
         if (!file) {
             throw new common_1.BadRequestException('Vui lòng gửi bản ghi âm');
         }
         const durationMs = durationMsRaw != null && durationMsRaw !== ''
             ? Number(durationMsRaw)
             : undefined;
-        return this.speakingService.submitTurn(user.id, id, file, Number.isFinite(durationMs) ? durationMs : undefined);
+        const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+        return this.speakingService.submitTurn(userId, id, file, Number.isFinite(durationMs) ? durationMs : undefined);
     }
-    completeSession(user, id) {
-        return this.speakingService.completeSession(user.id, id);
+    async completeSession(user, guestToken, id) {
+        const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+        return this.speakingService.completeSession(userId, id);
     }
 };
 exports.SpeakingController = SpeakingController;
@@ -63,17 +71,19 @@ __decorate([
 __decorate([
     (0, common_1.Get)('quota'),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(1, (0, common_1.Headers)('x-guest-token')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
 ], SpeakingController.prototype, "getQuota", null);
 __decorate([
     (0, common_1.Post)('sessions'),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
-    __param(1, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('x-guest-token')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, create_speaking_session_dto_1.CreateSpeakingSessionDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, Object, create_speaking_session_dto_1.CreateSpeakingSessionDto]),
+    __metadata("design:returntype", Promise)
 ], SpeakingController.prototype, "createSession", null);
 __decorate([
     (0, common_1.Post)('translate'),
@@ -85,10 +95,11 @@ __decorate([
 __decorate([
     (0, common_1.Get)('sessions/:id'),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
-    __param(1, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Headers)('x-guest-token')),
+    __param(2, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, Object, String]),
+    __metadata("design:returntype", Promise)
 ], SpeakingController.prototype, "getSession", null);
 __decorate([
     (0, common_1.Post)('sessions/:id/turns'),
@@ -96,24 +107,27 @@ __decorate([
         limits: { fileSize: speaking_service_1.MAX_SPEAKING_AUDIO_BYTES },
     })),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
-    __param(1, (0, common_1.Param)('id')),
-    __param(2, (0, common_1.UploadedFile)()),
-    __param(3, (0, common_1.Body)('durationMs')),
+    __param(1, (0, common_1.Headers)('x-guest-token')),
+    __param(2, (0, common_1.Param)('id')),
+    __param(3, (0, common_1.UploadedFile)()),
+    __param(4, (0, common_1.Body)('durationMs')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, Object, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, Object, String, Object, String]),
+    __metadata("design:returntype", Promise)
 ], SpeakingController.prototype, "submitTurn", null);
 __decorate([
     (0, common_1.Post)('sessions/:id/complete'),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
-    __param(1, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Headers)('x-guest-token')),
+    __param(2, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, Object, String]),
+    __metadata("design:returntype", Promise)
 ], SpeakingController.prototype, "completeSession", null);
 exports.SpeakingController = SpeakingController = __decorate([
     (0, common_1.Controller)('speaking'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    __metadata("design:paramtypes", [speaking_service_1.SpeakingService])
+    (0, common_1.UseGuards)(optional_jwt_auth_guard_1.OptionalJwtAuthGuard),
+    __metadata("design:paramtypes", [speaking_service_1.SpeakingService,
+        guest_identity_service_1.GuestIdentityService])
 ], SpeakingController);
 //# sourceMappingURL=speaking.controller.js.map

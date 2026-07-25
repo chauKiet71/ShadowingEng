@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 export declare const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
-export declare const DEFAULT_MAX_SECONDS_FREE = 480;
+export declare const DEFAULT_MAX_SECONDS_FREE = 600;
 export declare const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 export declare const DUBBED_PIPELINE_VERSION = 9;
 export type VideoSegment = {
@@ -16,6 +16,7 @@ export declare class VideoTranslateService {
     private readonly logger;
     private openai;
     private readonly processing;
+    private readonly rapidApiCache;
     constructor(prisma: PrismaService, config: ConfigService);
     getQuota(userId: string): Promise<{
         used: number;
@@ -28,8 +29,10 @@ export declare class VideoTranslateService {
     listJobs(userId: string): Promise<{
         jobs: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -56,8 +59,10 @@ export declare class VideoTranslateService {
     getJob(userId: string, jobId: string): Promise<{
         job: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -85,11 +90,18 @@ export declare class VideoTranslateService {
         deleted: boolean;
     }>;
     resolveDubbedFilePath(userId: string, jobId: string): Promise<string | null>;
-    createJob(userId: string, rawUrl: string): Promise<{
+    createJobFromUpload(userId: string, file: {
+        buffer: Buffer;
+        originalname: string;
+        mimetype?: string;
+        size?: number;
+    }): Promise<{
         job: {
             id: string;
-            youtubeVideoId: string;
-            youtubeUrl: string;
+            youtubeVideoId: string | null;
+            youtubeUrl: string | null;
+            originalFilename: string | null;
+            mediaUrl: string | null;
             title: string | null;
             thumbnailUrl: string | null;
             durationSec: number | null;
@@ -114,7 +126,13 @@ export declare class VideoTranslateService {
         };
         fromCache: boolean;
     }>;
+    createJob(userId: string, rawUrl: string): Promise<void>;
     private processJob;
+    private resolveUploadExtension;
+    private titleFromFilename;
+    private resolveMediaPath;
+    private extractUploadThumbnail;
+    private prepareAudioForWhisper;
     private getTimedTranscript;
     private tryFetchCaptions;
     private cleanCaptionText;
@@ -137,11 +155,23 @@ export declare class VideoTranslateService {
     private synthesizeElevenLabs;
     private synthesizeOpenAiTts;
     private downloadAudio;
+    private downloadAudioViaRapidApi;
+    private downloadAudioViaYtDlp;
     private transcribeWithWhisper;
     private fetchVideoMeta;
+    private isRapidApiConfigured;
+    private rapidApiHost;
+    private fetchRapidApiMedia;
+    private pickBestAudioMedia;
+    private resolveDurationSec;
+    private extractDurationFromUrl;
+    private normalizeAudioExt;
+    private downloadBinaryToFile;
     private resolveYtDlpPath;
     private resolveFfmpegPath;
     private ytDlpConnectionArgs;
+    private resolveYtDlpCookiesPath;
+    private ytDlpUserFacingError;
     private commandErrorDetail;
     private commandErrorLog;
     private redactCommandSecrets;

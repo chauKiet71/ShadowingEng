@@ -14,12 +14,12 @@ export declare class UsersController {
             package: {
                 name: string;
             } | null;
-            isPremium: boolean;
-            status: import("@prisma/client").$Enums.UserStatus;
+            id: string;
             email: string;
             fullName: string;
-            id: string;
             avatarUrl: string | null;
+            status: import("@prisma/client").$Enums.UserStatus;
+            isPremium: boolean;
             lastActivity: Date | null;
             createdAt: Date;
         }[];
@@ -29,8 +29,8 @@ export declare class UsersController {
     }>;
     getProfile(id: string): Promise<{
         package: {
-            status: import("@prisma/client").$Enums.PackageStatus;
             id: string;
+            status: import("@prisma/client").$Enums.PackageStatus;
             createdAt: Date;
             updatedAt: Date;
             name: string;
@@ -49,14 +49,14 @@ export declare class UsersController {
             benefits: import("@prisma/client/runtime/client").JsonValue | null;
             limits: import("@prisma/client/runtime/client").JsonValue | null;
         } | null;
-        isPremium: boolean;
+        id: string;
         email: string;
         fullName: string;
-        id: string;
         avatarUrl: string | null;
         xp: number;
         level: number;
         streakDays: number;
+        isPremium: boolean;
         createdAt: Date;
     } | null>;
 }

@@ -31,8 +31,8 @@ export declare class PackagesService {
         userCount: number;
     }>;
     create(data: PackagePayload): Promise<{
-        status: import("@prisma/client").$Enums.PackageStatus;
         id: string;
+        status: import("@prisma/client").$Enums.PackageStatus;
         createdAt: Date;
         updatedAt: Date;
         name: string;
@@ -52,8 +52,8 @@ export declare class PackagesService {
         limits: import("@prisma/client/runtime/client").JsonValue | null;
     }>;
     update(id: string, data: Partial<PackagePayload>): Promise<{
-        status: import("@prisma/client").$Enums.PackageStatus;
         id: string;
+        status: import("@prisma/client").$Enums.PackageStatus;
         createdAt: Date;
         updatedAt: Date;
         name: string;
@@ -73,8 +73,8 @@ export declare class PackagesService {
         limits: import("@prisma/client/runtime/client").JsonValue | null;
     }>;
     remove(id: string): Promise<{
-        status: import("@prisma/client").$Enums.PackageStatus;
         id: string;
+        status: import("@prisma/client").$Enums.PackageStatus;
         createdAt: Date;
         updatedAt: Date;
         name: string;

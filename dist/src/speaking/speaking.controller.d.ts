@@ -1,3 +1,4 @@
+import { GuestIdentityService } from '../auth/guest-identity.service';
 import { CreateSpeakingSessionDto } from './dto/create-speaking-session.dto';
 import { TranslateSpeakingDto } from './dto/translate-speaking.dto';
 import { SpeakingService } from './speaking.service';
@@ -9,7 +10,8 @@ type UploadedAudio = {
 };
 export declare class SpeakingController {
     private readonly speakingService;
-    constructor(speakingService: SpeakingService);
+    private readonly guestIdentity;
+    constructor(speakingService: SpeakingService, guestIdentity: GuestIdentityService);
     listScenarios(): Promise<{
         id: string;
         description: string;
@@ -17,8 +19,8 @@ export declare class SpeakingController {
         icon: string;
         title: string;
         objective: string;
-        slug: string;
         color: string;
+        slug: string;
         learnerRole: string;
         aiRole: string;
         minLevel: import("@prisma/client").$Enums.CefrLevel;
@@ -26,7 +28,7 @@ export declare class SpeakingController {
     }[]>;
     getQuota(user: {
         id: string;
-    }): Promise<{
+    } | null, guestToken?: string): Promise<{
         used: number;
         limit: number;
         remaining: number | null;
@@ -35,7 +37,7 @@ export declare class SpeakingController {
     }>;
     createSession(user: {
         id: string;
-    }, dto: CreateSpeakingSessionDto): Promise<{
+    } | null, guestToken: string | undefined, dto: CreateSpeakingSessionDto): Promise<{
         session: {
             id: string;
             level: import("@prisma/client").$Enums.CefrLevel;
@@ -90,7 +92,7 @@ export declare class SpeakingController {
     }>;
     getSession(user: {
         id: string;
-    }, id: string): Promise<{
+    } | null, guestToken: string | undefined, id: string): Promise<{
         session: {
             id: string;
             level: import("@prisma/client").$Enums.CefrLevel;
@@ -142,7 +144,7 @@ export declare class SpeakingController {
     }>;
     submitTurn(user: {
         id: string;
-    }, id: string, file: UploadedAudio, durationMsRaw?: string): Promise<{
+    } | null, guestToken: string | undefined, id: string, file: UploadedAudio, durationMsRaw?: string): Promise<{
         turn: {
             id: string;
             turnIndex: number;
@@ -174,7 +176,7 @@ export declare class SpeakingController {
     }>;
     completeSession(user: {
         id: string;
-    }, id: string): Promise<{
+    } | null, guestToken: string | undefined, id: string): Promise<{
         session: {
             id: string;
             level: import("@prisma/client").$Enums.CefrLevel;

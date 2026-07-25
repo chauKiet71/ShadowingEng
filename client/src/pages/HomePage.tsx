@@ -42,12 +42,11 @@ const forYouLinks = [
   },
   {
     label: 'Dịch video',
-    sub: 'Sắp mở',
+    sub: 'Upload & dịch',
     to: '/dich-video',
     image: '/images/home-feature-video.png',
     cardClass:
-      'bg-gradient-to-b from-rose-50 to-pink-50/80 dark:from-rose-950/60 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
-    disabled: true,
+      'bg-gradient-to-b from-indigo-50 to-blue-50/70 dark:from-indigo-950/70 dark:to-neutral-900 dark:ring-1 dark:ring-white/10',
   },
 ];
 

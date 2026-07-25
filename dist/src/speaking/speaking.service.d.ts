@@ -17,8 +17,8 @@ export declare class SpeakingService {
         icon: string;
         title: string;
         objective: string;
-        slug: string;
         color: string;
+        slug: string;
         learnerRole: string;
         aiRole: string;
         minLevel: import("@prisma/client").$Enums.CefrLevel;

@@ -58,19 +58,19 @@ export declare class VocabularyController {
                 isFeatured: boolean;
                 title: string;
                 topic: string;
-                slug: string;
                 color: string;
+                slug: string;
                 cefrLevel: import("@prisma/client").$Enums.CefrLevel;
             };
             id: string;
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            setId: string;
+            example: string;
             word: string;
+            setId: string;
             phonetic: string | null;
             meaning: string;
-            example: string;
             exampleTranslation: string;
         }[];
     }>;
@@ -100,11 +100,11 @@ export declare class VocabularyController {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            setId: string;
+            example: string;
             word: string;
+            setId: string;
             phonetic: string | null;
             meaning: string;
-            example: string;
             exampleTranslation: string;
         }[];
         id: string;
@@ -116,15 +116,15 @@ export declare class VocabularyController {
         isFeatured: boolean;
         title: string;
         topic: string;
-        slug: string;
         color: string;
+        slug: string;
         cefrLevel: import("@prisma/client").$Enums.CefrLevel;
     } | {
         saved: boolean;
         words: {
             progress: {
-                status: import("@prisma/client").$Enums.VocabularyProgressStatus;
                 id: string;
+                status: import("@prisma/client").$Enums.VocabularyProgressStatus;
                 createdAt: Date;
                 updatedAt: Date;
                 userId: string;
@@ -140,11 +140,11 @@ export declare class VocabularyController {
             createdAt: Date;
             sortOrder: number;
             audioUrl: string | null;
-            setId: string;
+            example: string;
             word: string;
+            setId: string;
             phonetic: string | null;
             meaning: string;
-            example: string;
             exampleTranslation: string;
         }[];
         savedBy: {
@@ -159,8 +159,8 @@ export declare class VocabularyController {
         isFeatured: boolean;
         title: string;
         topic: string;
-        slug: string;
         color: string;
+        slug: string;
         cefrLevel: import("@prisma/client").$Enums.CefrLevel;
     }>;
     saveSet(user: {
@@ -176,8 +176,8 @@ export declare class VocabularyController {
     learnWord(user: {
         id: string;
     }, dto: LearnVocabularyWordDto): Promise<{
-        status: import("@prisma/client").$Enums.VocabularyProgressStatus;
         id: string;
+        status: import("@prisma/client").$Enums.VocabularyProgressStatus;
         createdAt: Date;
         updatedAt: Date;
         userId: string;
@@ -192,8 +192,8 @@ export declare class VocabularyController {
     reviewWord(user: {
         id: string;
     }, id: string, dto: ReviewVocabularyWordDto): Promise<{
-        status: import("@prisma/client").$Enums.VocabularyProgressStatus;
         id: string;
+        status: import("@prisma/client").$Enums.VocabularyProgressStatus;
         createdAt: Date;
         updatedAt: Date;
         userId: string;
