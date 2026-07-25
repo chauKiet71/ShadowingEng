@@ -131,15 +131,6 @@ export default function ExplorePage() {
                 </p>
               </div>
             </div>
-
-            <div className="rounded-[22px] overflow-hidden aspect-[16/9] shadow-[0_2px_12px_rgba(99,102,241,0.1)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)]">
-              <img
-                src={activeCategory.imageUrl}
-                alt={activeCategory.name}
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            </div>
           </div>
 
           <div className="px-4 mb-4 pt-1">
