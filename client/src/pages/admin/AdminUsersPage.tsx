@@ -23,6 +23,8 @@ const tabs = [
   { label: 'Đã khóa', filter: { status: 'LOCKED' as const } },
 ];
 
+const PAGE_SIZE_OPTIONS = [10, 30, 50, 100] as const;
+
 const statusBadge: Record<string, string> = {
   ACTIVE: 'bg-green-100 text-green-700',
   INACTIVE: 'bg-gray-100 text-gray-600',
@@ -35,11 +37,22 @@ const statusLabel: Record<string, string> = {
   LOCKED: 'Đã khóa',
 };
 
-const PAGE_SIZE = 10;
-
 function formatDate(value: string | null | undefined) {
   if (!value) return '—';
   return new Date(value).toLocaleDateString('vi-VN');
+}
+
+function formatDateTime(value: string | null | undefined) {
+  if (!value) return '—';
+  return new Date(value).toLocaleString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
 }
 
 function getPackageLabel(user: AdminUserRow) {
@@ -56,6 +69,7 @@ function getPackageBadgeClass(packageName: string) {
 export default function AdminUsersPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState<(typeof PAGE_SIZE_OPTIONS)[number]>(10);
   const [users, setUsers] = useState<AdminUserRow[]>([]);
   const [total, setTotal] = useState(0);
   const [stats, setStats] = useState({
@@ -67,7 +81,7 @@ export default function AdminUsersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -77,7 +91,7 @@ export default function AdminUsersPage() {
         api.getUserStats(),
         api.getUsers({
           page,
-          limit: PAGE_SIZE,
+          limit: pageSize,
           ...tabs[activeTab].filter,
         }),
       ]);
@@ -91,7 +105,7 @@ export default function AdminUsersPage() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab, page]);
+  }, [activeTab, page, pageSize]);
 
   useEffect(() => {
     loadData();
@@ -143,8 +157,8 @@ export default function AdminUsersPage() {
     return pages;
   }, [page, totalPages]);
 
-  const rangeStart = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
-  const rangeEnd = Math.min(page * PAGE_SIZE, total);
+  const rangeStart = total === 0 ? 0 : (page - 1) * pageSize + 1;
+  const rangeEnd = Math.min(page * pageSize, total);
 
   return (
     <AdminLayout
@@ -271,7 +285,7 @@ export default function AdminUsersPage() {
                           {statusLabel[user.status]}
                         </span>
                       </td>
-                      <td className="p-4 text-gray-500">{formatDate(user.createdAt)}</td>
+                      <td className="p-4 text-gray-500 whitespace-nowrap">{formatDateTime(user.createdAt)}</td>
                       <td className="p-4 text-gray-500">{formatDate(user.lastActivity)}</td>
                       <td className="p-4">
                         <div className="flex gap-1">
@@ -294,10 +308,32 @@ export default function AdminUsersPage() {
           </table>
         </div>
 
-        <div className="p-4 flex items-center justify-between border-t border-gray-50">
-          <p className="text-sm text-gray-500">
-            Hiển thị {rangeStart} đến {rangeEnd} trong tổng số {total.toLocaleString('vi-VN')} người dùng
-          </p>
+        <div className="p-4 flex items-center justify-between border-t border-gray-50 gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-2 text-sm text-gray-500">
+              <span>Hiển thị</span>
+              <select
+                value={pageSize}
+                disabled={loading}
+                onChange={(event) => {
+                  setPageSize(Number(event.target.value) as (typeof PAGE_SIZE_OPTIONS)[number]);
+                  setPage(1);
+                }}
+                className="border border-gray-200 rounded-lg px-2 py-1.5 text-sm text-gray-700 bg-white focus:outline-none focus:border-primary disabled:opacity-50"
+                aria-label="Số dòng mỗi trang"
+              >
+                {PAGE_SIZE_OPTIONS.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              <span>/ trang</span>
+            </label>
+            <p className="text-sm text-gray-500">
+              {rangeStart}–{rangeEnd} / {total.toLocaleString('vi-VN')} người dùng
+            </p>
+          </div>
           <div className="flex gap-1">
             <button
               type="button"

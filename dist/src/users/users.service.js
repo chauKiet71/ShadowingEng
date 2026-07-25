@@ -13,28 +13,35 @@ exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
+const GUEST_EMAIL_SUFFIX = "@guest.hihienglish.local";
 let UsersService = class UsersService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
     async getStats() {
+        const registeredUserWhere = {
+            NOT: { email: { endsWith: GUEST_EMAIL_SUFFIX } },
+        };
         const [total, newUsers, proUsers, activeUsers] = await Promise.all([
-            this.prisma.user.count(),
+            this.prisma.user.count({ where: registeredUserWhere }),
             this.prisma.user.count({
                 where: {
+                    ...registeredUserWhere,
                     createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
                 },
             }),
-            this.prisma.user.count({ where: { isPremium: true } }),
-            this.prisma.user.count({ where: { status: client_1.UserStatus.ACTIVE } }),
+            this.prisma.user.count({ where: { ...registeredUserWhere, isPremium: true } }),
+            this.prisma.user.count({ where: { ...registeredUserWhere, status: client_1.UserStatus.ACTIVE } }),
         ]);
         return { total, newUsers, proUsers, activeUsers };
     }
     async findAll(params) {
         const page = params.page || 1;
         const limit = params.limit || 10;
-        const where = {};
+        const where = {
+            NOT: { email: { endsWith: GUEST_EMAIL_SUFFIX } },
+        };
         if (params.status)
             where.status = params.status;
         if (params.isPremium !== undefined)
