@@ -9,9 +9,26 @@ import {
   Gem,
   Star,
   Infinity,
+  Loader2,
+  Users,
+  X,
 } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
-import { api, type PackagePayload, type PackageRow } from '../../lib/api';
+import UserAvatar from '../../components/UserAvatar';
+import {
+  api,
+  type AdminPackageSubscriber,
+  type PackagePayload,
+  type PackageRow,
+} from '../../lib/api';
+import { peekCache } from '../../lib/prefetchCache';
+import {
+  AdminPrefetchKeys,
+  fetchAdminPackages,
+  invalidateAdminOverviewCache,
+  invalidateAdminPackagesCache,
+  invalidateAdminUsersCache,
+} from '../../lib/prefetchAdmin';
 import { formatPrice, calcUnitPrice, formatDurationText, type DurationUnit } from '../../data/plans';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -61,17 +78,66 @@ function getPeriodValue(form: PackagePayload) {
   return form.durationUnit === 'DAY' ? (form.days ?? 1) : (form.months ?? 1);
 }
 
+function formatDateTime(value: string | null | undefined) {
+  if (!value) return '—';
+  return new Date(value).toLocaleString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+}
+
+function toDatetimeLocalValue(value: string | null | undefined) {
+  if (!value) return '';
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function addDaysIso(baseIso: string | null | undefined, days: number) {
+  const base = baseIso ? new Date(baseIso) : new Date();
+  const d = Number.isNaN(base.getTime()) ? new Date() : base;
+  if (!baseIso || d < new Date()) {
+    const now = new Date();
+    now.setDate(now.getDate() + days);
+    return now.toISOString();
+  }
+  d.setDate(d.getDate() + days);
+  return d.toISOString();
+}
+
 export default function AdminPackagesPage() {
-  const [packages, setPackages] = useState<PackageRow[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [form, setForm] = useState<PackagePayload>(emptyForm);
+  const cachedPackages = peekCache<PackageRow[]>(AdminPrefetchKeys.packages);
+  const [packages, setPackages] = useState<PackageRow[]>(
+    () => cachedPackages ?? [],
+  );
+  const [selectedId, setSelectedId] = useState<string | null>(() =>
+    cachedPackages?.[0]?.id ?? null,
+  );
+  const [form, setForm] = useState<PackagePayload>(() =>
+    cachedPackages?.[0] ? packageToForm(cachedPackages[0]) : emptyForm,
+  );
   const [isCreating, setIsCreating] = useState(false);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [visibleFilter, setVisibleFilter] = useState('ALL');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !cachedPackages);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
+  const [subscribersOpen, setSubscribersOpen] = useState(false);
+  const [subscribersPkg, setSubscribersPkg] = useState<PackageRow | null>(null);
+  const [subscribers, setSubscribers] = useState<AdminPackageSubscriber[]>([]);
+  const [subscribersTotal, setSubscribersTotal] = useState(0);
+  const [subscribersLoading, setSubscribersLoading] = useState(false);
+  const [subscribersError, setSubscribersError] = useState('');
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
+  const [editExpiresLocal, setEditExpiresLocal] = useState('');
+  const [savingExpiry, setSavingExpiry] = useState(false);
 
   const selectedPackage = packages.find((p) => p.id === selectedId);
 
@@ -90,15 +156,21 @@ export default function AdminPackagesPage() {
     });
   }, [packages, search, statusFilter, visibleFilter]);
 
-  const loadPackages = useCallback(async (autoSelect = false) => {
-    setLoading(true);
+  const loadPackages = useCallback(async (autoSelect = false, force = false) => {
+    if (!peekCache(AdminPrefetchKeys.packages) || force) setLoading(true);
     setError('');
     try {
-      const data = await api.getPackages();
+      const data = await fetchAdminPackages(force);
       setPackages(data);
       if (autoSelect && data.length > 0) {
-        setSelectedId(data[0].id);
-        setForm(packageToForm(data[0]));
+        setSelectedId((prev) => {
+          if (prev && data.some((p) => p.id === prev)) return prev;
+          return data[0].id;
+        });
+        setForm((prev) => {
+          if (prev.name || prev.price) return prev;
+          return packageToForm(data[0]);
+        });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể tải danh sách gói');
@@ -108,13 +180,126 @@ export default function AdminPackagesPage() {
   }, []);
 
   useEffect(() => {
-    loadPackages(true);
+    void loadPackages(true, false);
   }, [loadPackages]);
 
   const selectPackage = (pkg: PackageRow) => {
     setIsCreating(false);
     setSelectedId(pkg.id);
     setForm(packageToForm(pkg));
+  };
+
+  const openSubscribers = async (pkg: PackageRow) => {
+    setSubscribersPkg(pkg);
+    setSubscribersOpen(true);
+    setSubscribersLoading(true);
+    setSubscribersError('');
+    setSubscribers([]);
+    setSubscribersTotal(0);
+    setEditingUserId(null);
+    try {
+      const data = await api.getAdminPackageSubscribers(pkg.id);
+      setSubscribers(data.subscribers);
+      setSubscribersTotal(data.total);
+    } catch (err) {
+      setSubscribersError(
+        err instanceof Error ? err.message : 'Không tải được danh sách người dùng',
+      );
+    } finally {
+      setSubscribersLoading(false);
+    }
+  };
+
+  const closeSubscribers = () => {
+    setSubscribersOpen(false);
+    setSubscribersPkg(null);
+    setSubscribers([]);
+    setSubscribersError('');
+    setEditingUserId(null);
+    setEditExpiresLocal('');
+  };
+
+  const startEditExpiry = (user: AdminPackageSubscriber) => {
+    setEditingUserId(user.id);
+    setEditExpiresLocal(toDatetimeLocalValue(user.expiresAt));
+    setSubscribersError('');
+  };
+
+  const cancelEditExpiry = () => {
+    setEditingUserId(null);
+    setEditExpiresLocal('');
+  };
+
+  const saveExpiry = async (userId: string) => {
+    setSavingExpiry(true);
+    setSubscribersError('');
+    try {
+      const premiumExpiresAt =
+        editExpiresLocal.trim() === ''
+          ? null
+          : new Date(editExpiresLocal).toISOString();
+      if (editExpiresLocal.trim() && Number.isNaN(new Date(editExpiresLocal).getTime())) {
+        throw new Error('Ngày hết hạn không hợp lệ');
+      }
+      const updated = await api.updateAdminUserPremium(userId, {
+        premiumExpiresAt,
+        packageId: subscribersPkg?.id,
+        isPremium: true,
+      });
+      invalidateAdminUsersCache();
+      invalidateAdminOverviewCache();
+      setSubscribers((prev) =>
+        prev.map((item) =>
+          item.id === userId
+            ? {
+                ...item,
+                isPremium: updated.isPremium,
+                packageName: updated.packageName ?? item.packageName,
+                expiresAt: updated.expiresAt,
+              }
+            : item,
+        ),
+      );
+      setEditingUserId(null);
+      setEditExpiresLocal('');
+    } catch (err) {
+      setSubscribersError(
+        err instanceof Error ? err.message : 'Không cập nhật được thời hạn',
+      );
+    } finally {
+      setSavingExpiry(false);
+    }
+  };
+
+  const extendExpiry = async (user: AdminPackageSubscriber, days: number) => {
+    setSavingExpiry(true);
+    setSubscribersError('');
+    try {
+      const nextIso = addDaysIso(user.expiresAt, days);
+      const updated = await api.updateAdminUserPremium(user.id, {
+        premiumExpiresAt: nextIso,
+        packageId: subscribersPkg?.id,
+        isPremium: true,
+      });
+      invalidateAdminUsersCache();
+      invalidateAdminOverviewCache();
+      setSubscribers((prev) =>
+        prev.map((item) =>
+          item.id === user.id
+            ? { ...item, expiresAt: updated.expiresAt, isPremium: updated.isPremium }
+            : item,
+        ),
+      );
+      if (editingUserId === user.id) {
+        setEditExpiresLocal(toDatetimeLocalValue(updated.expiresAt));
+      }
+    } catch (err) {
+      setSubscribersError(
+        err instanceof Error ? err.message : 'Không gia hạn được',
+      );
+    } finally {
+      setSavingExpiry(false);
+    }
   };
 
   const startCreate = () => {
@@ -213,7 +398,9 @@ export default function AdminPackagesPage() {
         setForm(packageToForm(updated));
       }
 
-      await loadPackages();
+      invalidateAdminPackagesCache();
+      invalidateAdminOverviewCache();
+      await loadPackages(false, true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể lưu gói');
     } finally {
@@ -232,7 +419,9 @@ export default function AdminPackagesPage() {
         setIsCreating(false);
         setForm({ ...emptyForm });
       }
-      await loadPackages();
+      invalidateAdminPackagesCache();
+      invalidateAdminOverviewCache();
+      await loadPackages(false, true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể xóa gói');
     }
@@ -296,7 +485,7 @@ export default function AdminPackagesPage() {
           </select>
           <button
             type="button"
-            onClick={loadPackages}
+            onClick={() => void loadPackages(false, true)}
             className="p-2 text-gray-400 hover:text-gray-600"
             aria-label="Làm mới"
           >
@@ -333,7 +522,7 @@ export default function AdminPackagesPage() {
                 filteredPackages.map((pkg) => (
                   <tr
                     key={pkg.id}
-                    onClick={() => selectPackage(pkg)}
+                    onClick={() => void openSubscribers(pkg)}
                     className={`border-b border-gray-50 cursor-pointer hover:bg-gray-50/50 ${
                       selectedId === pkg.id && !isCreating ? 'bg-purple-50/50' : ''
                     }`}
@@ -359,7 +548,10 @@ export default function AdminPackagesPage() {
                     </td>
                     <td className="p-4 text-gray-600">{pkg.duration}</td>
                     <td className="p-4 text-gray-600">
-                      {(pkg.userCount ?? 0).toLocaleString()}
+                      <span className="inline-flex items-center gap-1.5">
+                        <Users size={14} className="text-gray-400" />
+                        {(pkg.userCount ?? 0).toLocaleString()}
+                      </span>
                     </td>
                     <td className="p-4">
                       <span
@@ -381,6 +573,7 @@ export default function AdminPackagesPage() {
                             selectPackage(pkg);
                           }}
                           className="p-1.5 text-gray-400 hover:text-primary rounded"
+                          title="Chỉnh sửa gói"
                         >
                           <Pencil size={16} />
                         </button>
@@ -391,6 +584,7 @@ export default function AdminPackagesPage() {
                             handleDelete(pkg.id);
                           }}
                           className="p-1.5 text-gray-400 hover:text-red-500 rounded"
+                          title="Xóa gói"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -587,6 +781,194 @@ export default function AdminPackagesPage() {
           </button>
         </div>
       </div>
+
+      {subscribersOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/40"
+            aria-label="Đóng"
+            onClick={closeSubscribers}
+          />
+          <div className="relative w-full max-w-5xl max-h-[85vh] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100 flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">
+                  Người dùng đăng ký · {subscribersPkg?.name ?? 'Gói'}
+                </h3>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  {subscribersLoading
+                    ? 'Đang tải...'
+                    : `${subscribersTotal.toLocaleString('vi-VN')} người dùng`}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={closeSubscribers}
+                className="p-2 text-gray-400 hover:text-gray-700 rounded-lg hover:bg-gray-50"
+                aria-label="Đóng danh sách"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {subscribersError && (
+              <div className="mx-5 mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                {subscribersError}
+              </div>
+            )}
+
+            <div className="flex-1 overflow-auto">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-white">
+                  <tr className="border-b border-gray-100 text-gray-500 text-left">
+                    <th className="px-5 py-3 font-medium">Người dùng</th>
+                    <th className="px-5 py-3 font-medium">Email</th>
+                    <th className="px-5 py-3 font-medium">Gói đăng ký</th>
+                    <th className="px-5 py-3 font-medium">Ngày đăng ký</th>
+                    <th className="px-5 py-3 font-medium">Ngày hết hạn</th>
+                    <th className="px-5 py-3 font-medium">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subscribersLoading ? (
+                    <tr>
+                      <td colSpan={6} className="px-5 py-10 text-center text-gray-500">
+                        <Loader2
+                          className="inline-block animate-spin text-primary mr-2"
+                          size={18}
+                        />
+                        Đang tải danh sách...
+                      </td>
+                    </tr>
+                  ) : subscribers.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-5 py-10 text-center text-gray-400">
+                        Chưa có người dùng đăng ký gói này
+                      </td>
+                    </tr>
+                  ) : (
+                    subscribers.map((user) => (
+                      <tr
+                        key={user.id}
+                        className="border-b border-gray-50 hover:bg-gray-50/60"
+                      >
+                        <td className="px-5 py-3">
+                          <div className="flex items-center gap-2.5 min-w-[160px]">
+                            <UserAvatar
+                              name={user.fullName}
+                              src={user.avatarUrl}
+                              size="sm"
+                            />
+                            <span className="font-medium text-gray-900">
+                              {user.fullName}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-5 py-3 text-gray-600">{user.email}</td>
+                        <td className="px-5 py-3">
+                          <span className="text-xs font-medium px-2 py-1 rounded-full bg-purple-100 text-purple-700">
+                            {user.packageName}
+                          </span>
+                        </td>
+                        <td className="px-5 py-3 text-gray-500 whitespace-nowrap">
+                          {formatDateTime(user.subscribedAt)}
+                        </td>
+                        <td className="px-5 py-3 whitespace-nowrap min-w-[220px]">
+                          {editingUserId === user.id ? (
+                            <div className="space-y-2">
+                              <input
+                                type="datetime-local"
+                                value={editExpiresLocal}
+                                onChange={(e) => setEditExpiresLocal(e.target.value)}
+                                className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:border-primary"
+                              />
+                              <p className="text-[10px] text-gray-400">
+                                Để trống = không giới hạn thời hạn
+                              </p>
+                              <div className="flex flex-wrap gap-1">
+                                {[7, 30, 90].map((days) => (
+                                  <button
+                                    key={days}
+                                    type="button"
+                                    disabled={savingExpiry}
+                                    onClick={() => {
+                                      const next = addDaysIso(
+                                        editExpiresLocal
+                                          ? new Date(editExpiresLocal).toISOString()
+                                          : user.expiresAt,
+                                        days,
+                                      );
+                                      setEditExpiresLocal(toDatetimeLocalValue(next));
+                                    }}
+                                    className="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 text-gray-600 hover:bg-gray-50"
+                                  >
+                                    +{days} ngày
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-gray-500">
+                              {formatDateTime(user.expiresAt)}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-5 py-3">
+                          {editingUserId === user.id ? (
+                            <div className="flex flex-col gap-1">
+                              <button
+                                type="button"
+                                disabled={savingExpiry}
+                                onClick={() => void saveExpiry(user.id)}
+                                className="text-xs font-semibold text-white bg-primary px-2.5 py-1 rounded-lg disabled:opacity-60"
+                              >
+                                {savingExpiry ? 'Đang lưu...' : 'Lưu'}
+                              </button>
+                              <button
+                                type="button"
+                                disabled={savingExpiry}
+                                onClick={cancelEditExpiry}
+                                className="text-xs text-gray-500 hover:text-gray-700"
+                              >
+                                Hủy
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex flex-col gap-1 items-start">
+                              <button
+                                type="button"
+                                onClick={() => startEditExpiry(user)}
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                              >
+                                <Pencil size={12} />
+                                Sửa hạn
+                              </button>
+                              <div className="flex gap-1">
+                                {[7, 30].map((days) => (
+                                  <button
+                                    key={days}
+                                    type="button"
+                                    disabled={savingExpiry}
+                                    onClick={() => void extendExpiry(user, days)}
+                                    className="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 text-gray-600 hover:bg-gray-50 disabled:opacity-50"
+                                  >
+                                    +{days}d
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 }

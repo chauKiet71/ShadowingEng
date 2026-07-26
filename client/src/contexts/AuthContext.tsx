@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { api, getToken, removeToken, setToken } from '../lib/api';
+import { clearAdminPrefetch } from '../lib/prefetchAdmin';
 import { clearAuthenticatedPrefetch } from '../lib/prefetchFeatures';
 import type { LoginPayload, RegisterPayload, User } from '../types/auth';
 
@@ -58,6 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback(async (payload: LoginPayload) => {
     const { user: loggedInUser, accessToken } = await api.login(payload);
     clearAuthenticatedPrefetch();
+    clearAdminPrefetch();
     setToken(accessToken);
     setUser(loggedInUser);
     return loggedInUser;
@@ -66,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = useCallback(async (payload: RegisterPayload) => {
     const { user: newUser, accessToken } = await api.register(payload);
     clearAuthenticatedPrefetch();
+    clearAdminPrefetch();
     setToken(accessToken);
     setUser(newUser);
     return newUser;
@@ -73,6 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginWithToken = useCallback(async (accessToken: string) => {
     clearAuthenticatedPrefetch();
+    clearAdminPrefetch();
     setToken(accessToken);
     const profile = await api.getMe();
     setUser(profile);
@@ -83,6 +87,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     removeToken();
     setUser(null);
     clearAuthenticatedPrefetch();
+    clearAdminPrefetch();
   }, []);
 
   const value = useMemo(

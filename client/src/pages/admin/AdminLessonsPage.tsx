@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Lock, LockOpen, Search } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
+import { peekCache, setCache } from '../../lib/prefetchCache';
+import {
+  AdminPrefetchKeys,
+  fetchAdminLessonAccess,
+} from '../../lib/prefetchAdmin';
 import { api } from '../../lib/api';
 import { categories, getCategoryById } from '../../data/categories';
 import { lessons, formatLevelLabel } from '../../data/lessons';
@@ -9,19 +14,24 @@ import { formatDuration } from '../../data/mockData';
 type FilterTab = 'all' | 'locked' | 'unlocked';
 
 export default function AdminLessonsPage() {
-  const [accessMap, setAccessMap] = useState<Record<string, boolean>>({});
-  const [loading, setLoading] = useState(true);
+  const cached = peekCache<Record<string, boolean>>(
+    AdminPrefetchKeys.lessonAccess,
+  );
+  const [accessMap, setAccessMap] = useState<Record<string, boolean>>(
+    () => cached ?? {},
+  );
+  const [loading, setLoading] = useState(() => !cached);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState('all');
   const [filterTab, setFilterTab] = useState<FilterTab>('all');
 
-  const loadAccess = useCallback(async () => {
-    setLoading(true);
+  const loadAccess = useCallback(async (force = false) => {
+    if (!peekCache(AdminPrefetchKeys.lessonAccess) || force) setLoading(true);
     setError('');
     try {
-      const map = await api.getLessonAccessMap();
+      const map = await fetchAdminLessonAccess(force);
       setAccessMap(map);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể tải trạng thái khóa bài học');
@@ -31,7 +41,7 @@ export default function AdminLessonsPage() {
   }, []);
 
   useEffect(() => {
-    void loadAccess();
+    void loadAccess(false);
   }, [loadAccess]);
 
   const isLocked = useCallback(
@@ -44,7 +54,11 @@ export default function AdminLessonsPage() {
     setError('');
     try {
       await api.setLessonAccess(lessonId, nextLocked);
-      setAccessMap((prev) => ({ ...prev, [lessonId]: nextLocked }));
+      setAccessMap((prev) => {
+        const next = { ...prev, [lessonId]: nextLocked };
+        setCache(AdminPrefetchKeys.lessonAccess, next);
+        return next;
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể cập nhật trạng thái khóa');
     } finally {

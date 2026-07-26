@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { LessonAccessProvider } from './contexts/LessonAccessContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
@@ -19,9 +19,12 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import VerifyOtpPage from './pages/VerifyOtpPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import GoogleCallbackPage from './pages/GoogleCallbackPage';
+import AdminOverviewPage from './pages/admin/AdminOverviewPage';
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminLessonsPage from './pages/admin/AdminLessonsPage';
 import AdminPackagesPage from './pages/admin/AdminPackagesPage';
+import AdminTransactionsPage from './pages/admin/AdminTransactionsPage';
+import AdminStatsPage from './pages/admin/AdminStatsPage';
 import UpgradePage from './pages/UpgradePage';
 import PaymentPage from './pages/PaymentPage';
 import LevelPage from './pages/LevelPage';
@@ -129,7 +132,14 @@ export default function App() {
           />
           <Route path="/nang-cap" element={<UpgradePage />} />
           <Route path="/nang-cap/thanh-toan" element={<PaymentPage />} />
-          <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminOverviewPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/users"
             element={
@@ -151,6 +161,22 @@ export default function App() {
             element={
               <ProtectedRoute adminOnly>
                 <AdminPackagesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/transactions"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminTransactionsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/stats"
+            element={
+              <ProtectedRoute adminOnly>
+                <AdminStatsPage />
               </ProtectedRoute>
             }
           />

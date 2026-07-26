@@ -25,6 +25,7 @@ const chat_module_1 = require("./chat/chat.module");
 const vocabulary_module_1 = require("./vocabulary/vocabulary.module");
 const speaking_module_1 = require("./speaking/speaking.module");
 const video_translate_module_1 = require("./video-translate/video-translate.module");
+const admin_module_1 = require("./admin/admin.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -52,6 +53,7 @@ exports.AppModule = AppModule = __decorate([
             vocabulary_module_1.VocabularyModule,
             speaking_module_1.SpeakingModule,
             video_translate_module_1.VideoTranslateModule,
+            admin_module_1.AdminModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

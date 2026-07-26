@@ -16,6 +16,7 @@ import { ChatModule } from './chat/chat.module';
 import { VocabularyModule } from './vocabulary/vocabulary.module';
 import { SpeakingModule } from './speaking/speaking.module';
 import { VideoTranslateModule } from './video-translate/video-translate.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { VideoTranslateModule } from './video-translate/video-translate.module';
     VocabularyModule,
     SpeakingModule,
     VideoTranslateModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

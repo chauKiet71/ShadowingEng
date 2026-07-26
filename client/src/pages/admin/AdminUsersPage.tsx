@@ -13,7 +13,13 @@ import {
 } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
 import UserAvatar from '../../components/UserAvatar';
-import { api, type AdminUserRow } from '../../lib/api';
+import { type AdminUserRow } from '../../lib/api';
+import { peekCache } from '../../lib/prefetchCache';
+import {
+  AdminPrefetchKeys,
+  fetchAdminUserStats,
+  fetchAdminUsers,
+} from '../../lib/prefetchAdmin';
 
 const tabs = [
   { label: 'Tất cả người dùng', filter: {} },
@@ -70,30 +76,54 @@ export default function AdminUsersPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<(typeof PAGE_SIZE_OPTIONS)[number]>(10);
-  const [users, setUsers] = useState<AdminUserRow[]>([]);
-  const [total, setTotal] = useState(0);
-  const [stats, setStats] = useState({
-    total: 0,
-    newUsers: 0,
-    proUsers: 0,
-    activeUsers: 0,
-  });
-  const [loading, setLoading] = useState(true);
+
+  const defaultUsersParams = { page: 1, limit: 10 };
+  const cachedStats = peekCache<{
+    total: number;
+    newUsers: number;
+    proUsers: number;
+    activeUsers: number;
+  }>(AdminPrefetchKeys.userStats);
+  const cachedUsers = peekCache<{
+    users: AdminUserRow[];
+    total: number;
+    page: number;
+    limit: number;
+  }>(AdminPrefetchKeys.users(defaultUsersParams));
+
+  const [users, setUsers] = useState<AdminUserRow[]>(
+    () => cachedUsers?.users ?? [],
+  );
+  const [total, setTotal] = useState(() => cachedUsers?.total ?? 0);
+  const [stats, setStats] = useState(
+    () =>
+      cachedStats ?? {
+        total: 0,
+        newUsers: 0,
+        proUsers: 0,
+        activeUsers: 0,
+      },
+  );
+  const [loading, setLoading] = useState(() => !cachedUsers || !cachedStats);
   const [error, setError] = useState('');
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
+  const loadData = useCallback(async (force = false) => {
+    const usersParams = {
+      page,
+      limit: pageSize,
+      ...tabs[activeTab].filter,
+    };
+    const hasCache =
+      !!peekCache(AdminPrefetchKeys.userStats) &&
+      !!peekCache(AdminPrefetchKeys.users(usersParams));
+    if (!hasCache || force) setLoading(true);
     setError('');
     try {
       const [statsData, usersData] = await Promise.all([
-        api.getUserStats(),
-        api.getUsers({
-          page,
-          limit: pageSize,
-          ...tabs[activeTab].filter,
-        }),
+        fetchAdminUserStats(force),
+        fetchAdminUsers(usersParams, force),
       ]);
       setStats(statsData);
       setUsers(usersData.users);
@@ -108,7 +138,7 @@ export default function AdminUsersPage() {
   }, [activeTab, page, pageSize]);
 
   useEffect(() => {
-    loadData();
+    void loadData(false);
   }, [loadData]);
 
   const statCards = useMemo(

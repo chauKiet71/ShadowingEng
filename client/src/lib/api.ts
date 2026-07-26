@@ -155,6 +155,81 @@ export const api = {
     }>('/users/stats');
   },
 
+  getAdminOverview() {
+    return request<AdminOverview>('/admin/overview');
+  },
+
+  getAdminStats(params?: {
+    range?: AdminStatsRange;
+    from?: string;
+    to?: string;
+  }) {
+    const query = new URLSearchParams();
+    if (params?.from && params?.to) {
+      query.set('from', params.from);
+      query.set('to', params.to);
+      query.set('range', 'custom');
+    } else if (params?.range) {
+      query.set('range', params.range);
+    } else {
+      query.set('range', '30d');
+    }
+    return request<AdminStatsResponse>(`/admin/stats?${query.toString()}`);
+  },
+
+  getAdminPackageSubscribers(packageId: string) {
+    return request<AdminPackageSubscribersResponse>(
+      `/admin/packages/${encodeURIComponent(packageId)}/subscribers`,
+    );
+  },
+
+  updateAdminUserPremium(
+    userId: string,
+    payload: {
+      premiumExpiresAt?: string | null;
+      isPremium?: boolean;
+      packageId?: string | null;
+    },
+  ) {
+    return request<{
+      id: string;
+      fullName: string;
+      email: string;
+      avatarUrl: string | null;
+      isPremium: boolean;
+      packageName: string | null;
+      packageId: string | null;
+      expiresAt: string | null;
+    }>(`/admin/users/${encodeURIComponent(userId)}/premium`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  getAdminTransactionStats() {
+    return request<AdminTransactionsStats>('/admin/transactions/stats');
+  },
+
+  getAdminTransactions(params?: {
+    page?: number;
+    limit?: number;
+    status?: string;
+    search?: string;
+  }) {
+    const query = new URLSearchParams();
+    if (params?.page) query.set('page', String(params.page));
+    if (params?.limit) query.set('limit', String(params.limit));
+    if (params?.status) query.set('status', params.status);
+    if (params?.search) query.set('search', params.search);
+    const qs = query.toString();
+    return request<{
+      orders: AdminPaymentOrderRow[];
+      total: number;
+      page: number;
+      limit: number;
+    }>(`/admin/transactions${qs ? `?${qs}` : ''}`);
+  },
+
   getUsers(params?: {
     page?: number;
     limit?: number;
@@ -433,6 +508,177 @@ export interface AdminUserRow {
   package: { name: string } | null;
   createdAt: string;
   lastActivity: string | null;
+}
+
+export interface AdminOverview {
+  generatedAt: string;
+  kpis: {
+    usersTotal: number;
+    usersNewToday: number;
+    usersNew7d: number;
+    dau: number;
+    premiumActive: number;
+    premiumExpiring7d: number;
+    revenueToday: number;
+    revenueMonth: number;
+    paidOrdersToday: number;
+    paidOrdersMonth: number;
+    conversionRate30d: number;
+  };
+  features: {
+    lessonsCompletedToday: number;
+    listeningSessionsToday: number;
+    listeningMinutesToday: number;
+    speakingSessionsToday: number;
+    videoJobsReadyToday: number;
+    videoJobsFailedToday: number;
+    vocabUpdatedToday: number;
+  };
+  payments: {
+    pending: number;
+    paidToday: number;
+    expiredOrCancelled7d: number;
+    recent: Array<{
+      id: string;
+      paymentCode: string;
+      amount: number;
+      status: string;
+      paidAt: string | null;
+      createdAt: string;
+      userName: string;
+      packageName: string;
+    }>;
+  };
+  content: {
+    lessonsTotal: number;
+    categoriesTotal: number;
+    lockedLessons: number;
+  };
+  alerts: {
+    videoFailed: Array<{
+      id: string;
+      title: string;
+      errorMessage: string | null;
+      userName: string;
+      at: string;
+    }>;
+    premiumExpiring: Array<{
+      id: string;
+      fullName: string;
+      email: string;
+      packageName: string;
+      expiresAt: string | null;
+    }>;
+  };
+  activity: Array<{
+    type: 'user' | 'payment' | 'alert';
+    title: string;
+    subtitle: string;
+    at: string;
+  }>;
+}
+
+export interface AdminTransactionsStats {
+  pending: number;
+  paidToday: number;
+  revenueToday: number;
+  paidMonth: number;
+  revenueMonth: number;
+  expiredOrCancelled7d: number;
+  paidTotal: number;
+}
+
+export type AdminStatsRange = '7d' | '30d' | '90d' | 'custom';
+
+export interface AdminPackageSubscriber {
+  id: string;
+  fullName: string;
+  email: string;
+  avatarUrl: string | null;
+  isPremium: boolean;
+  packageName: string;
+  subscribedAt: string | null;
+  expiresAt: string | null;
+}
+
+export interface AdminPackageSubscribersResponse {
+  package: { id: string; name: string };
+  total: number;
+  subscribers: AdminPackageSubscriber[];
+}
+
+export interface AdminStatsResponse {
+  range: AdminStatsRange;
+  days: number;
+  from: string;
+  to: string;
+  generatedAt: string;
+  summary: {
+    newUsers: number;
+    avgDailyActive: number;
+    revenue: number;
+    paidOrders: number;
+    lessonsCompleted: number;
+    listeningMinutes: number;
+    speakingSessions: number;
+    videoReady: number;
+    videoFailed: number;
+    vocabUpdates: number;
+  };
+  series: Array<{
+    date: string;
+    newUsers: number;
+    activeUsers: number;
+    revenue: number;
+    paidOrders: number;
+    lessonsCompleted: number;
+    speakingSessions: number;
+    videoReady: number;
+    videoFailed: number;
+    vocabUpdates: number;
+  }>;
+  funnel: {
+    registered: number;
+    activated: number;
+    engaged: number;
+    paid: number;
+  };
+  featureMix: {
+    listening: number;
+    speaking: number;
+    video: number;
+    vocabulary: number;
+  };
+}
+
+export interface AdminPaymentOrderRow {
+  id: string;
+  paymentCode: string;
+  amount: number;
+  paidAmount: number | null;
+  status: 'PENDING' | 'PAID' | 'EXPIRED' | 'CANCELLED';
+  paidAt: string | null;
+  expiresAt: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    fullName: string;
+    email: string;
+    avatarUrl: string | null;
+  };
+  package: {
+    id: string;
+    name: string;
+  };
+  events: Array<{
+    id: string;
+    sepayTransactionId: string;
+    status: string;
+    reason: string | null;
+    createdAt: string;
+    processedAt: string | null;
+  }>;
 }
 
 export interface PackageRow {

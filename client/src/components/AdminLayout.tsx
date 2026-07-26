@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, FileText, CreditCard, BarChart3,
@@ -7,6 +7,7 @@ import {
 import Logo from './Logo';
 import UserAvatar from './UserAvatar';
 import { useAuth } from '../contexts/AuthContext';
+import { prefetchAdminPages } from '../lib/prefetchAdmin';
 
 const sidebarItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Tổng quan', end: true },
@@ -30,6 +31,10 @@ export default function AdminLayout({ children, title, subtitle, actions }: Admi
   const navigate = useNavigate();
 
   const displayName = user?.fullName ?? 'Admin';
+
+  useEffect(() => {
+    void prefetchAdminPages();
+  }, []);
 
   const handleLogout = () => {
     logout();

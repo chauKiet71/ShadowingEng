@@ -388,7 +388,7 @@ export default function VideoTranslatePage() {
           </button>
           <div className="min-w-0 flex-1">
             {!ready && (
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-xl font-bold text-gray-900">
                 Dịch video
               </h1>
             )}
