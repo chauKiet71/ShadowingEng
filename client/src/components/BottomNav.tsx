@@ -25,7 +25,9 @@ function NavItem({
       to={to}
       className={({ isActive }) =>
         `flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-colors flex-1 ${
-          isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600'
+          isActive
+            ? 'text-primary'
+            : 'text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300'
         }`
       }
     >
@@ -64,7 +66,7 @@ export default function BottomNav() {
               </span>
               <span
                 className={`text-[10px] font-semibold mt-1 ${
-                  isActive ? 'text-primary' : 'text-gray-500'
+                  isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
                 }`}
               >
                 Luyện nói

@@ -566,7 +566,8 @@ export default function LessonPage() {
                     : 'bg-white border-gray-100'
                 }`}
               >
-                <div className="min-w-0">
+                <div className="flex items-start gap-3">
+                  <div className="min-w-0 flex-1">
                   {shadowingResultIndex === index && shadowingResult ? (
                     <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
                       {shadowingResult.words.map((word, wordIndex) => {
@@ -618,6 +619,19 @@ export default function LessonPage() {
                   <p className="text-[10px] text-gray-300 mt-2 tabular-nums">
                     {formatTime(item.time_start)} – {formatTime(item.time_end)}
                   </p>
+                  </div>
+                  {isActive && (
+                    <span
+                      className={`audio-eq shrink-0 text-primary ${
+                        isPlaying ? 'audio-eq-playing' : ''
+                      }`}
+                      aria-hidden
+                    >
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                  )}
                 </div>
               </div>
             );

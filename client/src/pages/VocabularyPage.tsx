@@ -10,6 +10,7 @@ import {
   Briefcase,
   Building2,
   Check,
+  CheckCircle2,
   ChevronRight,
   Clapperboard,
   Cloud,
@@ -22,6 +23,7 @@ import {
   HardDrive,
   Languages,
   Landmark,
+  Layers,
   Loader2,
   MessageCircle,
   Plane,
@@ -52,6 +54,7 @@ import {
   fetchVocabularyOverview,
   fetchVocabularySet,
 } from '../lib/prefetchFeatures';
+import { playAnswerFeedback } from '../lib/profileSettings';
 
 const iconMap = {
   plane: Plane,
@@ -79,31 +82,71 @@ const iconMap = {
 } as const;
 
 const colorMap: Record<string, { bg: string; text: string; soft: string }> = {
-  blue: { bg: 'bg-blue-500', text: 'text-blue-600', soft: 'bg-blue-50' },
+  blue: {
+    bg: 'bg-blue-500',
+    text: 'text-blue-600 dark:text-blue-400',
+    soft: 'bg-blue-50 dark:bg-blue-950/40',
+  },
   purple: {
     bg: 'bg-purple-500',
-    text: 'text-purple-600',
-    soft: 'bg-purple-50',
+    text: 'text-purple-600 dark:text-purple-400',
+    soft: 'bg-purple-50 dark:bg-purple-950/40',
   },
-  teal: { bg: 'bg-teal-500', text: 'text-teal-600', soft: 'bg-teal-50' },
-  pink: { bg: 'bg-pink-500', text: 'text-pink-600', soft: 'bg-pink-50' },
-  sky: { bg: 'bg-sky-500', text: 'text-sky-600', soft: 'bg-sky-50' },
-  indigo: { bg: 'bg-indigo-500', text: 'text-indigo-600', soft: 'bg-indigo-50' },
+  teal: {
+    bg: 'bg-teal-500',
+    text: 'text-teal-600 dark:text-teal-400',
+    soft: 'bg-teal-50 dark:bg-teal-950/40',
+  },
+  pink: {
+    bg: 'bg-pink-500',
+    text: 'text-pink-600 dark:text-pink-400',
+    soft: 'bg-pink-50 dark:bg-pink-950/40',
+  },
+  sky: {
+    bg: 'bg-sky-500',
+    text: 'text-sky-600 dark:text-sky-400',
+    soft: 'bg-sky-50 dark:bg-sky-950/40',
+  },
+  indigo: {
+    bg: 'bg-indigo-500',
+    text: 'text-indigo-600 dark:text-indigo-400',
+    soft: 'bg-indigo-50 dark:bg-indigo-950/40',
+  },
   violet: {
     bg: 'bg-violet-500',
-    text: 'text-violet-600',
-    soft: 'bg-violet-50',
+    text: 'text-violet-600 dark:text-violet-400',
+    soft: 'bg-violet-50 dark:bg-violet-950/40',
   },
-  red: { bg: 'bg-red-500', text: 'text-red-600', soft: 'bg-red-50' },
-  cyan: { bg: 'bg-cyan-500', text: 'text-cyan-600', soft: 'bg-cyan-50' },
-  green: { bg: 'bg-green-500', text: 'text-green-600', soft: 'bg-green-50' },
+  red: {
+    bg: 'bg-red-500',
+    text: 'text-red-600 dark:text-red-400',
+    soft: 'bg-red-50 dark:bg-red-950/40',
+  },
+  cyan: {
+    bg: 'bg-cyan-500',
+    text: 'text-cyan-600 dark:text-cyan-400',
+    soft: 'bg-cyan-50 dark:bg-cyan-950/40',
+  },
+  green: {
+    bg: 'bg-green-500',
+    text: 'text-green-600 dark:text-green-400',
+    soft: 'bg-green-50 dark:bg-green-950/40',
+  },
   orange: {
     bg: 'bg-orange-500',
-    text: 'text-orange-600',
-    soft: 'bg-orange-50',
+    text: 'text-orange-600 dark:text-orange-400',
+    soft: 'bg-orange-50 dark:bg-orange-950/40',
   },
-  amber: { bg: 'bg-amber-500', text: 'text-amber-600', soft: 'bg-amber-50' },
-  slate: { bg: 'bg-slate-500', text: 'text-slate-600', soft: 'bg-slate-50' },
+  amber: {
+    bg: 'bg-amber-500',
+    text: 'text-amber-600 dark:text-amber-400',
+    soft: 'bg-amber-50 dark:bg-amber-950/40',
+  },
+  slate: {
+    bg: 'bg-slate-500',
+    text: 'text-slate-600 dark:text-slate-400',
+    soft: 'bg-slate-50 dark:bg-slate-950/40',
+  },
 };
 
 function speak(text: string) {
@@ -159,6 +202,14 @@ function normalizeAnswer(value: string): string {
   return value.trim().toLocaleLowerCase().replace(/\s+/g, ' ');
 }
 
+const DAILY_WORD_GOAL = 10;
+
+function truncateText(value: string, maxChars: number): string {
+  const text = value.trim();
+  if (text.length <= maxChars) return text;
+  return `${text.slice(0, maxChars).trimEnd()}…`;
+}
+
 function SetCard({
   set,
   onClick,
@@ -180,36 +231,43 @@ function SetCard({
       type="button"
       disabled={loading}
       onClick={onClick}
-      className="min-w-[210px] text-left bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 disabled:opacity-80"
+      className="flex flex-col min-w-[168px] max-w-[168px] w-[168px] overflow-hidden text-left bg-white/90 dark:bg-neutral-900 rounded-[22px] border border-white/80 dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-3.5 disabled:opacity-80"
     >
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-2 w-full">
         <div
-          className={`w-11 h-11 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center`}
+          className={`w-10 h-10 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center shrink-0`}
         >
           {loading ? (
-            <RotateCcw size={21} className="animate-spin" />
+            <RotateCcw size={18} className="animate-spin" />
           ) : (
-            <Icon size={21} />
+            <Icon size={18} />
           )}
         </div>
-        <span className="text-[10px] font-semibold text-gray-400 bg-gray-50 dark:bg-neutral-800 px-2 py-1 rounded-full">
+        <span className="text-[10px] font-semibold text-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full shrink-0">
           {set.cefrLevel}
         </span>
       </div>
-      <p className="font-bold text-gray-900 mt-3">{set.title}</p>
-      <p className="text-[11px] text-gray-500 mt-1 line-clamp-2">
-        {set.description}
+      <p className="w-full font-bold text-gray-900 dark:text-white mt-3 text-sm truncate">
+        {set.title}
       </p>
-      <div className="mt-3 flex items-center justify-between text-[10px] text-gray-400">
+      <p
+        className="w-full text-[11px] text-gray-500 dark:text-gray-400 mt-1 h-[2.5rem] overflow-hidden leading-[1.25rem]"
+        title={set.description}
+      >
+        {truncateText(set.description, 52)}
+      </p>
+      <div className="mt-3 flex items-center justify-between text-[10px] text-gray-400 dark:text-gray-500">
         <span>{set.wordCount} từ</span>
         {(set.learnedCount ?? 0) > 0 && (
-          <span>{set.learnedCount}/{set.wordCount} đã học</span>
+          <span>
+            {set.learnedCount}/{set.wordCount}
+          </span>
         )}
       </div>
       {(set.learnedCount ?? 0) > 0 && (
-        <div className="mt-2 h-1.5 rounded-full bg-gray-100 overflow-hidden">
+        <div className="mt-2 h-1.5 rounded-full bg-indigo-50 dark:bg-neutral-800 overflow-hidden">
           <div
-            className={`h-full ${colors.bg} rounded-full`}
+            className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-violet-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -218,9 +276,38 @@ function SetCard({
   );
 }
 
+function PracticeModeCard({
+  icon: Icon,
+  label,
+  colorClass,
+  onClick,
+}: {
+  icon: typeof Layers;
+  label: string;
+  colorClass: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex-1 min-w-0 bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.06)] px-2 py-4 flex flex-col items-center gap-2.5 hover:border-indigo-100 dark:hover:border-indigo-900 transition-colors"
+    >
+      <div
+        className={`w-11 h-11 rounded-2xl flex items-center justify-center ${colorClass}`}
+      >
+        <Icon size={20} strokeWidth={2.2} />
+      </div>
+      <span className="text-[11px] font-semibold text-gray-700 dark:text-gray-200 text-center leading-tight">
+        {label}
+      </span>
+    </button>
+  );
+}
+
 export default function VocabularyPage() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const cachedOverview = peekCache<VocabularyOverview>(
     PrefetchKeys.vocabularyOverview,
   );
@@ -244,6 +331,7 @@ export default function VocabularyPage() {
   const learningWord = learningQueue[learningIndex] ?? null;
   const [loading, setLoading] = useState(() => !cachedOverview);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [continueLoading, setContinueLoading] = useState(false);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [showAllSets, setShowAllSets] = useState(false);
@@ -415,6 +503,7 @@ export default function VocabularyPage() {
       normalizeAnswer(learningAnswer) === normalizeAnswer(learningWord.word);
 
     setLearningResult(isCorrect ? 'correct' : 'incorrect');
+    playAnswerFeedback(isCorrect);
 
     if (learningMode === 'review') {
       saveReviewedWord(learningWord, isCorrect);
@@ -441,7 +530,7 @@ export default function VocabularyPage() {
   if (loading) {
     return (
       <MobileLayout>
-        <div className="p-8 text-sm text-gray-500 flex items-center gap-2">
+        <div className="p-8 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
           <Loader2 size={16} className="animate-spin" />
           Đang tải từ vựng...
         </div>
@@ -506,7 +595,7 @@ export default function VocabularyPage() {
                   Nhấn để nghe lại cách phát âm
                 </p>
 
-                <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                   Gợi ý ký tự
                 </p>
                 <p className="mt-2 text-2xl font-bold tracking-[0.14em] text-gray-900 dark:text-white break-words">
@@ -727,10 +816,10 @@ export default function VocabularyPage() {
               <ArrowLeft size={18} />
             </button>
             <div className="min-w-0">
-              <h1 className="font-bold text-gray-900 truncate">
+              <h1 className="font-bold text-gray-900 dark:text-white truncate">
                 {selectedSet.title}
               </h1>
-              <p className="text-xs text-gray-500">Bộ từ của bạn</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Bộ từ của bạn</p>
             </div>
           </div>
         </div>
@@ -738,7 +827,7 @@ export default function VocabularyPage() {
         <div className="px-4 py-5">
           <section>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="font-bold text-gray-900">
+              <h2 className="font-bold text-gray-900 dark:text-white">
                 Thống kê từ vựng của bạn
               </h2>
               <Sparkles size={17} className="text-primary" />
@@ -787,18 +876,18 @@ export default function VocabularyPage() {
               onClick={() => startLearningQueue(learnedWords, 'review')}
               className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-4 text-left disabled:opacity-50"
             >
-              <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-500 dark:text-orange-400 flex items-center justify-center shrink-0">
                 <RotateCcw size={21} />
               </div>
               <div className="flex-1">
-                <p className="font-bold text-gray-900">Ôn tập ngay</p>
-                <p className="text-[11px] text-gray-500 mt-0.5">
+                <p className="font-bold text-gray-900 dark:text-white">Ôn tập ngay</p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
                   {learnedWords.length > 0
                     ? `Ôn lại ${learnedWords.length} từ đã học trong bộ này`
                     : 'Hãy học từ mới trước khi ôn tập'}
                 </p>
               </div>
-              <ChevronRight size={18} className="text-gray-400" />
+              <ChevronRight size={18} className="text-gray-400 dark:text-gray-500" />
             </button>
 
             <button
@@ -807,18 +896,18 @@ export default function VocabularyPage() {
               onClick={() => startLearningQueue(nextFiveWords)}
               className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-4 text-left disabled:opacity-50"
             >
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center shrink-0">
                 <Plus size={22} />
               </div>
               <div className="flex-1">
-                <p className="font-bold text-gray-900">Học thêm 5 từ mới</p>
-                <p className="text-[11px] text-gray-500 mt-0.5">
+                <p className="font-bold text-gray-900 dark:text-white">Học thêm 5 từ mới</p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
                   {nextFiveWords.length > 0
                     ? `Bắt đầu học ${nextFiveWords.length} từ tiếp theo`
                     : 'Bạn đã học hết bộ từ này'}
                 </p>
               </div>
-              <ChevronRight size={18} className="text-gray-400" />
+              <ChevronRight size={18} className="text-gray-400 dark:text-gray-500" />
             </button>
           </section>
         </div>
@@ -840,10 +929,10 @@ export default function VocabularyPage() {
               <ArrowLeft size={18} />
             </button>
             <div className="flex-1 min-w-0">
-              <h1 className="font-bold text-gray-900 truncate">
+              <h1 className="font-bold text-gray-900 dark:text-white truncate">
                 {selectedSet.title}
               </h1>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {selectedSet.words.length} từ · {selectedSet.cefrLevel}
               </p>
             </div>
@@ -863,7 +952,7 @@ export default function VocabularyPage() {
         </div>
 
         {error && (
-          <div className="mx-4 mt-3 rounded-xl bg-red-50 text-red-600 text-xs px-3 py-2">
+          <div className="mx-4 mt-3 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-xs px-3 py-2">
             {error}
           </div>
         )}
@@ -882,7 +971,7 @@ export default function VocabularyPage() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="font-bold text-gray-900">{word.word}</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{word.word}</p>
                     <button
                       type="button"
                       onClick={() => speak(word.word)}
@@ -894,12 +983,12 @@ export default function VocabularyPage() {
                       <Check size={15} className="text-green-500 ml-auto" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-400">{word.phonetic}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{word.phonetic}</p>
                   <p className="text-sm text-primary font-medium mt-1">
                     {word.meaning}
                   </p>
-                  <p className="text-xs text-gray-600 mt-2">{word.example}</p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-2">{word.example}</p>
+                  <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5">
                     {word.exampleTranslation}
                   </p>
                 </div>
@@ -935,8 +1024,8 @@ export default function VocabularyPage() {
               <ArrowLeft size={18} />
             </button>
             <div className="min-w-0">
-              <h1 className="font-bold text-gray-900">Tất cả bộ từ vựng</h1>
-              <p className="text-xs text-gray-500">
+              <h1 className="font-bold text-gray-900 dark:text-white">Tất cả bộ từ vựng</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {overview?.sets.length ?? 0} chủ đề
               </p>
             </div>
@@ -953,12 +1042,12 @@ export default function VocabularyPage() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Tìm chủ đề bộ từ..."
-              className="w-full rounded-xl bg-white dark:bg-neutral-900 card-shadow pl-9 pr-3 py-2.5 text-sm text-gray-900 outline-none"
+              className="w-full rounded-xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 card-shadow pl-9 pr-3 py-2.5 text-sm text-gray-900 dark:text-white outline-none"
             />
           </div>
 
           {error && (
-            <div className="mb-3 rounded-xl bg-red-50 text-red-600 text-xs px-3 py-2">
+            <div className="mb-3 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-xs px-3 py-2">
               {error}
             </div>
           )}
@@ -987,32 +1076,32 @@ export default function VocabularyPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-gray-900 truncate">
+                      <p className="font-bold text-gray-900 dark:text-white truncate">
                         {set.title}
                       </p>
-                      <span className="text-[10px] font-semibold text-gray-400 bg-gray-50 dark:bg-neutral-800 px-2 py-0.5 rounded-full shrink-0">
+                      <span className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-neutral-800 px-2 py-0.5 rounded-full shrink-0">
                         {set.cefrLevel}
                       </span>
                     </div>
-                    <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-2">
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
                       {set.description}
                     </p>
-                    <p className="text-[11px] text-gray-400 mt-1">
+                    <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1">
                       {set.topic} · {set.wordCount} từ
                       {(set.learnedCount ?? 0) > 0
                         ? ` · đã học ${set.learnedCount}`
                         : ''}
                     </p>
                   </div>
-                  <ChevronRight size={17} className="text-gray-400 shrink-0" />
+                  <ChevronRight size={17} className="text-gray-400 dark:text-gray-500 shrink-0" />
                 </button>
               );
             })}
 
             {filteredSets.length === 0 && (
               <div className="bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-6 text-center">
-                <BookOpen size={28} className="text-gray-300 mx-auto" />
-                <p className="text-sm text-gray-500 mt-3">
+                <BookOpen size={28} className="text-gray-300 dark:text-gray-600 mx-auto" />
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
                   Không tìm thấy bộ từ phù hợp
                 </p>
               </div>
@@ -1023,169 +1112,390 @@ export default function VocabularyPage() {
     );
   }
 
+  const stats = overview?.stats;
+  const totalLearned = stats?.totalLearned ?? 0;
+  const mastered = stats?.mastered ?? 0;
+  const learning = stats?.learning ?? 0;
+  const learnedToday = stats?.learnedToday ?? 0;
+  const dueCount = stats?.dueCount ?? 0;
+  const streakDays = user?.streakDays ?? 0;
+  const dailyGoalPct = Math.min(
+    100,
+    Math.round((learnedToday / DAILY_WORD_GOAL) * 100),
+  );
+  const memoryBarPct =
+    totalLearned > 0
+      ? Math.max(
+          learning > 0 ? 12 : 0,
+          Math.round(((mastered + learning * 0.55) / totalLearned) * 100),
+        )
+      : 0;
+  const dailyGoalHint =
+    learnedToday >= DAILY_WORD_GOAL
+      ? 'Đã hoàn thành mục tiêu hôm nay!'
+      : `${learnedToday}/${DAILY_WORD_GOAL} từ mới — cố lên, sắp đạt rồi!`;
+
+  async function continueTodayLearning() {
+    if (!isAuthenticated) {
+      navigate('/dang-nhap', {
+        state: {
+          from: '/tu-vung',
+          message: 'Vui lòng đăng nhập để học từ vựng.',
+        },
+      });
+      return;
+    }
+    const target = overview?.mySets[0] ?? overview?.sets[0];
+    if (!target) return;
+
+    const needsFetch = !peekCache(PrefetchKeys.vocabularySet(target.id));
+    if (needsFetch) setContinueLoading(true);
+    try {
+      await openSet(target, 'dashboard');
+    } finally {
+      setContinueLoading(false);
+    }
+  }
+
+  function startPracticeMode(mode: 'flashcard' | 'quiz' | 'listen') {
+    if (!isAuthenticated) {
+      navigate('/dang-nhap', {
+        state: {
+          from: '/tu-vung',
+          message: 'Vui lòng đăng nhập để luyện từ vựng.',
+        },
+      });
+      return;
+    }
+
+    if (mode === 'listen' || mode === 'quiz' || mode === 'flashcard') {
+      if (dueCount > 0) {
+        startLearningQueue(overview?.dueWords ?? [], 'review');
+        return;
+      }
+      const target = overview?.mySets[0] ?? overview?.sets[0];
+      if (target) void openSet(target, 'dashboard');
+    }
+  }
+
   return (
     <MobileLayout>
-      <div className="px-4 pt-5">
-        <div className="flex items-center gap-2">
-          <BookOpen size={22} className="text-primary" />
-          <h1 className="text-xl font-bold text-gray-900">Từ vựng</h1>
-        </div>
-        <p className="text-sm text-gray-500 mt-1">
-          Học đều mỗi ngày, ghi nhớ lâu hơn
-        </p>
-
-        {error && (
-          <div className="mt-3 rounded-xl bg-red-50 text-red-600 text-xs px-3 py-2">
-            {error}
-          </div>
-        )}
-
-        <section className="mt-5">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-gray-900">
-              Thống kê từ vựng của bạn
-            </h2>
-            <Sparkles size={17} className="text-primary" />
-          </div>
-          <div className="bg-gradient-to-br from-indigo-500 to-blue-500 text-white rounded-3xl p-5 shadow-lg">
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-2xl font-bold">
-                  {overview?.stats.totalLearned ?? 0}
-                </p>
-                <p className="text-[10px] text-white/75">Đã học</p>
+      <div className="min-h-screen bg-[linear-gradient(180deg,#eef1ff_0%,#f7f8fc_42%,#f7f8fc_100%)] dark:bg-[linear-gradient(180deg,#0a0a0a_0%,#171717_40%,#0a0a0a_100%)]">
+        <div className="px-4 pt-5 pb-2">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 min-w-0">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 text-white flex items-center justify-center shadow-[0_10px_24px_rgba(99,102,241,0.35)] shrink-0">
+                <BookOpen size={20} strokeWidth={2.25} />
               </div>
-              <div>
-                <p className="text-2xl font-bold">
-                  {overview?.stats.mastered ?? 0}
+              <div className="min-w-0">
+                <h1 className="text-[22px] font-bold text-gray-900 dark:text-white leading-tight">
+                  Từ vựng
+                </h1>
+                <p className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5">
+                  Học đều mỗi ngày, ghi nhớ lâu hơn
                 </p>
-                <p className="text-[10px] text-white/75">Đã thuộc</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold">
-                  {overview?.stats.learnedToday ?? 0}
-                </p>
-                <p className="text-[10px] text-white/75">Hôm nay</p>
               </div>
             </div>
-            <div className="mt-4 flex items-center gap-2 bg-white/15 rounded-xl px-3 py-2 text-xs">
-              <Flame size={15} />
-              <span>
-                {overview?.stats.learning ?? 0} từ đang trong quá trình ghi nhớ
-              </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-orange-50 dark:bg-orange-950/40 border border-orange-100 dark:border-orange-900/50 px-2.5 py-1.5">
+                <Flame size={14} className="text-orange-500 fill-orange-400" />
+                <span className="text-xs font-bold text-orange-500">
+                  {streakDays}
+                </span>
+                <span className="text-[11px] font-medium text-orange-400">
+                  ngày
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch('');
+                  setShowAllSets(true);
+                  window.scrollTo({ top: 0, behavior: 'auto' });
+                }}
+                className="w-9 h-9 rounded-full bg-white/90 dark:bg-neutral-900 border border-white dark:border-neutral-800 shadow-sm flex items-center justify-center text-gray-500 dark:text-gray-400"
+                aria-label="Tìm bộ từ"
+              >
+                <Search size={16} />
+              </button>
             </div>
           </div>
-        </section>
 
-        <section className="mt-5">
-          <h2 className="font-bold text-gray-900 mb-3">
-            Ôn tập từ vựng đã học
-          </h2>
-          <div className="bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
-              <RotateCcw size={21} />
-            </div>
-            <div className="flex-1">
-              <p className="font-semibold text-gray-900">
-                {overview?.stats.dueCount
-                  ? `${overview.stats.dueCount} từ cần ôn hôm nay`
-                  : 'Bạn đã ôn tập xong'}
-              </p>
-              <p className="text-[11px] text-gray-500 mt-0.5">
-                Lịch ôn được tự động sắp xếp để ghi nhớ lâu
-              </p>
-            </div>
-            <button
-              type="button"
-              disabled={!overview?.stats.dueCount}
-              onClick={() =>
-                startLearningQueue(overview?.dueWords ?? [], 'review')
-              }
-              className="px-3 py-2 rounded-xl bg-primary text-white text-xs font-semibold disabled:bg-gray-200 disabled:text-gray-400"
-            >
-              Ôn tập
-            </button>
-          </div>
-        </section>
-
-        <section className="mt-5">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-gray-900">Khám phá bộ từ vựng</h2>
-            <button
-              type="button"
-              onClick={() => {
-                setSearch('');
-                setShowAllSets(true);
-                window.scrollTo({ top: 0, behavior: 'auto' });
-              }}
-              className="text-xs font-semibold text-primary"
-            >
-              Xem tất cả
-            </button>
-          </div>
-          <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
-            {(overview?.sets ?? []).slice(0, 5).map((set) => (
-              <SetCard
-                key={set.id}
-                set={set}
-                loading={busyId === set.id}
-                onClick={() => void openSet(set)}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-5 mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-gray-900">Bộ từ của bạn</h2>
-            <Brain size={17} className="text-primary" />
-          </div>
-          {(overview?.mySets.length ?? 0) > 0 ? (
-            <div className="space-y-3">
-              {overview?.mySets.map((set) => {
-                const Icon =
-                  iconMap[set.icon as keyof typeof iconMap] ?? BookOpen;
-                const colors = colorMap[set.color] ?? colorMap.blue;
-                return (
-                  <button
-                    key={set.id}
-                    type="button"
-                    disabled={busyId === set.id}
-                    onClick={() => void openSet(set, 'dashboard')}
-                    className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-3 text-left"
-                  >
-                    <div
-                      className={`w-11 h-11 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center`}
-                    >
-                      {busyId === set.id ? (
-                        <RotateCcw size={20} className="animate-spin" />
-                      ) : (
-                        <Icon size={20} />
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900">{set.title}</p>
-                      <p className="text-[11px] text-gray-500">
-                        {set.wordCount} từ · {set.cefrLevel}
-                      </p>
-                    </div>
-                    <ChevronRight size={17} className="text-gray-400" />
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-6 text-center">
-              <BookOpen size={28} className="text-gray-300 mx-auto" />
-              <p className="text-sm font-semibold text-gray-700 mt-2">
-                Chưa có bộ từ nào
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                Mở một bộ từ ở trên và bấm “Lưu bộ”
-              </p>
+          {error && (
+            <div className="mt-3 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-xs px-3 py-2">
+              {error}
             </div>
           )}
-        </section>
+
+          <section className="mt-5">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-bold text-gray-900 dark:text-white">
+                Thống kê từ vựng của bạn
+              </h2>
+              <Sparkles size={16} className="text-indigo-400" />
+            </div>
+
+            <div className="rounded-[28px] bg-gradient-to-br from-[#6d5efc] via-[#5b6cf8] to-[#4f7df5] text-white p-5 shadow-[0_18px_40px_rgba(79,100,245,0.35)]">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <p className="text-[28px] font-bold leading-none">
+                    {totalLearned}
+                  </p>
+                  <p className="text-[11px] text-white/75 mt-1.5">Đã học</p>
+                </div>
+                <div>
+                  <p className="text-[28px] font-bold leading-none">
+                    {mastered}
+                  </p>
+                  <p className="text-[11px] text-white/75 mt-1.5">Đã thuộc</p>
+                </div>
+                <div>
+                  <p className="text-[28px] font-bold leading-none">
+                    {learnedToday}
+                  </p>
+                  <p className="text-[11px] text-white/75 mt-1.5">Hôm nay</p>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <div className="flex items-center gap-2 text-[12px] text-white/90 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-orange-300 shadow-[0_0_0_3px_rgba(253,186,116,0.35)]" />
+                  <span>
+                    {learning} từ đang trong quá trình ghi nhớ
+                  </span>
+                </div>
+                <div className="h-2 rounded-full bg-white/20 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-orange-300 via-amber-200 to-white"
+                    style={{ width: `${memoryBarPct}%` }}
+                  />
+                </div>
+                <div className="mt-2.5 flex items-center justify-between text-[10px] text-white/70">
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/80" />
+                    Mới học
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-300" />
+                    Đang nhớ
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-300" />
+                    Đã thuộc
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-3 bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-3.5 flex items-center gap-3">
+              <div className="relative w-12 h-12 shrink-0">
+                <svg viewBox="0 0 36 36" className="w-12 h-12 -rotate-90">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    className="text-indigo-50 dark:text-neutral-800"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15"
+                    fill="none"
+                    stroke="url(#dailyGoalGrad)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeDasharray={`${(dailyGoalPct / 100) * 94.2} 94.2`}
+                    className="text-indigo-500"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="dailyGoalGrad"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="#818cf8" />
+                      <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <span className="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
+                  {dailyGoalPct}%
+                </span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-sm text-gray-900 dark:text-white">
+                  Mục tiêu hôm nay
+                </p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                  {dailyGoalHint}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => void continueTodayLearning()}
+                disabled={continueLoading}
+                className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:bg-indigo-100 dark:hover:bg-indigo-950/60 transition-colors disabled:opacity-70"
+              >
+                {continueLoading && (
+                  <Loader2 size={13} className="animate-spin" />
+                )}
+                Học tiếp
+              </button>
+            </div>
+          </section>
+
+          <section className="mt-6">
+            <h2 className="font-bold text-gray-900 dark:text-white mb-3">
+              Ôn tập từ vựng đã học
+            </h2>
+            <div className="bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-3.5 flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-500 dark:text-orange-400 flex items-center justify-center shrink-0">
+                <RotateCcw size={20} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-sm text-gray-900 dark:text-white">
+                  {dueCount > 0
+                    ? `${dueCount} từ cần ôn hôm nay`
+                    : 'Bạn đã ôn tập xong'}
+                </p>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                  Lịch ôn được tự động sắp xếp để ghi nhớ lâu
+                </p>
+              </div>
+              <button
+                type="button"
+                disabled={!dueCount}
+                onClick={() =>
+                  startLearningQueue(overview?.dueWords ?? [], 'review')
+                }
+                className="shrink-0 px-4 py-2.5 rounded-full bg-indigo-500 text-white text-xs font-bold shadow-[0_8px_18px_rgba(99,102,241,0.35)] disabled:bg-gray-200 dark:disabled:bg-neutral-700 disabled:text-gray-400 dark:disabled:text-gray-500 disabled:shadow-none"
+              >
+                Ôn tập
+              </button>
+            </div>
+          </section>
+
+          {/* Tạm ẩn — bật lại khi làm xong chế độ luyện tập
+          <section className="mt-6">
+            <h2 className="font-bold text-gray-900 dark:text-white mb-3">
+              Chế độ luyện tập
+            </h2>
+            <div className="flex gap-2.5">
+              <PracticeModeCard
+                icon={Layers}
+                label="Flashcard"
+                colorClass="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500 dark:text-indigo-400"
+                onClick={() => startPracticeMode('flashcard')}
+              />
+              <PracticeModeCard
+                icon={CheckCircle2}
+                label="Trắc nghiệm"
+                colorClass="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 dark:text-emerald-400"
+                onClick={() => startPracticeMode('quiz')}
+              />
+              <PracticeModeCard
+                icon={Volume2}
+                label="Nghe & viết"
+                colorClass="bg-orange-50 dark:bg-orange-950/40 text-orange-500 dark:text-orange-400"
+                onClick={() => startPracticeMode('listen')}
+              />
+            </div>
+          </section>
+          */}
+
+          <section className="mt-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-bold text-gray-900 dark:text-white">
+                Khám phá bộ từ vựng
+              </h2>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch('');
+                  setShowAllSets(true);
+                  window.scrollTo({ top: 0, behavior: 'auto' });
+                }}
+                className="text-xs font-semibold text-indigo-500 dark:text-indigo-400"
+              >
+                Xem tất cả
+              </button>
+            </div>
+            <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-none">
+              {(overview?.sets ?? []).slice(0, 8).map((set) => (
+                <SetCard
+                  key={set.id}
+                  set={set}
+                  loading={busyId === set.id}
+                  onClick={() => void openSet(set)}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-6 mb-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-bold text-gray-900 dark:text-white">
+                Bộ từ của bạn
+              </h2>
+              <Brain size={17} className="text-indigo-400" />
+            </div>
+            {(overview?.mySets.length ?? 0) > 0 ? (
+              <div className="space-y-3">
+                {overview?.mySets.map((set) => {
+                  const Icon =
+                    iconMap[set.icon as keyof typeof iconMap] ?? BookOpen;
+                  const colors = colorMap[set.color] ?? colorMap.blue;
+                  return (
+                    <button
+                      key={set.id}
+                      type="button"
+                      disabled={busyId === set.id}
+                      onClick={() => void openSet(set, 'dashboard')}
+                      className="w-full bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-4 flex items-center gap-3 text-left"
+                    >
+                      <div
+                        className={`w-11 h-11 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center`}
+                      >
+                        {busyId === set.id ? (
+                          <RotateCcw size={20} className="animate-spin" />
+                        ) : (
+                          <Icon size={20} />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-900 dark:text-white truncate">
+                          {set.title}
+                        </p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400">
+                          {set.wordCount} từ · {set.cefrLevel}
+                          {(set.learnedCount ?? 0) > 0
+                            ? ` · đã học ${set.learnedCount}`
+                            : ''}
+                        </p>
+                      </div>
+                      <ChevronRight size={17} className="text-gray-400 dark:text-gray-500" />
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-6 text-center">
+                <BookOpen size={28} className="text-indigo-200 dark:text-indigo-800 mx-auto" />
+                <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-2">
+                  Chưa có bộ từ nào
+                </p>
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                  Mở một bộ từ ở trên và bấm “Lưu”
+                </p>
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </MobileLayout>
   );

@@ -291,6 +291,63 @@ button .loader {
   animation-delay: 1s;
 }
 
+.audio-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3.5px;
+  height: 20px;
+  width: 18px;
+  margin-top: 2px;
+}
+
+.audio-eq > span {
+  display: block;
+  width: 3.5px;
+  border-radius: 9999px;
+  background: currentColor;
+  height: 8px;
+  transform-origin: bottom center;
+}
+
+.audio-eq > span:nth-child(1) {
+  height: 8px;
+}
+
+.audio-eq > span:nth-child(2) {
+  height: 18px;
+}
+
+.audio-eq > span:nth-child(3) {
+  height: 11px;
+}
+
+.audio-eq.audio-eq-playing > span {
+  animation: audio-eq-bounce 0.85s ease-in-out infinite;
+}
+
+.audio-eq.audio-eq-playing > span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.audio-eq.audio-eq-playing > span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.audio-eq.audio-eq-playing > span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes audio-eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
