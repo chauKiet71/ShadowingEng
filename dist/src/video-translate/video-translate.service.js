@@ -1,43 +1,10 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
@@ -55,14 +22,16 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const util_1 = require("util");
 const ffmpeg_static_1 = __importDefault(require("ffmpeg-static"));
-const openai_1 = __importStar(require("openai"));
+const openai_1 = __importDefault(require("openai"));
 const youtube_transcript_1 = require("youtube-transcript");
 const prisma_service_1 = require("../prisma/prisma.service");
 const youtube_util_1 = require("./youtube.util");
 exports.FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 exports.DEFAULT_MAX_SECONDS_FREE = 600;
 exports.DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-exports.DUBBED_PIPELINE_VERSION = 11;
+const DEFAULT_TRANSLATION_BATCH_SIZE = 24;
+const DEFAULT_TRANSLATION_CONCURRENCY = 3;
+exports.DUBBED_PIPELINE_VERSION = 12;
 const TRANSCRIPT_RULES = {
     pauseBreakSec: 0.5,
     timestampEpsilonSec: 0.001,
@@ -221,6 +190,10 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         if (this.processing.has(jobId))
             return;
         this.processing.add(jobId);
+        const startedAt = Date.now();
+        const logStage = (stage) => {
+            this.logger.log(`Video translate job ${jobId}: ${stage} (+${Date.now() - startedAt}ms)`);
+        };
         const jobDir = (0, path_1.join)(process.cwd(), 'storage', 'video-translate', jobId);
         const workDir = (0, path_1.join)(jobDir, 'work');
         (0, fs_1.mkdirSync)(workDir, { recursive: true });
@@ -241,11 +214,14 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             if (!sourcePath || !(0, fs_1.existsSync)(sourcePath)) {
                 throw new common_1.BadRequestException('Không tìm thấy file đã tải lên');
             }
-            const durationSec = Math.max(1, Math.round(await this.probeDurationSec(sourcePath)));
-            const user = await this.prisma.user.findUniqueOrThrow({
-                where: { id: job.userId },
-                select: { isPremium: true, premiumExpiresAt: true },
-            });
+            const [probedDurationSec, user] = await Promise.all([
+                this.probeDurationSec(sourcePath),
+                this.prisma.user.findUniqueOrThrow({
+                    where: { id: job.userId },
+                    select: { isPremium: true, premiumExpiresAt: true },
+                }),
+            ]);
+            const durationSec = Math.max(1, Math.round(probedDurationSec));
             const isPremium = this.resolvePremium(user);
             const maxSeconds = isPremium
                 ? this.maxSecondsPremium()
@@ -260,22 +236,34 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                     durationSec,
                 },
             });
-            const thumbnailUrl = await this.extractUploadThumbnail(sourcePath, jobDir, jobId);
-            if (thumbnailUrl) {
+            logStage('metadata ready');
+            const thumbnailTask = this.extractUploadThumbnail(sourcePath, jobDir, jobId)
+                .then(async (thumbnailUrl) => {
+                if (!thumbnailUrl)
+                    return;
                 await this.prisma.videoTranslateJob.update({
                     where: { id: jobId },
                     data: { thumbnailUrl },
                 });
-            }
+            })
+                .catch((error) => {
+                this.logger.warn(`Thumbnail update failed for job ${jobId}: ${error instanceof Error ? error.message : String(error)}`);
+            });
             const audioPath = await this.prepareAudioForWhisper(sourcePath, workDir);
+            logStage('audio ready');
             const whisperTranscript = await this.transcribeWithWhisper(audioPath);
+            logStage('transcript ready');
             const normalized = whisperTranscript.segments.map((seg) => ({
                 start: seg.start,
                 end: seg.end || Math.min(durationSec, seg.start + 4),
                 en: seg.en,
             }));
             const timed = this.finalizeSegments(normalized, durationSec, whisperTranscript.words);
-            const translated = await this.translateSegments(timed);
+            const [translated] = await Promise.all([
+                this.translateSegments(timed),
+                thumbnailTask,
+            ]);
+            logStage('translations ready');
             await this.prisma.videoTranslateJob.update({
                 where: { id: jobId },
                 data: {
@@ -288,6 +276,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                     errorMessage: null,
                 },
             });
+            logStage('completed');
         }
         catch (error) {
             const message = error instanceof common_1.BadRequestException
@@ -371,8 +360,32 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         const thumbPath = (0, path_1.join)(jobDir, thumbName);
         const ffmpeg = this.resolveFfmpegPath();
         const attempts = [
-            ['-y', '-ss', '1', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
-            ['-y', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
+            [
+                '-y',
+                '-ss',
+                '1',
+                '-i',
+                sourcePath,
+                '-frames:v',
+                '1',
+                '-q:v',
+                '4',
+                '-vf',
+                'scale=320:-2',
+                thumbPath,
+            ],
+            [
+                '-y',
+                '-i',
+                sourcePath,
+                '-frames:v',
+                '1',
+                '-q:v',
+                '4',
+                '-vf',
+                'scale=320:-2',
+                thumbPath,
+            ],
         ];
         for (const args of attempts) {
             try {
@@ -391,28 +404,35 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         return null;
     }
     async prepareAudioForWhisper(sourcePath, workDir) {
-        const lower = sourcePath.toLowerCase();
-        if (/\.(mp3|m4a|wav|opus)$/i.test(lower)) {
-            return sourcePath;
-        }
-        const outPath = (0, path_1.join)(workDir, 'audio.mp3');
+        const outPath = (0, path_1.join)(workDir, 'whisper.mp3');
         const ffmpeg = this.resolveFfmpegPath();
         try {
             await execFileAsync(ffmpeg, [
                 '-y',
+                '-hide_banner',
+                '-loglevel',
+                'error',
                 '-i',
                 sourcePath,
+                '-map',
+                '0:a:0',
                 '-vn',
-                '-acodec',
+                '-sn',
+                '-dn',
+                '-ac',
+                '1',
+                '-ar',
+                '16000',
+                '-c:a',
                 'libmp3lame',
-                '-q:a',
-                '5',
+                '-b:a',
+                '48k',
                 outPath,
             ], { timeout: 180_000, maxBuffer: 4 * 1024 * 1024 });
         }
         catch (error) {
             this.logger.error(`ffmpeg extract audio failed: ${this.commandErrorLog(error)}`);
-            throw new common_1.ServiceUnavailableException('Không tách được audio từ file tải lên. Thử file mp3/m4a hoặc mp4 khác.');
+            throw new common_1.ServiceUnavailableException('Không chuẩn hóa được audio từ file tải lên. Thử file mp3/m4a hoặc mp4 khác.');
         }
         if (!(0, fs_1.existsSync)(outPath)) {
             throw new common_1.ServiceUnavailableException('Không tạo được file audio để nhận dạng');
@@ -705,7 +725,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         while (index < stabilized.length) {
             let groupEnd = index;
             while (groupEnd + 1 < stabilized.length &&
-                Math.abs(stabilized[groupEnd + 1].start - stabilized[index].start) <= 0.015) {
+                Math.abs(stabilized[groupEnd + 1].start - stabilized[index].start) <=
+                    0.015) {
                 groupEnd += 1;
             }
             if (groupEnd > index) {
@@ -755,53 +776,81 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     }
     async translateSegments(segments) {
         this.ensureOpenAi();
-        const out = [];
-        const batchSize = 12;
+        if (!segments.length)
+            return [];
+        const batchSize = this.translationBatchSize();
+        const batches = [];
         for (let i = 0; i < segments.length; i += batchSize) {
-            const batch = segments.slice(i, i + batchSize);
-            const payload = batch.map((seg, idx) => ({
-                i: idx,
-                en: seg.en,
-            }));
-            const completion = await this.openai.chat.completions.create({
-                model: 'gpt-4o-mini',
-                temperature: 0.2,
-                response_format: { type: 'json_object' },
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'Translate each English transcript item into accurate, idiomatic contemporary Vietnamese for learners. Use neighboring items only to understand context and pronoun references, but translate exactly one source item per output index. Prefer natural Vietnamese phrasing over word-for-word wording and avoid redundancy. Preserve every idea: never omit content, merge items, or move content to another index. Keep names and factual details accurate. Return exactly one non-empty translation for every input index as JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
-                    },
-                    {
-                        role: 'user',
-                        content: JSON.stringify({ items: payload }),
-                    },
-                ],
-            });
-            const raw = completion.choices[0]?.message?.content ?? '{}';
-            let map = new Map();
-            try {
-                const parsed = JSON.parse(raw);
-                for (const item of parsed.items ?? []) {
-                    if (typeof item?.vi === 'string')
-                        map.set(item.i, item.vi.trim());
+            batches.push(segments.slice(i, i + batchSize));
+        }
+        const translatedBatches = await this.runWithConcurrency(batches, this.translationConcurrency(), (batch) => this.translateBatch(batch));
+        return translatedBatches.flat();
+    }
+    async translateBatch(batch) {
+        const payload = batch.map((seg, idx) => ({ i: idx, en: seg.en }));
+        const completion = await this.openai.chat.completions.create({
+            model: 'gpt-4o-mini',
+            temperature: 0.2,
+            response_format: { type: 'json_object' },
+            messages: [
+                {
+                    role: 'system',
+                    content: 'Translate each English transcript item into accurate, idiomatic contemporary Vietnamese for learners. Use neighboring items only to understand context and pronoun references, but translate exactly one source item per output index. Prefer natural Vietnamese phrasing over word-for-word wording and avoid redundancy. Preserve every idea: never omit content, merge items, or move content to another index. Keep names and factual details accurate. Return exactly one non-empty translation for every input index as JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
+                },
+                {
+                    role: 'user',
+                    content: JSON.stringify({ items: payload }),
+                },
+            ],
+        });
+        const raw = completion.choices[0]?.message?.content ?? '{}';
+        const translations = new Map();
+        try {
+            const parsed = JSON.parse(raw);
+            for (const item of parsed.items ?? []) {
+                if (Number.isInteger(item?.i) &&
+                    item.i >= 0 &&
+                    item.i < batch.length &&
+                    typeof item.vi === 'string' &&
+                    item.vi.trim()) {
+                    translations.set(item.i, item.vi.trim());
                 }
             }
-            catch {
-                map = new Map();
-            }
-            for (let idx = 0; idx < batch.length; idx += 1) {
-                const seg = batch[idx];
-                out.push({
-                    start: seg.start,
-                    end: seg.end,
-                    en: seg.en,
-                    ...(seg.words?.length ? { words: seg.words } : {}),
-                    vi: map.get(idx) || (await this.translateOne(seg.en)),
-                });
-            }
         }
-        return out;
+        catch {
+        }
+        const missing = batch
+            .map((segment, index) => ({ segment, index }))
+            .filter(({ index }) => !translations.has(index));
+        const fallbackTranslations = await this.runWithConcurrency(missing, this.translationConcurrency(), async ({ segment, index }) => ({
+            index,
+            vi: await this.translateOne(segment.en),
+        }));
+        for (const fallback of fallbackTranslations) {
+            translations.set(fallback.index, fallback.vi);
+        }
+        return batch.map((seg, index) => ({
+            start: seg.start,
+            end: seg.end,
+            en: seg.en,
+            ...(seg.words?.length ? { words: seg.words } : {}),
+            vi: translations.get(index) || seg.en,
+        }));
+    }
+    async runWithConcurrency(items, concurrency, worker) {
+        if (!items.length)
+            return [];
+        const results = new Array(items.length);
+        let nextIndex = 0;
+        const workerCount = Math.min(items.length, Math.max(1, Math.floor(concurrency)));
+        await Promise.all(Array.from({ length: workerCount }, async () => {
+            while (nextIndex < items.length) {
+                const index = nextIndex;
+                nextIndex += 1;
+                results[index] = await worker(items[index], index);
+            }
+        }));
+        return results;
     }
     async translateOne(text) {
         this.ensureOpenAi();
@@ -1077,19 +1126,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     }
     async transcribeWithWhisper(audioPath) {
         this.ensureOpenAi();
-        const buffer = (0, fs_1.readFileSync)(audioPath);
-        const lower = audioPath.toLowerCase();
-        const mime = lower.endsWith('.m4a')
-            ? 'audio/mp4'
-            : lower.endsWith('.webm') || lower.endsWith('.opus')
-                ? 'audio/webm'
-                : lower.endsWith('.wav')
-                    ? 'audio/wav'
-                    : 'audio/mpeg';
-        const filename = lower.split(/[\\/]/).pop() || 'audio.mp3';
-        const file = await (0, openai_1.toFile)(buffer, filename, { type: mime });
         const result = await this.openai.audio.transcriptions.create({
-            file,
+            file: (0, fs_1.createReadStream)(audioPath),
             model: 'whisper-1',
             language: 'en',
             response_format: 'verbose_json',
@@ -1298,9 +1336,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 throw new common_1.ServiceUnavailableException(`RapidAPI trả về dữ liệu không hợp lệ (HTTP ${res.status})`);
             }
             if (!res.ok) {
-                throw new common_1.ServiceUnavailableException(data.message ||
-                    data.error ||
-                    `RapidAPI lỗi HTTP ${res.status}`);
+                throw new common_1.ServiceUnavailableException(data.message || data.error || `RapidAPI lỗi HTTP ${res.status}`);
             }
             if (!Array.isArray(data.medias) || data.medias.length === 0) {
                 throw new common_1.ServiceUnavailableException('RapidAPI không trả về danh sách media');
@@ -1658,6 +1694,21 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
     maxSecondsPremium() {
         const raw = Number(this.config.get('VIDEO_TRANSLATE_MAX_SECONDS_PREMIUM'));
         return Number.isFinite(raw) && raw > 0 ? raw : exports.DEFAULT_MAX_SECONDS_PREMIUM;
+    }
+    translationBatchSize() {
+        return this.boundedConfigNumber('VIDEO_TRANSLATE_BATCH_SIZE', DEFAULT_TRANSLATION_BATCH_SIZE, 6, 40);
+    }
+    translationConcurrency() {
+        return this.boundedConfigNumber('VIDEO_TRANSLATE_CONCURRENCY', DEFAULT_TRANSLATION_CONCURRENCY, 1, 6);
+    }
+    boundedConfigNumber(key, fallback, min, max) {
+        const configured = this.config.get(key);
+        if (configured == null || String(configured).trim() === '')
+            return fallback;
+        const raw = Number(configured);
+        if (!Number.isFinite(raw))
+            return fallback;
+        return Math.min(max, Math.max(min, Math.floor(raw)));
     }
     async getTodayUsage(userId) {
         const usage = await this.prisma.videoTranslateDailyUsage.findUnique({

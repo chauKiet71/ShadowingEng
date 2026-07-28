@@ -496,10 +496,6 @@ export default function LessonPage() {
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
-  const activeSentenceWords = wordTimingsBySentence[activeIndex] ?? [];
-  const activeSentenceWordIndex = isPlaying
-    ? findActiveWordIndex(activeSentenceWords, currentTime)
-    : -1;
 
   const handleShadowingToggle = () => {
     if (isFetching) return;
@@ -568,17 +564,8 @@ export default function LessonPage() {
             <div />
 
             <div className="text-center px-3">
-              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm flex flex-wrap justify-center gap-x-1 gap-y-0.5">
-                {activeSentenceWords.map((word, wordIndex) => (
-                  <span
-                    key={`${word.start}-${word.text}-${wordIndex}`}
-                    className={wordBorderClass(
-                      wordIndex === activeSentenceWordIndex,
-                    )}
-                  >
-                    {word.text}
-                  </span>
-                ))}
+              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm">
+                {activeSentence}
               </p>
             </div>
 

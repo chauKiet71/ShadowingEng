@@ -213,6 +213,154 @@ describe('VideoTranslateService transcript segmentation', () => {
   });
 });
 
+describe('VideoTranslateService processing concurrency', () => {
+  let service: VideoTranslateService;
+
+  beforeEach(() => {
+    service = new VideoTranslateService(
+      {} as never,
+      { get: jest.fn().mockReturnValue(undefined) } as never,
+    );
+  });
+
+  it('limits parallel work and preserves result order', async () => {
+    const runWithConcurrency = (
+      service as unknown as {
+        runWithConcurrency: <T, R>(
+          items: T[],
+          concurrency: number,
+          worker: (item: T, index: number) => Promise<R>,
+        ) => Promise<R[]>;
+      }
+    ).runWithConcurrency.bind(service);
+    let active = 0;
+    let maxActive = 0;
+
+    const result = await runWithConcurrency(
+      [30, 5, 20, 10],
+      2,
+      async (delay, index) => {
+        active += 1;
+        maxActive = Math.max(maxActive, active);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        active -= 1;
+        return `${index}:${delay}`;
+      },
+    );
+
+    expect(maxActive).toBe(2);
+    expect(result).toEqual(['0:30', '1:5', '2:20', '3:10']);
+  });
+
+  it('translates multiple batches concurrently without changing sentence order', async () => {
+    let active = 0;
+    let maxActive = 0;
+    const create = jest.fn(
+      async (request: { messages: Array<{ content: string }> }) => {
+        active += 1;
+        maxActive = Math.max(maxActive, active);
+        const payload = JSON.parse(request.messages[1].content) as {
+          items: Array<{ i: number; en: string }>;
+        };
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        active -= 1;
+        return {
+          choices: [
+            {
+              message: {
+                content: JSON.stringify({
+                  items: payload.items.map((item) => ({
+                    i: item.i,
+                    vi: `VI ${item.en}`,
+                  })),
+                }),
+              },
+            },
+          ],
+        };
+      },
+    );
+    (
+      service as unknown as {
+        openai: {
+          chat: { completions: { create: typeof create } };
+        };
+      }
+    ).openai = { chat: { completions: { create } } };
+    const translateSegments = (
+      service as unknown as {
+        translateSegments: (
+          segments: TimedSegment[],
+        ) => Promise<Array<TimedSegment & { vi: string }>>;
+      }
+    ).translateSegments.bind(service);
+    const segments = Array.from({ length: 50 }, (_, index) => ({
+      start: index,
+      end: index + 0.8,
+      en: `Sentence ${index}`,
+    }));
+
+    const result = await translateSegments(segments);
+
+    expect(create).toHaveBeenCalledTimes(3);
+    expect(maxActive).toBe(3);
+    expect(result.map((segment) => segment.vi)).toEqual(
+      segments.map((segment) => `VI ${segment.en}`),
+    );
+  });
+
+  it('retries only missing batch translations and keeps valid results', async () => {
+    const create = jest.fn(
+      async (request: { messages: Array<{ content: string }> }) => {
+        const content = request.messages[1].content;
+        if (content.startsWith('{')) {
+          return {
+            choices: [
+              {
+                message: {
+                  content: JSON.stringify({
+                    items: [{ i: 0, vi: 'Bản dịch hợp lệ' }],
+                  }),
+                },
+              },
+            ],
+          };
+        }
+        return {
+          choices: [{ message: { content: `Fallback ${content}` } }],
+        };
+      },
+    );
+    (
+      service as unknown as {
+        openai: {
+          chat: { completions: { create: typeof create } };
+        };
+      }
+    ).openai = { chat: { completions: { create } } };
+    const translateBatch = (
+      service as unknown as {
+        translateBatch: (
+          segments: TimedSegment[],
+        ) => Promise<Array<TimedSegment & { vi: string }>>;
+      }
+    ).translateBatch.bind(service);
+
+    const result = await translateBatch([
+      { start: 0, end: 1, en: 'First' },
+      { start: 1, end: 2, en: 'Second' },
+      { start: 2, end: 3, en: 'Third' },
+    ]);
+
+    expect(create).toHaveBeenCalledTimes(3);
+    expect(result.map((segment) => segment.vi)).toEqual([
+      'Bản dịch hợp lệ',
+      'Fallback Second',
+      'Fallback Third',
+    ]);
+  });
+});
+
 describe('VideoTranslateService yt-dlp integration', () => {
   function createService(config: Record<string, string | undefined> = {}) {
     return new VideoTranslateService(

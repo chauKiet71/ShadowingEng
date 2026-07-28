@@ -348,7 +348,7 @@ export default function VideoTranslatePage() {
           }
         })
         .catch(() => undefined);
-    }, 2500);
+    }, 1000);
     return () => window.clearInterval(timer);
   }, [job?.id, job?.status]);
 
