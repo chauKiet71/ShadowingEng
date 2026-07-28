@@ -1,15 +1,18 @@
 import { JwtService } from '@nestjs/jwt';
 import type { Profile } from 'passport-google-oauth20';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 interface UploadedAvatarFile {
     buffer: Buffer;
+    mimetype: string;
     originalname: string;
 }
 export declare class AuthService {
     private prisma;
     private jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
+    private cloudinary;
+    constructor(prisma: PrismaService, jwtService: JwtService, cloudinary: CloudinaryService);
     register(dto: RegisterDto): Promise<{
         user: Omit<{
             package: {

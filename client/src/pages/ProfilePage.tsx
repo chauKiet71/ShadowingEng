@@ -305,22 +305,28 @@ export default function ProfilePage() {
           {/* Profile header */}
           <div className="flex items-center gap-3.5 mb-4">
             <div className="relative shrink-0">
-              <UserAvatar
-                name={user?.fullName ?? 'User'}
-                src={user?.avatarUrl}
-                size="lg"
-                className={`!w-[62px] !h-[62px] !text-xl shadow-[0_10px_24px_rgba(99,102,241,0.28)] ${
-                  uploadingAvatar ? 'opacity-60' : ''
-                }`}
-              />
               <button
                 type="button"
                 onClick={handleAvatarPick}
                 disabled={uploadingAvatar}
-                className="absolute -bottom-0.5 -right-0.5 w-6 h-6 bg-white dark:bg-neutral-800 text-indigo-500 rounded-full flex items-center justify-center border border-indigo-100 dark:border-neutral-700 shadow-sm disabled:opacity-60"
+                className="relative block rounded-full disabled:cursor-wait"
                 aria-label="Cập nhật ảnh đại diện"
               >
-                <Pencil size={11} />
+                <UserAvatar
+                  name={user?.fullName ?? 'User'}
+                  src={user?.avatarUrl}
+                  size="lg"
+                  className={`!w-[62px] !h-[62px] !text-xl shadow-[0_10px_24px_rgba(99,102,241,0.28)] transition-opacity ${
+                    uploadingAvatar ? 'opacity-60' : ''
+                  }`}
+                />
+                <span className="absolute -bottom-0.5 -right-0.5 w-6 h-6 bg-white dark:bg-neutral-800 text-indigo-500 rounded-full flex items-center justify-center border border-indigo-100 dark:border-neutral-700 shadow-sm">
+                  {uploadingAvatar ? (
+                    <RefreshCw size={11} className="animate-spin" />
+                  ) : (
+                    <Pencil size={11} />
+                  )}
+                </span>
               </button>
               <input
                 ref={fileInputRef}

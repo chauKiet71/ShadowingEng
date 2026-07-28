@@ -47,8 +47,8 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const client_1 = require("@prisma/client");
 const bcrypt = __importStar(require("bcrypt"));
-const promises_1 = require("fs/promises");
 const path_1 = require("path");
+const cloudinary_service_1 = require("../cloudinary/cloudinary.service");
 const prisma_service_1 = require("../prisma/prisma.service");
 const userSelect = {
     id: true,
@@ -77,9 +77,11 @@ const userSelect = {
 let AuthService = class AuthService {
     prisma;
     jwtService;
-    constructor(prisma, jwtService) {
+    cloudinary;
+    constructor(prisma, jwtService, cloudinary) {
         this.prisma = prisma;
         this.jwtService = jwtService;
+        this.cloudinary = cloudinary;
     }
     async register(dto) {
         const existing = await this.prisma.user.findUnique({
@@ -208,17 +210,22 @@ let AuthService = class AuthService {
     }
     async updateAvatar(userId, file) {
         const allowed = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+        const allowedMimeTypes = new Set([
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+        ]);
         const ext = (0, path_1.extname)(file.originalname).toLowerCase() || '.jpg';
-        if (!allowed.has(ext)) {
+        if (!allowed.has(ext) || !allowedMimeTypes.has(file.mimetype)) {
             throw new common_1.BadRequestException('Chỉ hỗ trợ ảnh JPG, PNG hoặc WEBP');
         }
-        const uploadDir = (0, path_1.join)(process.cwd(), 'public', 'uploads', 'avatars');
-        await (0, promises_1.mkdir)(uploadDir, { recursive: true });
-        const filename = `${userId}${ext}`;
-        await (0, promises_1.writeFile)((0, path_1.join)(uploadDir, filename), file.buffer);
+        if (!file.buffer?.length) {
+            throw new common_1.BadRequestException('File ảnh không hợp lệ');
+        }
+        const avatarUrl = await this.cloudinary.uploadAvatar(userId, file.buffer);
         const user = await this.prisma.user.update({
             where: { id: userId },
-            data: { avatarUrl: `/uploads/avatars/${filename}` },
+            data: { avatarUrl },
             select: userSelect,
         });
         return this.sanitizeUser(user);
@@ -239,6 +246,7 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        cloudinary_service_1.CloudinaryService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

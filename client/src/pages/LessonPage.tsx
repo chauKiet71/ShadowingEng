@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
-  ChevronLeft, Bookmark, RotateCcw, RotateCw, Turtle,
+  ChevronLeft, Bookmark, RotateCcw, RotateCw, Gauge,
   Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
 } from 'lucide-react';
 import {
@@ -17,8 +17,8 @@ import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { resolveLessonPhonetics } from '../lib/phonetic';
 
-const NORMAL_PLAYBACK_RATE = 1;
-const SLOW_PLAYBACK_RATE = 0.75;
+const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
+type PlaybackRate = (typeof PLAYBACK_RATES)[number];
 
 type LessonWordTiming = {
   text: string;
@@ -71,12 +71,16 @@ function wordBorderClass(active: boolean) {
   }`;
 }
 
-function speakSentence(text: string, slow = false) {
+function formatPlaybackRate(rate: PlaybackRate) {
+  return `${rate === 1 ? '1.0' : rate}x`;
+}
+
+function speakSentence(text: string, playbackRate: PlaybackRate) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
-  utterance.rate = slow ? 0.7 : 0.9;
+  utterance.rate = playbackRate;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -167,13 +171,15 @@ export default function LessonPage() {
   const completedRef = useRef(false);
   const lastProgressSaveRef = useRef(0);
   const transcriptRef = useRef<HTMLDivElement>(null);
+  const playbackSpeedRef = useRef<HTMLDivElement>(null);
   const sentenceRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranslation, setShowTranslation] = useState(true);
-  const [showPhonetic, setShowPhonetic] = useState(true);
+  const [showPhonetic, setShowPhonetic] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
-  const [isSlowPlayback, setIsSlowPlayback] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState<PlaybackRate>(1);
+  const [isPlaybackRateOpen, setIsPlaybackRateOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(lesson?.duration ?? 0);
@@ -219,14 +225,15 @@ export default function LessonPage() {
     prevActiveIndexRef.current = -1;
     transcriptRef.current?.scrollTo({ top: 0, behavior: 'auto' });
     setIsLooping(false);
-    setIsSlowPlayback(false);
+    setPlaybackRate(1);
+    setIsPlaybackRateOpen(false);
     setShowTranslation(true);
-    setShowPhonetic(true);
+    setShowPhonetic(false);
     setIsPlaying(false);
     setCurrentTime(0);
     setActiveIndex(0);
     if (audioRef.current) {
-      audioRef.current.playbackRate = NORMAL_PLAYBACK_RATE;
+      audioRef.current.playbackRate = 1;
     }
   }, [lesson?.id]);
 
@@ -242,7 +249,6 @@ export default function LessonPage() {
 
     const tryPlay = () => {
       if (cancelled) return;
-      audio.playbackRate = NORMAL_PLAYBACK_RATE;
       void audio.play().catch(() => {
         /* trình duyệt chặn autoplay — người dùng bấm Play */
       });
@@ -265,13 +271,40 @@ export default function LessonPage() {
       cancelled = true;
       audio.pause();
     };
-  }, [lesson?.id, lesson?.audioUrl, autoPlayOnOpen, accessLoading, locked, canAccess]);
+  }, [
+    lesson?.id,
+    lesson?.audioUrl,
+    autoPlayOnOpen,
+    accessLoading,
+    locked,
+    canAccess,
+  ]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
-  }, [isSlowPlayback]);
+    audio.playbackRate = playbackRate;
+  }, [playbackRate]);
+
+  useEffect(() => {
+    if (!isPlaybackRateOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!playbackSpeedRef.current?.contains(event.target as Node)) {
+        setIsPlaybackRateOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsPlaybackRateOpen(false);
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isPlaybackRateOpen]);
 
   useEffect(() => {
     const container = transcriptRef.current;
@@ -333,7 +366,7 @@ export default function LessonPage() {
       if (audio.duration && Number.isFinite(audio.duration)) {
         setDuration(audio.duration);
       }
-      audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
+      audio.playbackRate = playbackRate;
     };
     const onError = () => {
       setIsPlaying(false);
@@ -354,7 +387,7 @@ export default function LessonPage() {
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('error', onError);
     };
-  }, [lesson, isSlowPlayback, updateListeningProgress, markLessonCompleted]);
+  }, [lesson, playbackRate, updateListeningProgress, markLessonCompleted]);
 
   useEffect(() => {
     if (!isPlaying || !lesson) return;
@@ -392,10 +425,13 @@ export default function LessonPage() {
       audio.pause();
     } else {
       try {
-        audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
+        audio.playbackRate = playbackRate;
         await audio.play();
       } catch {
-        speakSentence(lesson?.sentences[activeIndex]?.english ?? '', isSlowPlayback);
+        speakSentence(
+          lesson?.sentences[activeIndex]?.english ?? '',
+          playbackRate,
+        );
       }
     }
   };
@@ -424,21 +460,17 @@ export default function LessonPage() {
     setCurrentTime(sentence.time_start);
 
     if (wasPaused) {
-      audio.playbackRate = isSlowPlayback ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
+      audio.playbackRate = playbackRate;
       void audio.play().catch(() => {
-        speakSentence(sentence.english, isSlowPlayback);
+        speakSentence(sentence.english, playbackRate);
       });
     }
   };
 
-  const toggleSlowPlayback = () => {
-    setIsSlowPlayback((prev) => {
-      const next = !prev;
-      if (audioRef.current) {
-        audioRef.current.playbackRate = next ? SLOW_PLAYBACK_RATE : NORMAL_PLAYBACK_RATE;
-      }
-      return next;
-    });
+  const selectPlaybackRate = (rate: PlaybackRate) => {
+    setPlaybackRate(rate);
+    setIsPlaybackRateOpen(false);
+    if (audioRef.current) audioRef.current.playbackRate = rate;
   };
 
   const toggleLoop = async () => {
@@ -754,12 +786,6 @@ export default function LessonPage() {
                 active: isLooping,
                 action: () => void toggleLoop(),
               },
-              {
-                icon: Turtle,
-                label: 'Nghe chậm',
-                active: isSlowPlayback,
-                action: toggleSlowPlayback,
-              },
             ].map(({ icon: Icon, label, action, active }) => (
               <button
                 key={label}
@@ -780,6 +806,67 @@ export default function LessonPage() {
                 </span>
               </button>
             ))}
+            <div
+              ref={playbackSpeedRef}
+              className="relative flex min-w-[4.25rem] justify-center"
+            >
+              <button
+                type="button"
+                onClick={() => setIsPlaybackRateOpen((open) => !open)}
+                aria-label="Tùy chỉnh tốc độ phát"
+                aria-haspopup="menu"
+                aria-expanded={isPlaybackRateOpen}
+                className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                  isPlaybackRateOpen || playbackRate !== 1
+                    ? 'text-primary'
+                    : 'text-gray-400'
+                }`}
+              >
+                <Gauge
+                  size={20}
+                  strokeWidth={
+                    isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
+                  }
+                />
+                <span
+                  className={`text-[10px] font-medium tabular-nums ${
+                    isPlaybackRateOpen || playbackRate !== 1
+                      ? 'border-b-2 border-primary pb-0.5'
+                      : ''
+                  }`}
+                >
+                  {formatPlaybackRate(playbackRate)}
+                </span>
+              </button>
+
+              {isPlaybackRateOpen && (
+                <div
+                  role="menu"
+                  aria-label="Tốc độ phát"
+                  className="absolute bottom-full right-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
+                >
+                  {PLAYBACK_RATES.map((rate) => {
+                    const selected = playbackRate === rate;
+                    return (
+                      <button
+                        key={rate}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={selected}
+                        onClick={() => selectPlaybackRate(rate)}
+                        className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
+                          selected
+                            ? 'bg-primary text-white'
+                            : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
+                        }`}
+                      >
+                        {formatPlaybackRate(rate)}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
           <button
             type="button"

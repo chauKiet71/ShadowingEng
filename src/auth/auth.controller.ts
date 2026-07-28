@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 
 interface UploadedAvatarFile {
   buffer: Buffer;
+  mimetype: string;
   originalname: string;
 }
 import { PasswordResetService } from './password-reset.service';
@@ -85,7 +86,7 @@ export class AuthController {
   )
   updateAvatar(
     @CurrentUser() user: { id: string },
-    @UploadedFile() file: UploadedAvatarFile,
+    @UploadedFile() file?: UploadedAvatarFile,
   ) {
     if (!file) {
       throw new BadRequestException('Vui lòng chọn ảnh đại diện');

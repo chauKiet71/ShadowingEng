@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 interface UploadedAvatarFile {
     buffer: Buffer;
+    mimetype: string;
     originalname: string;
 }
 import { PasswordResetService } from './password-reset.service';
@@ -94,7 +95,7 @@ export declare class AuthController {
     }, "status">>;
     updateAvatar(user: {
         id: string;
-    }, file: UploadedAvatarFile): Promise<Omit<{
+    }, file?: UploadedAvatarFile): Promise<Omit<{
         package: {
             id: string;
             name: string;

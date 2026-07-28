@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
+const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 const mail_module_1 = require("../mail/mail.module");
 const auth_service_1 = require("./auth.service");
 const password_reset_service_1 = require("./password-reset.service");
@@ -26,6 +27,7 @@ exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            cloudinary_module_1.CloudinaryModule,
             mail_module_1.MailModule,
             passport_1.PassportModule.register({ defaultStrategy: 'jwt' }),
             jwt_1.JwtModule.registerAsync({

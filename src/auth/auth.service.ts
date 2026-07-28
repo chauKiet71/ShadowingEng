@@ -9,13 +9,14 @@ import { JwtService } from '@nestjs/jwt';
 import { UserStatus } from '@prisma/client';
 import type { Profile } from 'passport-google-oauth20';
 import * as bcrypt from 'bcrypt';
-import { mkdir, writeFile } from 'fs/promises';
-import { extname, join } from 'path';
+import { extname } from 'path';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 
 interface UploadedAvatarFile {
   buffer: Buffer;
+  mimetype: string;
   originalname: string;
 }
 
@@ -49,6 +50,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private cloudinary: CloudinaryService,
   ) {}
 
   async register(dto: RegisterDto) {
@@ -202,20 +204,24 @@ export class AuthService {
 
   async updateAvatar(userId: string, file: UploadedAvatarFile) {
     const allowed = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+    const allowedMimeTypes = new Set([
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+    ]);
     const ext = extname(file.originalname).toLowerCase() || '.jpg';
-    if (!allowed.has(ext)) {
+    if (!allowed.has(ext) || !allowedMimeTypes.has(file.mimetype)) {
       throw new BadRequestException('Chỉ hỗ trợ ảnh JPG, PNG hoặc WEBP');
     }
+    if (!file.buffer?.length) {
+      throw new BadRequestException('File ảnh không hợp lệ');
+    }
 
-    const uploadDir = join(process.cwd(), 'public', 'uploads', 'avatars');
-    await mkdir(uploadDir, { recursive: true });
-
-    const filename = `${userId}${ext}`;
-    await writeFile(join(uploadDir, filename), file.buffer);
+    const avatarUrl = await this.cloudinary.uploadAvatar(userId, file.buffer);
 
     const user = await this.prisma.user.update({
       where: { id: userId },
-      data: { avatarUrl: `/uploads/avatars/${filename}` },
+      data: { avatarUrl },
       select: userSelect,
     });
 

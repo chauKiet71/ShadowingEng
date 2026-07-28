@@ -2,11 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
+  BookOpen,
   Clapperboard,
+  Gauge,
   Languages,
   Loader2,
   Mic,
-  Subtitles,
+  Repeat,
   Upload,
   X,
 } from 'lucide-react';
@@ -24,6 +26,12 @@ import { resolveLessonPhonetics } from '../lib/phonetic';
 const DELETED_RECENT_VIDEO_IDS_KEY = 'video_translate_deleted_recent_job_ids';
 const ACCEPT_MEDIA =
   'video/mp4,video/webm,video/quicktime,audio/mpeg,audio/mp4,audio/wav,audio/x-m4a,.mp4,.webm,.mov,.mkv,.mp3,.m4a,.wav';
+const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
+type PlaybackRate = (typeof PLAYBACK_RATES)[number];
+
+function formatPlaybackRate(rate: PlaybackRate) {
+  return `${rate === 1 ? '1.0' : rate}x`;
+}
 
 function getDeletedRecentVideoIds() {
   try {
@@ -157,7 +165,11 @@ export default function VideoTranslatePage() {
   const [error, setError] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showSubtitles, setShowSubtitles] = useState(true);
+  const [showTranslation, setShowTranslation] = useState(true);
+  const [showPhonetic, setShowPhonetic] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState<PlaybackRate>(1);
+  const [isPlaybackRateOpen, setIsPlaybackRateOpen] = useState(false);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
   const [shadowingResultIndex, setShadowingResultIndex] = useState<number | null>(
     null,
@@ -176,6 +188,7 @@ export default function VideoTranslatePage() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const syncRafRef = useRef<number | null>(null);
   const transcriptListRef = useRef<HTMLDivElement | null>(null);
+  const playbackSpeedRef = useRef<HTMLDivElement | null>(null);
   const segmentRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
 
@@ -209,7 +222,41 @@ export default function VideoTranslatePage() {
     segmentRefs.current = [];
     prevActiveIndexRef.current = -1;
     setIsPlaying(false);
+    setShowTranslation(true);
+    setShowPhonetic(false);
+    setIsLooping(false);
+    setPlaybackRate(1);
+    setIsPlaybackRateOpen(false);
+    if (mediaRef.current) {
+      mediaRef.current.loop = false;
+      mediaRef.current.playbackRate = 1;
+    }
   }, [job?.id]);
+
+  useEffect(() => {
+    const media = mediaRef.current;
+    if (media) media.playbackRate = playbackRate;
+  }, [playbackRate]);
+
+  useEffect(() => {
+    if (!isPlaybackRateOpen) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!playbackSpeedRef.current?.contains(event.target as Node)) {
+        setIsPlaybackRateOpen(false);
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsPlaybackRateOpen(false);
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isPlaybackRateOpen]);
 
   function stopSyncLoop() {
     if (syncRafRef.current != null) {
@@ -232,7 +279,11 @@ export default function VideoTranslatePage() {
     element: HTMLVideoElement | HTMLAudioElement | null,
   ) {
     mediaRef.current = element;
-    if (!element || !autoPlayRequestedRef.current) return;
+    if (!element) return;
+
+    element.loop = isLooping;
+    element.playbackRate = playbackRate;
+    if (!autoPlayRequestedRef.current) return;
 
     autoPlayRequestedRef.current = false;
     element.currentTime = 0;
@@ -271,6 +322,28 @@ export default function VideoTranslatePage() {
     void toggleRecording(activeSegment.en);
   }
 
+  async function toggleLoop() {
+    const next = !isLooping;
+    setIsLooping(next);
+    const media = mediaRef.current;
+    if (!media) return;
+
+    media.loop = next;
+    if (next && media.paused) {
+      try {
+        await media.play();
+      } catch {
+        setIsPlaying(false);
+      }
+    }
+  }
+
+  function selectPlaybackRate(rate: PlaybackRate) {
+    setPlaybackRate(rate);
+    setIsPlaybackRateOpen(false);
+    if (mediaRef.current) mediaRef.current.playbackRate = rate;
+  }
+
   useEffect(() => {
     resetShadowing();
     setShadowingResultIndex(null);
@@ -278,7 +351,12 @@ export default function VideoTranslatePage() {
   }, [job?.id, resetShadowing]);
 
   useEffect(() => {
-    if (!job || job.status !== 'READY' || !job.segments.length) {
+    if (
+      !job ||
+      job.status !== 'READY' ||
+      !job.segments.length ||
+      !showPhonetic
+    ) {
       setPhoneticTexts([]);
       return;
     }
@@ -291,7 +369,7 @@ export default function VideoTranslatePage() {
     return () => {
       cancelled = true;
     };
-  }, [job?.id, job?.status, job?.segments]);
+  }, [job?.id, job?.status, job?.segments, showPhonetic]);
 
   useEffect(() => {
     let cancelled = false;
@@ -438,6 +516,7 @@ export default function VideoTranslatePage() {
     const media = mediaRef.current;
     if (media) {
       media.currentTime = seg.start;
+      media.playbackRate = playbackRate;
       void media.play();
     }
     setCurrentTime(seg.start);
@@ -600,6 +679,7 @@ export default function VideoTranslatePage() {
                         src={job.mediaUrl}
                         autoPlay={autoPlayRequestedRef.current}
                         controls
+                        loop={isLooping}
                         className="w-full px-3"
                         onPlay={handleMediaPlay}
                         onPause={handleMediaPause}
@@ -615,6 +695,7 @@ export default function VideoTranslatePage() {
                         src={job.mediaUrl}
                         autoPlay={autoPlayRequestedRef.current}
                         controls
+                        loop={isLooping}
                         playsInline
                         className="w-full h-full object-contain bg-black"
                         onPlay={handleMediaPlay}
@@ -639,7 +720,7 @@ export default function VideoTranslatePage() {
                   ref={transcriptListRef}
                   className="mt-2 flex-1 min-h-0 overflow-y-auto overscroll-contain px-0.5"
                 >
-                  <div className="space-y-3 pb-28">
+                  <div className="space-y-3 pb-44">
                     {job.segments.map((seg, idx) => {
                       const active = idx === activeIndex;
                       const showScore =
@@ -722,12 +803,12 @@ export default function VideoTranslatePage() {
                               </p>
                             )}
 
-                            {phoneticText && (
+                            {showPhonetic && phoneticText && (
                               <p className="text-xs text-primary mt-1.5 italic leading-relaxed">
                                 {phoneticText}
                               </p>
                             )}
-                            {showSubtitles && (
+                            {showTranslation && (
                               <p className="text-sm text-gray-400 mt-1 leading-relaxed">
                                 {seg.vi}
                               </p>
@@ -756,64 +837,156 @@ export default function VideoTranslatePage() {
 
                 <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800">
                   <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">
-                    <div className="rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-gray-100 dark:border-neutral-800 px-2 py-2 flex items-stretch gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setShowSubtitles((prev) => !prev)}
-                        aria-pressed={showSubtitles}
-                        className={`flex-1 rounded-xl py-2.5 flex flex-col items-center gap-1 transition-colors ${
-                          showSubtitles ? 'text-primary' : 'text-gray-400'
-                        }`}
-                      >
-                        <Subtitles
-                          size={18}
-                          strokeWidth={showSubtitles ? 2.5 : 2}
-                        />
-                        <span
-                          className={`text-[10px] font-semibold ${
-                            showSubtitles ? 'border-b-2 border-primary pb-0.5' : ''
+                    <div className="flex items-center justify-around mb-3 rounded-2xl bg-slate-50 dark:bg-neutral-950 px-1 py-2">
+                      {[
+                        {
+                          icon: Languages,
+                          label: 'Dịch',
+                          testId: 'video-translation-toggle',
+                          active: showTranslation,
+                          action: () => setShowTranslation((prev) => !prev),
+                        },
+                        {
+                          icon: BookOpen,
+                          label: 'Phiên âm',
+                          testId: 'video-phonetic-toggle',
+                          active: showPhonetic,
+                          action: () => setShowPhonetic((prev) => !prev),
+                        },
+                        {
+                          icon: Repeat,
+                          label: 'Lặp lại',
+                          testId: 'video-loop-toggle',
+                          active: isLooping,
+                          action: () => void toggleLoop(),
+                        },
+                      ].map(({ icon: Icon, label, testId, action, active }) => (
+                        <button
+                          key={label}
+                          type="button"
+                          data-testid={testId}
+                          onClick={action}
+                          aria-pressed={active}
+                          className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                            active ? 'text-primary' : 'text-gray-400'
                           }`}
                         >
-                          Phụ đề {showSubtitles ? 'bật' : 'tắt'}
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleShadowingToggle}
-                        disabled={isFetching || !activeSegment?.en}
-                        className={`flex-[1.4] rounded-full py-2.5 px-2 flex items-center justify-center gap-2 text-white font-semibold disabled:opacity-60 ${
-                          isRecording
-                            ? 'bg-red-500 ring-2 ring-red-300 ring-offset-1'
-                            : isFetching
-                              ? 'bg-gray-400'
-                              : 'bg-gradient-to-r from-primary to-secondary shadow-md shadow-primary/25'
-                        }`}
-                      >
-                        {isFetching ? (
-                          <Loader2 size={16} className="animate-spin" />
-                        ) : (
-                          <Mic size={16} />
-                        )}
-                        <span className="text-left leading-tight">
-                          <span className="block text-xs font-bold">
-                            {isRecording
-                              ? 'Đang ghi…'
-                              : isFetching
-                                ? 'Đang chấm…'
-                                : 'Shadowing'}
-                          </span>
+                          <Icon size={20} strokeWidth={active ? 2.5 : 2} />
                           <span
-                            className={`block text-[9px] font-medium ${
-                              isRecording ? 'text-red-100' : 'text-white/80'
+                            className={`text-[10px] font-medium ${
+                              active ? 'border-b-2 border-primary pb-0.5' : ''
                             }`}
                           >
-                            {isRecording
-                              ? 'Bấm để dừng'
-                              : 'Nói theo câu đang phát'}
+                            {label}
                           </span>
-                        </span>
-                      </button>
+                        </button>
+                      ))}
+
+                      <div
+                        ref={playbackSpeedRef}
+                        className="relative flex min-w-[4.25rem] justify-center"
+                      >
+                        <button
+                          type="button"
+                          data-testid="video-speed-toggle"
+                          onClick={() =>
+                            setIsPlaybackRateOpen((open) => !open)
+                          }
+                          aria-label="Tùy chỉnh tốc độ phát"
+                          aria-haspopup="menu"
+                          aria-expanded={isPlaybackRateOpen}
+                          className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                            isPlaybackRateOpen || playbackRate !== 1
+                              ? 'text-primary'
+                              : 'text-gray-400'
+                          }`}
+                        >
+                          <Gauge
+                            size={20}
+                            strokeWidth={
+                              isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
+                            }
+                          />
+                          <span
+                            className={`text-[10px] font-medium tabular-nums ${
+                              isPlaybackRateOpen || playbackRate !== 1
+                                ? 'border-b-2 border-primary pb-0.5'
+                                : ''
+                            }`}
+                          >
+                            {formatPlaybackRate(playbackRate)}
+                          </span>
+                        </button>
+
+                        {isPlaybackRateOpen && (
+                          <div
+                            role="menu"
+                            aria-label="Tốc độ phát"
+                            className="absolute bottom-full right-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
+                          >
+                            {PLAYBACK_RATES.map((rate) => {
+                              const selected = playbackRate === rate;
+                              return (
+                                <button
+                                  key={rate}
+                                  type="button"
+                                  role="menuitemradio"
+                                  aria-checked={selected}
+                                  onClick={() => selectPlaybackRate(rate)}
+                                  className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
+                                    selected
+                                      ? 'bg-primary text-white'
+                                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
+                                  }`}
+                                >
+                                  {formatPlaybackRate(rate)}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
+
+                    <button
+                      type="button"
+                      data-testid="video-shadowing-toggle"
+                      onClick={handleShadowingToggle}
+                      disabled={isFetching || !activeSegment?.en}
+                      className={`w-full py-3.5 text-white font-semibold rounded-full flex items-center justify-center gap-2.5 transition-all disabled:opacity-60 ${
+                        isRecording
+                          ? 'bg-red-500 hover:bg-red-600 ring-2 ring-red-300 ring-offset-2'
+                          : isFetching
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-primary to-secondary hover:opacity-95 shadow-md shadow-primary/25'
+                      }`}
+                    >
+                      {isFetching ? (
+                        <Loader2 size={20} className="animate-spin" />
+                      ) : (
+                        <Mic size={20} />
+                      )}
+                      <span className="text-left">
+                        <span className="block text-sm font-bold leading-none">
+                          {isRecording
+                            ? 'Đang ghi âm...'
+                            : isFetching
+                              ? 'Đang xử lý...'
+                              : 'Shadowing'}
+                        </span>
+                        <span
+                          className={`block text-[10px] mt-0.5 ${
+                            isRecording ? 'text-red-100' : 'text-white/80'
+                          }`}
+                        >
+                          {isRecording
+                            ? 'Đang ghi âm — bấm để dừng'
+                            : isFetching
+                              ? 'Đang chấm điểm...'
+                              : 'Luyện nói theo audio'}
+                        </span>
+                      </span>
+                    </button>
                   </div>
                 </div>
               </>
