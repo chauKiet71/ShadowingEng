@@ -62,7 +62,7 @@ const youtube_util_1 = require("./youtube.util");
 exports.FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 exports.DEFAULT_MAX_SECONDS_FREE = 600;
 exports.DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-exports.DUBBED_PIPELINE_VERSION = 10;
+exports.DUBBED_PIPELINE_VERSION = 11;
 const TRANSCRIPT_RULES = {
     pauseBreakSec: 0.5,
     timestampEpsilonSec: 0.001,
@@ -268,13 +268,13 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 });
             }
             const audioPath = await this.prepareAudioForWhisper(sourcePath, workDir);
-            const whisperSegments = await this.transcribeWithWhisper(audioPath);
-            const normalized = whisperSegments.map((seg) => ({
+            const whisperTranscript = await this.transcribeWithWhisper(audioPath);
+            const normalized = whisperTranscript.segments.map((seg) => ({
                 start: seg.start,
                 end: seg.end || Math.min(durationSec, seg.start + 4),
                 en: seg.en,
             }));
-            const timed = this.finalizeSegments(normalized, durationSec);
+            const timed = this.finalizeSegments(normalized, durationSec, whisperTranscript.words);
             const translated = await this.translateSegments(timed);
             await this.prisma.videoTranslateJob.update({
                 where: { id: jobId },
@@ -371,32 +371,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         const thumbPath = (0, path_1.join)(jobDir, thumbName);
         const ffmpeg = this.resolveFfmpegPath();
         const attempts = [
-            [
-                '-y',
-                '-ss',
-                '1',
-                '-i',
-                sourcePath,
-                '-frames:v',
-                '1',
-                '-q:v',
-                '4',
-                '-vf',
-                'scale=320:-2',
-                thumbPath,
-            ],
-            [
-                '-y',
-                '-i',
-                sourcePath,
-                '-frames:v',
-                '1',
-                '-q:v',
-                '4',
-                '-vf',
-                'scale=320:-2',
-                thumbPath,
-            ],
+            ['-y', '-ss', '1', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
+            ['-y', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
         ];
         for (const args of attempts) {
             try {
@@ -453,14 +429,14 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         }
         this.logger.log(`No captions for ${videoId} — using Whisper STT`);
         const audioPath = await this.downloadAudio(youtubeUrl, workDir);
-        const whisperSegments = await this.transcribeWithWhisper(audioPath);
-        const normalized = whisperSegments.map((seg) => ({
+        const whisperTranscript = await this.transcribeWithWhisper(audioPath);
+        const normalized = whisperTranscript.segments.map((seg) => ({
             start: seg.start,
             end: seg.end || Math.min(durationSec, seg.start + 4),
             en: seg.en,
         }));
         return {
-            segments: this.finalizeSegments(normalized, durationSec),
+            segments: this.finalizeSegments(normalized, durationSec, whisperTranscript.words),
             source: 'whisper',
         };
     }
@@ -508,12 +484,15 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             .replace(/\s+/g, ' ')
             .trim();
     }
-    finalizeSegments(segments, durationSec) {
+    finalizeSegments(segments, durationSec, wordTimings = []) {
         const sorted = [...segments].sort((a, b) => a.start - b.start || a.end - b.end);
         const collapsed = this.collapseRollingCaptions(sorted);
         const sentenceParts = this.splitMultiSentence(collapsed);
         const utterances = this.mergeIntoUtterances(sentenceParts);
-        return this.alignSegmentWindows(utterances, durationSec).filter((seg) => seg.en.trim().length > 0);
+        const aligned = this.alignSegmentWindows(utterances, durationSec).filter((seg) => seg.en.trim().length > 0);
+        return wordTimings.length
+            ? this.attachWordTimings(aligned, wordTimings)
+            : aligned;
     }
     wordCount(text) {
         return text.split(/\s+/).filter(Boolean).length;
@@ -661,6 +640,119 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             };
         });
     }
+    attachWordTimings(segments, rawWords) {
+        const words = [...rawWords].sort((a, b) => a.start - b.start || a.end - b.end);
+        return segments.map((segment, index) => {
+            const nextStart = segments[index + 1]?.start;
+            const lowerBound = segment.start - 0.1;
+            const upperBound = nextStart ?? segment.end + 0.1;
+            const candidates = words.filter((word) => {
+                const midpoint = (word.start + word.end) / 2;
+                return midpoint >= lowerBound && midpoint < upperBound;
+            });
+            const mapped = this.mapWordsToSegment(segment, candidates);
+            return {
+                ...segment,
+                words: mapped.length
+                    ? this.stabilizeWordTimingWindows(mapped, segment.end)
+                    : this.estimateWordTimings(segment),
+            };
+        });
+    }
+    mapWordsToSegment(segment, candidates) {
+        const displayWords = segment.en.split(/\s+/).filter(Boolean);
+        const normalize = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '');
+        for (let startOffset = 0; startOffset <= Math.min(3, candidates.length - 1); startOffset += 1) {
+            const mapped = [];
+            let candidateIndex = startOffset;
+            let failed = false;
+            for (const displayWord of displayWords) {
+                const target = normalize(displayWord);
+                if (!target) {
+                    failed = true;
+                    break;
+                }
+                let combined = '';
+                let matchedEnd = -1;
+                for (let endIndex = candidateIndex; endIndex < Math.min(candidates.length, candidateIndex + 3); endIndex += 1) {
+                    combined += normalize(candidates[endIndex].en);
+                    if (combined === target) {
+                        matchedEnd = endIndex;
+                        break;
+                    }
+                    if (!target.startsWith(combined))
+                        break;
+                }
+                if (matchedEnd < candidateIndex) {
+                    failed = true;
+                    break;
+                }
+                mapped.push({
+                    text: displayWord,
+                    start: candidates[candidateIndex].start,
+                    end: candidates[matchedEnd].end,
+                });
+                candidateIndex = matchedEnd + 1;
+            }
+            if (!failed && mapped.length === displayWords.length)
+                return mapped;
+        }
+        return [];
+    }
+    stabilizeWordTimingWindows(words, segmentEnd) {
+        const stabilized = words.map((word) => ({ ...word }));
+        let index = 0;
+        while (index < stabilized.length) {
+            let groupEnd = index;
+            while (groupEnd + 1 < stabilized.length &&
+                Math.abs(stabilized[groupEnd + 1].start - stabilized[index].start) <= 0.015) {
+                groupEnd += 1;
+            }
+            if (groupEnd > index) {
+                const group = stabilized.slice(index, groupEnd + 1);
+                const nextStart = stabilized[groupEnd + 1]?.start ?? segmentEnd;
+                const naturalEnd = Math.max(...group.map((word) => word.end));
+                const windowEnd = Math.max(group[0].start + group.length * 0.08, Math.min(nextStart, naturalEnd));
+                const weights = group.map((word) => Math.max(1, word.text.replace(/[^a-z0-9]+/gi, '').length));
+                const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+                let cursor = group[0].start;
+                group.forEach((word, groupIndex) => {
+                    const end = groupIndex === group.length - 1
+                        ? windowEnd
+                        : cursor +
+                            ((windowEnd - group[0].start) * weights[groupIndex]) /
+                                totalWeight;
+                    stabilized[index + groupIndex] = {
+                        ...word,
+                        start: cursor,
+                        end,
+                    };
+                    cursor = end;
+                });
+            }
+            else if (stabilized[index].end <= stabilized[index].start) {
+                const nextStart = stabilized[index + 1]?.start ?? segmentEnd;
+                stabilized[index].end = Math.min(nextStart, stabilized[index].start + 0.12);
+            }
+            index = groupEnd + 1;
+        }
+        return stabilized;
+    }
+    estimateWordTimings(segment) {
+        const words = segment.en.split(/\s+/).filter(Boolean);
+        const weights = words.map((word) => Math.max(1, word.replace(/[^a-z0-9]+/gi, '').length));
+        const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
+        const duration = Math.max(0.12, segment.end - segment.start);
+        let cursor = segment.start;
+        return words.map((text, index) => {
+            const end = index === words.length - 1
+                ? segment.end
+                : cursor + (duration * weights[index]) / totalWeight;
+            const timing = { text, start: cursor, end };
+            cursor = end;
+            return timing;
+        });
+    }
     async translateSegments(segments) {
         this.ensureOpenAi();
         const out = [];
@@ -704,6 +796,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                     start: seg.start,
                     end: seg.end,
                     en: seg.en,
+                    ...(seg.words?.length ? { words: seg.words } : {}),
                     vi: map.get(idx) || (await this.translateOne(seg.en)),
                 });
             }
@@ -1003,7 +1096,20 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             timestamp_granularities: ['word', 'segment'],
         });
         const timedResult = result;
-        return this.buildWhisperTimedSegments(timedResult);
+        const words = (timedResult.words ?? [])
+            .map((word) => {
+            const start = Number(word.start) || 0;
+            return {
+                start,
+                end: Number(word.end) || start + 0.3,
+                en: this.cleanCaptionText(String(word.word ?? '')),
+            };
+        })
+            .filter((word) => word.en.length > 0);
+        return {
+            segments: this.buildWhisperTimedSegments(timedResult),
+            words,
+        };
     }
     buildWhisperTimedSegments(timedResult) {
         const words = (timedResult.words ?? [])
@@ -1192,7 +1298,9 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 throw new common_1.ServiceUnavailableException(`RapidAPI trả về dữ liệu không hợp lệ (HTTP ${res.status})`);
             }
             if (!res.ok) {
-                throw new common_1.ServiceUnavailableException(data.message || data.error || `RapidAPI lỗi HTTP ${res.status}`);
+                throw new common_1.ServiceUnavailableException(data.message ||
+                    data.error ||
+                    `RapidAPI lỗi HTTP ${res.status}`);
             }
             if (!Array.isArray(data.medias) || data.medias.length === 0) {
                 throw new common_1.ServiceUnavailableException('RapidAPI không trả về danh sách media');
@@ -1493,6 +1601,27 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             const end = Number(row.end);
             const en = typeof row.en === 'string' ? row.en : '';
             const vi = typeof row.vi === 'string' ? row.vi : '';
+            const words = Array.isArray(row.words)
+                ? row.words
+                    .map((word) => {
+                    if (!word || typeof word !== 'object')
+                        return null;
+                    const value = word;
+                    const text = typeof value.text === 'string' ? value.text : '';
+                    const wordStart = Number(value.start);
+                    const wordEnd = Number(value.end);
+                    if (!text || !Number.isFinite(wordStart))
+                        return null;
+                    return {
+                        text,
+                        start: wordStart,
+                        end: Number.isFinite(wordEnd)
+                            ? Math.max(wordStart, wordEnd)
+                            : wordStart + 0.12,
+                    };
+                })
+                    .filter((word) => word != null)
+                : [];
             if (!Number.isFinite(start) || !en)
                 return null;
             return {
@@ -1500,6 +1629,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 end: Number.isFinite(end) ? end : start + 2,
                 en,
                 vi,
+                ...(words.length ? { words } : {}),
             };
         })
             .filter((item) => item != null);

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft, Bookmark, RotateCcw, RotateCw, Turtle,
@@ -8,6 +8,7 @@ import {
   findActiveSentenceIndex,
   formatTime,
   getLessonById,
+  type LessonSentence,
 } from '../data/lessons';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
@@ -18,6 +19,57 @@ import { resolveLessonPhonetics } from '../lib/phonetic';
 
 const NORMAL_PLAYBACK_RATE = 1;
 const SLOW_PLAYBACK_RATE = 0.75;
+
+type LessonWordTiming = {
+  text: string;
+  start: number;
+  end: number;
+};
+
+function estimateLessonWordTimings(
+  sentence: LessonSentence,
+): LessonWordTiming[] {
+  const words = sentence.english.split(/\s+/).filter(Boolean);
+  const weights = words.map((word) =>
+    Math.max(1, word.replace(/[^a-z0-9]+/gi, '').length),
+  );
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
+  const duration = Math.max(0.12, sentence.time_end - sentence.time_start);
+  let cursor = sentence.time_start;
+
+  return words.map((text, index) => {
+    const end =
+      index === words.length - 1
+        ? sentence.time_end
+        : cursor + (duration * weights[index]) / totalWeight;
+    const timing = { text, start: cursor, end };
+    cursor = end;
+    return timing;
+  });
+}
+
+function findActiveWordIndex(words: LessonWordTiming[], time: number) {
+  let active = -1;
+  for (let index = 0; index < words.length; index += 1) {
+    const word = words[index];
+    if (time + 0.04 < word.start) break;
+    const nextStart = words[index + 1]?.start ?? word.end;
+    const visibleEnd = Math.max(
+      word.end,
+      Math.min(nextStart, word.start + 0.12),
+    );
+    if (time <= visibleEnd + 0.04) active = index;
+  }
+  return active;
+}
+
+function wordBorderClass(active: boolean) {
+  return `inline-block rounded-[5px] border px-0.5 py-px transition-colors duration-75 ${
+    active
+      ? 'border-emerald-400 bg-emerald-400/10'
+      : 'border-transparent'
+  }`;
+}
 
 function speakSentence(text: string, slow = false) {
   if (!('speechSynthesis' in window)) return;
@@ -79,7 +131,7 @@ export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  const lesson = id ? getLessonById(id) : undefined;
+  const lesson = useMemo(() => (id ? getLessonById(id) : undefined), [id]);
   const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
   const autoPlayOnOpen =
     (location.state as { autoPlay?: boolean } | null)?.autoPlay !== false;
@@ -127,6 +179,10 @@ export default function LessonPage() {
   const [duration, setDuration] = useState(lesson?.duration ?? 0);
   const [shadowingResultIndex, setShadowingResultIndex] = useState<number | null>(null);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
+  const wordTimingsBySentence = useMemo(
+    () => (lesson?.sentences ?? []).map(estimateLessonWordTimings),
+    [lesson?.sentences],
+  );
 
   useEffect(() => {
     resetShadowing();
@@ -301,6 +357,27 @@ export default function LessonPage() {
   }, [lesson, isSlowPlayback, updateListeningProgress, markLessonCompleted]);
 
   useEffect(() => {
+    if (!isPlaying || !lesson) return;
+
+    let animationFrame = 0;
+    const syncPlayback = () => {
+      const audio = audioRef.current;
+      if (audio) {
+        const time = audio.currentTime;
+        setCurrentTime(time);
+        setActiveIndex((prev) => {
+          const next = findActiveSentenceIndex(lesson.sentences, time);
+          return prev === next ? prev : next;
+        });
+      }
+      animationFrame = requestAnimationFrame(syncPlayback);
+    };
+
+    animationFrame = requestAnimationFrame(syncPlayback);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isPlaying, lesson]);
+
+  useEffect(() => {
     if (!lesson) navigate('/', { replace: true });
   }, [lesson, navigate]);
 
@@ -419,6 +496,10 @@ export default function LessonPage() {
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
+  const activeSentenceWords = wordTimingsBySentence[activeIndex] ?? [];
+  const activeSentenceWordIndex = isPlaying
+    ? findActiveWordIndex(activeSentenceWords, currentTime)
+    : -1;
 
   const handleShadowingToggle = () => {
     if (isFetching) return;
@@ -487,8 +568,17 @@ export default function LessonPage() {
             <div />
 
             <div className="text-center px-3">
-              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm">
-                {lesson.sentences[activeIndex]?.english}
+              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm flex flex-wrap justify-center gap-x-1 gap-y-0.5">
+                {activeSentenceWords.map((word, wordIndex) => (
+                  <span
+                    key={`${word.start}-${word.text}-${wordIndex}`}
+                    className={wordBorderClass(
+                      wordIndex === activeSentenceWordIndex,
+                    )}
+                  >
+                    {word.text}
+                  </span>
+                ))}
               </p>
             </div>
 
@@ -553,6 +643,11 @@ export default function LessonPage() {
           {lesson.sentences.map((item, index) => {
             const phoneticText = phoneticTexts[index] ?? '';
             const isActive = activeIndex === index;
+            const timedWords = wordTimingsBySentence[index] ?? [];
+            const activeWordIndex =
+              isActive && isPlaying
+                ? findActiveWordIndex(timedWords, currentTime)
+                : -1;
             return (
               <div
                 key={item.id}
@@ -576,7 +671,9 @@ export default function LessonPage() {
                         return (
                           <span
                             key={`${word.word}-${wordIndex}`}
-                            className={word.correct ? 'text-emerald-600' : 'text-red-500'}
+                            className={`${
+                              word.correct ? 'text-emerald-600' : 'text-red-500'
+                            } ${wordBorderClass(wordIndex === activeWordIndex)}`}
                           >
                             {displayWord}
                           </span>
@@ -585,13 +682,22 @@ export default function LessonPage() {
                     </p>
                   ) : (
                     <p
-                      className={`text-sm font-semibold leading-relaxed ${
+                      className={`text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5 ${
                         isActive
                           ? 'text-slate-900 dark:text-white'
                           : 'text-gray-900 dark:text-white'
                       }`}
                     >
-                      {item.english}
+                      {timedWords.map((word, wordIndex) => (
+                        <span
+                          key={`${word.start}-${word.text}-${wordIndex}`}
+                          className={wordBorderClass(
+                            wordIndex === activeWordIndex,
+                          )}
+                        >
+                          {word.text}
+                        </span>
+                      ))}
                     </p>
                   )}
                   {shadowingResultIndex === index && shadowingResult && (

@@ -920,6 +920,11 @@ export interface VideoTranslateSegment {
   end: number;
   en: string;
   vi: string;
+  words?: Array<{
+    text: string;
+    start: number;
+    end: number;
+  }>;
 }
 
 export type VideoTranslateStatus =

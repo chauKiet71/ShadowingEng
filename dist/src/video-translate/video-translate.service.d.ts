@@ -3,11 +3,19 @@ import { PrismaService } from '../prisma/prisma.service';
 export declare const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export declare const DEFAULT_MAX_SECONDS_FREE = 600;
 export declare const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-export declare const DUBBED_PIPELINE_VERSION = 10;
-export type VideoSegment = {
+export declare const DUBBED_PIPELINE_VERSION = 11;
+export type VideoWordTiming = {
+    text: string;
+    start: number;
+    end: number;
+};
+type TimedEnglishSegment = {
     start: number;
     end: number;
     en: string;
+    words?: VideoWordTiming[];
+};
+export type VideoSegment = TimedEnglishSegment & {
     vi: string;
 };
 export declare class VideoTranslateService {
@@ -145,6 +153,10 @@ export declare class VideoTranslateService {
     private mergeIntoUtterances;
     private splitMultiSentence;
     private alignSegmentWindows;
+    private attachWordTimings;
+    private mapWordsToSegment;
+    private stabilizeWordTimingWindows;
+    private estimateWordTimings;
     private translateSegments;
     private translateOne;
     private buildDubbedAudio;
@@ -192,3 +204,4 @@ export declare class VideoTranslateService {
     private releaseQuotaReservation;
     private ensureOpenAi;
 }
+export {};

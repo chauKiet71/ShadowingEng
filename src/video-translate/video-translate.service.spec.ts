@@ -6,7 +6,10 @@ type TimedSegment = {
   start: number;
   end: number;
   en: string;
+  words?: Array<{ text: string; start: number; end: number }>;
 };
+
+type RawTimedWord = { start: number; end: number; en: string };
 
 describe('VideoTranslateService transcript segmentation', () => {
   let service: VideoTranslateService;
@@ -18,15 +21,20 @@ describe('VideoTranslateService transcript segmentation', () => {
     );
   });
 
-  function finalize(segments: TimedSegment[], durationSec = 20) {
+  function finalize(
+    segments: TimedSegment[],
+    durationSec = 20,
+    words: RawTimedWord[] = [],
+  ) {
     return (
       service as unknown as {
         finalizeSegments: (
           input: TimedSegment[],
           duration: number,
+          wordTimings?: RawTimedWord[],
         ) => TimedSegment[];
       }
-    ).finalizeSegments(segments, durationSec);
+    ).finalizeSegments(segments, durationSec, words);
   }
 
   function buildWhisperTimedSegments(input: {
@@ -138,6 +146,31 @@ describe('VideoTranslateService transcript segmentation', () => {
     expect(result).toEqual([
       { start: 0, end: 0.4, en: 'First' },
       { start: 0.9, end: 1.3, en: 'Second.' },
+    ]);
+  });
+
+  it('maps Whisper word timestamps onto punctuated sentence words', () => {
+    const result = finalize(
+      [{ start: 0, end: 2.4, en: 'Try to arrive after 3 p.m.' }],
+      3,
+      [
+        { start: 0, end: 0.3, en: 'Try' },
+        { start: 0.3, end: 0.5, en: 'to' },
+        { start: 0.5, end: 1, en: 'arrive' },
+        { start: 1, end: 1.4, en: 'after' },
+        { start: 1.4, end: 1.7, en: '3' },
+        { start: 1.7, end: 1.8, en: 'p' },
+        { start: 1.8, end: 2, en: 'm' },
+      ],
+    );
+
+    expect(result[0].words).toEqual([
+      { text: 'Try', start: 0, end: 0.3 },
+      { text: 'to', start: 0.3, end: 0.5 },
+      { text: 'arrive', start: 0.5, end: 1 },
+      { text: 'after', start: 1, end: 1.4 },
+      { text: '3', start: 1.4, end: 1.7 },
+      { text: 'p.m.', start: 1.7, end: 2 },
     ]);
   });
 

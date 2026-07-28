@@ -65,6 +65,65 @@ function findActiveSegmentIndex(
   return active;
 }
 
+type SegmentWordTiming = NonNullable<
+  VideoTranslateSegment['words']
+>[number];
+
+function estimateSegmentWordTimings(
+  segment: VideoTranslateSegment,
+): SegmentWordTiming[] {
+  const words = segment.en.split(/\s+/).filter(Boolean);
+  const weights = words.map((word) =>
+    Math.max(1, word.replace(/[^a-z0-9]+/gi, '').length),
+  );
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
+  const duration = Math.max(0.12, segment.end - segment.start);
+  let cursor = segment.start;
+
+  return words.map((text, index) => {
+    const end =
+      index === words.length - 1
+        ? segment.end
+        : cursor + (duration * weights[index]) / totalWeight;
+    const timing = { text, start: cursor, end };
+    cursor = end;
+    return timing;
+  });
+}
+
+function resolveSegmentWordTimings(segment: VideoTranslateSegment) {
+  const stored = segment.words?.filter(
+    (word) =>
+      word.text.trim().length > 0 &&
+      Number.isFinite(word.start) &&
+      Number.isFinite(word.end),
+  );
+  return stored?.length ? stored : estimateSegmentWordTimings(segment);
+}
+
+function findActiveWordIndex(words: SegmentWordTiming[], time: number) {
+  let active = -1;
+  for (let index = 0; index < words.length; index += 1) {
+    const word = words[index];
+    if (time + 0.04 < word.start) break;
+    const nextStart = words[index + 1]?.start ?? word.end;
+    const visibleEnd = Math.max(
+      word.end,
+      Math.min(nextStart, word.start + 0.12),
+    );
+    if (time <= visibleEnd + 0.04) active = index;
+  }
+  return active;
+}
+
+function wordBorderClass(active: boolean) {
+  return `inline-block rounded-[5px] border px-0.5 py-px transition-colors duration-75 ${
+    active
+      ? 'border-emerald-400 bg-emerald-400/10'
+      : 'border-transparent'
+  }`;
+}
+
 const ACTIVE_SENTENCE_SLOT_TOP = 0;
 
 function scrollSegmentIntoView(
@@ -126,6 +185,10 @@ export default function VideoTranslatePage() {
   );
   const activeSegment =
     activeIndex >= 0 && job?.segments ? job.segments[activeIndex] : null;
+  const wordTimingsBySegment = useMemo(
+    () => (job?.segments ?? []).map(resolveSegmentWordTimings),
+    [job?.segments],
+  );
 
   useEffect(() => {
     const container = transcriptListRef.current;
@@ -583,6 +646,11 @@ export default function VideoTranslatePage() {
                         shadowingResultIndex === idx &&
                         !!shadowingResult?.words?.length;
                       const phoneticText = phoneticTexts[idx] ?? '';
+                      const timedWords = wordTimingsBySegment[idx] ?? [];
+                      const activeWordIndex =
+                        active && isPlaying
+                          ? findActiveWordIndex(timedWords, currentTime)
+                          : -1;
                       return (
                         <button
                           key={`${seg.start}-${idx}`}
@@ -606,11 +674,11 @@ export default function VideoTranslatePage() {
                                   return (
                                     <span
                                       key={`${word.word}-${wordIndex}`}
-                                      className={
+                                      className={`${
                                         word.correct
                                           ? 'text-emerald-600'
                                           : 'text-red-500'
-                                      }
+                                      } ${wordBorderClass(wordIndex === activeWordIndex)}`}
                                     >
                                       {displayWord}
                                     </span>
@@ -618,8 +686,17 @@ export default function VideoTranslatePage() {
                                 })}
                               </p>
                             ) : (
-                              <p className="text-sm font-semibold text-slate-900 dark:text-white leading-relaxed">
-                                {seg.en}
+                              <p className="text-sm font-semibold text-slate-900 dark:text-white leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
+                                {timedWords.map((word, wordIndex) => (
+                                  <span
+                                    key={`${word.start}-${word.text}-${wordIndex}`}
+                                    className={wordBorderClass(
+                                      wordIndex === activeWordIndex,
+                                    )}
+                                  >
+                                    {word.text}
+                                  </span>
+                                ))}
                               </p>
                             )}
 

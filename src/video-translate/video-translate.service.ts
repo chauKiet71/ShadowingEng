@@ -33,7 +33,7 @@ export const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export const DEFAULT_MAX_SECONDS_FREE = 600;
 export const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 /** Bump when processing pipeline changes — old cache bị bỏ qua */
-export const DUBBED_PIPELINE_VERSION = 10;
+export const DUBBED_PIPELINE_VERSION = 11;
 
 /**
  * Quy tắc tạo transcript: mỗi thẻ = một câu nói tự nhiên.
@@ -56,10 +56,20 @@ type CommandExecutionError = Error & {
   stdout?: string | Buffer;
 };
 
-export type VideoSegment = {
+export type VideoWordTiming = {
+  text: string;
+  start: number;
+  end: number;
+};
+
+type TimedEnglishSegment = {
   start: number;
   end: number;
   en: string;
+  words?: VideoWordTiming[];
+};
+
+export type VideoSegment = TimedEnglishSegment & {
   vi: string;
 };
 
@@ -352,13 +362,17 @@ export class VideoTranslateService {
       }
 
       const audioPath = await this.prepareAudioForWhisper(sourcePath, workDir);
-      const whisperSegments = await this.transcribeWithWhisper(audioPath);
-      const normalized = whisperSegments.map((seg) => ({
+      const whisperTranscript = await this.transcribeWithWhisper(audioPath);
+      const normalized = whisperTranscript.segments.map((seg) => ({
         start: seg.start,
         end: seg.end || Math.min(durationSec, seg.start + 4),
         en: seg.en,
       }));
-      const timed = this.finalizeSegments(normalized, durationSec);
+      const timed = this.finalizeSegments(
+        normalized,
+        durationSec,
+        whisperTranscript.words,
+      );
       const translated = await this.translateSegments(timed);
 
       await this.prisma.videoTranslateJob.update({
@@ -538,14 +552,18 @@ export class VideoTranslateService {
 
     this.logger.log(`No captions for ${videoId} — using Whisper STT`);
     const audioPath = await this.downloadAudio(youtubeUrl, workDir);
-    const whisperSegments = await this.transcribeWithWhisper(audioPath);
-    const normalized = whisperSegments.map((seg) => ({
+    const whisperTranscript = await this.transcribeWithWhisper(audioPath);
+    const normalized = whisperTranscript.segments.map((seg) => ({
       start: seg.start,
       end: seg.end || Math.min(durationSec, seg.start + 4),
       en: seg.en,
     }));
     return {
-      segments: this.finalizeSegments(normalized, durationSec),
+      segments: this.finalizeSegments(
+        normalized,
+        durationSec,
+        whisperTranscript.words,
+      ),
       source: 'whisper',
     };
   }
@@ -612,6 +630,7 @@ export class VideoTranslateService {
   private finalizeSegments(
     segments: Array<{ start: number; end: number; en: string }>,
     durationSec: number,
+    wordTimings: Array<{ start: number; end: number; en: string }> = [],
   ) {
     const sorted = [...segments].sort(
       (a, b) => a.start - b.start || a.end - b.end,
@@ -619,9 +638,12 @@ export class VideoTranslateService {
     const collapsed = this.collapseRollingCaptions(sorted);
     const sentenceParts = this.splitMultiSentence(collapsed);
     const utterances = this.mergeIntoUtterances(sentenceParts);
-    return this.alignSegmentWindows(utterances, durationSec).filter(
+    const aligned = this.alignSegmentWindows(utterances, durationSec).filter(
       (seg) => seg.en.trim().length > 0,
     );
+    return wordTimings.length
+      ? this.attachWordTimings(aligned, wordTimings)
+      : aligned;
   }
 
   private wordCount(text: string) {
@@ -834,8 +856,177 @@ export class VideoTranslateService {
     });
   }
 
-  private async translateSegments(
+  private attachWordTimings(
     segments: Array<{ start: number; end: number; en: string }>,
+    rawWords: Array<{ start: number; end: number; en: string }>,
+  ): TimedEnglishSegment[] {
+    const words = [...rawWords].sort(
+      (a, b) => a.start - b.start || a.end - b.end,
+    );
+
+    return segments.map((segment, index) => {
+      const nextStart = segments[index + 1]?.start;
+      const lowerBound = segment.start - 0.1;
+      const upperBound = nextStart ?? segment.end + 0.1;
+      const candidates = words.filter((word) => {
+        const midpoint = (word.start + word.end) / 2;
+        return midpoint >= lowerBound && midpoint < upperBound;
+      });
+      const mapped = this.mapWordsToSegment(segment, candidates);
+
+      return {
+        ...segment,
+        words: mapped.length
+          ? this.stabilizeWordTimingWindows(mapped, segment.end)
+          : this.estimateWordTimings(segment),
+      };
+    });
+  }
+
+  private mapWordsToSegment(
+    segment: { start: number; end: number; en: string },
+    candidates: Array<{ start: number; end: number; en: string }>,
+  ): VideoWordTiming[] {
+    const displayWords = segment.en.split(/\s+/).filter(Boolean);
+    const normalize = (value: string) =>
+      value.toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+    for (
+      let startOffset = 0;
+      startOffset <= Math.min(3, candidates.length - 1);
+      startOffset += 1
+    ) {
+      const mapped: VideoWordTiming[] = [];
+      let candidateIndex = startOffset;
+      let failed = false;
+
+      for (const displayWord of displayWords) {
+        const target = normalize(displayWord);
+        if (!target) {
+          failed = true;
+          break;
+        }
+
+        let combined = '';
+        let matchedEnd = -1;
+        for (
+          let endIndex = candidateIndex;
+          endIndex < Math.min(candidates.length, candidateIndex + 3);
+          endIndex += 1
+        ) {
+          combined += normalize(candidates[endIndex].en);
+          if (combined === target) {
+            matchedEnd = endIndex;
+            break;
+          }
+          if (!target.startsWith(combined)) break;
+        }
+
+        if (matchedEnd < candidateIndex) {
+          failed = true;
+          break;
+        }
+
+        mapped.push({
+          text: displayWord,
+          start: candidates[candidateIndex].start,
+          end: candidates[matchedEnd].end,
+        });
+        candidateIndex = matchedEnd + 1;
+      }
+
+      if (!failed && mapped.length === displayWords.length) return mapped;
+    }
+
+    return [];
+  }
+
+  private stabilizeWordTimingWindows(
+    words: VideoWordTiming[],
+    segmentEnd: number,
+  ) {
+    const stabilized = words.map((word) => ({ ...word }));
+    let index = 0;
+
+    while (index < stabilized.length) {
+      let groupEnd = index;
+      while (
+        groupEnd + 1 < stabilized.length &&
+        Math.abs(
+          stabilized[groupEnd + 1].start - stabilized[index].start,
+        ) <= 0.015
+      ) {
+        groupEnd += 1;
+      }
+
+      if (groupEnd > index) {
+        const group = stabilized.slice(index, groupEnd + 1);
+        const nextStart = stabilized[groupEnd + 1]?.start ?? segmentEnd;
+        const naturalEnd = Math.max(...group.map((word) => word.end));
+        const windowEnd = Math.max(
+          group[0].start + group.length * 0.08,
+          Math.min(nextStart, naturalEnd),
+        );
+        const weights = group.map((word) =>
+          Math.max(1, word.text.replace(/[^a-z0-9]+/gi, '').length),
+        );
+        const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+        let cursor = group[0].start;
+
+        group.forEach((word, groupIndex) => {
+          const end =
+            groupIndex === group.length - 1
+              ? windowEnd
+              : cursor +
+                ((windowEnd - group[0].start) * weights[groupIndex]) /
+                  totalWeight;
+          stabilized[index + groupIndex] = {
+            ...word,
+            start: cursor,
+            end,
+          };
+          cursor = end;
+        });
+      } else if (stabilized[index].end <= stabilized[index].start) {
+        const nextStart = stabilized[index + 1]?.start ?? segmentEnd;
+        stabilized[index].end = Math.min(
+          nextStart,
+          stabilized[index].start + 0.12,
+        );
+      }
+
+      index = groupEnd + 1;
+    }
+
+    return stabilized;
+  }
+
+  private estimateWordTimings(segment: {
+    start: number;
+    end: number;
+    en: string;
+  }): VideoWordTiming[] {
+    const words = segment.en.split(/\s+/).filter(Boolean);
+    const weights = words.map((word) =>
+      Math.max(1, word.replace(/[^a-z0-9]+/gi, '').length),
+    );
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
+    const duration = Math.max(0.12, segment.end - segment.start);
+    let cursor = segment.start;
+
+    return words.map((text, index) => {
+      const end =
+        index === words.length - 1
+          ? segment.end
+          : cursor + (duration * weights[index]) / totalWeight;
+      const timing = { text, start: cursor, end };
+      cursor = end;
+      return timing;
+    });
+  }
+
+  private async translateSegments(
+    segments: TimedEnglishSegment[],
   ): Promise<VideoSegment[]> {
     this.ensureOpenAi();
     const out: VideoSegment[] = [];
@@ -884,6 +1075,7 @@ export class VideoTranslateService {
           start: seg.start,
           end: seg.end,
           en: seg.en,
+          ...(seg.words?.length ? { words: seg.words } : {}),
           vi: map.get(idx) || (await this.translateOne(seg.en)),
         });
       }
@@ -1285,7 +1477,21 @@ export class VideoTranslateService {
       words?: Array<{ start?: number; end?: number; word?: string }>;
       segments?: Array<{ start?: number; end?: number; text?: string }>;
     };
-    return this.buildWhisperTimedSegments(timedResult);
+    const words = (timedResult.words ?? [])
+      .map((word) => {
+        const start = Number(word.start) || 0;
+        return {
+          start,
+          end: Number(word.end) || start + 0.3,
+          en: this.cleanCaptionText(String(word.word ?? '')),
+        };
+      })
+      .filter((word) => word.en.length > 0);
+
+    return {
+      segments: this.buildWhisperTimedSegments(timedResult),
+      words,
+    };
   }
 
   /**
@@ -1901,12 +2107,32 @@ export class VideoTranslateService {
         const end = Number(row.end);
         const en = typeof row.en === 'string' ? row.en : '';
         const vi = typeof row.vi === 'string' ? row.vi : '';
+        const words = Array.isArray(row.words)
+          ? row.words
+              .map((word) => {
+                if (!word || typeof word !== 'object') return null;
+                const value = word as Record<string, unknown>;
+                const text = typeof value.text === 'string' ? value.text : '';
+                const wordStart = Number(value.start);
+                const wordEnd = Number(value.end);
+                if (!text || !Number.isFinite(wordStart)) return null;
+                return {
+                  text,
+                  start: wordStart,
+                  end: Number.isFinite(wordEnd)
+                    ? Math.max(wordStart, wordEnd)
+                    : wordStart + 0.12,
+                };
+              })
+              .filter((word): word is VideoWordTiming => word != null)
+          : [];
         if (!Number.isFinite(start) || !en) return null;
         return {
           start,
           end: Number.isFinite(end) ? end : start + 2,
           en,
           vi,
+          ...(words.length ? { words } : {}),
         };
       })
       .filter((item): item is VideoSegment => item != null);
