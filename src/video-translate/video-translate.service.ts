@@ -33,7 +33,7 @@ export const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export const DEFAULT_MAX_SECONDS_FREE = 600;
 export const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 /** Bump when processing pipeline changes — old cache bị bỏ qua */
-export const DUBBED_PIPELINE_VERSION = 9;
+export const DUBBED_PIPELINE_VERSION = 10;
 
 /**
  * Quy tắc tạo transcript: mỗi thẻ = một câu nói tự nhiên.
@@ -47,9 +47,6 @@ const TRANSCRIPT_RULES = {
   pauseBreakSec: 0.5,
   /** Timestamp từ caption/audio thường được làm tròn đến mili giây. */
   timestampEpsilonSec: 0.001,
-  /** Giới hạn độ dài một thẻ */
-  maxWordsPerCard: 18,
-  maxUtteranceSec: 8,
 } as const;
 
 const execFileAsync = promisify(execFile);
@@ -734,12 +731,7 @@ export class VideoTranslateService {
   private mergeIntoUtterances(
     segments: Array<{ start: number; end: number; en: string }>,
   ) {
-    const {
-      pauseBreakSec,
-      timestampEpsilonSec,
-      maxWordsPerCard,
-      maxUtteranceSec,
-    } = TRANSCRIPT_RULES;
+    const { pauseBreakSec, timestampEpsilonSec } = TRANSCRIPT_RULES;
     const merged: Array<{ start: number; end: number; en: string }> = [];
 
     for (const seg of segments) {
@@ -750,16 +742,9 @@ export class VideoTranslateService {
       }
 
       const gap = seg.start - last.end;
-      const lastWords = this.wordCount(last.en);
-      const words = this.wordCount(seg.en);
-      const combinedWords = lastWords + words;
-      const combinedDur = Math.max(seg.end, last.end) - last.start;
       const lastEnded = this.endsUtterance(last.en);
 
-      const canFit =
-        combinedWords <= maxWordsPerCard && combinedDur <= maxUtteranceSec;
-
-      if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded || !canFit) {
+      if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded) {
         merged.push({ ...seg });
         continue;
       }
@@ -871,7 +856,7 @@ export class VideoTranslateService {
           {
             role: 'system',
             content:
-              'You translate English video transcript segments into concise natural Vietnamese for learners. Keep meaning, prefer shorter phrasing so spoken length stays close to English. Return JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
+              'Translate each English transcript item into accurate, idiomatic contemporary Vietnamese for learners. Use neighboring items only to understand context and pronoun references, but translate exactly one source item per output index. Prefer natural Vietnamese phrasing over word-for-word wording and avoid redundancy. Preserve every idea: never omit content, merge items, or move content to another index. Keep names and factual details accurate. Return exactly one non-empty translation for every input index as JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
           },
           {
             role: 'user',
@@ -916,7 +901,7 @@ export class VideoTranslateService {
         {
           role: 'system',
           content:
-            'Translate English into natural Vietnamese. Return only the translation.',
+            'Translate the complete English sentence into accurate, natural Vietnamese. Preserve every idea and factual detail. Do not shorten or omit content. Return only the translation.',
         },
         { role: 'user', content: text },
       ],
@@ -1300,19 +1285,48 @@ export class VideoTranslateService {
       words?: Array<{ start?: number; end?: number; word?: string }>;
       segments?: Array<{ start?: number; end?: number; text?: string }>;
     };
-    const words = timedResult.words ?? [];
-    if (words.length) {
-      return words
-        .map((word) => ({
-          start: Number(word.start) || 0,
-          end: Number(word.end) || (Number(word.start) || 0) + 0.3,
+    return this.buildWhisperTimedSegments(timedResult);
+  }
+
+  /**
+   * Whisper trả cả `segments` có dấu câu và `words` có timing chi tiết.
+   * Ưu tiên segments để không làm mất ranh giới câu; words chỉ dùng để giữ
+   * ranh giới nghỉ 0.5s nằm bên trong một segment hoặc làm phương án dự phòng.
+   */
+  private buildWhisperTimedSegments(timedResult: {
+    text?: string;
+    words?: Array<{ start?: number; end?: number; word?: string }>;
+    segments?: Array<{ start?: number; end?: number; text?: string }>;
+  }) {
+    const words = (timedResult.words ?? [])
+      .map((word) => {
+        const start = Number(word.start) || 0;
+        return {
+          start,
+          end: Number(word.end) || start + 0.3,
           en: this.cleanCaptionText(String(word.word ?? '')),
-        }))
-        .filter((word) => word.en.length > 0);
+        };
+      })
+      .filter((word) => word.en.length > 0);
+
+    const captionSegments = (timedResult.segments ?? [])
+      .map((segment) => {
+        const start = Number(segment.start) || 0;
+        return {
+          start,
+          end: Number(segment.end) || start + 2,
+          en: this.cleanCaptionText(String(segment.text ?? '')),
+        };
+      })
+      .filter((segment) => segment.en.length > 0);
+
+    if (captionSegments.length) {
+      return this.splitWhisperSegmentsAtInternalPauses(captionSegments, words);
     }
 
-    const segments = timedResult.segments ?? [];
-    if (!segments.length && timedResult.text) {
+    if (words.length) return words;
+
+    if (timedResult.text) {
       return [
         {
           start: 0,
@@ -1322,13 +1336,78 @@ export class VideoTranslateService {
       ];
     }
 
-    return segments
-      .map((seg) => ({
-        start: Number(seg.start) || 0,
-        end: Number(seg.end) || (Number(seg.start) || 0) + 2,
-        en: this.cleanCaptionText(String(seg.text ?? '')),
-      }))
-      .filter((seg) => seg.en.length > 0);
+    return [];
+  }
+
+  private splitWhisperSegmentsAtInternalPauses(
+    segments: Array<{ start: number; end: number; en: string }>,
+    words: Array<{ start: number; end: number; en: string }>,
+  ) {
+    if (!words.length) return segments;
+
+    const out: Array<{ start: number; end: number; en: string }> = [];
+    let wordCursor = 0;
+
+    for (const segment of segments) {
+      while (
+        wordCursor < words.length &&
+        words[wordCursor].end < segment.start - 0.08
+      ) {
+        wordCursor += 1;
+      }
+
+      const segmentWords: Array<{ start: number; end: number; en: string }> =
+        [];
+      while (wordCursor < words.length) {
+        const word = words[wordCursor];
+        const midpoint = (word.start + word.end) / 2;
+        if (midpoint > segment.end + 0.08) break;
+        if (midpoint >= segment.start - 0.08) segmentWords.push(word);
+        wordCursor += 1;
+      }
+
+      const groups: Array<typeof segmentWords> = [];
+      for (const word of segmentWords) {
+        const group = groups[groups.length - 1];
+        const previousWord = group?.[group.length - 1];
+        if (
+          !group ||
+          (previousWord &&
+            word.start -
+              previousWord.end +
+              TRANSCRIPT_RULES.timestampEpsilonSec >=
+              TRANSCRIPT_RULES.pauseBreakSec)
+        ) {
+          groups.push([word]);
+        } else {
+          group.push(word);
+        }
+      }
+
+      if (groups.length <= 1) {
+        out.push(segment);
+        continue;
+      }
+
+      const terminalPunctuation =
+        segment.en.match(/([.!?…]+["')\]]?)\s*$/)?.[1] ?? '';
+      groups.forEach((group, index) => {
+        let en = group
+          .map((word) => word.en)
+          .join(' ')
+          .trim();
+        if (index === groups.length - 1 && terminalPunctuation) {
+          en = `${en.replace(/[.!?…]+$/, '')}${terminalPunctuation}`;
+        }
+        out.push({
+          start: group[0].start,
+          end: group[group.length - 1].end,
+          en,
+        });
+      });
+    }
+
+    return out;
   }
 
   private async fetchVideoMeta(videoId: string, youtubeUrl: string) {

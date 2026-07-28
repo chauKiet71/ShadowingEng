@@ -29,6 +29,18 @@ describe('VideoTranslateService transcript segmentation', () => {
     ).finalizeSegments(segments, durationSec);
   }
 
+  function buildWhisperTimedSegments(input: {
+    text?: string;
+    words?: Array<{ start?: number; end?: number; word?: string }>;
+    segments?: Array<{ start?: number; end?: number; text?: string }>;
+  }) {
+    return (
+      service as unknown as {
+        buildWhisperTimedSegments: (value: typeof input) => TimedSegment[];
+      }
+    ).buildWhisperTimedSegments(input);
+  }
+
   it('cuts at an exact 0.5 second pause', () => {
     const result = finalize([
       { start: 0, end: 1, en: 'The first thought' },
@@ -77,6 +89,56 @@ describe('VideoTranslateService transcript segmentation', () => {
     const result = finalize([{ start: 0, end: 2, en: 'Yes. I agree.' }]);
 
     expect(result.map((segment) => segment.en)).toEqual(['Yes.', 'I agree.']);
+  });
+
+  it('keeps a complete long sentence instead of cutting at an arbitrary word limit', () => {
+    const result = finalize([
+      { start: 0, end: 2, en: 'This is an old historical road,' },
+      {
+        start: 2.1,
+        end: 4.1,
+        en: 'which is actually now one of the most modern',
+      },
+      {
+        start: 4.15,
+        end: 6.4,
+        en: 'pedestrian streets in all of China and Guangzhou.',
+      },
+    ]);
+
+    expect(result).toHaveLength(1);
+    expect(result[0].en).toBe(
+      'This is an old historical road, which is actually now one of the most modern pedestrian streets in all of China and Guangzhou.',
+    );
+  });
+
+  it('uses punctuated Whisper segments instead of bare word tokens', () => {
+    const result = buildWhisperTimedSegments({
+      words: [
+        { start: 0, end: 0.2, word: 'Now' },
+        { start: 0.2, end: 0.4, word: 'here' },
+        { start: 0.4, end: 0.6, word: 'we' },
+        { start: 0.6, end: 0.8, word: 'are' },
+      ],
+      segments: [{ start: 0, end: 0.8, text: ' Now here we are.' }],
+    });
+
+    expect(result).toEqual([{ start: 0, end: 0.8, en: 'Now here we are.' }]);
+  });
+
+  it('still splits a Whisper segment at an internal 0.5 second pause', () => {
+    const result = buildWhisperTimedSegments({
+      words: [
+        { start: 0, end: 0.4, word: 'First' },
+        { start: 0.9, end: 1.3, word: 'Second' },
+      ],
+      segments: [{ start: 0, end: 1.3, text: 'First Second.' }],
+    });
+
+    expect(result).toEqual([
+      { start: 0, end: 0.4, en: 'First' },
+      { start: 0.9, end: 1.3, en: 'Second.' },
+    ]);
   });
 
   it('collapses a rolling caption extension without duplicating words', () => {

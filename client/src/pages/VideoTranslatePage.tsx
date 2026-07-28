@@ -97,6 +97,7 @@ export default function VideoTranslatePage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [showSubtitles, setShowSubtitles] = useState(true);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
   const [shadowingResultIndex, setShadowingResultIndex] = useState<number | null>(
@@ -112,6 +113,7 @@ export default function VideoTranslatePage() {
     reset: resetShadowing,
   } = useShadowing();
   const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
+  const autoPlayRequestedRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const syncRafRef = useRef<number | null>(null);
   const transcriptListRef = useRef<HTMLDivElement | null>(null);
@@ -143,6 +145,7 @@ export default function VideoTranslatePage() {
   useEffect(() => {
     segmentRefs.current = [];
     prevActiveIndexRef.current = -1;
+    setIsPlaying(false);
   }, [job?.id]);
 
   function stopSyncLoop() {
@@ -162,8 +165,37 @@ export default function VideoTranslatePage() {
     syncRafRef.current = window.requestAnimationFrame(tick);
   }
 
+  function attachMediaElement(
+    element: HTMLVideoElement | HTMLAudioElement | null,
+  ) {
+    mediaRef.current = element;
+    if (!element || !autoPlayRequestedRef.current) return;
+
+    autoPlayRequestedRef.current = false;
+    element.currentTime = 0;
+    void element.play().catch(() => {
+      setIsPlaying(false);
+    });
+  }
+
   function pausePlayback() {
     mediaRef.current?.pause();
+    setIsPlaying(false);
+    stopSyncLoop();
+  }
+
+  function handleMediaPlay() {
+    setIsPlaying(true);
+    startSyncLoop();
+  }
+
+  function handleMediaPause() {
+    setIsPlaying(false);
+    stopSyncLoop();
+  }
+
+  function handleMediaEnded() {
+    setIsPlaying(false);
     stopSyncLoop();
   }
 
@@ -308,6 +340,7 @@ export default function VideoTranslatePage() {
   }
 
   function openJob(item: VideoTranslateJob) {
+    autoPlayRequestedRef.current = true;
     setJob(item);
     setError('');
     setCurrentTime(0);
@@ -500,15 +533,14 @@ export default function VideoTranslatePage() {
                     {mediaIsAudio ? (
                       <audio
                         key={job.id}
-                        ref={(el) => {
-                          mediaRef.current = el;
-                        }}
+                        ref={attachMediaElement}
                         src={job.mediaUrl}
+                        autoPlay={autoPlayRequestedRef.current}
                         controls
                         className="w-full px-3"
-                        onPlay={startSyncLoop}
-                        onPause={stopSyncLoop}
-                        onEnded={stopSyncLoop}
+                        onPlay={handleMediaPlay}
+                        onPause={handleMediaPause}
+                        onEnded={handleMediaEnded}
                         onTimeUpdate={(e) =>
                           setCurrentTime(e.currentTarget.currentTime || 0)
                         }
@@ -516,16 +548,15 @@ export default function VideoTranslatePage() {
                     ) : (
                       <video
                         key={job.id}
-                        ref={(el) => {
-                          mediaRef.current = el;
-                        }}
+                        ref={attachMediaElement}
                         src={job.mediaUrl}
+                        autoPlay={autoPlayRequestedRef.current}
                         controls
                         playsInline
                         className="w-full h-full object-contain bg-black"
-                        onPlay={startSyncLoop}
-                        onPause={stopSyncLoop}
-                        onEnded={stopSyncLoop}
+                        onPlay={handleMediaPlay}
+                        onPause={handleMediaPause}
+                        onEnded={handleMediaEnded}
                         onTimeUpdate={(e) =>
                           setCurrentTime(e.currentTarget.currentTime || 0)
                         }
@@ -560,13 +591,13 @@ export default function VideoTranslatePage() {
                           }}
                           type="button"
                           onClick={() => seekToSegment(seg)}
-                          className={`w-full text-left p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
+                          className={`relative w-full text-left p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
                             active
                               ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(99,102,241,0.35)]'
                               : 'bg-white border-gray-100 dark:bg-neutral-900 dark:border-neutral-800'
                           }`}
                         >
-                          <div className="min-w-0">
+                          <div className="min-w-0 pr-7">
                             {showScore ? (
                               <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
                                 {shadowingResult!.words.map((word, wordIndex) => {
@@ -628,6 +659,18 @@ export default function VideoTranslatePage() {
                               {formatTime(seg.start)} – {formatTime(seg.end)}
                             </p>
                           </div>
+                          {active && (
+                            <span
+                              className={`audio-eq absolute right-4 top-4 text-primary ${
+                                isPlaying ? 'audio-eq-playing' : ''
+                              }`}
+                              aria-hidden
+                            >
+                              <span />
+                              <span />
+                              <span />
+                            </span>
+                          )}
                         </button>
                       );
                     })}

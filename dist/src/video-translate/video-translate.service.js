@@ -62,12 +62,10 @@ const youtube_util_1 = require("./youtube.util");
 exports.FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 exports.DEFAULT_MAX_SECONDS_FREE = 600;
 exports.DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-exports.DUBBED_PIPELINE_VERSION = 9;
+exports.DUBBED_PIPELINE_VERSION = 10;
 const TRANSCRIPT_RULES = {
     pauseBreakSec: 0.5,
     timestampEpsilonSec: 0.001,
-    maxWordsPerCard: 18,
-    maxUtteranceSec: 8,
 };
 const execFileAsync = (0, util_1.promisify)(child_process_1.execFile);
 let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateService {
@@ -373,8 +371,32 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         const thumbPath = (0, path_1.join)(jobDir, thumbName);
         const ffmpeg = this.resolveFfmpegPath();
         const attempts = [
-            ['-y', '-ss', '1', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
-            ['-y', '-i', sourcePath, '-frames:v', '1', '-q:v', '4', '-vf', 'scale=320:-2', thumbPath],
+            [
+                '-y',
+                '-ss',
+                '1',
+                '-i',
+                sourcePath,
+                '-frames:v',
+                '1',
+                '-q:v',
+                '4',
+                '-vf',
+                'scale=320:-2',
+                thumbPath,
+            ],
+            [
+                '-y',
+                '-i',
+                sourcePath,
+                '-frames:v',
+                '1',
+                '-q:v',
+                '4',
+                '-vf',
+                'scale=320:-2',
+                thumbPath,
+            ],
         ];
         for (const args of attempts) {
             try {
@@ -565,7 +587,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
         return out;
     }
     mergeIntoUtterances(segments) {
-        const { pauseBreakSec, timestampEpsilonSec, maxWordsPerCard, maxUtteranceSec, } = TRANSCRIPT_RULES;
+        const { pauseBreakSec, timestampEpsilonSec } = TRANSCRIPT_RULES;
         const merged = [];
         for (const seg of segments) {
             const last = merged[merged.length - 1];
@@ -574,13 +596,8 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 continue;
             }
             const gap = seg.start - last.end;
-            const lastWords = this.wordCount(last.en);
-            const words = this.wordCount(seg.en);
-            const combinedWords = lastWords + words;
-            const combinedDur = Math.max(seg.end, last.end) - last.start;
             const lastEnded = this.endsUtterance(last.en);
-            const canFit = combinedWords <= maxWordsPerCard && combinedDur <= maxUtteranceSec;
-            if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded || !canFit) {
+            if (gap + timestampEpsilonSec >= pauseBreakSec || lastEnded) {
                 merged.push({ ...seg });
                 continue;
             }
@@ -661,7 +678,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 messages: [
                     {
                         role: 'system',
-                        content: 'You translate English video transcript segments into concise natural Vietnamese for learners. Keep meaning, prefer shorter phrasing so spoken length stays close to English. Return JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
+                        content: 'Translate each English transcript item into accurate, idiomatic contemporary Vietnamese for learners. Use neighboring items only to understand context and pronoun references, but translate exactly one source item per output index. Prefer natural Vietnamese phrasing over word-for-word wording and avoid redundancy. Preserve every idea: never omit content, merge items, or move content to another index. Keep names and factual details accurate. Return exactly one non-empty translation for every input index as JSON: {"items":[{"i":0,"vi":"..."}]}. No explanations.',
                     },
                     {
                         role: 'user',
@@ -701,7 +718,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             messages: [
                 {
                     role: 'system',
-                    content: 'Translate English into natural Vietnamese. Return only the translation.',
+                    content: 'Translate the complete English sentence into accurate, natural Vietnamese. Preserve every idea and factual detail. Do not shorten or omit content. Return only the translation.',
                 },
                 { role: 'user', content: text },
             ],
@@ -986,18 +1003,35 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
             timestamp_granularities: ['word', 'segment'],
         });
         const timedResult = result;
-        const words = timedResult.words ?? [];
-        if (words.length) {
-            return words
-                .map((word) => ({
-                start: Number(word.start) || 0,
-                end: Number(word.end) || (Number(word.start) || 0) + 0.3,
+        return this.buildWhisperTimedSegments(timedResult);
+    }
+    buildWhisperTimedSegments(timedResult) {
+        const words = (timedResult.words ?? [])
+            .map((word) => {
+            const start = Number(word.start) || 0;
+            return {
+                start,
+                end: Number(word.end) || start + 0.3,
                 en: this.cleanCaptionText(String(word.word ?? '')),
-            }))
-                .filter((word) => word.en.length > 0);
+            };
+        })
+            .filter((word) => word.en.length > 0);
+        const captionSegments = (timedResult.segments ?? [])
+            .map((segment) => {
+            const start = Number(segment.start) || 0;
+            return {
+                start,
+                end: Number(segment.end) || start + 2,
+                en: this.cleanCaptionText(String(segment.text ?? '')),
+            };
+        })
+            .filter((segment) => segment.en.length > 0);
+        if (captionSegments.length) {
+            return this.splitWhisperSegmentsAtInternalPauses(captionSegments, words);
         }
-        const segments = timedResult.segments ?? [];
-        if (!segments.length && timedResult.text) {
+        if (words.length)
+            return words;
+        if (timedResult.text) {
             return [
                 {
                     start: 0,
@@ -1006,13 +1040,65 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 },
             ];
         }
-        return segments
-            .map((seg) => ({
-            start: Number(seg.start) || 0,
-            end: Number(seg.end) || (Number(seg.start) || 0) + 2,
-            en: this.cleanCaptionText(String(seg.text ?? '')),
-        }))
-            .filter((seg) => seg.en.length > 0);
+        return [];
+    }
+    splitWhisperSegmentsAtInternalPauses(segments, words) {
+        if (!words.length)
+            return segments;
+        const out = [];
+        let wordCursor = 0;
+        for (const segment of segments) {
+            while (wordCursor < words.length &&
+                words[wordCursor].end < segment.start - 0.08) {
+                wordCursor += 1;
+            }
+            const segmentWords = [];
+            while (wordCursor < words.length) {
+                const word = words[wordCursor];
+                const midpoint = (word.start + word.end) / 2;
+                if (midpoint > segment.end + 0.08)
+                    break;
+                if (midpoint >= segment.start - 0.08)
+                    segmentWords.push(word);
+                wordCursor += 1;
+            }
+            const groups = [];
+            for (const word of segmentWords) {
+                const group = groups[groups.length - 1];
+                const previousWord = group?.[group.length - 1];
+                if (!group ||
+                    (previousWord &&
+                        word.start -
+                            previousWord.end +
+                            TRANSCRIPT_RULES.timestampEpsilonSec >=
+                            TRANSCRIPT_RULES.pauseBreakSec)) {
+                    groups.push([word]);
+                }
+                else {
+                    group.push(word);
+                }
+            }
+            if (groups.length <= 1) {
+                out.push(segment);
+                continue;
+            }
+            const terminalPunctuation = segment.en.match(/([.!?…]+["')\]]?)\s*$/)?.[1] ?? '';
+            groups.forEach((group, index) => {
+                let en = group
+                    .map((word) => word.en)
+                    .join(' ')
+                    .trim();
+                if (index === groups.length - 1 && terminalPunctuation) {
+                    en = `${en.replace(/[.!?…]+$/, '')}${terminalPunctuation}`;
+                }
+                out.push({
+                    start: group[0].start,
+                    end: group[group.length - 1].end,
+                    en,
+                });
+            });
+        }
+        return out;
     }
     async fetchVideoMeta(videoId, youtubeUrl) {
         if (this.isRapidApiConfigured()) {
@@ -1106,9 +1192,7 @@ let VideoTranslateService = VideoTranslateService_1 = class VideoTranslateServic
                 throw new common_1.ServiceUnavailableException(`RapidAPI trả về dữ liệu không hợp lệ (HTTP ${res.status})`);
             }
             if (!res.ok) {
-                throw new common_1.ServiceUnavailableException(data.message ||
-                    data.error ||
-                    `RapidAPI lỗi HTTP ${res.status}`);
+                throw new common_1.ServiceUnavailableException(data.message || data.error || `RapidAPI lỗi HTTP ${res.status}`);
             }
             if (!Array.isArray(data.medias) || data.medias.length === 0) {
                 throw new common_1.ServiceUnavailableException('RapidAPI không trả về danh sách media');

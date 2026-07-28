@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export declare const FREE_VIDEO_TRANSLATE_PER_DAY = 3;
 export declare const DEFAULT_MAX_SECONDS_FREE = 600;
 export declare const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
-export declare const DUBBED_PIPELINE_VERSION = 9;
+export declare const DUBBED_PIPELINE_VERSION = 10;
 export type VideoSegment = {
     start: number;
     end: number;
@@ -158,6 +158,8 @@ export declare class VideoTranslateService {
     private downloadAudioViaRapidApi;
     private downloadAudioViaYtDlp;
     private transcribeWithWhisper;
+    private buildWhisperTimedSegments;
+    private splitWhisperSegmentsAtInternalPauses;
     private fetchVideoMeta;
     private isRapidApiConfigured;
     private rapidApiHost;
