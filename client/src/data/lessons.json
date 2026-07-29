@@ -23983,8 +23983,8 @@
     "title": "Giải quyết vấn đề",
     "description": "Phân tích tình huống và tìm giải pháp hiệu quả",
     "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
-    "audioUrl": "",
-    "duration": 47,
+    "audioUrl": "/audio/lesson-220.mp3",
+    "duration": 50,
     "level": "BEGINNER",
     "topic": "Kỹ năng mềm",
     "sentences": [
@@ -23994,55 +23994,3880 @@
         "phonetic": "",
         "vietnamese": "Giải quyết vấn đề là một kỹ năng mà mọi người sử dụng trong cuộc sống hàng ngày.",
         "time_start": 0,
-        "time_end": 4.6
+        "time_end": 4.32
       },
       {
         "id": "220-2",
         "english": "People face different challenges at school, at work, and in their personal lives.",
         "phonetic": "",
         "vietnamese": "Mọi người đối mặt với những thách thức khác nhau ở trường học, nơi làm việc và trong cuộc sống cá nhân.",
-        "time_start": 4.85,
-        "time_end": 10.59
+        "time_start": 5.2,
+        "time_end": 9.9
       },
       {
         "id": "220-3",
         "english": "Instead of feeling stressed or giving up, they should learn to analyze the situation and look for possible solutions.",
         "phonetic": "",
         "vietnamese": "Thay vì cảm thấy căng thẳng hoặc bỏ cuộc, họ nên học cách phân tích tình huống và tìm kiếm các giải pháp khả thi.",
-        "time_start": 10.84,
-        "time_end": 18.86
+        "time_start": 10.7,
+        "time_end": 17.54
       },
       {
         "id": "220-4",
         "english": "A good problem solver stays calm, gathers information, and considers different options before making a decision.",
         "phonetic": "",
         "vietnamese": "Một người giải quyết vấn đề giỏi giữ bình tĩnh, thu thập thông tin và xem xét các lựa chọn khác nhau trước khi đưa ra quyết định.",
-        "time_start": 19.11,
-        "time_end": 25.99
+        "time_start": 17.86,
+        "time_end": 25.92
       },
       {
         "id": "220-5",
         "english": "Sometimes asking for advice from teachers, friends, or family members can also be helpful.",
         "phonetic": "",
         "vietnamese": "Đôi khi, việc xin lời khuyên từ giáo viên, bạn bè hoặc thành viên trong gia đình cũng có thể hữu ích.",
-        "time_start": 26.24,
-        "time_end": 32.36
+        "time_start": 26.64,
+        "time_end": 32.68
       },
       {
         "id": "220-6",
         "english": "Making mistakes is a natural part of learning, and every challenge provides an opportunity to grow.",
         "phonetic": "",
         "vietnamese": "Sai lầm là một phần tự nhiên của việc học, và mỗi thách thức đều mang đến cơ hội để phát triển.",
-        "time_start": 32.61,
-        "time_end": 39.49
+        "time_start": 33.66,
+        "time_end": 39.96
       },
       {
         "id": "220-7",
         "english": "By developing strong problem-solving skills, people become more confident, independent, and prepared for future challenges.",
         "phonetic": "",
         "vietnamese": "Bằng cách phát triển kỹ năng giải quyết vấn đề mạnh mẽ, mọi người trở nên tự tin, độc lập và sẵn sàng cho những thách thức trong tương lai.",
-        "time_start": 39.74,
-        "time_end": 46.24
+        "time_start": 40.74,
+        "time_end": 48.4
+      }
+    ]
+  },
+  {
+    "id": "lesson-221",
+    "categoryId": "20",
+    "title": "Tư duy phản biện",
+    "description": "Phân tích thông tin, kiểm tra bằng chứng và đưa ra quyết định",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-221.mp3",
+    "duration": 53,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "221-1",
+        "english": "Critical thinking is the ability to analyze information carefully before making a decision or forming an opinion.",
+        "phonetic": "",
+        "vietnamese": "Tư duy phản biện là khả năng phân tích thông tin một cách cẩn thận trước khi đưa ra quyết định hoặc hình thành ý kiến.",
+        "time_start": 0,
+        "time_end": 7.24
+      },
+      {
+        "id": "221-2",
+        "english": "In today's world, people receive information from many different sources, especially the internet and social media.",
+        "phonetic": "",
+        "vietnamese": "Trong thế giới ngày nay, mọi người nhận thông tin từ nhiều nguồn khác nhau, đặc biệt là internet và mạng xã hội.",
+        "time_start": 7.24,
+        "time_end": 15.78
+      },
+      {
+        "id": "221-3",
+        "english": "Not all information is accurate, so it is important to check facts and consider different viewpoints.",
+        "phonetic": "",
+        "vietnamese": "Không phải tất cả thông tin đều chính xác, vì vậy việc kiểm tra sự thật và xem xét các quan điểm khác nhau là rất quan trọng.",
+        "time_start": 15.78,
+        "time_end": 21.9
+      },
+      {
+        "id": "221-4",
+        "english": "Critical thinkers ask questions, evaluate evidence, and avoid making quick judgments without enough information.",
+        "phonetic": "",
+        "vietnamese": "Những người tư duy phản biện đặt câu hỏi, đánh giá bằng chứng và tránh đưa ra phán xét nhanh chóng mà không có đủ thông tin.",
+        "time_start": 22.84,
+        "time_end": 29.96
+      },
+      {
+        "id": "221-5",
+        "english": "This skill helps people solve problems more effectively and make better decisions.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng này giúp mọi người giải quyết vấn đề hiệu quả hơn và đưa ra quyết định tốt hơn.",
+        "time_start": 30.66,
+        "time_end": 35.6
+      },
+      {
+        "id": "221-6",
+        "english": "It is also useful in school because students can understand lessons more deeply and develop independent thinking.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng hữu ích trong trường học vì học sinh có thể hiểu bài học sâu hơn và phát triển tư duy độc lập.",
+        "time_start": 36.1,
+        "time_end": 43.36
+      },
+      {
+        "id": "221-7",
+        "english": "By practicing critical thinking every day, people become more confident and responsible in both their studies and daily lives.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thực hành tư duy phản biện mỗi ngày, mọi người trở nên tự tin và có trách nhiệm hơn trong cả việc học và cuộc sống hàng ngày.",
+        "time_start": 44.04,
+        "time_end": 52.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-222",
+    "categoryId": "20",
+    "title": "Kỹ năng giao tiếp",
+    "description": "Chia sẻ ý tưởng, lắng nghe và xây dựng mối quan hệ",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-222.mp3",
+    "duration": 62,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "222-1",
+        "english": "Communication skills are one of the most important soft skills in life.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng giao tiếp là một trong những kỹ năng mềm quan trọng nhất trong cuộc sống.",
+        "time_start": 0,
+        "time_end": 4.38
+      },
+      {
+        "id": "222-2",
+        "english": "They help people share information, express ideas, and build relationships with others.",
+        "phonetic": "",
+        "vietnamese": "Chúng giúp mọi người chia sẻ thông tin, bày tỏ ý tưởng và xây dựng mối quan hệ với người khác.",
+        "time_start": 5.1,
+        "time_end": 10.82
+      },
+      {
+        "id": "222-3",
+        "english": "Good communication is not only about speaking clearly but also about listening carefully.",
+        "phonetic": "",
+        "vietnamese": "Giao tiếp tốt không chỉ là nói rõ ràng mà còn là lắng nghe cẩn thận.",
+        "time_start": 11.7,
+        "time_end": 17.26
+      },
+      {
+        "id": "222-4",
+        "english": "When we communicate effectively, we can avoid misunderstandings and solve problems more easily.",
+        "phonetic": "",
+        "vietnamese": "Khi chúng ta giao tiếp hiệu quả, chúng ta có thể tránh hiểu lầm và giải quyết vấn đề dễ dàng hơn.",
+        "time_start": 18.08,
+        "time_end": 23.76
+      },
+      {
+        "id": "222-5",
+        "english": "In school, communication skills help students participate in discussions, give presentations, and work better with classmates.",
+        "phonetic": "",
+        "vietnamese": "Ở trường, kỹ năng giao tiếp giúp học sinh tham gia thảo luận, thuyết trình và làm việc tốt hơn với bạn bè.",
+        "time_start": 24.17,
+        "time_end": 32.72
+      },
+      {
+        "id": "222-6",
+        "english": "In the workplace, these skills help employees cooperate with colleagues and communicate with customers.",
+        "phonetic": "",
+        "vietnamese": "Tại nơi làm việc, những kỹ năng này giúp nhân viên hợp tác với đồng nghiệp và giao tiếp với khách hàng.",
+        "time_start": 33,
+        "time_end": 39.54
+      },
+      {
+        "id": "222-7",
+        "english": "To improve communication skills, we should practice speaking confidently, listening actively, and respecting different opinions.",
+        "phonetic": "",
+        "vietnamese": "Để cải thiện kỹ năng giao tiếp, chúng ta nên luyện tập nói tự tin, lắng nghe tích cực và tôn trọng ý kiến khác nhau.",
+        "time_start": 40.26,
+        "time_end": 48.14
+      },
+      {
+        "id": "222-8",
+        "english": "Everyone needs good communication skills because they are useful in both personal life and professional development.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đều cần kỹ năng giao tiếp tốt vì chúng hữu ích trong cả cuộc sống cá nhân và phát triển nghề nghiệp.",
+        "time_start": 48.86,
+        "time_end": 56.14
+      },
+      {
+        "id": "222-9",
+        "english": "Developing this skill can help us become more confident and successful in the future.",
+        "phonetic": "",
+        "vietnamese": "Phát triển kỹ năng này có thể giúp chúng ta trở nên tự tin và thành công hơn trong tương lai.",
+        "time_start": 57.12,
+        "time_end": 61.56
+      }
+    ]
+  },
+  {
+    "id": "lesson-223",
+    "categoryId": "20",
+    "title": "Kỹ năng lãnh đạo",
+    "description": "Dẫn dắt, hỗ trợ và truyền cảm hứng cho người khác",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-223.mp3",
+    "duration": 55,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "223-1",
+        "english": "Leadership skills are important abilities that help people guide, support, and inspire others.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng lãnh đạo là những khả năng quan trọng giúp mọi người hướng dẫn, hỗ trợ và truyền cảm hứng cho người khác.",
+        "time_start": 0,
+        "time_end": 6.26
+      },
+      {
+        "id": "223-2",
+        "english": "A good leader is not only someone who gives instructions but also someone who listens and understands team members.",
+        "phonetic": "",
+        "vietnamese": "Một nhà lãnh đạo giỏi không chỉ là người đưa ra chỉ dẫn mà còn là người lắng nghe và hiểu các thành viên trong nhóm.",
+        "time_start": 6.72,
+        "time_end": 13.8
+      },
+      {
+        "id": "223-3",
+        "english": "Leadership requires confidence, responsibility, and the ability to make decisions.",
+        "phonetic": "",
+        "vietnamese": "Lãnh đạo đòi hỏi sự tự tin, trách nhiệm và khả năng đưa ra quyết định.",
+        "time_start": 14.66,
+        "time_end": 19.96
+      },
+      {
+        "id": "223-4",
+        "english": "In school, students can develop leadership skills by joining group activities, organizing events, and helping their classmates.",
+        "phonetic": "",
+        "vietnamese": "Tại trường, học sinh có thể phát triển kỹ năng lãnh đạo bằng cách tham gia các hoạt động nhóm, tổ chức sự kiện và giúp đỡ bạn bè.",
+        "time_start": 20.62,
+        "time_end": 28.5
+      },
+      {
+        "id": "223-5",
+        "english": "In the workplace, good leaders can motivate employees and create a positive environment.",
+        "phonetic": "",
+        "vietnamese": "Tại nơi làm việc, những nhà lãnh đạo giỏi có thể động viên nhân viên và tạo ra một môi trường tích cực.",
+        "time_start": 29.04,
+        "time_end": 34.98
+      },
+      {
+        "id": "223-6",
+        "english": "A successful leader should know how to solve problems, manage conflicts, and encourage teamwork.",
+        "phonetic": "",
+        "vietnamese": "Một nhà lãnh đạo thành công nên biết cách giải quyết vấn đề, quản lý xung đột và khuyến khích làm việc nhóm.",
+        "time_start": 35.76,
+        "time_end": 41.66
+      },
+      {
+        "id": "223-7",
+        "english": "Leadership skills can be improved through practice and real-life experiences.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng lãnh đạo có thể được cải thiện thông qua thực hành và trải nghiệm thực tế.",
+        "time_start": 42.68,
+        "time_end": 46.68
+      },
+      {
+        "id": "223-8",
+        "english": "By developing leadership skills, people can become more responsible, confident, and prepared for future challenges.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách phát triển kỹ năng lãnh đạo, mọi người có thể trở nên có trách nhiệm hơn, tự tin hơn và chuẩn bị cho những thách thức trong tương lai.",
+        "time_start": 47.6,
+        "time_end": 54.24
+      }
+    ]
+  },
+  {
+    "id": "lesson-224",
+    "categoryId": "20",
+    "title": "Kỹ năng thích nghi",
+    "description": "Linh hoạt trước thay đổi và những tình huống mới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-224.mp3",
+    "duration": 56,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "224-1",
+        "english": "Adaptability is an important soft skill that helps people deal with changes and new situations.",
+        "phonetic": "",
+        "vietnamese": "Khả năng thích ứng là một kỹ năng mềm quan trọng giúp mọi người đối phó với những thay đổi và tình huống mới.",
+        "time_start": 0,
+        "time_end": 6.7
+      },
+      {
+        "id": "224-2",
+        "english": "In life, things do not always happen as planned, so people need to learn how to adjust and find new ways to solve problems.",
+        "phonetic": "",
+        "vietnamese": "Trong cuộc sống, mọi thứ không phải lúc nào cũng diễn ra như kế hoạch, vì vậy mọi người cần học cách điều chỉnh và tìm ra những cách mới để giải quyết vấn đề.",
+        "time_start": 7.64,
+        "time_end": 15.36
+      },
+      {
+        "id": "224-3",
+        "english": "Adaptable people are usually open-minded and willing to learn new things.",
+        "phonetic": "",
+        "vietnamese": "Những người có khả năng thích ứng thường cởi mở và sẵn sàng học hỏi những điều mới.",
+        "time_start": 16.36,
+        "time_end": 20.84
+      },
+      {
+        "id": "224-4",
+        "english": "For students, adaptability helps them become comfortable with different learning methods, new environments, and unexpected challenges.",
+        "phonetic": "",
+        "vietnamese": "Đối với sinh viên, khả năng thích ứng giúp họ cảm thấy thoải mái với các phương pháp học tập khác nhau, môi trường mới và những thách thức bất ngờ.",
+        "time_start": 21.4,
+        "time_end": 29.54
+      },
+      {
+        "id": "224-5",
+        "english": "In the workplace, this skill allows employees to respond effectively to changes in technology, tasks, and working conditions.",
+        "phonetic": "",
+        "vietnamese": "Tại nơi làm việc, kỹ năng này cho phép nhân viên phản ứng hiệu quả với những thay đổi trong công nghệ, nhiệm vụ và điều kiện làm việc.",
+        "time_start": 30.22,
+        "time_end": 38.08
+      },
+      {
+        "id": "224-6",
+        "english": "To improve adaptability, people should develop a positive attitude, accept changes, and be willing to step out of their comfort zones.",
+        "phonetic": "",
+        "vietnamese": "Để cải thiện khả năng thích ứng, mọi người nên phát triển thái độ tích cực, chấp nhận sự thay đổi và sẵn sàng bước ra khỏi vùng an toàn của mình.",
+        "time_start": 38.28,
+        "time_end": 47.16
+      },
+      {
+        "id": "224-7",
+        "english": "Having good adaptability skills helps people become more flexible and successful in a constantly changing world.",
+        "phonetic": "",
+        "vietnamese": "Có kỹ năng thích ứng tốt giúp mọi người trở nên linh hoạt hơn và thành công hơn trong một thế giới luôn thay đổi.",
+        "time_start": 47.96,
+        "time_end": 55.06
+      }
+    ]
+  },
+  {
+    "id": "lesson-225",
+    "categoryId": "20",
+    "title": "Trí tuệ cảm xúc",
+    "description": "Hiểu, quản lý cảm xúc và đồng cảm với người khác",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-225.mp3",
+    "duration": 58,
+    "level": "BEGINNER",
+    "topic": "Kỹ năng mềm",
+    "sentences": [
+      {
+        "id": "225-1",
+        "english": "Emotional intelligence is the ability to understand and manage our own emotions as well as recognize the feelings of others.",
+        "phonetic": "",
+        "vietnamese": "Trí tuệ cảm xúc là khả năng hiểu và quản lý cảm xúc của chính mình cũng như nhận ra cảm xúc của người khác.",
+        "time_start": 0,
+        "time_end": 8.12
+      },
+      {
+        "id": "225-2",
+        "english": "This skill plays an important role in building positive relationships and improving communication.",
+        "phonetic": "",
+        "vietnamese": "Kỹ năng này đóng vai trò quan trọng trong việc xây dựng mối quan hệ tích cực và cải thiện giao tiếp.",
+        "time_start": 8.86,
+        "time_end": 14.84
+      },
+      {
+        "id": "225-3",
+        "english": "People with high emotional intelligence can control their emotions, stay calm under pressure, and respond to situations appropriately.",
+        "phonetic": "",
+        "vietnamese": "Những người có trí tuệ cảm xúc cao có thể kiểm soát cảm xúc của mình, giữ bình tĩnh trong áp lực và phản ứng phù hợp với tình huống.",
+        "time_start": 15.88,
+        "time_end": 23.88
+      },
+      {
+        "id": "225-4",
+        "english": "They can also show empathy and understand other people’s perspectives.",
+        "phonetic": "",
+        "vietnamese": "Họ cũng có thể thể hiện sự đồng cảm và hiểu được quan điểm của người khác.",
+        "time_start": 23.88,
+        "time_end": 29.55
+      },
+      {
+        "id": "225-5",
+        "english": "In school and the workplace, emotional intelligence helps people cooperate better and handle conflicts more effectively.",
+        "phonetic": "",
+        "vietnamese": "Trong trường học và nơi làm việc, trí tuệ cảm xúc giúp mọi người hợp tác tốt hơn và xử lý xung đột hiệu quả hơn.",
+        "time_start": 29.55,
+        "time_end": 37.24
+      },
+      {
+        "id": "225-6",
+        "english": "It also helps individuals become more confident and make better decisions.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp cá nhân trở nên tự tin hơn và đưa ra quyết định tốt hơn.",
+        "time_start": 38.12,
+        "time_end": 42.42
+      },
+      {
+        "id": "225-7",
+        "english": "Emotional intelligence can be developed by practicing self-awareness, active listening, and showing respect for others.",
+        "phonetic": "",
+        "vietnamese": "Trí tuệ cảm xúc có thể được phát triển bằng cách thực hành tự nhận thức, lắng nghe tích cực và thể hiện sự tôn trọng đối với người khác.",
+        "time_start": 43.5,
+        "time_end": 50.36
+      },
+      {
+        "id": "225-8",
+        "english": "By improving this skill, people can create healthier relationships and achieve greater success in life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách cải thiện kỹ năng này, mọi người có thể tạo ra những mối quan hệ lành mạnh hơn và đạt được thành công lớn hơn trong cuộc sống.",
+        "time_start": 51.04,
+        "time_end": 57.26
+      }
+    ]
+  },
+  {
+    "id": "lesson-226",
+    "categoryId": "21",
+    "title": "Sức khỏe tinh thần",
+    "description": "Chăm sóc tinh thần để sống cân bằng và hiệu quả hơn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-226.mp3",
+    "duration": 52,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "226-1",
+        "english": "Mental health is an important part of our daily life.",
+        "phonetic": "",
+        "vietnamese": "Sức khỏe tâm thần là một phần quan trọng trong cuộc sống hàng ngày của chúng ta.",
+        "time_start": 0,
+        "time_end": 3.4
+      },
+      {
+        "id": "226-2",
+        "english": "It affects how we think, feel, and behave in different situations.",
+        "phonetic": "",
+        "vietnamese": "Nó ảnh hưởng đến cách chúng ta suy nghĩ, cảm nhận và hành xử trong các tình huống khác nhau.",
+        "time_start": 4.14,
+        "time_end": 8.28
+      },
+      {
+        "id": "226-3",
+        "english": "Good mental health helps people deal with stress and build positive relationships.",
+        "phonetic": "",
+        "vietnamese": "Sức khỏe tâm thần tốt giúp mọi người đối phó với căng thẳng và xây dựng mối quan hệ tích cực.",
+        "time_start": 9.12,
+        "time_end": 13.6
+      },
+      {
+        "id": "226-4",
+        "english": "Many people focus on physical health but forget to take care of their minds.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người tập trung vào sức khỏe thể chất nhưng quên chăm sóc tâm trí của họ.",
+        "time_start": 14.42,
+        "time_end": 18.88
+      },
+      {
+        "id": "226-5",
+        "english": "Taking care of mental health includes having enough sleep, relaxing, and sharing feelings with others.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc sức khỏe tâm thần bao gồm việc ngủ đủ giấc, thư giãn và chia sẻ cảm xúc với người khác.",
+        "time_start": 19.66,
+        "time_end": 25.38
+      },
+      {
+        "id": "226-6",
+        "english": "When people have problems, they should seek support from family, friends, or teachers.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người gặp vấn đề, họ nên tìm sự hỗ trợ từ gia đình, bạn bè hoặc giáo viên.",
+        "time_start": 26.04,
+        "time_end": 31.2
+      },
+      {
+        "id": "226-7",
+        "english": "A healthy mind helps people study better and work more effectively.",
+        "phonetic": "",
+        "vietnamese": "Một tâm trí khỏe mạnh giúp mọi người học tốt hơn và làm việc hiệu quả hơn.",
+        "time_start": 31.94,
+        "time_end": 35.54
+      },
+      {
+        "id": "226-8",
+        "english": "Everyone may face difficulties, but learning how to manage emotions is important.",
+        "phonetic": "",
+        "vietnamese": "Ai cũng có thể gặp khó khăn, nhưng học cách quản lý cảm xúc là điều quan trọng.",
+        "time_start": 36.48,
+        "time_end": 41.24
+      },
+      {
+        "id": "226-9",
+        "english": "Protecting mental health helps people live happier and more balanced lives.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ sức khỏe tâm thần giúp mọi người sống hạnh phúc và cân bằng hơn.",
+        "time_start": 42.22,
+        "time_end": 46.52
+      },
+      {
+        "id": "226-10",
+        "english": "Therefore, mental health should be cared for as much as physical health.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, sức khỏe tâm thần nên được chăm sóc như sức khỏe thể chất.",
+        "time_start": 47.18,
+        "time_end": 51
+      }
+    ]
+  },
+  {
+    "id": "lesson-227",
+    "categoryId": "21",
+    "title": "Hiểu về cảm xúc",
+    "description": "Nhận biết và kiểm soát cảm xúc trong đời sống hằng ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-227.mp3",
+    "duration": 53,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "227-1",
+        "english": "Emotions are a natural part of human life.",
+        "phonetic": "",
+        "vietnamese": "Cảm xúc là một phần tự nhiên của cuộc sống con người.",
+        "time_start": 0,
+        "time_end": 2.96
+      },
+      {
+        "id": "227-2",
+        "english": "People experience many emotions such as happiness, sadness, anger, and fear.",
+        "phonetic": "",
+        "vietnamese": "Mọi người trải qua nhiều cảm xúc như hạnh phúc, buồn bã, tức giận và sợ hãi.",
+        "time_start": 3.78,
+        "time_end": 9.38
+      },
+      {
+        "id": "227-3",
+        "english": "These emotions can affect our thoughts and actions every day.",
+        "phonetic": "",
+        "vietnamese": "Những cảm xúc này có thể ảnh hưởng đến suy nghĩ và hành động của chúng ta mỗi ngày.",
+        "time_start": 10.06,
+        "time_end": 13.8
+      },
+      {
+        "id": "227-4",
+        "english": "Understanding emotions helps us control our reactions and make better decisions.",
+        "phonetic": "",
+        "vietnamese": "Hiểu biết về cảm xúc giúp chúng ta kiểm soát phản ứng và đưa ra quyết định tốt hơn.",
+        "time_start": 14.64,
+        "time_end": 19.56
+      },
+      {
+        "id": "227-5",
+        "english": "It also helps us understand other people and build stronger relationships.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp chúng ta hiểu người khác và xây dựng mối quan hệ vững chắc hơn.",
+        "time_start": 20.28,
+        "time_end": 24.78
+      },
+      {
+        "id": "227-6",
+        "english": "When we feel stressed or upset, we should find healthy ways to express our feelings.",
+        "phonetic": "",
+        "vietnamese": "Khi chúng ta cảm thấy căng thẳng hoặc khó chịu, chúng ta nên tìm cách lành mạnh để thể hiện cảm xúc của mình.",
+        "time_start": 25.68,
+        "time_end": 31.04
+      },
+      {
+        "id": "227-7",
+        "english": "Talking with others, relaxing, or doing activities we enjoy can improve our emotions.",
+        "phonetic": "",
+        "vietnamese": "Nói chuyện với người khác, thư giãn, hoặc làm những hoạt động mà chúng ta thích có thể cải thiện cảm xúc của chúng ta.",
+        "time_start": 31.88,
+        "time_end": 37.52
+      },
+      {
+        "id": "227-8",
+        "english": "Emotional awareness helps people become more patient and confident.",
+        "phonetic": "",
+        "vietnamese": "Nhận thức về cảm xúc giúp mọi người trở nên kiên nhẫn và tự tin hơn.",
+        "time_start": 38.36,
+        "time_end": 42.3
+      },
+      {
+        "id": "227-9",
+        "english": "It is an important skill for both personal life and communication.",
+        "phonetic": "",
+        "vietnamese": "Đây là một kỹ năng quan trọng cho cả cuộc sống cá nhân và giao tiếp.",
+        "time_start": 43.16,
+        "time_end": 47.1
+      },
+      {
+        "id": "227-10",
+        "english": "By understanding emotions, we can create a more positive life.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách hiểu cảm xúc, chúng ta có thể tạo ra một cuộc sống tích cực hơn.",
+        "time_start": 47.9,
+        "time_end": 52.16
+      }
+    ]
+  },
+  {
+    "id": "lesson-228",
+    "categoryId": "21",
+    "title": "Quản lý căng thẳng",
+    "description": "Giảm stress và giữ bình tĩnh khi gặp áp lực",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-228.mp3",
+    "duration": 51,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "228-1",
+        "english": "Stress is a common experience in modern life.",
+        "phonetic": "",
+        "vietnamese": "Căng thẳng là một trải nghiệm phổ biến trong cuộc sống hiện đại.",
+        "time_start": 0,
+        "time_end": 3.24
+      },
+      {
+        "id": "228-2",
+        "english": "Students often feel stressed because of exams, assignments, and future plans.",
+        "phonetic": "",
+        "vietnamese": "Học sinh thường cảm thấy căng thẳng vì các kỳ thi, bài tập và kế hoạch tương lai.",
+        "time_start": 4.3,
+        "time_end": 8.74
+      },
+      {
+        "id": "228-3",
+        "english": "Too much stress can affect our health, learning, and daily activities.",
+        "phonetic": "",
+        "vietnamese": "Căng thẳng quá mức có thể ảnh hưởng đến sức khỏe, việc học và các hoạt động hàng ngày của chúng ta.",
+        "time_start": 9.38,
+        "time_end": 13.46
+      },
+      {
+        "id": "228-4",
+        "english": "Therefore, learning how to manage stress is very important.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, học cách quản lý căng thẳng là rất quan trọng.",
+        "time_start": 14.2,
+        "time_end": 17.76
+      },
+      {
+        "id": "228-5",
+        "english": "People can reduce stress by exercising, relaxing, and spending time with friends and family.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể giảm căng thẳng bằng cách tập thể dục, thư giãn và dành thời gian với bạn bè và gia đình.",
+        "time_start": 18.68,
+        "time_end": 24.5
+      },
+      {
+        "id": "228-6",
+        "english": "Making plans and organizing tasks can also help people feel less pressure.",
+        "phonetic": "",
+        "vietnamese": "Lập kế hoạch và tổ chức công việc cũng có thể giúp mọi người cảm thấy ít áp lực hơn.",
+        "time_start": 25.4,
+        "time_end": 29.9
+      },
+      {
+        "id": "228-7",
+        "english": "When facing difficulties, staying calm can help us find better solutions.",
+        "phonetic": "",
+        "vietnamese": "Khi đối mặt với khó khăn, giữ bình tĩnh có thể giúp chúng ta tìm ra giải pháp tốt hơn.",
+        "time_start": 30,
+        "time_end": 35.34
+      },
+      {
+        "id": "228-8",
+        "english": "Everyone experiences stress, but the way we deal with it makes a difference.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đều trải qua căng thẳng, nhưng cách chúng ta xử lý nó tạo ra sự khác biệt.",
+        "time_start": 36.26,
+        "time_end": 40.56
+      },
+      {
+        "id": "228-9",
+        "english": "Good stress management helps people become healthier and more productive.",
+        "phonetic": "",
+        "vietnamese": "Quản lý căng thẳng tốt giúp mọi người trở nên khỏe mạnh hơn và năng suất hơn.",
+        "time_start": 41.24,
+        "time_end": 45.08
+      },
+      {
+        "id": "228-10",
+        "english": "Therefore, we should learn ways to control stress in our daily lives.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, chúng ta nên học cách kiểm soát căng thẳng trong cuộc sống hàng ngày.",
+        "time_start": 46.08,
+        "time_end": 50
+      }
+    ]
+  },
+  {
+    "id": "lesson-229",
+    "categoryId": "21",
+    "title": "Sự tự tin",
+    "description": "Xây dựng niềm tin vào bản thân và vượt qua thử thách",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-229.mp3",
+    "duration": 57,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "229-1",
+        "english": "Self-confidence is the belief in our own abilities and values.",
+        "phonetic": "",
+        "vietnamese": "Sự tự tin là niềm tin vào khả năng và giá trị của bản thân.",
+        "time_start": 0,
+        "time_end": 3.78
+      },
+      {
+        "id": "229-2",
+        "english": "It helps people face challenges and try new things in life.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp mọi người đối mặt với thử thách và thử nghiệm những điều mới trong cuộc sống.",
+        "time_start": 4.66,
+        "time_end": 8.4
+      },
+      {
+        "id": "229-3",
+        "english": "Confident people are usually more willing to express their ideas and take opportunities.",
+        "phonetic": "",
+        "vietnamese": "Những người tự tin thường sẵn sàng bày tỏ ý tưởng và nắm bắt cơ hội.",
+        "time_start": 9.18,
+        "time_end": 13.5
+      },
+      {
+        "id": "229-4",
+        "english": "However, being confident does not mean that people never make mistakes.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, tự tin không có nghĩa là mọi người không bao giờ mắc sai lầm.",
+        "time_start": 14.4,
+        "time_end": 19.06
+      },
+      {
+        "id": "229-5",
+        "english": "Mistakes are important because they help us learn and improve ourselves.",
+        "phonetic": "",
+        "vietnamese": "Sai lầm là quan trọng vì chúng giúp chúng ta học hỏi và cải thiện bản thân.",
+        "time_start": 20.06,
+        "time_end": 23.88
+      },
+      {
+        "id": "229-6",
+        "english": "People can develop self-confidence by practicing skills, setting small goals, and recognizing their strengths.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể phát triển sự tự tin bằng cách luyện tập kỹ năng, đặt ra những mục tiêu nhỏ và nhận ra điểm mạnh của mình.",
+        "time_start": 24.7,
+        "time_end": 31.28
+      },
+      {
+        "id": "229-7",
+        "english": "For students, confidence helps them participate in classes, give presentations, and communicate better with others.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, sự tự tin giúp họ tham gia vào các lớp học, thuyết trình và giao tiếp tốt hơn với người khác.",
+        "time_start": 32.14,
+        "time_end": 39.58
+      },
+      {
+        "id": "229-8",
+        "english": "In daily life, confidence allows people to overcome difficulties more easily.",
+        "phonetic": "",
+        "vietnamese": "Trong cuộc sống hàng ngày, sự tự tin giúp mọi người vượt qua khó khăn dễ dàng hơn.",
+        "time_start": 40.3,
+        "time_end": 45.14
+      },
+      {
+        "id": "229-9",
+        "english": "Building self-confidence takes time and effort, but it brings many benefits.",
+        "phonetic": "",
+        "vietnamese": "Xây dựng sự tự tin cần thời gian và nỗ lực, nhưng nó mang lại nhiều lợi ích.",
+        "time_start": 46.04,
+        "time_end": 50.82
+      },
+      {
+        "id": "229-10",
+        "english": "Therefore, everyone should learn how to believe in themselves and continue improving.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, mọi người nên học cách tin vào bản thân và tiếp tục cải thiện.",
+        "time_start": 51.54,
+        "time_end": 56.24
+      }
+    ]
+  },
+  {
+    "id": "lesson-230",
+    "categoryId": "21",
+    "title": "Suy nghĩ tích cực",
+    "description": "Tập trung vào giải pháp và duy trì thái độ lạc quan",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-230.mp3",
+    "duration": 61,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "230-1",
+        "english": "Positive thinking is the ability to focus on good possibilities and solutions instead of only problems.",
+        "phonetic": "",
+        "vietnamese": "Suy nghĩ tích cực là khả năng tập trung vào những khả năng và giải pháp tốt thay vì chỉ nhìn vào vấn đề.",
+        "time_start": 0,
+        "time_end": 7.4
+      },
+      {
+        "id": "230-2",
+        "english": "It helps people face challenges with a more hopeful attitude.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp mọi người đối mặt với những thử thách với thái độ lạc quan hơn.",
+        "time_start": 8.26,
+        "time_end": 11.92
+      },
+      {
+        "id": "230-3",
+        "english": "Positive thinkers usually believe that difficulties can be overcome through effort and patience.",
+        "phonetic": "",
+        "vietnamese": "Những người suy nghĩ tích cực thường tin rằng khó khăn có thể vượt qua bằng nỗ lực và kiên nhẫn.",
+        "time_start": 12.94,
+        "time_end": 18.92
+      },
+      {
+        "id": "230-4",
+        "english": "This way of thinking can improve motivation and reduce stress in daily life.",
+        "phonetic": "",
+        "vietnamese": "Cách suy nghĩ này có thể cải thiện động lực và giảm căng thẳng trong cuộc sống hàng ngày.",
+        "time_start": 19.54,
+        "time_end": 24.68
+      },
+      {
+        "id": "230-5",
+        "english": "For students, positive thinking helps them stay motivated when studying becomes difficult.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, suy nghĩ tích cực giúp họ giữ động lực khi việc học trở nên khó khăn.",
+        "time_start": 25.26,
+        "time_end": 30.8
+      },
+      {
+        "id": "230-6",
+        "english": "It also encourages people to learn from failures instead of giving up.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng khuyến khích mọi người học hỏi từ thất bại thay vì bỏ cuộc.",
+        "time_start": 31.62,
+        "time_end": 36.24
+      },
+      {
+        "id": "230-7",
+        "english": "Developing a positive mindset does not mean ignoring problems, but finding better ways to deal with them.",
+        "phonetic": "",
+        "vietnamese": "Phát triển tư duy tích cực không có nghĩa là phớt lờ vấn đề, mà là tìm ra những cách tốt hơn để giải quyết chúng.",
+        "time_start": 36.84,
+        "time_end": 43.18
+      },
+      {
+        "id": "230-8",
+        "english": "People can practice positive thinking by being grateful and looking at situations from different perspectives.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể thực hành suy nghĩ tích cực bằng cách biết ơn và nhìn nhận tình huống từ nhiều góc độ khác nhau.",
+        "time_start": 44,
+        "time_end": 50.34
+      },
+      {
+        "id": "230-9",
+        "english": "A positive attitude can make life happier and more meaningful.",
+        "phonetic": "",
+        "vietnamese": "Một thái độ tích cực có thể làm cho cuộc sống hạnh phúc hơn và có ý nghĩa hơn.",
+        "time_start": 51.06,
+        "time_end": 54.86
+      },
+      {
+        "id": "230-10",
+        "english": "Therefore, positive thinking is an important skill for personal growth.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, suy nghĩ tích cực là một kỹ năng quan trọng cho sự phát triển cá nhân.",
+        "time_start": 55.82,
+        "time_end": 60.2
+      }
+    ]
+  },
+  {
+    "id": "lesson-231",
+    "categoryId": "21",
+    "title": "Nhận thức bản thân",
+    "description": "Hiểu điểm mạnh, điểm yếu để phát triển bản thân",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-231.mp3",
+    "duration": 59,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "231-1",
+        "english": "Self-awareness is the ability to understand our own thoughts, feelings, strengths, and weaknesses.",
+        "phonetic": "",
+        "vietnamese": "Sự tự nhận thức là khả năng hiểu được suy nghĩ, cảm xúc, điểm mạnh và điểm yếu của chính mình.",
+        "time_start": 0,
+        "time_end": 6.4
+      },
+      {
+        "id": "231-2",
+        "english": "It helps people know more about themselves and make better decisions.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp mọi người biết nhiều hơn về bản thân và đưa ra quyết định tốt hơn.",
+        "time_start": 7.14,
+        "time_end": 10.86
+      },
+      {
+        "id": "231-3",
+        "english": "When people understand their abilities, they can set suitable goals and improve themselves.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người hiểu được khả năng của mình, họ có thể đặt ra những mục tiêu phù hợp và cải thiện bản thân.",
+        "time_start": 11.52,
+        "time_end": 16.98
+      },
+      {
+        "id": "231-4",
+        "english": "Self-awareness also helps people recognize their emotions and control their actions in different situations.",
+        "phonetic": "",
+        "vietnamese": "Sự tự nhận thức cũng giúp mọi người nhận ra cảm xúc của mình và kiểm soát hành động trong các tình huống khác nhau.",
+        "time_start": 17.8,
+        "time_end": 24.4
+      },
+      {
+        "id": "231-5",
+        "english": "For students, this skill can help them find effective learning methods and understand their personal needs.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, kỹ năng này có thể giúp họ tìm ra phương pháp học tập hiệu quả và hiểu được nhu cầu cá nhân.",
+        "time_start": 25.06,
+        "time_end": 32.06
+      },
+      {
+        "id": "231-6",
+        "english": "People can develop self-awareness by reflecting on their experiences and listening to feedback from others.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể phát triển sự tự nhận thức bằng cách suy ngẫm về trải nghiệm của mình và lắng nghe phản hồi từ người khác.",
+        "time_start": 32.98,
+        "time_end": 39.02
+      },
+      {
+        "id": "231-7",
+        "english": "Knowing ourselves better allows us to grow and become more confident.",
+        "phonetic": "",
+        "vietnamese": "Hiểu rõ bản thân hơn cho phép chúng ta phát triển và trở nên tự tin hơn.",
+        "time_start": 39.9,
+        "time_end": 43.54
+      },
+      {
+        "id": "231-8",
+        "english": "It also helps us build better relationships with people around us.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp chúng ta xây dựng mối quan hệ tốt hơn với những người xung quanh.",
+        "time_start": 44.3,
+        "time_end": 48.06
+      },
+      {
+        "id": "231-9",
+        "english": "Developing self-awareness is an important step toward personal success and happiness.",
+        "phonetic": "",
+        "vietnamese": "Phát triển sự tự nhận thức là một bước quan trọng hướng tới thành công và hạnh phúc cá nhân.",
+        "time_start": 48.92,
+        "time_end": 53.84
+      },
+      {
+        "id": "231-10",
+        "english": "Therefore, everyone should spend time understanding themselves.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, mọi người nên dành thời gian để hiểu về bản thân.",
+        "time_start": 54.4,
+        "time_end": 58.28
+      }
+    ]
+  },
+  {
+    "id": "lesson-232",
+    "categoryId": "21",
+    "title": "Động lực và thành công",
+    "description": "Duy trì động lực để đạt mục tiêu và tiến bộ mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-232.mp3",
+    "duration": 64,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "232-1",
+        "english": "Motivation is an important factor that helps people achieve their goals.",
+        "phonetic": "",
+        "vietnamese": "Động lực là một yếu tố quan trọng giúp mọi người đạt được mục tiêu của họ.",
+        "time_start": 0,
+        "time_end": 4.76
+      },
+      {
+        "id": "232-2",
+        "english": "It gives people the energy and determination to continue working even when they face difficulties.",
+        "phonetic": "",
+        "vietnamese": "Nó mang lại cho mọi người năng lượng và quyết tâm để tiếp tục làm việc ngay cả khi họ gặp khó khăn.",
+        "time_start": 5.56,
+        "time_end": 11.72
+      },
+      {
+        "id": "232-3",
+        "english": "Everyone needs motivation to study, work, and improve themselves.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đều cần động lực để học tập, làm việc và cải thiện bản thân.",
+        "time_start": 12.34,
+        "time_end": 16.56
+      },
+      {
+        "id": "232-4",
+        "english": "There are different sources of motivation, such as personal dreams, family support, or the desire for success.",
+        "phonetic": "",
+        "vietnamese": "Có nhiều nguồn động lực khác nhau, như ước mơ cá nhân, sự hỗ trợ từ gia đình, hoặc khát khao thành công.",
+        "time_start": 16.94,
+        "time_end": 24.24
+      },
+      {
+        "id": "232-5",
+        "english": "For students, motivation helps them stay focused and overcome challenges in learning.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, động lực giúp họ tập trung và vượt qua những thử thách trong học tập.",
+        "time_start": 24.58,
+        "time_end": 30.08
+      },
+      {
+        "id": "232-6",
+        "english": "However, motivation can sometimes disappear, so people need to build good habits and stay disciplined.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, động lực đôi khi có thể biến mất, vì vậy mọi người cần xây dựng thói quen tốt và giữ kỷ luật.",
+        "time_start": 31.16,
+        "time_end": 37.36
+      },
+      {
+        "id": "232-7",
+        "english": "Setting clear goals and celebrating small achievements can help maintain motivation.",
+        "phonetic": "",
+        "vietnamese": "Đặt ra những mục tiêu rõ ràng và ăn mừng những thành tựu nhỏ có thể giúp duy trì động lực.",
+        "time_start": 38.42,
+        "time_end": 43.54
+      },
+      {
+        "id": "232-8",
+        "english": "When people have strong motivation, they are more likely to make progress and achieve their dreams.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người có động lực mạnh mẽ, họ có khả năng tiến bộ và đạt được ước mơ của mình hơn.",
+        "time_start": 44.38,
+        "time_end": 50.1
+      },
+      {
+        "id": "232-9",
+        "english": "Success does not happen immediately, but continuous effort and determination can bring positive results.",
+        "phonetic": "",
+        "vietnamese": "Thành công không xảy ra ngay lập tức, nhưng nỗ lực liên tục và quyết tâm có thể mang lại kết quả tích cực.",
+        "time_start": 50.74,
+        "time_end": 57.7
+      },
+      {
+        "id": "232-10",
+        "english": "Therefore, motivation plays an important role in personal development.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, động lực đóng một vai trò quan trọng trong sự phát triển cá nhân.",
+        "time_start": 58.46,
+        "time_end": 62.84
+      }
+    ]
+  },
+  {
+    "id": "lesson-233",
+    "categoryId": "21",
+    "title": "Sự đồng cảm",
+    "description": "Thấu hiểu cảm xúc người khác để gắn kết tốt hơn",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-233.mp3",
+    "duration": 59,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "233-1",
+        "english": "Empathy is the ability to understand and share the feelings of other people.",
+        "phonetic": "",
+        "vietnamese": "Sự đồng cảm là khả năng hiểu và chia sẻ cảm xúc của người khác.",
+        "time_start": 0,
+        "time_end": 4.54
+      },
+      {
+        "id": "233-2",
+        "english": "It helps us see situations from another person’s perspective and respond with kindness.",
+        "phonetic": "",
+        "vietnamese": "Nó giúp chúng ta nhìn nhận tình huống từ góc độ của người khác và phản ứng bằng lòng tốt.",
+        "time_start": 4.54,
+        "time_end": 11.82
+      },
+      {
+        "id": "233-3",
+        "english": "Empathy is important because it improves communication and strengthens relationships.",
+        "phonetic": "",
+        "vietnamese": "Sự đồng cảm rất quan trọng vì nó cải thiện giao tiếp và củng cố mối quan hệ.",
+        "time_start": 11.82,
+        "time_end": 17.1
+      },
+      {
+        "id": "233-4",
+        "english": "When we listen carefully and respect others’ feelings, we can create better connections with people around us.",
+        "phonetic": "",
+        "vietnamese": "Khi chúng ta lắng nghe cẩn thận và tôn trọng cảm xúc của người khác, chúng ta có thể tạo ra những kết nối tốt hơn với mọi người xung quanh.",
+        "time_start": 17.98,
+        "time_end": 24.58
+      },
+      {
+        "id": "233-5",
+        "english": "In school, empathy helps students support their classmates and work together effectively.",
+        "phonetic": "",
+        "vietnamese": "Trong trường học, sự đồng cảm giúp học sinh hỗ trợ bạn bè và làm việc cùng nhau hiệu quả.",
+        "time_start": 24.9,
+        "time_end": 30.4
+      },
+      {
+        "id": "233-6",
+        "english": "In daily life, it encourages people to be more caring and helpful.",
+        "phonetic": "",
+        "vietnamese": "Trong cuộc sống hàng ngày, nó khuyến khích mọi người trở nên quan tâm và hữu ích hơn.",
+        "time_start": 31.26,
+        "time_end": 35.54
+      },
+      {
+        "id": "233-7",
+        "english": "Developing empathy requires patience, active listening, and an open mind.",
+        "phonetic": "",
+        "vietnamese": "Phát triển sự đồng cảm đòi hỏi sự kiên nhẫn, lắng nghe tích cực và một tâm hồn cởi mở.",
+        "time_start": 36.68,
+        "time_end": 41.7
+      },
+      {
+        "id": "233-8",
+        "english": "It also helps reduce conflicts because people can understand different opinions and situations.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp giảm xung đột vì mọi người có thể hiểu các ý kiến và tình huống khác nhau.",
+        "time_start": 42.42,
+        "time_end": 48.24
+      },
+      {
+        "id": "233-9",
+        "english": "By practicing empathy, we can build a more positive and supportive community.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách thực hành sự đồng cảm, chúng ta có thể xây dựng một cộng đồng tích cực và hỗ trợ hơn.",
+        "time_start": 48.92,
+        "time_end": 53.56
+      },
+      {
+        "id": "233-10",
+        "english": "Therefore, empathy is an important quality for everyone.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, sự đồng cảm là một phẩm chất quan trọng cho mọi người.",
+        "time_start": 53.56,
+        "time_end": 57.96
+      }
+    ]
+  },
+  {
+    "id": "lesson-234",
+    "categoryId": "21",
+    "title": "Thói quen và hành vi",
+    "description": "Xây dựng thói quen tích cực để phát triển bản thân",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-234.mp3",
+    "duration": 53,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "234-1",
+        "english": "Habits are actions that people repeat regularly in their daily lives.",
+        "phonetic": "",
+        "vietnamese": "Thói quen là những hành động mà mọi người lặp lại thường xuyên trong cuộc sống hàng ngày.",
+        "time_start": 0,
+        "time_end": 4.26
+      },
+      {
+        "id": "234-2",
+        "english": "Some habits, such as reading, exercising, and planning, can have positive effects on our development.",
+        "phonetic": "",
+        "vietnamese": "Một số thói quen, như đọc sách, tập thể dục và lập kế hoạch, có thể có tác động tích cực đến sự phát triển của chúng ta.",
+        "time_start": 5.14,
+        "time_end": 11.16
+      },
+      {
+        "id": "234-3",
+        "english": "However, negative habits can prevent people from reaching their goals.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, những thói quen tiêu cực có thể ngăn cản mọi người đạt được mục tiêu của mình.",
+        "time_start": 11.9,
+        "time_end": 15.9
+      },
+      {
+        "id": "234-4",
+        "english": "Understanding our habits helps us make better choices and improve our behaviors.",
+        "phonetic": "",
+        "vietnamese": "Hiểu rõ thói quen của chúng ta giúp chúng ta đưa ra những lựa chọn tốt hơn và cải thiện hành vi của mình.",
+        "time_start": 16.64,
+        "time_end": 21.28
+      },
+      {
+        "id": "234-5",
+        "english": "Building good habits requires time, patience, and consistency.",
+        "phonetic": "",
+        "vietnamese": "Xây dựng thói quen tốt cần thời gian, kiên nhẫn và sự nhất quán.",
+        "time_start": 22.06,
+        "time_end": 26.04
+      },
+      {
+        "id": "234-6",
+        "english": "People can start with small changes and gradually create positive routines.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể bắt đầu với những thay đổi nhỏ và dần dần tạo ra những thói quen tích cực.",
+        "time_start": 27,
+        "time_end": 31.24
+      },
+      {
+        "id": "234-7",
+        "english": "For example, studying a little every day can become a useful learning habit.",
+        "phonetic": "",
+        "vietnamese": "Ví dụ, học một chút mỗi ngày có thể trở thành một thói quen học tập hữu ích.",
+        "time_start": 32,
+        "time_end": 36.92
+      },
+      {
+        "id": "234-8",
+        "english": "Good habits help people become more organized, productive, and responsible.",
+        "phonetic": "",
+        "vietnamese": "Thói quen tốt giúp mọi người trở nên có tổ chức hơn, năng suất hơn và có trách nhiệm hơn.",
+        "time_start": 37.7,
+        "time_end": 42.12
+      },
+      {
+        "id": "234-9",
+        "english": "Although changing habits can be difficult, the results are worth the effort.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù thay đổi thói quen có thể khó khăn, nhưng kết quả thì xứng đáng với nỗ lực.",
+        "time_start": 43,
+        "time_end": 46.92
+      },
+      {
+        "id": "234-10",
+        "english": "Therefore, developing positive habits is an important part of personal growth.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, phát triển thói quen tích cực là một phần quan trọng của sự phát triển cá nhân.",
+        "time_start": 47.52,
+        "time_end": 52.02
+      }
+    ]
+  },
+  {
+    "id": "lesson-235",
+    "categoryId": "21",
+    "title": "Tâm lý học trong học tập",
+    "description": "Hiểu cách học hiệu quả dựa trên tâm lý học",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-235.mp3",
+    "duration": 52,
+    "level": "BEGINNER",
+    "topic": "Tâm lý học",
+    "sentences": [
+      {
+        "id": "235-1",
+        "english": "Psychology of learning helps us understand how people learn and remember information.",
+        "phonetic": "",
+        "vietnamese": "Tâm lý học về việc học giúp chúng ta hiểu cách mọi người học và nhớ thông tin.",
+        "time_start": 0,
+        "time_end": 5.44
+      },
+      {
+        "id": "235-2",
+        "english": "Every person has different learning styles, abilities, and methods.",
+        "phonetic": "",
+        "vietnamese": "Mỗi người có phong cách học, khả năng và phương pháp khác nhau.",
+        "time_start": 6.22,
+        "time_end": 10.26
+      },
+      {
+        "id": "235-3",
+        "english": "Understanding learning psychology can help students choose better ways to study.",
+        "phonetic": "",
+        "vietnamese": "Hiểu tâm lý học về việc học có thể giúp học sinh chọn cách học tốt hơn.",
+        "time_start": 11.2,
+        "time_end": 15.74
+      },
+      {
+        "id": "235-4",
+        "english": "For example, setting goals, reviewing regularly, and taking breaks can improve concentration and memory.",
+        "phonetic": "",
+        "vietnamese": "Ví dụ, đặt mục tiêu, ôn tập thường xuyên và nghỉ ngơi có thể cải thiện sự tập trung và trí nhớ.",
+        "time_start": 16.36,
+        "time_end": 23.28
+      },
+      {
+        "id": "235-5",
+        "english": "A positive learning environment can also increase motivation and confidence.",
+        "phonetic": "",
+        "vietnamese": "Một môi trường học tập tích cực cũng có thể tăng cường động lực và sự tự tin.",
+        "time_start": 23.94,
+        "time_end": 28.5
+      },
+      {
+        "id": "235-6",
+        "english": "Students should understand their emotions and manage pressure during the learning process.",
+        "phonetic": "",
+        "vietnamese": "Học sinh nên hiểu cảm xúc của mình và quản lý áp lực trong quá trình học.",
+        "time_start": 29.46,
+        "time_end": 34.66
+      },
+      {
+        "id": "235-7",
+        "english": "When people know how their minds work, they can learn more effectively.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người biết cách tâm trí của họ hoạt động, họ có thể học hiệu quả hơn.",
+        "time_start": 35.32,
+        "time_end": 38.76
+      },
+      {
+        "id": "235-8",
+        "english": "Learning is not only about gaining knowledge but also about developing skills and habits.",
+        "phonetic": "",
+        "vietnamese": "Học không chỉ là thu nhận kiến thức mà còn là phát triển kỹ năng và thói quen.",
+        "time_start": 39.82,
+        "time_end": 44.78
+      },
+      {
+        "id": "235-9",
+        "english": "Therefore, psychology plays an important role in helping people become successful learners.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, tâm lý học đóng vai trò quan trọng trong việc giúp mọi người trở thành người học thành công.",
+        "time_start": 45.4,
+        "time_end": 50.86
+      }
+    ]
+  },
+  {
+    "id": "lesson-236",
+    "categoryId": "22",
+    "title": "Tầm quan trọng của lịch sử",
+    "description": "Học lịch sử để hiểu quá khứ và định hướng tương lai",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-236.mp3",
+    "duration": 73,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "236-1",
+        "english": "History plays an important role in helping people understand the past and learn valuable lessons from previous generations.",
+        "phonetic": "",
+        "vietnamese": "Lịch sử đóng vai trò quan trọng trong việc giúp mọi người hiểu về quá khứ và học những bài học quý giá từ các thế hệ trước.",
+        "time_start": 0,
+        "time_end": 7.6
+      },
+      {
+        "id": "236-2",
+        "english": "It is the study of important events, famous people, cultures, and changes that happened throughout human development.",
+        "phonetic": "",
+        "vietnamese": "Đó là nghiên cứu về những sự kiện quan trọng, những người nổi tiếng, văn hóa và những thay đổi đã xảy ra trong suốt quá trình phát triển của nhân loại.",
+        "time_start": 8.6,
+        "time_end": 16.04
+      },
+      {
+        "id": "236-3",
+        "english": "By learning history, we can understand how countries, societies, and traditions were created.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách học lịch sử, chúng ta có thể hiểu cách mà các quốc gia, xã hội và truyền thống được hình thành.",
+        "time_start": 16.62,
+        "time_end": 22.94
+      },
+      {
+        "id": "236-4",
+        "english": "History also helps us appreciate the achievements, struggles, and sacrifices of people who contributed to the world.",
+        "phonetic": "",
+        "vietnamese": "Lịch sử cũng giúp chúng ta trân trọng những thành tựu, những cuộc đấu tranh và những hy sinh của những người đã đóng góp cho thế giới.",
+        "time_start": 24.02,
+        "time_end": 31.44
+      },
+      {
+        "id": "236-5",
+        "english": "For students, studying history can improve critical thinking skills and help them understand current events more deeply.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, việc học lịch sử có thể cải thiện kỹ năng tư duy phản biện và giúp họ hiểu sâu hơn về các sự kiện hiện tại.",
+        "time_start": 32.14,
+        "time_end": 39.78
+      },
+      {
+        "id": "236-6",
+        "english": "Although the past cannot be changed, it provides useful experiences that can guide our decisions in the present and future.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù quá khứ không thể thay đổi, nhưng nó cung cấp những kinh nghiệm hữu ích có thể hướng dẫn quyết định của chúng ta trong hiện tại và tương lai.",
+        "time_start": 40.7,
+        "time_end": 48.44
+      },
+      {
+        "id": "236-7",
+        "english": "History teaches us about the importance of responsibility, cooperation, and progress.",
+        "phonetic": "",
+        "vietnamese": "Lịch sử dạy chúng ta về tầm quan trọng của trách nhiệm, sự hợp tác và sự tiến bộ.",
+        "time_start": 49.36,
+        "time_end": 54.56
+      },
+      {
+        "id": "236-8",
+        "english": "It also helps people respect their cultural identity and understand the diversity of different communities.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng giúp mọi người tôn trọng bản sắc văn hóa của họ và hiểu sự đa dạng của các cộng đồng khác nhau.",
+        "time_start": 55.44,
+        "time_end": 61.84
+      },
+      {
+        "id": "236-9",
+        "english": "Therefore, learning history is not only about remembering old events but also about understanding human development and building a better future.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, việc học lịch sử không chỉ là nhớ lại những sự kiện cũ mà còn là hiểu về sự phát triển của nhân loại và xây dựng một tương lai tốt đẹp hơn.",
+        "time_start": 62.58,
+        "time_end": 71.7
+      }
+    ]
+  },
+  {
+    "id": "lesson-237",
+    "categoryId": "22",
+    "title": "Di sản văn hóa",
+    "description": "Giữ gìn truyền thống, lễ hội và giá trị văn hóa dân tộc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1548013146-72479768bada?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-237.mp3",
+    "duration": 68,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "237-1",
+        "english": "Cultural heritage is an important part of a country’s identity and history.",
+        "phonetic": "",
+        "vietnamese": "Di sản văn hóa là một phần quan trọng của bản sắc và lịch sử của một quốc gia.",
+        "time_start": 0,
+        "time_end": 6.06
+      },
+      {
+        "id": "237-2",
+        "english": "It includes traditions, customs, languages, festivals, artworks, historical sites, and values that are passed down from one generation to another.",
+        "phonetic": "",
+        "vietnamese": "Nó bao gồm các truyền thống, phong tục, ngôn ngữ, lễ hội, tác phẩm nghệ thuật, di tích lịch sử và các giá trị được truyền từ thế hệ này sang thế hệ khác.",
+        "time_start": 6.06,
+        "time_end": 15.54
+      },
+      {
+        "id": "237-3",
+        "english": "Cultural heritage shows the unique characteristics of different communities and helps people understand their roots.",
+        "phonetic": "",
+        "vietnamese": "Di sản văn hóa thể hiện những đặc điểm độc đáo của các cộng đồng khác nhau và giúp mọi người hiểu về nguồn gốc của họ.",
+        "time_start": 16.38,
+        "time_end": 23.24
+      },
+      {
+        "id": "237-4",
+        "english": "It connects the past with the present and allows future generations to learn about their ancestors.",
+        "phonetic": "",
+        "vietnamese": "Nó kết nối quá khứ với hiện tại và cho phép các thế hệ tương lai tìm hiểu về tổ tiên của họ.",
+        "time_start": 24,
+        "time_end": 29.88
+      },
+      {
+        "id": "237-5",
+        "english": "Many cultural heritage sites attract tourists and introduce local traditions to people around the world.",
+        "phonetic": "",
+        "vietnamese": "Nhiều di sản văn hóa thu hút khách du lịch và giới thiệu các truyền thống địa phương đến với mọi người trên toàn thế giới.",
+        "time_start": 30.62,
+        "time_end": 37.26
+      },
+      {
+        "id": "237-6",
+        "english": "However, cultural heritage can be threatened by modernization, pollution, and the loss of traditional knowledge.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, di sản văn hóa có thể bị đe dọa bởi sự hiện đại hóa, ô nhiễm và sự mất mát kiến thức truyền thống.",
+        "time_start": 38.34,
+        "time_end": 45.02
+      },
+      {
+        "id": "237-7",
+        "english": "Therefore, protecting cultural heritage is the responsibility of individuals, communities, and governments.",
+        "phonetic": "",
+        "vietnamese": "Do đó, việc bảo vệ di sản văn hóa là trách nhiệm của cá nhân, cộng đồng và chính phủ.",
+        "time_start": 45.88,
+        "time_end": 52.3
+      },
+      {
+        "id": "237-8",
+        "english": "Young people should learn about their culture and take part in preserving valuable traditions.",
+        "phonetic": "",
+        "vietnamese": "Giới trẻ nên tìm hiểu về văn hóa của họ và tham gia vào việc gìn giữ các truyền thống quý giá.",
+        "time_start": 53.08,
+        "time_end": 58
+      },
+      {
+        "id": "237-9",
+        "english": "By protecting cultural heritage, we can maintain important historical values and share the beauty of our culture with future generations.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách bảo vệ di sản văn hóa, chúng ta có thể duy trì các giá trị lịch sử quan trọng và chia sẻ vẻ đẹp của văn hóa chúng ta với các thế hệ tương lai.",
+        "time_start": 58.56,
+        "time_end": 67.34
+      }
+    ]
+  },
+  {
+    "id": "lesson-238",
+    "categoryId": "22",
+    "title": "Nhân vật lịch sử nổi tiếng",
+    "description": "Học hỏi từ những nhân vật đã thay đổi thế giới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-238.mp3",
+    "duration": 72,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "238-1",
+        "english": "Throughout history, many famous people have made significant contributions to the development of humanity.",
+        "phonetic": "",
+        "vietnamese": "Trong suốt lịch sử, nhiều người nổi tiếng đã có những đóng góp quan trọng cho sự phát triển của nhân loại.",
+        "time_start": 0,
+        "time_end": 6.48
+      },
+      {
+        "id": "238-2",
+        "english": "They include leaders, scientists, inventors, artists, and activists who changed the world through their ideas and actions.",
+        "phonetic": "",
+        "vietnamese": "Họ bao gồm các nhà lãnh đạo, nhà khoa học, nhà phát minh, nghệ sĩ và nhà hoạt động đã thay đổi thế giới qua ý tưởng và hành động của họ.",
+        "time_start": 7.28,
+        "time_end": 15.9
+      },
+      {
+        "id": "238-3",
+        "english": "These historical figures often inspire people because of their courage, creativity, and determination.",
+        "phonetic": "",
+        "vietnamese": "Những nhân vật lịch sử này thường truyền cảm hứng cho mọi người vì sự dũng cảm, sáng tạo và quyết tâm của họ.",
+        "time_start": 16.56,
+        "time_end": 23.3
+      },
+      {
+        "id": "238-4",
+        "english": "By learning about their lives, we can understand the challenges they faced and the achievements they created.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tìm hiểu về cuộc sống của họ, chúng ta có thể hiểu những thách thức mà họ đã đối mặt và những thành tựu mà họ đã tạo ra.",
+        "time_start": 23.58,
+        "time_end": 30.08
+      },
+      {
+        "id": "238-5",
+        "english": "Their stories teach us valuable lessons about hard work, responsibility, and the importance of never giving up.",
+        "phonetic": "",
+        "vietnamese": "Câu chuyện của họ dạy chúng ta những bài học quý giá về sự chăm chỉ, trách nhiệm và tầm quan trọng của việc không bao giờ từ bỏ.",
+        "time_start": 30.78,
+        "time_end": 38.1
+      },
+      {
+        "id": "238-6",
+        "english": "Many discoveries, inventions, and social changes today are influenced by the contributions of people from the past.",
+        "phonetic": "",
+        "vietnamese": "Nhiều phát hiện, phát minh và thay đổi xã hội ngày nay bị ảnh hưởng bởi những đóng góp của những người trong quá khứ.",
+        "time_start": 38.86,
+        "time_end": 46.38
+      },
+      {
+        "id": "238-7",
+        "english": "Studying historical figures also helps us appreciate the progress of society and recognize the impact of individuals on the world.",
+        "phonetic": "",
+        "vietnamese": "Học về những nhân vật lịch sử cũng giúp chúng ta trân trọng sự tiến bộ của xã hội và nhận ra ảnh hưởng của cá nhân đối với thế giới.",
+        "time_start": 47.68,
+        "time_end": 55.94
+      },
+      {
+        "id": "238-8",
+        "english": "Their experiences encourage us to develop our abilities and make positive contributions to our communities.",
+        "phonetic": "",
+        "vietnamese": "Những trải nghiệm của họ khuyến khích chúng ta phát triển khả năng của mình và đóng góp tích cực cho cộng đồng.",
+        "time_start": 56.58,
+        "time_end": 63.36
+      },
+      {
+        "id": "238-9",
+        "english": "Therefore, famous historical figures are important sources of inspiration and knowledge for future generations.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, những nhân vật lịch sử nổi tiếng là nguồn cảm hứng và kiến thức quan trọng cho các thế hệ tương lai.",
+        "time_start": 64.12,
+        "time_end": 70.8
+      }
+    ]
+  },
+  {
+    "id": "lesson-239",
+    "categoryId": "22",
+    "title": "Các nền văn minh cổ đại",
+    "description": "Khám phá Ai Cập, Hy Lạp, La Mã và Trung Hoa cổ đại",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-239.mp3",
+    "duration": 66,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "239-1",
+        "english": "Ancient civilizations are valuable parts of human history because they created many important achievements that influenced the modern world.",
+        "phonetic": "",
+        "vietnamese": "Các nền văn minh cổ đại là những phần quý giá của lịch sử nhân loại vì chúng đã tạo ra nhiều thành tựu quan trọng ảnh hưởng đến thế giới hiện đại.",
+        "time_start": 0,
+        "time_end": 8.66
+      },
+      {
+        "id": "239-2",
+        "english": "Civilizations such as Ancient Egypt, Ancient Greece, Ancient Rome, and Ancient China developed advanced knowledge in science, architecture, writing, and culture.",
+        "phonetic": "",
+        "vietnamese": "Các nền văn minh như Ai Cập cổ đại, Hy Lạp cổ đại, La Mã cổ đại và Trung Quốc cổ đại đã phát triển kiến thức tiên tiến trong khoa học, kiến trúc, viết và văn hóa.",
+        "time_start": 9.54,
+        "time_end": 20.44
+      },
+      {
+        "id": "239-3",
+        "english": "Their inventions and ideas helped shape the development of human society over thousands of years.",
+        "phonetic": "",
+        "vietnamese": "Những phát minh và ý tưởng của họ đã giúp định hình sự phát triển của xã hội loài người trong hàng nghìn năm.",
+        "time_start": 21.14,
+        "time_end": 26.68
+      },
+      {
+        "id": "239-4",
+        "english": "Studying ancient civilizations allows us to understand how people lived, worked, and organized their communities in the past.",
+        "phonetic": "",
+        "vietnamese": "Học về các nền văn minh cổ đại cho phép chúng ta hiểu cách mà con người đã sống, làm việc và tổ chức cộng đồng của họ trong quá khứ.",
+        "time_start": 27.34,
+        "time_end": 35.14
+      },
+      {
+        "id": "239-5",
+        "english": "Their buildings, artworks, and discoveries show human creativity and intelligence.",
+        "phonetic": "",
+        "vietnamese": "Các công trình, tác phẩm nghệ thuật và phát hiện của họ cho thấy sự sáng tạo và trí thông minh của con người.",
+        "time_start": 35.78,
+        "time_end": 40.88
+      },
+      {
+        "id": "239-6",
+        "english": "Although these civilizations existed many years ago, their cultural values and achievements are still meaningful today.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù những nền văn minh này đã tồn tại từ nhiều năm trước, nhưng các giá trị văn hóa và thành tựu của chúng vẫn còn có ý nghĩa đến ngày nay.",
+        "time_start": 41.6,
+        "time_end": 48.92
+      },
+      {
+        "id": "239-7",
+        "english": "Learning about ancient civilizations also helps us appreciate the diversity of human cultures around the world.",
+        "phonetic": "",
+        "vietnamese": "Học về các nền văn minh cổ đại cũng giúp chúng ta trân trọng sự đa dạng của các nền văn hóa nhân loại trên toàn thế giới.",
+        "time_start": 49.64,
+        "time_end": 55.98
+      },
+      {
+        "id": "239-8",
+        "english": "By exploring the achievements of the past, we can better understand the progress of humanity and gain knowledge that can be useful for the future.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách khám phá những thành tựu của quá khứ, chúng ta có thể hiểu rõ hơn về sự tiến bộ của nhân loại và thu nhận kiến thức có thể hữu ích cho tương lai.",
+        "time_start": 56.6,
+        "time_end": 64.72
+      }
+    ]
+  },
+  {
+    "id": "lesson-240",
+    "categoryId": "22",
+    "title": "Công trình và di tích lịch sử",
+    "description": "Bảo tồn đền đài, lâu đài và các di tích lịch sử",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-240.mp3",
+    "duration": 67,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "240-1",
+        "english": "Historical buildings and monuments are important symbols that preserve memories of the past.",
+        "phonetic": "",
+        "vietnamese": "Các công trình và di tích lịch sử là những biểu tượng quan trọng bảo tồn ký ức về quá khứ.",
+        "time_start": 0,
+        "time_end": 5.46
+      },
+      {
+        "id": "240-2",
+        "english": "They represent the culture, achievements, and important events of previous generations.",
+        "phonetic": "",
+        "vietnamese": "Chúng đại diện cho văn hóa, thành tựu và những sự kiện quan trọng của các thế hệ trước.",
+        "time_start": 6.24,
+        "time_end": 11.86
+      },
+      {
+        "id": "240-3",
+        "english": "Many famous places, such as ancient temples, castles, museums, and memorials, attract visitors because of their beauty and historical value.",
+        "phonetic": "",
+        "vietnamese": "Nhiều địa điểm nổi tiếng, như đền thờ cổ, lâu đài, bảo tàng và đài tưởng niệm, thu hút du khách vì vẻ đẹp và giá trị lịch sử của chúng.",
+        "time_start": 12.52,
+        "time_end": 21.72
+      },
+      {
+        "id": "240-4",
+        "english": "These sites help people learn about the traditions, lifestyles, and experiences of people from different periods.",
+        "phonetic": "",
+        "vietnamese": "Những địa điểm này giúp mọi người tìm hiểu về truyền thống, lối sống và trải nghiệm của những người từ các thời kỳ khác nhau.",
+        "time_start": 22.42,
+        "time_end": 29.3
+      },
+      {
+        "id": "240-5",
+        "english": "Protecting historical buildings is important because they connect the past with the present and future.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ các công trình lịch sử là quan trọng vì chúng kết nối quá khứ với hiện tại và tương lai.",
+        "time_start": 29.3,
+        "time_end": 36.02
+      },
+      {
+        "id": "240-6",
+        "english": "However, many historical sites are affected by pollution, natural disasters, and human activities.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, nhiều di tích lịch sử bị ảnh hưởng bởi ô nhiễm, thiên tai và hoạt động của con người.",
+        "time_start": 37.1,
+        "time_end": 43.36
+      },
+      {
+        "id": "240-7",
+        "english": "Therefore, governments and local communities should work together to preserve and restore these valuable places.",
+        "phonetic": "",
+        "vietnamese": "Do đó, chính phủ và cộng đồng địa phương nên hợp tác để bảo tồn và phục hồi những địa điểm quý giá này.",
+        "time_start": 44.04,
+        "time_end": 50.88
+      },
+      {
+        "id": "240-8",
+        "english": "Visiting historical monuments can increase people’s knowledge and respect for history.",
+        "phonetic": "",
+        "vietnamese": "Thăm các di tích lịch sử có thể tăng cường kiến thức và sự tôn trọng của mọi người đối với lịch sử.",
+        "time_start": 50.88,
+        "time_end": 56.82
+      },
+      {
+        "id": "240-9",
+        "english": "By protecting these sites, we can keep important cultural treasures alive and allow future generations to learn from the past.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách bảo vệ những địa điểm này, chúng ta có thể giữ gìn những kho báu văn hóa quan trọng và cho phép các thế hệ tương lai học hỏi từ quá khứ.",
+        "time_start": 56.82,
+        "time_end": 65.76
+      }
+    ]
+  },
+  {
+    "id": "lesson-241",
+    "categoryId": "22",
+    "title": "Lễ hội truyền thống",
+    "description": "Giữ gìn lễ hội như một phần di sản văn hóa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-241.mp3",
+    "duration": 72,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "241-1",
+        "english": "Traditional festivals are important parts of cultural heritage in many countries around the world.",
+        "phonetic": "",
+        "vietnamese": "Các lễ hội truyền thống là phần quan trọng của di sản văn hóa ở nhiều quốc gia trên thế giới.",
+        "time_start": 0,
+        "time_end": 5.52
+      },
+      {
+        "id": "241-2",
+        "english": "They are special events that celebrate history, beliefs, customs, and important moments of a community.",
+        "phonetic": "",
+        "vietnamese": "Chúng là những sự kiện đặc biệt kỷ niệm lịch sử, niềm tin, phong tục và những khoảnh khắc quan trọng của một cộng đồng.",
+        "time_start": 6.26,
+        "time_end": 12.88
+      },
+      {
+        "id": "241-3",
+        "english": "Festivals often include traditional food, music, dances, ceremonies, and activities that bring people together.",
+        "phonetic": "",
+        "vietnamese": "Các lễ hội thường bao gồm món ăn truyền thống, âm nhạc, điệu nhảy, nghi lễ và các hoạt động gắn kết mọi người lại với nhau.",
+        "time_start": 14.04,
+        "time_end": 21.38
+      },
+      {
+        "id": "241-4",
+        "english": "They help younger generations learn about their culture and maintain valuable traditions from the past.",
+        "phonetic": "",
+        "vietnamese": "Chúng giúp thế hệ trẻ tìm hiểu về văn hóa của họ và duy trì những truyền thống quý giá từ quá khứ.",
+        "time_start": 22.1,
+        "time_end": 28.1
+      },
+      {
+        "id": "241-5",
+        "english": "In many places, traditional festivals also attract tourists and introduce local culture to international visitors.",
+        "phonetic": "",
+        "vietnamese": "Ở nhiều nơi, các lễ hội truyền thống cũng thu hút khách du lịch và giới thiệu văn hóa địa phương đến với du khách quốc tế.",
+        "time_start": 28.38,
+        "time_end": 36.16
+      },
+      {
+        "id": "241-6",
+        "english": "However, some traditional festivals may disappear if people do not pay attention to preserving them.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, một số lễ hội truyền thống có thể biến mất nếu mọi người không chú ý đến việc bảo tồn chúng.",
+        "time_start": 36.96,
+        "time_end": 43.02
+      },
+      {
+        "id": "241-7",
+        "english": "Therefore, communities should protect and promote these cultural events while adapting them to modern life.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, các cộng đồng nên bảo vệ và quảng bá những sự kiện văn hóa này trong khi điều chỉnh chúng cho phù hợp với cuộc sống hiện đại.",
+        "time_start": 43.72,
+        "time_end": 50.3
+      },
+      {
+        "id": "241-8",
+        "english": "Participating in traditional festivals allows people to connect with their history and strengthen relationships with others.",
+        "phonetic": "",
+        "vietnamese": "Tham gia vào các lễ hội truyền thống cho phép mọi người kết nối với lịch sử của họ và củng cố mối quan hệ với người khác.",
+        "time_start": 51.14,
+        "time_end": 58.22
+      },
+      {
+        "id": "241-9",
+        "english": "These festivals are not only celebrations but also meaningful ways to keep cultural identity alive.",
+        "phonetic": "",
+        "vietnamese": "Những lễ hội này không chỉ là những buổi lễ kỷ niệm mà còn là những cách có ý nghĩa để giữ gìn bản sắc văn hóa sống mãi.",
+        "time_start": 58.98,
+        "time_end": 65.7
+      },
+      {
+        "id": "241-10",
+        "english": "Therefore, preserving traditional festivals is important for future generations.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, việc bảo tồn các lễ hội truyền thống là rất quan trọng cho các thế hệ tương lai.",
+        "time_start": 66.42,
+        "time_end": 71.46
+      }
+    ]
+  },
+  {
+    "id": "lesson-242",
+    "categoryId": "22",
+    "title": "Bảo tàng và tầm quan trọng của chúng",
+    "description": "Vai trò của bảo tàng trong giáo dục và bảo tồn lịch sử",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-242.mp3",
+    "duration": 65,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "242-1",
+        "english": "Museums play an important role in preserving and sharing knowledge about history and culture.",
+        "phonetic": "",
+        "vietnamese": "Bảo tàng đóng vai trò quan trọng trong việc bảo tồn và chia sẻ kiến thức về lịch sử và văn hóa.",
+        "time_start": 0,
+        "time_end": 5.84
+      },
+      {
+        "id": "242-2",
+        "english": "They collect and display valuable objects, artworks, and documents from different periods of human development.",
+        "phonetic": "",
+        "vietnamese": "Chúng thu thập và trưng bày những đồ vật, tác phẩm nghệ thuật và tài liệu quý giá từ các thời kỳ khác nhau trong sự phát triển của con người.",
+        "time_start": 6.58,
+        "time_end": 13.48
+      },
+      {
+        "id": "242-3",
+        "english": "By visiting museums, people can learn about important events, historical figures, and cultural traditions in a more interesting way.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tham quan bảo tàng, mọi người có thể tìm hiểu về những sự kiện quan trọng, nhân vật lịch sử và truyền thống văn hóa một cách thú vị hơn.",
+        "time_start": 14.3,
+        "time_end": 22.78
+      },
+      {
+        "id": "242-4",
+        "english": "Museums are especially useful for students because they provide opportunities to learn beyond textbooks.",
+        "phonetic": "",
+        "vietnamese": "Bảo tàng đặc biệt hữu ích cho học sinh vì chúng cung cấp cơ hội học tập ngoài sách giáo khoa.",
+        "time_start": 23.6,
+        "time_end": 29.52
+      },
+      {
+        "id": "242-5",
+        "english": "They help people understand the achievements and experiences of previous generations.",
+        "phonetic": "",
+        "vietnamese": "Chúng giúp mọi người hiểu được những thành tựu và trải nghiệm của các thế hệ trước.",
+        "time_start": 30.28,
+        "time_end": 35.2
+      },
+      {
+        "id": "242-6",
+        "english": "In addition, museums protect valuable items from being lost or damaged over time.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, bảo tàng bảo vệ những món đồ quý giá khỏi việc bị mất mát hoặc hư hỏng theo thời gian.",
+        "time_start": 36.16,
+        "time_end": 41.56
+      },
+      {
+        "id": "242-7",
+        "english": "Modern museums often use technology, such as interactive displays and digital information, to create better learning experiences.",
+        "phonetic": "",
+        "vietnamese": "Các bảo tàng hiện đại thường sử dụng công nghệ, như các màn hình tương tác và thông tin kỹ thuật số, để tạo ra những trải nghiệm học tập tốt hơn.",
+        "time_start": 42.34,
+        "time_end": 51.1
+      },
+      {
+        "id": "242-8",
+        "english": "Visiting museums can increase people’s curiosity and respect for history.",
+        "phonetic": "",
+        "vietnamese": "Tham quan bảo tàng có thể làm tăng sự tò mò và tôn trọng lịch sử của mọi người.",
+        "time_start": 51.1,
+        "time_end": 57.22
+      },
+      {
+        "id": "242-9",
+        "english": "Therefore, museums are important places for education, preservation, and connecting people with the past.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, bảo tàng là những nơi quan trọng cho giáo dục, bảo tồn và kết nối mọi người với quá khứ.",
+        "time_start": 57.22,
+        "time_end": 64.18
+      }
+    ]
+  },
+  {
+    "id": "lesson-243",
+    "categoryId": "22",
+    "title": "Bảo vệ di sản thế giới",
+    "description": "Chung tay bảo vệ các di sản văn hóa và thiên nhiên",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-243.mp3",
+    "duration": 68,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "243-1",
+        "english": "World heritage sites are valuable places recognized for their cultural, historical, or natural importance.",
+        "phonetic": "",
+        "vietnamese": "Các di sản thế giới là những địa điểm quý giá được công nhận vì tầm quan trọng văn hóa, lịch sử hoặc tự nhiên của chúng.",
+        "time_start": 0,
+        "time_end": 6.9
+      },
+      {
+        "id": "243-2",
+        "english": "They represent the achievements and beauty of humanity and nature.",
+        "phonetic": "",
+        "vietnamese": "Chúng đại diện cho những thành tựu và vẻ đẹp của nhân loại và thiên nhiên.",
+        "time_start": 7.82,
+        "time_end": 11.66
+      },
+      {
+        "id": "243-3",
+        "english": "Many famous heritage sites attract millions of visitors every year and help promote cultural understanding between countries.",
+        "phonetic": "",
+        "vietnamese": "Nhiều di sản nổi tiếng thu hút hàng triệu du khách mỗi năm và giúp thúc đẩy sự hiểu biết văn hóa giữa các quốc gia.",
+        "time_start": 12.5,
+        "time_end": 20.38
+      },
+      {
+        "id": "243-4",
+        "english": "However, these places face many challenges, such as pollution, climate change, and excessive tourism.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, những địa điểm này đang đối mặt với nhiều thách thức, chẳng hạn như ô nhiễm, biến đổi khí hậu và du lịch quá mức.",
+        "time_start": 21.1,
+        "time_end": 28.46
+      },
+      {
+        "id": "243-5",
+        "english": "If they are not protected carefully, future generations may lose the opportunity to experience these valuable treasures.",
+        "phonetic": "",
+        "vietnamese": "Nếu không được bảo vệ cẩn thận, các thế hệ tương lai có thể mất cơ hội trải nghiệm những kho báu quý giá này.",
+        "time_start": 29.46,
+        "time_end": 36.54
+      },
+      {
+        "id": "243-6",
+        "english": "Governments and communities need to work together to preserve heritage sites through conservation projects and responsible tourism.",
+        "phonetic": "",
+        "vietnamese": "Các chính phủ và cộng đồng cần hợp tác để bảo tồn các di sản thông qua các dự án bảo tồn và du lịch có trách nhiệm.",
+        "time_start": 37.52,
+        "time_end": 44.9
+      },
+      {
+        "id": "243-7",
+        "english": "Visitors should also respect local rules and avoid activities that can damage these places.",
+        "phonetic": "",
+        "vietnamese": "Du khách cũng nên tôn trọng các quy tắc địa phương và tránh những hoạt động có thể gây hại cho những địa điểm này.",
+        "time_start": 46.02,
+        "time_end": 51.24
+      },
+      {
+        "id": "243-8",
+        "english": "Protecting world heritage sites is not only about saving old buildings or natural landscapes but also about preserving human history and cultural values.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ các di sản thế giới không chỉ là cứu những tòa nhà cổ hay cảnh quan tự nhiên mà còn là bảo tồn lịch sử nhân loại và các giá trị văn hóa.",
+        "time_start": 52.36,
+        "time_end": 62.28
+      },
+      {
+        "id": "243-9",
+        "english": "Therefore, everyone has a responsibility to protect these important treasures.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, mọi người đều có trách nhiệm bảo vệ những kho báu quan trọng này.",
+        "time_start": 63,
+        "time_end": 67.36
+      }
+    ]
+  },
+  {
+    "id": "lesson-244",
+    "categoryId": "22",
+    "title": "Di sản địa phương và bản sắc cộng đồng",
+    "description": "Giữ bản sắc địa phương qua nghề truyền thống và phong tục",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-244.mp3",
+    "duration": 66,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "244-1",
+        "english": "Local heritage plays an important role in creating the identity of a community.",
+        "phonetic": "",
+        "vietnamese": "Di sản địa phương đóng vai trò quan trọng trong việc tạo ra bản sắc của một cộng đồng.",
+        "time_start": 0,
+        "time_end": 4.8
+      },
+      {
+        "id": "244-2",
+        "english": "It includes traditional crafts, local food, historical places, stories, and customs that are unique to a specific area.",
+        "phonetic": "",
+        "vietnamese": "Nó bao gồm các nghề thủ công truyền thống, ẩm thực địa phương, địa điểm lịch sử, câu chuyện và phong tục độc đáo của một khu vực cụ thể.",
+        "time_start": 5.74,
+        "time_end": 13.96
+      },
+      {
+        "id": "244-3",
+        "english": "These elements show the lifestyle and values of people who have lived there for many generations.",
+        "phonetic": "",
+        "vietnamese": "Những yếu tố này thể hiện lối sống và giá trị của những người đã sống ở đó qua nhiều thế hệ.",
+        "time_start": 14.72,
+        "time_end": 20.4
+      },
+      {
+        "id": "244-4",
+        "english": "Protecting local heritage helps communities maintain their connection with the past and strengthen their sense of belonging.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ di sản địa phương giúp các cộng đồng duy trì kết nối với quá khứ và củng cố cảm giác thuộc về.",
+        "time_start": 21.38,
+        "time_end": 28.34
+      },
+      {
+        "id": "244-5",
+        "english": "It also creates opportunities for tourism and supports local economic development.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng tạo ra cơ hội cho du lịch và hỗ trợ phát triển kinh tế địa phương.",
+        "time_start": 28.67,
+        "time_end": 34.48
+      },
+      {
+        "id": "244-6",
+        "english": "However, many traditional practices are gradually disappearing because of modernization and changes in lifestyle.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, nhiều phong tục truyền thống đang dần biến mất do hiện đại hóa và thay đổi lối sống.",
+        "time_start": 35.48,
+        "time_end": 42.72
+      },
+      {
+        "id": "244-7",
+        "english": "Therefore, local people, especially young generations, should learn about and protect their heritage.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, người dân địa phương, đặc biệt là thế hệ trẻ, nên tìm hiểu và bảo vệ di sản của họ.",
+        "time_start": 43.46,
+        "time_end": 50.02
+      },
+      {
+        "id": "244-8",
+        "english": "By participating in cultural activities and sharing local traditions, people can help preserve their community’s identity.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tham gia vào các hoạt động văn hóa và chia sẻ các truyền thống địa phương, mọi người có thể giúp bảo tồn bản sắc của cộng đồng mình.",
+        "time_start": 50.02,
+        "time_end": 53.78
+      },
+      {
+        "id": "244-9",
+        "english": "Local heritage is a valuable treasure that connects people with their history and culture.",
+        "phonetic": "",
+        "vietnamese": "Di sản địa phương là một kho báu quý giá kết nối mọi người với lịch sử và văn hóa của họ.",
+        "time_start": 53.78,
+        "time_end": 64.64
+      }
+    ]
+  },
+  {
+    "id": "lesson-245",
+    "categoryId": "22",
+    "title": "Vai trò của giới trẻ trong bảo tồn di sản",
+    "description": "Thanh niên cùng bảo tồn và lan tỏa di sản văn hóa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-245.mp3",
+    "duration": 68,
+    "level": "INTERMEDIATE",
+    "topic": "Lịch sử & Di sản",
+    "sentences": [
+      {
+        "id": "245-1",
+        "english": "Young people play an important role in protecting and promoting cultural heritage.",
+        "phonetic": "",
+        "vietnamese": "Người trẻ đóng vai trò quan trọng trong việc bảo vệ và phát huy di sản văn hóa.",
+        "time_start": 0,
+        "time_end": 4.54
+      },
+      {
+        "id": "245-2",
+        "english": "They are the next generation responsible for maintaining the traditions and values passed down from the past.",
+        "phonetic": "",
+        "vietnamese": "Họ là thế hệ tiếp theo có trách nhiệm duy trì các truyền thống và giá trị được truyền lại từ quá khứ.",
+        "time_start": 5.5,
+        "time_end": 12.04
+      },
+      {
+        "id": "245-3",
+        "english": "By learning about history, participating in cultural activities, and sharing information, young people can help others understand the importance of heritage.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tìm hiểu về lịch sử, tham gia các hoạt động văn hóa và chia sẻ thông tin, người trẻ có thể giúp người khác hiểu được tầm quan trọng của di sản.",
+        "time_start": 12.6,
+        "time_end": 22.66
+      },
+      {
+        "id": "245-4",
+        "english": "Technology and social media also provide useful ways for young people to introduce cultural values to a wider audience.",
+        "phonetic": "",
+        "vietnamese": "Công nghệ và mạng xã hội cũng cung cấp những cách hữu ích để người trẻ giới thiệu các giá trị văn hóa đến một đối tượng rộng hơn.",
+        "time_start": 23.44,
+        "time_end": 31.24
+      },
+      {
+        "id": "245-5",
+        "english": "However, many young people may lose interest in traditional culture because of modern lifestyles and global influences.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, nhiều người trẻ có thể mất hứng thú với văn hóa truyền thống vì lối sống hiện đại và những ảnh hưởng toàn cầu.",
+        "time_start": 32.1,
+        "time_end": 39.4
+      },
+      {
+        "id": "245-6",
+        "english": "Therefore, education and community activities are necessary to encourage their involvement.",
+        "phonetic": "",
+        "vietnamese": "Do đó, giáo dục và các hoạt động cộng đồng là cần thiết để khuyến khích sự tham gia của họ.",
+        "time_start": 40.28,
+        "time_end": 45.9
+      },
+      {
+        "id": "245-7",
+        "english": "Preserving heritage does not mean rejecting modern development but finding a balance between tradition and change.",
+        "phonetic": "",
+        "vietnamese": "Bảo tồn di sản không có nghĩa là từ chối phát triển hiện đại mà là tìm kiếm sự cân bằng giữa truyền thống và sự thay đổi.",
+        "time_start": 46.9,
+        "time_end": 54.06
+      },
+      {
+        "id": "245-8",
+        "english": "When young people appreciate and protect their heritage, they help keep cultural values alive.",
+        "phonetic": "",
+        "vietnamese": "Khi người trẻ trân trọng và bảo vệ di sản của họ, họ giúp giữ gìn các giá trị văn hóa sống mãi.",
+        "time_start": 54.57,
+        "time_end": 60.82
+      },
+      {
+        "id": "245-9",
+        "english": "Therefore, the involvement of youth is essential for the future of history and heritage.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, sự tham gia của thanh niên là điều thiết yếu cho tương lai của lịch sử và di sản.",
+        "time_start": 61.46,
+        "time_end": 66.76
+      }
+    ]
+  },
+  {
+    "id": "lesson-246",
+    "categoryId": "23",
+    "title": "Tầm quan trọng của động vật",
+    "description": "Động vật trong hệ sinh thái và đời sống con người",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-246.mp3",
+    "duration": 61,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "246-1",
+        "english": "Animals play an important role in the natural world and human life.",
+        "phonetic": "",
+        "vietnamese": "Động vật đóng một vai trò quan trọng trong thế giới tự nhiên và cuộc sống của con người.",
+        "time_start": 0,
+        "time_end": 3.76
+      },
+      {
+        "id": "246-2",
+        "english": "They are an essential part of ecosystems and help maintain the balance of nature.",
+        "phonetic": "",
+        "vietnamese": "Chúng là một phần thiết yếu của hệ sinh thái và giúp duy trì sự cân bằng của thiên nhiên.",
+        "time_start": 4.5,
+        "time_end": 9.48
+      },
+      {
+        "id": "246-3",
+        "english": "Many animals contribute to the environment by spreading seeds, controlling populations of other species, and supporting biodiversity.",
+        "phonetic": "",
+        "vietnamese": "Nhiều loài động vật góp phần vào môi trường bằng cách phát tán hạt giống, kiểm soát quần thể của các loài khác và hỗ trợ đa dạng sinh học.",
+        "time_start": 10.24,
+        "time_end": 18.18
+      },
+      {
+        "id": "246-4",
+        "english": "In addition, animals provide many benefits to humans, such as companionship, food, and support in different activities.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, động vật mang lại nhiều lợi ích cho con người, như tình bạn, thực phẩm và hỗ trợ trong các hoạt động khác nhau.",
+        "time_start": 19.14,
+        "time_end": 26.36
+      },
+      {
+        "id": "246-5",
+        "english": "Pets like dogs and cats can bring happiness and reduce stress for their owners.",
+        "phonetic": "",
+        "vietnamese": "Thú cưng như chó và mèo có thể mang lại hạnh phúc và giảm căng thẳng cho chủ nhân của chúng.",
+        "time_start": 27.2,
+        "time_end": 32.22
+      },
+      {
+        "id": "246-6",
+        "english": "Wild animals also have important roles in maintaining healthy ecosystems.",
+        "phonetic": "",
+        "vietnamese": "Động vật hoang dã cũng có vai trò quan trọng trong việc duy trì hệ sinh thái khỏe mạnh.",
+        "time_start": 33.24,
+        "time_end": 37.44
+      },
+      {
+        "id": "246-7",
+        "english": "However, many animal species are threatened by habitat loss, pollution, and human activities.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, nhiều loài động vật đang bị đe dọa bởi mất môi trường sống, ô nhiễm và các hoạt động của con người.",
+        "time_start": 38.34,
+        "time_end": 44.18
+      },
+      {
+        "id": "246-8",
+        "english": "Therefore, protecting animals and their natural environments is necessary for the future of our planet.",
+        "phonetic": "",
+        "vietnamese": "Do đó, việc bảo vệ động vật và môi trường sống tự nhiên của chúng là cần thiết cho tương lai của hành tinh chúng ta.",
+        "time_start": 44.92,
+        "time_end": 51.2
+      },
+      {
+        "id": "246-9",
+        "english": "By respecting and caring for animals, people can help create a better world where humans and animals can live together peacefully.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách tôn trọng và chăm sóc động vật, con người có thể giúp tạo ra một thế giới tốt đẹp hơn, nơi con người và động vật có thể sống hòa bình bên nhau.",
+        "time_start": 51.66,
+        "time_end": 59.9
+      }
+    ]
+  },
+  {
+    "id": "lesson-247",
+    "categoryId": "23",
+    "title": "Lợi ích của việc nuôi thú cưng",
+    "description": "Thú cưng mang lại niềm vui và trách nhiệm",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-247.mp3",
+    "duration": 58,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "247-1",
+        "english": "Having pets can bring many positive benefits to people’s lives.",
+        "phonetic": "",
+        "vietnamese": "Nuôi thú cưng có thể mang lại nhiều lợi ích tích cực cho cuộc sống của con người.",
+        "time_start": 0,
+        "time_end": 0.44
+      },
+      {
+        "id": "247-2",
+        "english": "Pets such as dogs, cats, and birds can provide companionship and emotional support.",
+        "phonetic": "",
+        "vietnamese": "Thú cưng như chó, mèo và chim có thể cung cấp tình bạn và hỗ trợ tinh thần.",
+        "time_start": 0.44,
+        "time_end": 10.28
+      },
+      {
+        "id": "247-3",
+        "english": "Many people feel happier and less lonely when they spend time with their pets.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người cảm thấy hạnh phúc hơn và ít cô đơn hơn khi họ dành thời gian với thú cưng của mình.",
+        "time_start": 11.14,
+        "time_end": 15.32
+      },
+      {
+        "id": "247-4",
+        "english": "Taking care of animals also teaches responsibility, patience, and kindness, especially for children.",
+        "phonetic": "",
+        "vietnamese": "Chăm sóc động vật cũng dạy cho trẻ em về trách nhiệm, kiên nhẫn và lòng tốt.",
+        "time_start": 16.22,
+        "time_end": 22.7
+      },
+      {
+        "id": "247-5",
+        "english": "Pets can encourage people to have healthier lifestyles because activities like walking dogs require physical movement.",
+        "phonetic": "",
+        "vietnamese": "Thú cưng có thể khuyến khích mọi người có lối sống lành mạnh hơn vì các hoạt động như dắt chó đi dạo cần sự vận động.",
+        "time_start": 23.66,
+        "time_end": 30.16
+      },
+      {
+        "id": "247-6",
+        "english": "In addition, interacting with pets can help reduce stress and improve mental well-being.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, tương tác với thú cưng có thể giúp giảm căng thẳng và cải thiện sức khỏe tâm thần.",
+        "time_start": 30.9,
+        "time_end": 36.38
+      },
+      {
+        "id": "247-7",
+        "english": "However, owning a pet also requires commitment because animals need proper food, healthcare, and attention.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, sở hữu một thú cưng cũng đòi hỏi sự cam kết vì động vật cần thức ăn, chăm sóc sức khỏe và sự chú ý đúng cách.",
+        "time_start": 37.08,
+        "time_end": 43.86
+      },
+      {
+        "id": "247-8",
+        "english": "People should consider their ability to care for an animal before bringing one home.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên xem xét khả năng chăm sóc một con vật trước khi đưa nó về nhà.",
+        "time_start": 44.7,
+        "time_end": 48.96
+      },
+      {
+        "id": "247-9",
+        "english": "With love and responsibility, pets can become valuable members of a family and bring joy to everyday life.",
+        "phonetic": "",
+        "vietnamese": "Với tình yêu và trách nhiệm, thú cưng có thể trở thành những thành viên quý giá trong gia đình và mang lại niềm vui cho cuộc sống hàng ngày.",
+        "time_start": 49.56,
+        "time_end": 57.42
+      }
+    ]
+  },
+  {
+    "id": "lesson-248",
+    "categoryId": "23",
+    "title": "Bảo vệ động vật",
+    "description": "Chung tay bảo vệ động vật và môi trường sống",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-248.mp3",
+    "duration": 62,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "248-1",
+        "english": "Animal protection is an important issue in today’s world.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ động vật là một vấn đề quan trọng trong thế giới ngày nay.",
+        "time_start": 0,
+        "time_end": 4.38
+      },
+      {
+        "id": "248-2",
+        "english": "Many animals are facing threats because of hunting, pollution, climate change, and the destruction of natural habitats.",
+        "phonetic": "",
+        "vietnamese": "Nhiều loài động vật đang đối mặt với những mối đe dọa do săn bắn, ô nhiễm, biến đổi khí hậu và sự phá hủy môi trường sống tự nhiên.",
+        "time_start": 4.38,
+        "time_end": 11.94
+      },
+      {
+        "id": "248-3",
+        "english": "Protecting animals helps maintain biodiversity and keeps ecosystems balanced.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ động vật giúp duy trì đa dạng sinh học và giữ cho hệ sinh thái cân bằng.",
+        "time_start": 12.86,
+        "time_end": 17.9
+      },
+      {
+        "id": "248-4",
+        "english": "People can support animal protection by treating animals with kindness, avoiding harmful activities, and supporting conservation programs.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể hỗ trợ bảo vệ động vật bằng cách đối xử với chúng một cách tử tế, tránh các hoạt động gây hại và ủng hộ các chương trình bảo tồn.",
+        "time_start": 18.74,
+        "time_end": 26.94
+      },
+      {
+        "id": "248-5",
+        "english": "Governments and organizations also play important roles by creating laws and projects to protect endangered species.",
+        "phonetic": "",
+        "vietnamese": "Chính phủ và các tổ chức cũng đóng vai trò quan trọng bằng cách tạo ra các luật và dự án để bảo vệ các loài có nguy cơ tuyệt chủng.",
+        "time_start": 27.66,
+        "time_end": 35.48
+      },
+      {
+        "id": "248-6",
+        "english": "Education is another effective way to raise awareness about animal welfare.",
+        "phonetic": "",
+        "vietnamese": "Giáo dục là một cách hiệu quả khác để nâng cao nhận thức về phúc lợi động vật.",
+        "time_start": 36.36,
+        "time_end": 40.64
+      },
+      {
+        "id": "248-7",
+        "english": "When people understand the importance of animals, they are more likely to take action to protect them.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người hiểu tầm quan trọng của động vật, họ có khả năng hành động để bảo vệ chúng hơn.",
+        "time_start": 41.42,
+        "time_end": 47.08
+      },
+      {
+        "id": "248-8",
+        "english": "Every small action, such as reducing waste and respecting wildlife, can make a difference.",
+        "phonetic": "",
+        "vietnamese": "Mỗi hành động nhỏ, chẳng hạn như giảm thiểu rác thải và tôn trọng động vật hoang dã, đều có thể tạo ra sự khác biệt.",
+        "time_start": 47.86,
+        "time_end": 53.26
+      },
+      {
+        "id": "248-9",
+        "english": "Therefore, protecting animals is not only a responsibility but also a way to protect the future of our planet.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, bảo vệ động vật không chỉ là trách nhiệm mà còn là cách để bảo vệ tương lai của hành tinh chúng ta.",
+        "time_start": 53.86,
+        "time_end": 60.52
+      }
+    ]
+  },
+  {
+    "id": "lesson-249",
+    "categoryId": "23",
+    "title": "Động vật có nguy cơ tuyệt chủng",
+    "description": "Hiểu nguyên nhân và cách bảo vệ loài đang bị đe dọa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-249.mp3",
+    "duration": 60,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "249-1",
+        "english": "Endangered animals are species that are at risk of disappearing from the Earth.",
+        "phonetic": "",
+        "vietnamese": "Các loài động vật nguy cấp là những loài có nguy cơ biến mất khỏi Trái Đất.",
+        "time_start": 0,
+        "time_end": 4.42
+      },
+      {
+        "id": "249-2",
+        "english": "Many animals become endangered because of human activities such as deforestation, illegal hunting, and environmental pollution.",
+        "phonetic": "",
+        "vietnamese": "Nhiều loài động vật trở nên nguy cấp do các hoạt động của con người như phá rừng, săn bắn trái phép và ô nhiễm môi trường.",
+        "time_start": 5.26,
+        "time_end": 13.36
+      },
+      {
+        "id": "249-3",
+        "english": "Climate change also affects the habitats and survival of many species.",
+        "phonetic": "",
+        "vietnamese": "Biến đổi khí hậu cũng ảnh hưởng đến môi trường sống và sự sống còn của nhiều loài.",
+        "time_start": 14.5,
+        "time_end": 18.9
+      },
+      {
+        "id": "249-4",
+        "english": "When an animal becomes extinct, it can disturb the balance of ecosystems and affect other living things.",
+        "phonetic": "",
+        "vietnamese": "Khi một loài động vật tuyệt chủng, điều đó có thể làm rối loạn sự cân bằng của hệ sinh thái và ảnh hưởng đến các sinh vật khác.",
+        "time_start": 19.82,
+        "time_end": 27.06
+      },
+      {
+        "id": "249-5",
+        "english": "Many organizations around the world are working to protect endangered animals through conservation programs and wildlife protection areas.",
+        "phonetic": "",
+        "vietnamese": "Nhiều tổ chức trên thế giới đang làm việc để bảo vệ các loài động vật nguy cấp thông qua các chương trình bảo tồn và khu bảo tồn động vật hoang dã.",
+        "time_start": 27.6,
+        "time_end": 36.32
+      },
+      {
+        "id": "249-6",
+        "english": "People can help by learning about endangered species and supporting environmental protection activities.",
+        "phonetic": "",
+        "vietnamese": "Mọi người có thể giúp đỡ bằng cách tìm hiểu về các loài nguy cấp và ủng hộ các hoạt động bảo vệ môi trường.",
+        "time_start": 37.18,
+        "time_end": 43.44
+      },
+      {
+        "id": "249-7",
+        "english": "Protecting these animals is important because every species has a role in nature.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ những loài động vật này là quan trọng vì mỗi loài đều có vai trò trong tự nhiên.",
+        "time_start": 44.46,
+        "time_end": 49.4
+      },
+      {
+        "id": "249-8",
+        "english": "By taking care of the environment and respecting wildlife, humans can help endangered animals survive and maintain the diversity of life on Earth.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách chăm sóc môi trường và tôn trọng động vật hoang dã, con người có thể giúp các loài động vật nguy cấp sống sót và duy trì sự đa dạng của sự sống trên Trái Đất.",
+        "time_start": 49.62,
+        "time_end": 59.48
+      }
+    ]
+  },
+  {
+    "id": "lesson-250",
+    "categoryId": "23",
+    "title": "Chó – Người bạn của con người",
+    "description": "Chó là người bạn trung thành và đáng tin cậy",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1552053831-71594a27632d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-250.mp3",
+    "duration": 57,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "250-1",
+        "english": "Dogs are one of the most popular pets and are often considered loyal companions of humans.",
+        "phonetic": "",
+        "vietnamese": "Chó là một trong những thú cưng phổ biến nhất và thường được coi là bạn đồng hành trung thành của con người.",
+        "time_start": 0,
+        "time_end": 6.12
+      },
+      {
+        "id": "250-2",
+        "english": "They have lived with people for thousands of years and have helped humans in many ways.",
+        "phonetic": "",
+        "vietnamese": "Chúng đã sống cùng con người hàng nghìn năm và đã giúp đỡ con người theo nhiều cách.",
+        "time_start": 6.92,
+        "time_end": 12.5
+      },
+      {
+        "id": "250-3",
+        "english": "Dogs can provide emotional support, protect homes, and assist people with different tasks.",
+        "phonetic": "",
+        "vietnamese": "Chó có thể cung cấp sự hỗ trợ về cảm xúc, bảo vệ nhà cửa và hỗ trợ con người trong nhiều công việc khác nhau.",
+        "time_start": 13.42,
+        "time_end": 19.42
+      },
+      {
+        "id": "250-4",
+        "english": "Many owners feel happier and less stressed because of the close relationship they have with their dogs.",
+        "phonetic": "",
+        "vietnamese": "Nhiều chủ nuôi cảm thấy hạnh phúc hơn và ít căng thẳng hơn nhờ vào mối quan hệ gần gũi với chó của họ.",
+        "time_start": 19.42,
+        "time_end": 25.86
+      },
+      {
+        "id": "250-5",
+        "english": "Dogs are also intelligent animals that can learn commands and understand human emotions.",
+        "phonetic": "",
+        "vietnamese": "Chó cũng là những động vật thông minh có thể học lệnh và hiểu cảm xúc của con người.",
+        "time_start": 25.86,
+        "time_end": 32.6
+      },
+      {
+        "id": "250-6",
+        "english": "However, owning a dog requires responsibility and care.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, việc nuôi chó đòi hỏi trách nhiệm và sự chăm sóc.",
+        "time_start": 33.16,
+        "time_end": 37.1
+      },
+      {
+        "id": "250-7",
+        "english": "Owners need to provide proper food, healthcare, exercise, and attention.",
+        "phonetic": "",
+        "vietnamese": "Chủ nuôi cần cung cấp thức ăn phù hợp, chăm sóc sức khỏe, tập thể dục và sự chú ý.",
+        "time_start": 38.08,
+        "time_end": 42.38
+      },
+      {
+        "id": "250-8",
+        "english": "A good relationship between humans and dogs is based on love, trust, and respect.",
+        "phonetic": "",
+        "vietnamese": "Một mối quan hệ tốt giữa con người và chó dựa trên tình yêu, sự tin tưởng và tôn trọng.",
+        "time_start": 42.54,
+        "time_end": 48.74
+      },
+      {
+        "id": "250-9",
+        "english": "Therefore, dogs are not only pets but also valuable companions that bring happiness and support to people’s lives.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, chó không chỉ là thú cưng mà còn là những người bạn quý giá mang lại hạnh phúc và hỗ trợ cho cuộc sống của con người.",
+        "time_start": 48.74,
+        "time_end": 56.88
+      }
+    ]
+  },
+  {
+    "id": "lesson-251",
+    "categoryId": "23",
+    "title": "Mèo – Thú cưng phổ biến",
+    "description": "Mèo mang lại sự ấm áp và thư giãn mỗi ngày",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-251.mp3",
+    "duration": 61,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "251-1",
+        "english": "Cats are one of the most popular pets in the world because they are friendly, independent, and easy to care for.",
+        "phonetic": "",
+        "vietnamese": "Mèo là một trong những thú cưng phổ biến nhất trên thế giới vì chúng thân thiện, độc lập và dễ chăm sóc.",
+        "time_start": 0,
+        "time_end": 7.42
+      },
+      {
+        "id": "251-2",
+        "english": "Many people choose cats as companions because they can bring comfort and happiness to their owners.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người chọn mèo làm bạn đồng hành vì chúng có thể mang lại sự thoải mái và hạnh phúc cho chủ nhân.",
+        "time_start": 8.14,
+        "time_end": 13.82
+      },
+      {
+        "id": "251-3",
+        "english": "Cats are known for their playful behavior and their ability to create strong bonds with humans.",
+        "phonetic": "",
+        "vietnamese": "Mèo nổi tiếng với hành vi vui tươi và khả năng tạo ra mối liên kết mạnh mẽ với con người.",
+        "time_start": 14.92,
+        "time_end": 20.24
+      },
+      {
+        "id": "251-4",
+        "english": "Spending time with cats can help people relax and reduce stress after a busy day.",
+        "phonetic": "",
+        "vietnamese": "Dành thời gian với mèo có thể giúp mọi người thư giãn và giảm căng thẳng sau một ngày bận rộn.",
+        "time_start": 21.34,
+        "time_end": 26.56
+      },
+      {
+        "id": "251-5",
+        "english": "Although cats are independent animals, they still need proper care, including healthy food, regular health checks, and a safe living environment.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mèo là động vật độc lập, nhưng chúng vẫn cần được chăm sóc đúng cách, bao gồm thức ăn lành mạnh, kiểm tra sức khỏe định kỳ và môi trường sống an toàn.",
+        "time_start": 27.44,
+        "time_end": 36.64
+      },
+      {
+        "id": "251-6",
+        "english": "Owning a cat also teaches people responsibility and patience.",
+        "phonetic": "",
+        "vietnamese": "Nuôi một con mèo cũng dạy cho mọi người về trách nhiệm và sự kiên nhẫn.",
+        "time_start": 37.46,
+        "time_end": 41.4
+      },
+      {
+        "id": "251-7",
+        "english": "However, people should remember that pets are living creatures and need love and attention.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, mọi người nên nhớ rằng thú cưng là sinh vật sống và cần tình yêu thương và sự chú ý.",
+        "time_start": 42.18,
+        "time_end": 47.82
+      },
+      {
+        "id": "251-8",
+        "english": "With proper care and respect, cats can become wonderful members of a family.",
+        "phonetic": "",
+        "vietnamese": "Với sự chăm sóc và tôn trọng đúng cách, mèo có thể trở thành những thành viên tuyệt vời trong gia đình.",
+        "time_start": 48.28,
+        "time_end": 53.04
+      },
+      {
+        "id": "251-9",
+        "english": "Therefore, cats are not only cute animals but also meaningful companions in human life.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, mèo không chỉ là những con vật dễ thương mà còn là những người bạn có ý nghĩa trong cuộc sống con người.",
+        "time_start": 53.7,
+        "time_end": 59.94
+      }
+    ]
+  },
+  {
+    "id": "lesson-252",
+    "categoryId": "23",
+    "title": "Bảo tồn động vật hoang dã",
+    "description": "Bảo vệ động vật hoang dã và môi trường tự nhiên",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-252.mp3",
+    "duration": 62,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "252-1",
+        "english": "Wildlife conservation is the process of protecting wild animals and their natural habitats.",
+        "phonetic": "",
+        "vietnamese": "Bảo tồn động vật hoang dã là quá trình bảo vệ động vật hoang dã và môi trường sống tự nhiên của chúng.",
+        "time_start": 0,
+        "time_end": 5.7
+      },
+      {
+        "id": "252-2",
+        "english": "Many wild species are facing serious threats because of deforestation, pollution, climate change, and illegal hunting.",
+        "phonetic": "",
+        "vietnamese": "Nhiều loài hoang dã đang đối mặt với những mối đe dọa nghiêm trọng do nạn phá rừng, ô nhiễm, biến đổi khí hậu và săn bắn trái phép.",
+        "time_start": 6.5,
+        "time_end": 14.16
+      },
+      {
+        "id": "252-3",
+        "english": "Protecting wildlife is important because animals play essential roles in maintaining the balance of ecosystems.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ động vật hoang dã rất quan trọng vì động vật đóng vai trò thiết yếu trong việc duy trì sự cân bằng của hệ sinh thái.",
+        "time_start": 15.26,
+        "time_end": 21.92
+      },
+      {
+        "id": "252-4",
+        "english": "Conservation programs help protect endangered species and provide safe environments for animals to survive.",
+        "phonetic": "",
+        "vietnamese": "Các chương trình bảo tồn giúp bảo vệ các loài có nguy cơ tuyệt chủng và cung cấp môi trường an toàn cho động vật sinh tồn.",
+        "time_start": 22.98,
+        "time_end": 29.34
+      },
+      {
+        "id": "252-5",
+        "english": "Governments, scientists, and local communities need to work together to protect natural areas and reduce harmful human activities.",
+        "phonetic": "",
+        "vietnamese": "Chính phủ, các nhà khoa học và cộng đồng địa phương cần hợp tác để bảo vệ các khu vực tự nhiên và giảm thiểu các hoạt động gây hại cho môi trường.",
+        "time_start": 30,
+        "time_end": 38.3
+      },
+      {
+        "id": "252-6",
+        "english": "Individuals can also contribute by using resources responsibly and supporting environmental protection efforts.",
+        "phonetic": "",
+        "vietnamese": "Các cá nhân cũng có thể đóng góp bằng cách sử dụng tài nguyên một cách có trách nhiệm và ủng hộ các nỗ lực bảo vệ môi trường.",
+        "time_start": 39.24,
+        "time_end": 46.28
+      },
+      {
+        "id": "252-7",
+        "english": "Learning about wildlife helps people understand the importance of nature and encourages them to take action.",
+        "phonetic": "",
+        "vietnamese": "Học về động vật hoang dã giúp mọi người hiểu được tầm quan trọng của thiên nhiên và khuyến khích họ hành động.",
+        "time_start": 47.1,
+        "time_end": 53.48
+      },
+      {
+        "id": "252-8",
+        "english": "By protecting wild animals today, we can preserve the beauty and diversity of our planet for future generations.",
+        "phonetic": "",
+        "vietnamese": "Bằng cách bảo vệ động vật hoang dã hôm nay, chúng ta có thể gìn giữ vẻ đẹp và sự đa dạng của hành tinh cho các thế hệ tương lai.",
+        "time_start": 53.94,
+        "time_end": 60.52
+      }
+    ]
+  },
+  {
+    "id": "lesson-253",
+    "categoryId": "23",
+    "title": "Trí thông minh của động vật",
+    "description": "Khám phá khả năng học hỏi và giao tiếp của động vật",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-253.mp3",
+    "duration": 61,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "253-1",
+        "english": "Animals are more intelligent than many people think.",
+        "phonetic": "",
+        "vietnamese": "Động vật thông minh hơn nhiều người nghĩ.",
+        "time_start": 0,
+        "time_end": 2.98
+      },
+      {
+        "id": "253-2",
+        "english": "Different species have different abilities to learn, communicate, and solve problems.",
+        "phonetic": "",
+        "vietnamese": "Các loài khác nhau có khả năng học hỏi, giao tiếp và giải quyết vấn đề khác nhau.",
+        "time_start": 3.94,
+        "time_end": 8.34
+      },
+      {
+        "id": "253-3",
+        "english": "Some animals can remember information, use tools, and adapt to new environments.",
+        "phonetic": "",
+        "vietnamese": "Một số động vật có thể nhớ thông tin, sử dụng công cụ và thích nghi với môi trường mới.",
+        "time_start": 9.22,
+        "time_end": 14.3
+      },
+      {
+        "id": "253-4",
+        "english": "For example, dolphins are known for their communication skills, while some birds can solve complex problems.",
+        "phonetic": "",
+        "vietnamese": "Chẳng hạn, cá heo nổi tiếng với khả năng giao tiếp, trong khi một số loài chim có thể giải quyết các vấn đề phức tạp.",
+        "time_start": 15.06,
+        "time_end": 21.62
+      },
+      {
+        "id": "253-5",
+        "english": "Pets like dogs and cats can also understand human emotions and respond to their owners.",
+        "phonetic": "",
+        "vietnamese": "Thú cưng như chó và mèo cũng có thể hiểu cảm xúc của con người và phản ứng với chủ của chúng.",
+        "time_start": 22.56,
+        "time_end": 28.24
+      },
+      {
+        "id": "253-6",
+        "english": "Studying animal intelligence helps scientists understand how animals think and behave.",
+        "phonetic": "",
+        "vietnamese": "Nghiên cứu trí thông minh của động vật giúp các nhà khoa học hiểu cách động vật suy nghĩ và hành xử.",
+        "time_start": 29.06,
+        "time_end": 34.52
+      },
+      {
+        "id": "253-7",
+        "english": "It also encourages people to respect animals and recognize their abilities.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng khuyến khích mọi người tôn trọng động vật và công nhận khả năng của chúng.",
+        "time_start": 35.22,
+        "time_end": 39.66
+      },
+      {
+        "id": "253-8",
+        "english": "Understanding animal intelligence can improve the way humans interact with other living creatures.",
+        "phonetic": "",
+        "vietnamese": "Hiểu biết về trí thông minh của động vật có thể cải thiện cách con người tương tác với các sinh vật sống khác.",
+        "time_start": 40.64,
+        "time_end": 46.1
+      },
+      {
+        "id": "253-9",
+        "english": "Animals are not simply resources for humans; they are valuable parts of the natural world.",
+        "phonetic": "",
+        "vietnamese": "Động vật không chỉ đơn giản là tài nguyên cho con người; chúng là những phần quý giá của thế giới tự nhiên.",
+        "time_start": 46.92,
+        "time_end": 52.34
+      },
+      {
+        "id": "253-10",
+        "english": "Therefore, learning about animal intelligence helps us develop greater respect and appreciation for animals.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, việc tìm hiểu về trí thông minh của động vật giúp chúng ta phát triển sự tôn trọng và trân trọng lớn hơn đối với động vật.",
+        "time_start": 52.86,
+        "time_end": 59.48
+      }
+    ]
+  },
+  {
+    "id": "lesson-254",
+    "categoryId": "23",
+    "title": "Mối quan hệ giữa con người và động vật",
+    "description": "Xây dựng mối quan hệ tôn trọng với động vật",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-254.mp3",
+    "duration": 60,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "254-1",
+        "english": "Humans and animals have shared a close relationship for thousands of years.",
+        "phonetic": "",
+        "vietnamese": "Con người và động vật đã có mối quan hệ gần gũi trong hàng ngàn năm.",
+        "time_start": 0,
+        "time_end": 4.78
+      },
+      {
+        "id": "254-2",
+        "english": "Animals have supported human life in many ways, from providing companionship to helping with work and transportation.",
+        "phonetic": "",
+        "vietnamese": "Động vật đã hỗ trợ cuộc sống của con người theo nhiều cách, từ việc cung cấp bạn bè đến giúp đỡ trong công việc và vận chuyển.",
+        "time_start": 5.92,
+        "time_end": 12.34
+      },
+      {
+        "id": "254-3",
+        "english": "Today, many people keep pets because animals can bring happiness, comfort, and emotional support.",
+        "phonetic": "",
+        "vietnamese": "Ngày nay, nhiều người nuôi thú cưng vì động vật có thể mang lại hạnh phúc, sự thoải mái và hỗ trợ tinh thần.",
+        "time_start": 13.22,
+        "time_end": 19.96
+      },
+      {
+        "id": "254-4",
+        "english": "At the same time, humans have a responsibility to treat animals with kindness and respect.",
+        "phonetic": "",
+        "vietnamese": "Cùng lúc đó, con người có trách nhiệm đối xử với động vật bằng lòng tốt và sự tôn trọng.",
+        "time_start": 20.52,
+        "time_end": 26.28
+      },
+      {
+        "id": "254-5",
+        "english": "Unfortunately, some animals suffer because of neglect, abuse, or environmental destruction.",
+        "phonetic": "",
+        "vietnamese": "Thật không may, một số động vật phải chịu đựng vì bị bỏ rơi, lạm dụng hoặc phá hủy môi trường.",
+        "time_start": 27.26,
+        "time_end": 33.08
+      },
+      {
+        "id": "254-6",
+        "english": "Building a positive relationship with animals requires understanding their needs and protecting their rights.",
+        "phonetic": "",
+        "vietnamese": "Xây dựng mối quan hệ tích cực với động vật đòi hỏi phải hiểu nhu cầu của chúng và bảo vệ quyền lợi của chúng.",
+        "time_start": 34.18,
+        "time_end": 40.46
+      },
+      {
+        "id": "254-7",
+        "english": "Education about animal care can help people become more responsible owners.",
+        "phonetic": "",
+        "vietnamese": "Giáo dục về việc chăm sóc động vật có thể giúp mọi người trở thành những chủ sở hữu có trách nhiệm hơn.",
+        "time_start": 41.4,
+        "time_end": 45.86
+      },
+      {
+        "id": "254-8",
+        "english": "When humans and animals live together peacefully, both sides can benefit from this connection.",
+        "phonetic": "",
+        "vietnamese": "Khi con người và động vật sống cùng nhau một cách hòa bình, cả hai bên đều có thể hưởng lợi từ mối liên kết này.",
+        "time_start": 46.68,
+        "time_end": 52.32
+      },
+      {
+        "id": "254-9",
+        "english": "Therefore, respecting and caring for animals is an important part of creating a better world.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, tôn trọng và chăm sóc động vật là một phần quan trọng trong việc tạo ra một thế giới tốt đẹp hơn.",
+        "time_start": 52.88,
+        "time_end": 58.74
+      }
+    ]
+  },
+  {
+    "id": "lesson-255",
+    "categoryId": "23",
+    "title": "Tương lai của việc bảo vệ động vật",
+    "description": "Cùng hành động để bảo vệ động vật trong tương lai",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-255.mp3",
+    "duration": 65,
+    "level": "BEGINNER",
+    "topic": "Thú cưng & Động vật",
+    "sentences": [
+      {
+        "id": "255-1",
+        "english": "The future of animal protection depends on the actions of people today.",
+        "phonetic": "",
+        "vietnamese": "Tương lai của việc bảo vệ động vật phụ thuộc vào hành động của con người hôm nay.",
+        "time_start": 0,
+        "time_end": 4.34
+      },
+      {
+        "id": "255-2",
+        "english": "As environmental problems continue to grow, many animals face challenges to their survival.",
+        "phonetic": "",
+        "vietnamese": "Khi các vấn đề môi trường tiếp tục gia tăng, nhiều loài động vật phải đối mặt với những thách thức cho sự sống còn của chúng.",
+        "time_start": 5.02,
+        "time_end": 10.24
+      },
+      {
+        "id": "255-3",
+        "english": "Protecting animals requires cooperation between governments, organizations, scientists, and individuals.",
+        "phonetic": "",
+        "vietnamese": "Bảo vệ động vật cần sự hợp tác giữa các chính phủ, tổ chức, nhà khoa học và cá nhân.",
+        "time_start": 11.26,
+        "time_end": 17.62
+      },
+      {
+        "id": "255-4",
+        "english": "Technology and scientific research can help people understand animals better and develop effective conservation methods.",
+        "phonetic": "",
+        "vietnamese": "Công nghệ và nghiên cứu khoa học có thể giúp con người hiểu rõ hơn về động vật và phát triển các phương pháp bảo tồn hiệu quả.",
+        "time_start": 18.68,
+        "time_end": 26
+      },
+      {
+        "id": "255-5",
+        "english": "Education also plays an important role because it helps people recognize the importance of animal welfare.",
+        "phonetic": "",
+        "vietnamese": "Giáo dục cũng đóng vai trò quan trọng vì nó giúp mọi người nhận ra tầm quan trọng của phúc lợi động vật.",
+        "time_start": 26.7,
+        "time_end": 33.5
+      },
+      {
+        "id": "255-6",
+        "english": "Everyone can contribute by making responsible choices, protecting nature, and treating animals with kindness.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đều có thể đóng góp bằng cách đưa ra những lựa chọn có trách nhiệm, bảo vệ thiên nhiên và đối xử với động vật một cách tử tế.",
+        "time_start": 34.52,
+        "time_end": 41.72
+      },
+      {
+        "id": "255-7",
+        "english": "Although protecting animals is a long-term challenge, small actions can create positive changes.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù việc bảo vệ động vật là một thách thức lâu dài, nhưng những hành động nhỏ có thể tạo ra những thay đổi tích cực.",
+        "time_start": 42.5,
+        "time_end": 48.84
+      },
+      {
+        "id": "255-8",
+        "english": "When people work together, they can help preserve animal species and maintain the balance of nature.",
+        "phonetic": "",
+        "vietnamese": "Khi mọi người làm việc cùng nhau, họ có thể giúp bảo tồn các loài động vật và duy trì sự cân bằng của thiên nhiên.",
+        "time_start": 49.48,
+        "time_end": 55.38
+      },
+      {
+        "id": "255-9",
+        "english": "Therefore, protecting animals is not only about saving wildlife but also about protecting the future of our planet.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, bảo vệ động vật không chỉ là cứu lấy động vật hoang dã mà còn là bảo vệ tương lai của hành tinh chúng ta.",
+        "time_start": 56,
+        "time_end": 63.66
+      }
+    ]
+  },
+  {
+    "id": "lesson-256",
+    "categoryId": "24",
+    "title": "Tầm quan trọng của nghệ thuật",
+    "description": "Nghệ thuật giúp thể hiện cảm xúc và kết nối con người",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-256.mp3",
+    "duration": 63,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "256-1",
+        "english": "Art is an important part of human life because it allows people to express ideas, emotions, and creativity.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật là một phần quan trọng của cuộc sống con người vì nó cho phép mọi người thể hiện ý tưởng, cảm xúc và sự sáng tạo.",
+        "time_start": 0,
+        "time_end": 7.1
+      },
+      {
+        "id": "256-2",
+        "english": "Throughout history, art has reflected the culture, beliefs, and experiences of different societies.",
+        "phonetic": "",
+        "vietnamese": "Trong suốt lịch sử, nghệ thuật đã phản ánh văn hóa, niềm tin và trải nghiệm của các xã hội khác nhau.",
+        "time_start": 7.92,
+        "time_end": 13.8
+      },
+      {
+        "id": "256-3",
+        "english": "There are many forms of art, including painting, music, literature, dance, and photography.",
+        "phonetic": "",
+        "vietnamese": "Có nhiều hình thức nghệ thuật, bao gồm hội họa, âm nhạc, văn học, khiêu vũ và nhiếp ảnh.",
+        "time_start": 14.66,
+        "time_end": 20.84
+      },
+      {
+        "id": "256-4",
+        "english": "Art not only provides entertainment but also helps people understand different perspectives and cultures.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật không chỉ mang lại sự giải trí mà còn giúp mọi người hiểu các quan điểm và văn hóa khác nhau.",
+        "time_start": 21.78,
+        "time_end": 27.84
+      },
+      {
+        "id": "256-5",
+        "english": "For individuals, creating or enjoying art can reduce stress and improve emotional well-being.",
+        "phonetic": "",
+        "vietnamese": "Đối với cá nhân, việc sáng tạo hoặc thưởng thức nghệ thuật có thể giảm căng thẳng và cải thiện sức khỏe tinh thần.",
+        "time_start": 28.44,
+        "time_end": 35.22
+      },
+      {
+        "id": "256-6",
+        "english": "For society, art plays an important role in preserving traditions and connecting people.",
+        "phonetic": "",
+        "vietnamese": "Đối với xã hội, nghệ thuật đóng một vai trò quan trọng trong việc bảo tồn truyền thống và kết nối mọi người.",
+        "time_start": 36,
+        "time_end": 41.5
+      },
+      {
+        "id": "256-7",
+        "english": "Many famous artworks continue to inspire people across generations because they contain meaningful messages.",
+        "phonetic": "",
+        "vietnamese": "Nhiều tác phẩm nghệ thuật nổi tiếng tiếp tục truyền cảm hứng cho mọi người qua các thế hệ vì chúng chứa đựng những thông điệp có ý nghĩa.",
+        "time_start": 42.26,
+        "time_end": 48.94
+      },
+      {
+        "id": "256-8",
+        "english": "Although everyone may have different opinions about art, its value cannot be denied.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mọi người có thể có những ý kiến khác nhau về nghệ thuật, nhưng giá trị của nó không thể bị phủ nhận.",
+        "time_start": 49.8,
+        "time_end": 54.68
+      },
+      {
+        "id": "256-9",
+        "english": "Therefore, art is an essential part of human development and helps make life more beautiful and meaningful.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, nghệ thuật là một phần thiết yếu của sự phát triển con người và giúp cuộc sống trở nên đẹp đẽ và có ý nghĩa hơn.",
+        "time_start": 55.2,
+        "time_end": 62.08
+      }
+    ]
+  },
+  {
+    "id": "lesson-257",
+    "categoryId": "24",
+    "title": "Sự sáng tạo trong cuộc sống hằng ngày",
+    "description": "Phát triển tư duy sáng tạo trong học tập và công việc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-257.mp3",
+    "duration": 60,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "257-1",
+        "english": "Creativity is the ability to create new ideas and find different ways to solve problems.",
+        "phonetic": "",
+        "vietnamese": "Sự sáng tạo là khả năng tạo ra ý tưởng mới và tìm ra những cách khác nhau để giải quyết vấn đề.",
+        "time_start": 0,
+        "time_end": 5.68
+      },
+      {
+        "id": "257-2",
+        "english": "It is not only important for artists but also useful in everyday life.",
+        "phonetic": "",
+        "vietnamese": "Nó không chỉ quan trọng đối với nghệ sĩ mà còn hữu ích trong cuộc sống hàng ngày.",
+        "time_start": 6.5,
+        "time_end": 11.14
+      },
+      {
+        "id": "257-3",
+        "english": "People use creativity when they design new products, complete tasks, or find solutions to challenges.",
+        "phonetic": "",
+        "vietnamese": "Mọi người sử dụng sự sáng tạo khi họ thiết kế sản phẩm mới, hoàn thành nhiệm vụ hoặc tìm giải pháp cho những thách thức.",
+        "time_start": 11.98,
+        "time_end": 18.64
+      },
+      {
+        "id": "257-4",
+        "english": "For students, creativity can help them learn more effectively and develop new approaches to studying.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, sự sáng tạo có thể giúp họ học hiệu quả hơn và phát triển những cách tiếp cận mới trong việc học.",
+        "time_start": 19.08,
+        "time_end": 25.4
+      },
+      {
+        "id": "257-5",
+        "english": "In the workplace, creative thinking can improve productivity and encourage innovation.",
+        "phonetic": "",
+        "vietnamese": "Tại nơi làm việc, tư duy sáng tạo có thể cải thiện năng suất và khuyến khích đổi mới.",
+        "time_start": 26.12,
+        "time_end": 31.32
+      },
+      {
+        "id": "257-6",
+        "english": "Creativity does not always require special talents; it can be developed through curiosity, practice, and open-minded thinking.",
+        "phonetic": "",
+        "vietnamese": "Sự sáng tạo không phải lúc nào cũng cần tài năng đặc biệt; nó có thể được phát triển thông qua sự tò mò, luyện tập và tư duy cởi mở.",
+        "time_start": 32.56,
+        "time_end": 40.3
+      },
+      {
+        "id": "257-7",
+        "english": "Trying new experiences and learning from mistakes can also improve creativity.",
+        "phonetic": "",
+        "vietnamese": "Thử nghiệm những trải nghiệm mới và học hỏi từ sai lầm cũng có thể cải thiện sự sáng tạo.",
+        "time_start": 41.36,
+        "time_end": 46.04
+      },
+      {
+        "id": "257-8",
+        "english": "Everyone has the ability to be creative in their own way.",
+        "phonetic": "",
+        "vietnamese": "Mọi người đều có khả năng sáng tạo theo cách riêng của mình.",
+        "time_start": 46.92,
+        "time_end": 50.34
+      },
+      {
+        "id": "257-9",
+        "english": "Therefore, developing creativity is important because it helps people adapt to changes and create positive improvements in life.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, phát triển sự sáng tạo là quan trọng vì nó giúp mọi người thích nghi với những thay đổi và tạo ra những cải tiến tích cực trong cuộc sống.",
+        "time_start": 50.96,
+        "time_end": 59.44
+      }
+    ]
+  },
+  {
+    "id": "lesson-258",
+    "categoryId": "24",
+    "title": "Sức mạnh của âm nhạc",
+    "description": "Âm nhạc giảm stress và gắn kết văn hóa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-258.mp3",
+    "duration": 56,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "258-1",
+        "english": "Music is one of the most popular forms of art and plays an important role in human life.",
+        "phonetic": "",
+        "vietnamese": "Âm nhạc là một trong những hình thức nghệ thuật phổ biến nhất và đóng vai trò quan trọng trong cuộc sống con người.",
+        "time_start": 0,
+        "time_end": 6.14
+      },
+      {
+        "id": "258-2",
+        "english": "It can express emotions, tell stories, and connect people from different cultures.",
+        "phonetic": "",
+        "vietnamese": "Nó có thể diễn đạt cảm xúc, kể chuyện và kết nối mọi người từ các nền văn hóa khác nhau.",
+        "time_start": 6.9,
+        "time_end": 12.28
+      },
+      {
+        "id": "258-3",
+        "english": "Many people listen to music to relax, improve their mood, or reduce stress after a busy day.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người nghe nhạc để thư giãn, cải thiện tâm trạng hoặc giảm căng thẳng sau một ngày bận rộn.",
+        "time_start": 13.02,
+        "time_end": 19.02
+      },
+      {
+        "id": "258-4",
+        "english": "Music is also used in celebrations, films, and cultural events around the world.",
+        "phonetic": "",
+        "vietnamese": "Âm nhạc cũng được sử dụng trong các buổi lễ, phim ảnh và sự kiện văn hóa trên toàn thế giới.",
+        "time_start": 19.88,
+        "time_end": 24.7
+      },
+      {
+        "id": "258-5",
+        "english": "Learning music can help people develop creativity, concentration, and emotional expression.",
+        "phonetic": "",
+        "vietnamese": "Học âm nhạc có thể giúp mọi người phát triển sự sáng tạo, tập trung và diễn đạt cảm xúc.",
+        "time_start": 25.24,
+        "time_end": 31
+      },
+      {
+        "id": "258-6",
+        "english": "Different types of music represent different cultures and historical periods.",
+        "phonetic": "",
+        "vietnamese": "Các loại nhạc khác nhau đại diện cho các nền văn hóa và thời kỳ lịch sử khác nhau.",
+        "time_start": 32.06,
+        "time_end": 36.6
+      },
+      {
+        "id": "258-7",
+        "english": "Although people may have different tastes in music, everyone can experience its emotional power.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mọi người có thể có sở thích âm nhạc khác nhau, nhưng ai cũng có thể trải nghiệm sức mạnh cảm xúc của nó.",
+        "time_start": 37.18,
+        "time_end": 42.76
+      },
+      {
+        "id": "258-8",
+        "english": "Music can bring people together and create meaningful memories.",
+        "phonetic": "",
+        "vietnamese": "Âm nhạc có thể gắn kết mọi người lại với nhau và tạo ra những kỷ niệm ý nghĩa.",
+        "time_start": 43.78,
+        "time_end": 47
+      },
+      {
+        "id": "258-9",
+        "english": "Therefore, music is not only a form of entertainment but also an important part of human communication and culture.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, âm nhạc không chỉ là một hình thức giải trí mà còn là một phần quan trọng của giao tiếp và văn hóa con người.",
+        "time_start": 47.84,
+        "time_end": 55.18
+      }
+    ]
+  },
+  {
+    "id": "lesson-259",
+    "categoryId": "24",
+    "title": "Hội họa và nghệ thuật thị giác",
+    "description": "Truyền tải ý tưởng qua màu sắc và hình ảnh",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-259.mp3",
+    "duration": 64,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "259-1",
+        "english": "Painting and visual arts are important forms of creative expression.",
+        "phonetic": "",
+        "vietnamese": "Hội họa và nghệ thuật thị giác là những hình thức biểu đạt sáng tạo quan trọng.",
+        "time_start": 0,
+        "time_end": 4.04
+      },
+      {
+        "id": "259-2",
+        "english": "They allow artists to communicate their thoughts, feelings, and ideas through colors, shapes, and images.",
+        "phonetic": "",
+        "vietnamese": "Chúng cho phép các nghệ sĩ truyền đạt suy nghĩ, cảm xúc và ý tưởng của họ qua màu sắc, hình dạng và hình ảnh.",
+        "time_start": 5.1,
+        "time_end": 12.04
+      },
+      {
+        "id": "259-3",
+        "english": "Throughout history, paintings have recorded important events, cultural values, and human experiences.",
+        "phonetic": "",
+        "vietnamese": "Trong suốt lịch sử, các bức tranh đã ghi lại những sự kiện quan trọng, giá trị văn hóa và trải nghiệm của con người.",
+        "time_start": 12.94,
+        "time_end": 18.9
+      },
+      {
+        "id": "259-4",
+        "english": "Visual arts can help people see the world from different perspectives and understand various emotions.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật thị giác có thể giúp mọi người nhìn nhận thế giới từ những góc độ khác nhau và hiểu nhiều cảm xúc khác nhau.",
+        "time_start": 19.86,
+        "time_end": 26
+      },
+      {
+        "id": "259-5",
+        "english": "Many famous artworks have become valuable cultural treasures because of their beauty and meaning.",
+        "phonetic": "",
+        "vietnamese": "Nhiều tác phẩm nghệ thuật nổi tiếng đã trở thành kho báu văn hóa quý giá vì vẻ đẹp và ý nghĩa của chúng.",
+        "time_start": 26.56,
+        "time_end": 32.62
+      },
+      {
+        "id": "259-6",
+        "english": "Creating art can also bring benefits to individuals by improving imagination and reducing stress.",
+        "phonetic": "",
+        "vietnamese": "Sáng tạo nghệ thuật cũng có thể mang lại lợi ích cho cá nhân bằng cách cải thiện trí tưởng tượng và giảm căng thẳng.",
+        "time_start": 33.74,
+        "time_end": 39.76
+      },
+      {
+        "id": "259-7",
+        "english": "Today, technology has created new opportunities for visual artists through digital art and modern design.",
+        "phonetic": "",
+        "vietnamese": "Ngày nay, công nghệ đã tạo ra những cơ hội mới cho các nghệ sĩ thị giác thông qua nghệ thuật kỹ thuật số và thiết kế hiện đại.",
+        "time_start": 40.58,
+        "time_end": 47.46
+      },
+      {
+        "id": "259-8",
+        "english": "Although artistic styles change over time, the purpose of art remains the same: expressing creativity and connecting people.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù các phong cách nghệ thuật thay đổi theo thời gian, mục đích của nghệ thuật vẫn không thay đổi: thể hiện sự sáng tạo và kết nối con người.",
+        "time_start": 47.46,
+        "time_end": 57.2
+      },
+      {
+        "id": "259-9",
+        "english": "Therefore, painting and visual arts continue to play an important role in human society.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, hội họa và nghệ thuật thị giác tiếp tục đóng vai trò quan trọng trong xã hội loài người.",
+        "time_start": 57.2,
+        "time_end": 62.96
+      }
+    ]
+  },
+  {
+    "id": "lesson-260",
+    "categoryId": "24",
+    "title": "Văn học và kể chuyện",
+    "description": "Văn học nuôi dưỡng trí tưởng tượng và giá trị sống",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-260.mp3",
+    "duration": 60,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "260-1",
+        "english": "Literature and storytelling have been important parts of human culture for thousands of years.",
+        "phonetic": "",
+        "vietnamese": "Văn học và kể chuyện đã là những phần quan trọng của văn hóa con người trong hàng nghìn năm.",
+        "time_start": 0,
+        "time_end": 5.5
+      },
+      {
+        "id": "260-2",
+        "english": "Through stories, people can share experiences, emotions, values, and knowledge with others.",
+        "phonetic": "",
+        "vietnamese": "Thông qua những câu chuyện, mọi người có thể chia sẻ kinh nghiệm, cảm xúc, giá trị và kiến thức với nhau.",
+        "time_start": 6.52,
+        "time_end": 12.2
+      },
+      {
+        "id": "260-3",
+        "english": "Literature includes many forms such as novels, poems, short stories, and plays.",
+        "phonetic": "",
+        "vietnamese": "Văn học bao gồm nhiều hình thức như tiểu thuyết, thơ, truyện ngắn và kịch.",
+        "time_start": 13.28,
+        "time_end": 18.38
+      },
+      {
+        "id": "260-4",
+        "english": "Reading literature helps people improve imagination, language skills, and understanding of different human experiences.",
+        "phonetic": "",
+        "vietnamese": "Đọc văn học giúp mọi người cải thiện trí tưởng tượng, kỹ năng ngôn ngữ và hiểu biết về những trải nghiệm khác nhau của con người.",
+        "time_start": 19.26,
+        "time_end": 26.28
+      },
+      {
+        "id": "260-5",
+        "english": "Stories can also teach important lessons about love, courage, friendship, and life.",
+        "phonetic": "",
+        "vietnamese": "Những câu chuyện cũng có thể dạy những bài học quan trọng về tình yêu, lòng dũng cảm, tình bạn và cuộc sống.",
+        "time_start": 27.24,
+        "time_end": 33.12
+      },
+      {
+        "id": "260-6",
+        "english": "In addition, literature helps preserve the history and culture of different communities.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, văn học giúp bảo tồn lịch sử và văn hóa của các cộng đồng khác nhau.",
+        "time_start": 33.5,
+        "time_end": 38.68
+      },
+      {
+        "id": "260-7",
+        "english": "Many famous stories continue to influence people because they contain meaningful messages.",
+        "phonetic": "",
+        "vietnamese": "Nhiều câu chuyện nổi tiếng tiếp tục ảnh hưởng đến mọi người vì chúng chứa đựng những thông điệp có ý nghĩa.",
+        "time_start": 39.52,
+        "time_end": 44.92
+      },
+      {
+        "id": "260-8",
+        "english": "Storytelling is not only a way to entertain people but also a way to connect generations.",
+        "phonetic": "",
+        "vietnamese": "Kể chuyện không chỉ là một cách để giải trí mà còn là một cách để kết nối các thế hệ.",
+        "time_start": 45.78,
+        "time_end": 51.32
+      },
+      {
+        "id": "260-9",
+        "english": "Therefore, literature plays an important role in education, creativity, and the preservation of human values.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, văn học đóng một vai trò quan trọng trong giáo dục, sáng tạo và bảo tồn các giá trị của con người.",
+        "time_start": 51.88,
+        "time_end": 59.32
+      }
+    ]
+  },
+  {
+    "id": "lesson-261",
+    "categoryId": "24",
+    "title": "Vai trò của nghệ sĩ",
+    "description": "Nghệ sĩ lan tỏa sáng tạo và giá trị văn hóa",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-261.mp3",
+    "duration": 63,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "261-1",
+        "english": "Artists play an important role in creating and sharing cultural values with society.",
+        "phonetic": "",
+        "vietnamese": "Nghệ sĩ đóng vai trò quan trọng trong việc tạo ra và chia sẻ các giá trị văn hóa với xã hội.",
+        "time_start": 0,
+        "time_end": 5.3
+      },
+      {
+        "id": "261-2",
+        "english": "They use their creativity, skills, and imagination to express ideas and emotions through different forms of art.",
+        "phonetic": "",
+        "vietnamese": "Họ sử dụng sự sáng tạo, kỹ năng và trí tưởng tượng của mình để thể hiện ý tưởng và cảm xúc qua các hình thức nghệ thuật khác nhau.",
+        "time_start": 6.14,
+        "time_end": 13.42
+      },
+      {
+        "id": "261-3",
+        "english": "Artists can be painters, musicians, writers, actors, or designers who bring beauty and meaning to people’s lives.",
+        "phonetic": "",
+        "vietnamese": "Nghệ sĩ có thể là họa sĩ, nhạc sĩ, nhà văn, diễn viên hoặc nhà thiết kế, những người mang lại vẻ đẹp và ý nghĩa cho cuộc sống của mọi người.",
+        "time_start": 13.42,
+        "time_end": 22.46
+      },
+      {
+        "id": "261-4",
+        "english": "Their works often reflect social issues, personal experiences, and cultural traditions.",
+        "phonetic": "",
+        "vietnamese": "Tác phẩm của họ thường phản ánh các vấn đề xã hội, trải nghiệm cá nhân và truyền thống văn hóa.",
+        "time_start": 22.46,
+        "time_end": 28.46
+      },
+      {
+        "id": "261-5",
+        "english": "Many artists also inspire others to think differently and appreciate new perspectives.",
+        "phonetic": "",
+        "vietnamese": "Nhiều nghệ sĩ cũng truyền cảm hứng cho người khác suy nghĩ khác đi và trân trọng những góc nhìn mới.",
+        "time_start": 29,
+        "time_end": 34.62
+      },
+      {
+        "id": "261-6",
+        "english": "Becoming a successful artist requires talent, hard work, and continuous practice.",
+        "phonetic": "",
+        "vietnamese": "Trở thành một nghệ sĩ thành công đòi hỏi tài năng, sự chăm chỉ và luyện tập liên tục.",
+        "time_start": 35.5,
+        "time_end": 41.2
+      },
+      {
+        "id": "261-7",
+        "english": "Although the process of creating art can be challenging, artists continue to contribute to society through their passion and dedication.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù quá trình sáng tạo nghệ thuật có thể khó khăn, nhưng các nghệ sĩ vẫn tiếp tục đóng góp cho xã hội thông qua niềm đam mê và sự cống hiến của họ.",
+        "time_start": 41.98,
+        "time_end": 49.86
+      },
+      {
+        "id": "261-8",
+        "english": "Their works can influence emotions, preserve culture, and connect people around the world.",
+        "phonetic": "",
+        "vietnamese": "Tác phẩm của họ có thể ảnh hưởng đến cảm xúc, bảo tồn văn hóa và kết nối mọi người trên khắp thế giới.",
+        "time_start": 50.72,
+        "time_end": 56.38
+      },
+      {
+        "id": "261-9",
+        "english": "Therefore, artists are important because they help make life more creative and meaningful.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, nghệ sĩ rất quan trọng vì họ giúp cuộc sống trở nên sáng tạo và có ý nghĩa hơn.",
+        "time_start": 56.38,
+        "time_end": 62.36
+      }
+    ]
+  },
+  {
+    "id": "lesson-262",
+    "categoryId": "24",
+    "title": "Nghệ thuật số và công nghệ",
+    "description": "Công nghệ mở rộng khả năng sáng tạo nghệ thuật",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-262.mp3",
+    "duration": 65,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "262-1",
+        "english": "Digital art is a modern form of creativity that uses technology to create artworks.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật số là một hình thức sáng tạo hiện đại sử dụng công nghệ để tạo ra tác phẩm nghệ thuật.",
+        "time_start": 0,
+        "time_end": 6.4
+      },
+      {
+        "id": "262-2",
+        "english": "With the development of computers, tablets, and design software, artists can create new types of visual experiences.",
+        "phonetic": "",
+        "vietnamese": "Với sự phát triển của máy tính, máy tính bảng và phần mềm thiết kế, các nghệ sĩ có thể tạo ra những loại trải nghiệm hình ảnh mới.",
+        "time_start": 7.34,
+        "time_end": 15.06
+      },
+      {
+        "id": "262-3",
+        "english": "Digital art includes many forms such as digital painting, animation, graphic design, and virtual reality art.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật số bao gồm nhiều hình thức như vẽ kỹ thuật số, hoạt hình, thiết kế đồ họa và nghệ thuật thực tế ảo.",
+        "time_start": 15.88,
+        "time_end": 23.98
+      },
+      {
+        "id": "262-4",
+        "english": "Technology allows artists to experiment with new ideas and share their works with people around the world more easily.",
+        "phonetic": "",
+        "vietnamese": "Công nghệ cho phép các nghệ sĩ thử nghiệm với những ý tưởng mới và chia sẻ tác phẩm của họ với mọi người trên khắp thế giới dễ dàng hơn.",
+        "time_start": 24.72,
+        "time_end": 32.3
+      },
+      {
+        "id": "262-5",
+        "english": "It also creates new opportunities for young creators who want to express their creativity.",
+        "phonetic": "",
+        "vietnamese": "Nó cũng tạo ra những cơ hội mới cho những người sáng tạo trẻ muốn thể hiện sự sáng tạo của mình.",
+        "time_start": 33.14,
+        "time_end": 38.14
+      },
+      {
+        "id": "262-6",
+        "english": "However, digital artists still need imagination, skills, and artistic knowledge to create meaningful works.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, các nghệ sĩ số vẫn cần trí tưởng tượng, kỹ năng và kiến thức nghệ thuật để tạo ra những tác phẩm có ý nghĩa.",
+        "time_start": 39.02,
+        "time_end": 46.82
+      },
+      {
+        "id": "262-7",
+        "english": "Although digital art is different from traditional art, both forms share the same purpose of expressing ideas and emotions.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù nghệ thuật số khác với nghệ thuật truyền thống, nhưng cả hai hình thức đều có cùng mục đích là thể hiện ý tưởng và cảm xúc.",
+        "time_start": 47.72,
+        "time_end": 55.04
+      },
+      {
+        "id": "262-8",
+        "english": "Therefore, technology has expanded the possibilities of art and changed the way people create and enjoy artworks.",
+        "phonetic": "",
+        "vietnamese": "Do đó, công nghệ đã mở rộng khả năng của nghệ thuật và thay đổi cách mọi người sáng tạo và thưởng thức tác phẩm nghệ thuật.",
+        "time_start": 55.84,
+        "time_end": 63.94
+      }
+    ]
+  },
+  {
+    "id": "lesson-263",
+    "categoryId": "24",
+    "title": "Nghệ thuật và cảm xúc",
+    "description": "Nghệ thuật giúp thể hiện và thấu hiểu cảm xúc",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-263.mp3",
+    "duration": 59,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "263-1",
+        "english": "Art has a strong connection with human emotions.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật có mối liên hệ mạnh mẽ với cảm xúc của con người.",
+        "time_start": 0,
+        "time_end": 2.88
+      },
+      {
+        "id": "263-2",
+        "english": "People often use art to express feelings that are difficult to describe with words.",
+        "phonetic": "",
+        "vietnamese": "Mọi người thường sử dụng nghệ thuật để diễn đạt những cảm xúc khó nói bằng lời.",
+        "time_start": 3.88,
+        "time_end": 8.38
+      },
+      {
+        "id": "263-3",
+        "english": "A painting, song, or story can communicate happiness, sadness, hope, or memories.",
+        "phonetic": "",
+        "vietnamese": "Một bức tranh, bài hát hoặc câu chuyện có thể truyền đạt niềm vui, nỗi buồn, hy vọng hoặc kỷ niệm.",
+        "time_start": 9.04,
+        "time_end": 15.14
+      },
+      {
+        "id": "263-4",
+        "english": "For audiences, experiencing art can create emotional connections and help them understand different perspectives.",
+        "phonetic": "",
+        "vietnamese": "Đối với khán giả, trải nghiệm nghệ thuật có thể tạo ra mối liên kết cảm xúc và giúp họ hiểu các quan điểm khác nhau.",
+        "time_start": 15.84,
+        "time_end": 23.16
+      },
+      {
+        "id": "263-5",
+        "english": "Art can also support mental well-being by helping people relax and reduce stress.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật cũng có thể hỗ trợ sức khỏe tâm thần bằng cách giúp mọi người thư giãn và giảm căng thẳng.",
+        "time_start": 23.16,
+        "time_end": 29.4
+      },
+      {
+        "id": "263-6",
+        "english": "Many people enjoy activities such as drawing, listening to music, or writing because these activities allow them to express themselves.",
+        "phonetic": "",
+        "vietnamese": "Nhiều người thích các hoạt động như vẽ, nghe nhạc hoặc viết vì những hoạt động này cho phép họ thể hiện bản thân.",
+        "time_start": 30.06,
+        "time_end": 38.82
+      },
+      {
+        "id": "263-7",
+        "english": "In addition, art helps people understand the emotions and experiences of others.",
+        "phonetic": "",
+        "vietnamese": "Ngoài ra, nghệ thuật giúp mọi người hiểu cảm xúc và trải nghiệm của người khác.",
+        "time_start": 39.48,
+        "time_end": 44.9
+      },
+      {
+        "id": "263-8",
+        "english": "Although everyone may have different reactions to the same artwork, each person can find personal meaning in it.",
+        "phonetic": "",
+        "vietnamese": "Mặc dù mỗi người có thể có những phản ứng khác nhau với cùng một tác phẩm nghệ thuật, nhưng mỗi người đều có thể tìm thấy ý nghĩa cá nhân trong đó.",
+        "time_start": 45.68,
+        "time_end": 52.68
+      },
+      {
+        "id": "263-9",
+        "english": "Therefore, art is a powerful way to communicate emotions and connect people.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, nghệ thuật là một cách mạnh mẽ để giao tiếp cảm xúc và kết nối mọi người.",
+        "time_start": 53.36,
+        "time_end": 57.98
+      }
+    ]
+  },
+  {
+    "id": "lesson-264",
+    "categoryId": "24",
+    "title": "Sáng tạo và đổi mới",
+    "description": "Sáng tạo và đổi mới thúc đẩy tiến bộ xã hội",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-264.mp3",
+    "duration": 63,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "264-1",
+        "english": "Creativity and innovation are important factors that help society develop and improve.",
+        "phonetic": "",
+        "vietnamese": "Sự sáng tạo và đổi mới là những yếu tố quan trọng giúp xã hội phát triển và cải thiện.",
+        "time_start": 0,
+        "time_end": 5.98
+      },
+      {
+        "id": "264-2",
+        "english": "Creativity means producing new ideas, while innovation focuses on applying those ideas to create useful changes.",
+        "phonetic": "",
+        "vietnamese": "Sáng tạo có nghĩa là sản xuất ra những ý tưởng mới, trong khi đổi mới tập trung vào việc áp dụng những ý tưởng đó để tạo ra những thay đổi hữu ích.",
+        "time_start": 6.88,
+        "time_end": 14.66
+      },
+      {
+        "id": "264-3",
+        "english": "These abilities are important in many fields, including science, technology, business, and art.",
+        "phonetic": "",
+        "vietnamese": "Những khả năng này rất quan trọng trong nhiều lĩnh vực, bao gồm khoa học, công nghệ, kinh doanh và nghệ thuật.",
+        "time_start": 15.32,
+        "time_end": 22.3
+      },
+      {
+        "id": "264-4",
+        "english": "Creative people often look at problems from different perspectives and find unique solutions.",
+        "phonetic": "",
+        "vietnamese": "Những người sáng tạo thường nhìn nhận vấn đề từ nhiều góc độ khác nhau và tìm ra những giải pháp độc đáo.",
+        "time_start": 23.08,
+        "time_end": 28.64
+      },
+      {
+        "id": "264-5",
+        "english": "For students, creativity helps them learn better and develop independent thinking.",
+        "phonetic": "",
+        "vietnamese": "Đối với học sinh, sự sáng tạo giúp họ học tốt hơn và phát triển tư duy độc lập.",
+        "time_start": 29.46,
+        "time_end": 34.44
+      },
+      {
+        "id": "264-6",
+        "english": "In the workplace, innovation helps organizations improve products and services.",
+        "phonetic": "",
+        "vietnamese": "Tại nơi làm việc, đổi mới giúp các tổ chức cải thiện sản phẩm và dịch vụ.",
+        "time_start": 35.24,
+        "time_end": 40.1
+      },
+      {
+        "id": "264-7",
+        "english": "Creativity does not always require extraordinary talent; it can be developed through curiosity, learning, and experience.",
+        "phonetic": "",
+        "vietnamese": "Sự sáng tạo không phải lúc nào cũng cần tài năng phi thường; nó có thể được phát triển thông qua sự tò mò, học hỏi và kinh nghiệm.",
+        "time_start": 41,
+        "time_end": 48.34
+      },
+      {
+        "id": "264-8",
+        "english": "People should be willing to explore new ideas and accept mistakes as part of the learning process.",
+        "phonetic": "",
+        "vietnamese": "Mọi người nên sẵn sàng khám phá những ý tưởng mới và chấp nhận sai lầm như một phần của quá trình học tập.",
+        "time_start": 49.22,
+        "time_end": 54.82
+      },
+      {
+        "id": "264-9",
+        "english": "Therefore, creativity and innovation are essential skills for personal growth and social progress.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, sự sáng tạo và đổi mới là những kỹ năng thiết yếu cho sự phát triển cá nhân và tiến bộ xã hội.",
+        "time_start": 55.66,
+        "time_end": 62.36
+      }
+    ]
+  },
+  {
+    "id": "lesson-265",
+    "categoryId": "24",
+    "title": "Tương lai của nghệ thuật",
+    "description": "Nghệ thuật tiếp tục phát triển với công nghệ mới",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=340&fit=crop",
+    "audioUrl": "/audio/lesson-265.mp3",
+    "duration": 62,
+    "level": "BEGINNER",
+    "topic": "Nghệ thuật & Sáng tạo",
+    "sentences": [
+      {
+        "id": "265-1",
+        "english": "The future of art is constantly changing because of new technologies and social developments.",
+        "phonetic": "",
+        "vietnamese": "Tương lai của nghệ thuật đang thay đổi liên tục do công nghệ mới và sự phát triển xã hội.",
+        "time_start": 0,
+        "time_end": 5.98
+      },
+      {
+        "id": "265-2",
+        "english": "Traditional forms of art will continue to exist, but new forms such as digital art, artificial intelligence, and interactive experiences are becoming more popular.",
+        "phonetic": "",
+        "vietnamese": "Các hình thức nghệ thuật truyền thống sẽ vẫn tồn tại, nhưng các hình thức mới như nghệ thuật số, trí tuệ nhân tạo và trải nghiệm tương tác đang trở nên phổ biến hơn.",
+        "time_start": 6.7,
+        "time_end": 17.54
+      },
+      {
+        "id": "265-3",
+        "english": "These changes provide artists with more tools to express their creativity and reach wider audiences.",
+        "phonetic": "",
+        "vietnamese": "Những thay đổi này cung cấp cho nghệ sĩ nhiều công cụ hơn để thể hiện sự sáng tạo của họ và tiếp cận nhiều khán giả hơn.",
+        "time_start": 18.28,
+        "time_end": 24.7
+      },
+      {
+        "id": "265-4",
+        "english": "In the future, people may experience art in more innovative and interesting ways.",
+        "phonetic": "",
+        "vietnamese": "Trong tương lai, mọi người có thể trải nghiệm nghệ thuật theo những cách sáng tạo và thú vị hơn.",
+        "time_start": 25.3,
+        "time_end": 30.72
+      },
+      {
+        "id": "265-5",
+        "english": "However, the main purpose of art will remain the same: expressing human thoughts, emotions, and imagination.",
+        "phonetic": "",
+        "vietnamese": "Tuy nhiên, mục đích chính của nghệ thuật sẽ vẫn không thay đổi: thể hiện những suy nghĩ, cảm xúc và trí tưởng tượng của con người.",
+        "time_start": 31.42,
+        "time_end": 38.66
+      },
+      {
+        "id": "265-6",
+        "english": "Art will continue to reflect society and preserve cultural values for future generations.",
+        "phonetic": "",
+        "vietnamese": "Nghệ thuật sẽ tiếp tục phản ánh xã hội và gìn giữ các giá trị văn hóa cho các thế hệ tương lai.",
+        "time_start": 39.84,
+        "time_end": 45.7
+      },
+      {
+        "id": "265-7",
+        "english": "Young people will play an important role in creating new artistic ideas and exploring different forms of expression.",
+        "phonetic": "",
+        "vietnamese": "Giới trẻ sẽ đóng vai trò quan trọng trong việc tạo ra những ý tưởng nghệ thuật mới và khám phá các hình thức biểu đạt khác nhau.",
+        "time_start": 46.68,
+        "time_end": 53.74
+      },
+      {
+        "id": "265-8",
+        "english": "Therefore, the future of art is full of possibilities and will continue to inspire people around the world.",
+        "phonetic": "",
+        "vietnamese": "Vì vậy, tương lai của nghệ thuật đầy những khả năng và sẽ tiếp tục truyền cảm hứng cho mọi người trên khắp thế giới.",
+        "time_start": 54.54,
+        "time_end": 61.42
       }
     ]
   }
