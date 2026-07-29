@@ -96,14 +96,26 @@ function TopicCard({
 type PopularTopicsProps = {
   limit?: number;
   className?: string;
+  categoryIds?: string[];
+  title?: string;
+  emptyMessage?: string;
 };
 
 export default function PopularTopics({
   limit,
   className = 'px-4 mb-4',
+  categoryIds,
+  title = 'Chủ đề phổ biến',
+  emptyMessage = 'Chưa có chủ đề nào.',
 }: PopularTopicsProps) {
   const { entries } = useHistory();
-  const list = typeof limit === 'number' ? categories.slice(0, limit) : categories;
+  const filteredCategories = categoryIds
+    ? categories.filter((category) => categoryIds.includes(category.id))
+    : categories;
+  const list =
+    typeof limit === 'number'
+      ? filteredCategories.slice(0, limit)
+      : filteredCategories;
 
   const completedIds = new Set(
     entries.filter((e) => e.status === 'COMPLETED').map((e) => e.lessonId),
@@ -112,19 +124,27 @@ export default function PopularTopics({
   return (
     <div className={className}>
       <div className="mb-3">
-        <h2 className="font-bold text-gray-900 dark:text-white">Chủ đề phổ biến</h2>
+        <h2 className="font-bold text-gray-900 dark:text-white">{title}</h2>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {list.map((cat) => {
-          const lessons = getLessonsByCategory(cat.id);
-          const total = lessons.length || cat.lessonCount;
-          const done = lessons.filter((l) => completedIds.has(l.id)).length;
-          return (
-            <TopicCard key={cat.id} category={cat} done={done} total={total} />
-          );
-        })}
-      </div>
+      {list.length > 0 ? (
+        <div className="grid grid-cols-2 gap-3">
+          {list.map((cat) => {
+            const lessons = getLessonsByCategory(cat.id);
+            const total = lessons.length || cat.lessonCount;
+            const done = lessons.filter((l) => completedIds.has(l.id)).length;
+            return (
+              <TopicCard key={cat.id} category={cat} done={done} total={total} />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-5 py-8 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {emptyMessage}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

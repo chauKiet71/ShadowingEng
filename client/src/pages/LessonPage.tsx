@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
-  ChevronLeft, Bookmark, RotateCcw, RotateCw, Gauge,
+  ChevronLeft, RotateCcw, RotateCw, Gauge,
   Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
 } from 'lucide-react';
 import {
@@ -10,9 +10,7 @@ import {
   getLessonById,
   type LessonSentence,
 } from '../data/lessons';
-import { useFavorites } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
-import { useAuth } from '../contexts/AuthContext';
 import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { resolveLessonPhonetics } from '../lib/phonetic';
@@ -139,8 +137,6 @@ export default function LessonPage() {
   const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
   const autoPlayOnOpen =
     (location.state as { autoPlay?: boolean } | null)?.autoPlay !== false;
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const { isAuthenticated } = useAuth();
   const { updateListeningProgress, markLessonCompleted } = useHistory();
   const {
     result: shadowingResult,
@@ -151,22 +147,6 @@ export default function LessonPage() {
     toggleRecording,
     reset: resetShadowing,
   } = useShadowing();
-  const saved = lesson ? isFavorite(lesson.id) : false;
-
-  const handleToggleFavorite = () => {
-    if (!lesson) return;
-    if (!isAuthenticated) {
-      navigate('/dang-nhap', {
-        state: {
-          from: `/bai-hoc/${lesson.id}`,
-          message: 'Vui lòng đăng nhập để lưu bài học.',
-        },
-      });
-      return;
-    }
-    toggleFavorite(lesson.id);
-  };
-
   const audioRef = useRef<HTMLAudioElement>(null);
   const completedRef = useRef(false);
   const lastProgressSaveRef = useRef(0);
@@ -565,20 +545,7 @@ export default function LessonPage() {
         <h1 className="min-w-0 font-semibold text-gray-900 text-sm truncate text-center px-1">
           {lesson.title}
         </h1>
-        <div className="flex gap-3 flex-shrink-0 justify-end">
-          <button
-            type="button"
-            onClick={handleToggleFavorite}
-            className="p-0.5"
-            aria-label={saved ? 'Bỏ khỏi yêu thích' : 'Lưu vào yêu thích'}
-            title={saved ? 'Bỏ khỏi yêu thích' : 'Lưu vào yêu thích'}
-          >
-            <Bookmark
-              size={20}
-              className={saved ? 'text-primary fill-primary' : 'text-gray-500'}
-            />
-          </button>
-        </div>
+        <div className="w-7 flex-shrink-0" aria-hidden />
       </div>
 
       <div className="flex-shrink-0 z-10 bg-gray-50 px-0 mb-3">

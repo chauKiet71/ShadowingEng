@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Bell,
-  BookOpen,
   ChevronRight,
   Clapperboard,
   Clock,
@@ -27,12 +26,11 @@ import { useHistory, useListeningStats } from '../contexts/HistoryContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLevel } from '../contexts/LevelContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { api, type LessonHistoryStats, type VocabularyOverview } from '../lib/api';
+import { api, type LessonHistoryStats } from '../lib/api';
 import { peekCache } from '../lib/prefetchCache';
 import {
   PrefetchKeys,
   fetchLessonStats,
-  fetchVocabularyOverview,
 } from '../lib/prefetchFeatures';
 import type { UserLevelId } from '../data/userLevels';
 import {
@@ -176,11 +174,6 @@ export default function ProfilePage() {
   const [remoteStats, setRemoteStats] = useState<LessonHistoryStats | null>(
     () => peekCache<LessonHistoryStats>(PrefetchKeys.lessonStats) ?? null,
   );
-  const [vocabOverview, setVocabOverview] = useState<VocabularyOverview | null>(
-    () =>
-      peekCache<VocabularyOverview>(PrefetchKeys.vocabularyOverview) ?? null,
-  );
-
   useEffect(() => {
     saveProfileSettings(settings);
   }, [settings]);
@@ -194,9 +187,6 @@ export default function ProfilePage() {
     void fetchLessonStats()
       .then(setRemoteStats)
       .catch(() => setRemoteStats(null));
-    void fetchVocabularyOverview()
-      .then(setVocabOverview)
-      .catch(() => setVocabOverview(null));
   }, [user?.id]);
 
   const streakDays = Math.max(
@@ -209,7 +199,6 @@ export default function ProfilePage() {
   const hoursListened = Math.floor(
     localStats.hoursListened || remoteStats?.hoursListened || 0,
   );
-  const learningWords = vocabOverview?.stats.learning ?? 0;
   const cefrBadge = LEVEL_CEFR[level] ?? 'A1';
 
   const weeklyActivity = useMemo(() => {
@@ -584,28 +573,11 @@ export default function ProfilePage() {
           {/* Menu links */}
           <div className="bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.06)] overflow-hidden divide-y divide-gray-50 dark:divide-neutral-800 mb-4">
             <MenuRow
-              icon={Heart}
-              iconBg="bg-rose-50 dark:bg-rose-950/40"
-              iconColor="text-rose-500"
-              label="Danh sách yêu thích"
-              to="/kham-pha?filter=fav"
-            />
-            <MenuRow
               icon={RefreshCw}
               iconBg="bg-sky-50 dark:bg-sky-950/40"
               iconColor="text-sky-500"
               label="Lịch sử học tập"
               to="/lich-su"
-            />
-            <MenuRow
-              icon={BookOpen}
-              iconBg="bg-indigo-50 dark:bg-indigo-950/40"
-              iconColor="text-indigo-500"
-              label="Từ vựng của bạn"
-              badge={
-                learningWords > 0 ? `${learningWords} từ mới` : undefined
-              }
-              to="/tu-vung"
             />
             <MenuRow
               icon={Mic}

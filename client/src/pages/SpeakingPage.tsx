@@ -607,10 +607,6 @@ export default function SpeakingPage() {
           <Mic size={22} className="text-primary" />
           <h1 className="text-xl font-bold text-gray-900">Luyện nói</h1>
         </div>
-        <p className="text-sm text-gray-500 mt-1">
-          Chọn trình độ, sau đó chọn chủ đề để bắt đầu ngay
-        </p>
-
         <section className="mt-5">
           <h2 className="font-bold text-gray-900 mb-3">Trình độ</h2>
           <div className="flex flex-wrap gap-2">
