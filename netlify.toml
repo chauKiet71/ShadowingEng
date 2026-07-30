@@ -1,0 +1,26 @@
+[build]
+  command = "npm run build:client"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Keep API calls same-origin in the browser and proxy them to Railway.
+# Specific proxy rules must stay above the SPA fallback.
+[[redirects]]
+  from = "/api/*"
+  to = "https://www.hihienglish.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/media/*"
+  to = "https://www.hihienglish.com/media/:splat"
+  status = 200
+  force = true
+
+# React Router routes (for example /quen-mat-khau) are handled by index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
