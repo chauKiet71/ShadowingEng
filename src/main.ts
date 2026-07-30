@@ -14,6 +14,20 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
   app.useWebSocketAdapter(new WsAdapter(app));
   app.setGlobalPrefix('api');
+
+  const corsOrigins = new Set([
+    'https://www.hihienglish.com',
+    'https://hihienglish.com',
+    'https://hihienglish.netlify.app',
+    'http://localhost:3000',
+    'http://localhost:5173',
+    ...(process.env.CORS_ORIGINS ?? '')
+      .split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+  ]);
+  app.enableCors({ origin: [...corsOrigins] });
+
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, transform: true }),

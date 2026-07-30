@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronLeft, Lock, Eye, EyeOff, ShieldCheck, CheckCircle2, Circle } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Eye, EyeOff, ShieldCheck, CheckCircle2, Circle } from 'lucide-react';
+import PasswordResetLayout from '../components/PasswordResetLayout';
 import { api } from '../lib/api';
 
 interface PasswordRule {
@@ -11,9 +12,11 @@ interface PasswordRule {
 
 const rules: PasswordRule[] = [
   { label: 'Ít nhất 8 ký tự', test: (pw) => pw.length >= 8 },
-  { label: 'Bao gồm chữ hoa và chữ thường', test: (pw) => /[a-z]/.test(pw) && /[A-Z]/.test(pw) },
-  { label: 'Bao gồm số (0-9)', test: (pw) => /\d/.test(pw) },
-  { label: 'Bao gồm ký tự đặc biệt (VD: !@#%...)', test: (pw) => /[!@#$%^&*(),.?":{}|<>]/.test(pw) },
+  {
+    label: 'Một chữ hoa, chữ thường và một số',
+    test: (pw) => /[a-z]/.test(pw) && /[A-Z]/.test(pw) && /\d/.test(pw),
+  },
+  { label: 'Một ký tự đặc biệt (VD: !@#%...)', test: (pw) => /[!@#$%^&*(),.?":{}|<>]/.test(pw) },
 ];
 
 export default function ResetPasswordPage() {
@@ -55,10 +58,7 @@ export default function ResetPasswordPage() {
     setLoading(true);
     try {
       await api.resetPassword(resetToken, password);
-      navigate('/dang-nhap', {
-        replace: true,
-        state: { message: 'Đặt lại mật khẩu thành công! Vui lòng đăng nhập.' },
-      });
+      navigate('/dang-nhap', { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể đặt lại mật khẩu');
     } finally {
@@ -67,122 +67,109 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen gradient-bg flex flex-col">
-      <div className="max-w-lg mx-auto w-full flex-1 flex flex-col px-6 py-6">
-        <Link to="/quen-mat-khau/xac-nhan" className="text-gray-600 mb-6 inline-flex">
-          <ChevronLeft size={24} />
-        </Link>
+    <PasswordResetLayout
+      step={3}
+      backTo="/quen-mat-khau/xac-nhan"
+      illustration="/images/auth/reset-password-illustration.png"
+      illustrationAlt="Ổ khóa xanh đã được xác nhận bảo mật"
+      title="Đặt mật khẩu mới"
+      description={<>Mật khẩu mới phải khác mật khẩu<br />đã dùng trước đây.</>}
+      compact
+      footer={
+        <>
+          <ShieldCheck aria-hidden="true" size={19} />
+          An toàn và bảo mật
+        </>
+      }
+    >
+      {error && <div className="password-reset-alert" role="alert">{error}</div>}
 
-        <div className="flex justify-center mb-6">
-          <div className="w-32 h-32 bg-gradient-to-br from-purple-100 to-violet-200 rounded-full flex items-center justify-center relative">
-            <span className="text-5xl">🔒</span>
-            <span className="absolute -right-1 bottom-4 w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white text-lg shadow-lg">
-              ✓
-            </span>
+      <form onSubmit={handleSubmit} className="password-reset-form">
+        <div className="password-reset-field-group">
+          <label className="password-reset-label" htmlFor="new-password">
+            Mật khẩu mới
+          </label>
+          <div className="password-reset-input-wrap">
+            <input
+              id="new-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              autoComplete="new-password"
+              className="password-reset-input password-reset-input--with-action"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="password-reset-eye"
+              aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+            >
+              {showPassword ? <EyeOff aria-hidden="true" size={21} /> : <Eye aria-hidden="true" size={21} />}
+            </button>
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
-          Tạo mật khẩu mới
-        </h1>
-        <p className="text-gray-500 text-sm text-center mb-8 px-2">
-          Vui lòng tạo mật khẩu mới cho tài khoản để bảo mật và truy cập.
-        </p>
-
-        <div className="bg-white rounded-2xl card-shadow p-6">
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="text-sm font-medium text-gray-700 mb-1.5 block">
-                Mật khẩu mới
-              </label>
-              <div className="relative">
-                <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={loading}
-                  autoComplete="new-password"
-                  className="w-full pl-10 pr-10 py-3 border-2 border-primary/40 rounded-xl text-sm focus:outline-none focus:border-primary disabled:opacity-60"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-700 mb-1.5 block">
-                Xác nhận mật khẩu mới
-              </label>
-              <div className="relative">
-                <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type={showConfirm ? 'text' : 'password'}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  disabled={loading}
-                  autoComplete="new-password"
-                  className={`w-full pl-10 pr-10 py-3 border-2 rounded-xl text-sm focus:outline-none disabled:opacity-60 ${
-                    confirmPassword && !passwordsMatch
-                      ? 'border-red-300 focus:border-red-400'
-                      : 'border-primary/40 focus:border-primary'
-                  }`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                >
-                  {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-              {confirmPassword && !passwordsMatch && (
-                <p className="text-xs text-red-500 mt-1">Mật khẩu xác nhận không khớp</p>
-              )}
-            </div>
-
-            <div className="bg-purple-50 border border-purple-100 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <ShieldCheck size={16} className="text-primary" />
-                <span className="text-sm font-medium text-gray-800">Mật khẩu cần có:</span>
-              </div>
-              <ul className="space-y-2">
-                {rules.map((rule, i) => (
-                  <li key={rule.label} className="flex items-center gap-2 text-sm">
-                    {passedRules[i] ? (
-                      <CheckCircle2 size={16} className="text-green-500 flex-shrink-0" />
-                    ) : (
-                      <Circle size={16} className="text-gray-300 flex-shrink-0" />
-                    )}
-                    <span className={passedRules[i] ? 'text-green-700' : 'text-gray-500'}>
-                      {rule.label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+        <div className="password-reset-field-group">
+          <label className="password-reset-label" htmlFor="confirm-password">
+            Xác nhận mật khẩu
+          </label>
+          <div className="password-reset-input-wrap">
+            <input
+              id="confirm-password"
+              type={showConfirm ? 'text' : 'password'}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              disabled={loading}
+              autoComplete="new-password"
+              className={`password-reset-input password-reset-input--with-action${
+                confirmPassword && !passwordsMatch ? ' is-invalid' : ''
+              }`}
+            />
             <button
-              type="submit"
-              disabled={loading || !allRulesPassed || !passwordsMatch}
-              className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-60"
+              type="button"
+              onClick={() => setShowConfirm(!showConfirm)}
+              className="password-reset-eye"
+              aria-label={showConfirm ? 'Ẩn mật khẩu xác nhận' : 'Hiện mật khẩu xác nhận'}
             >
-              {loading ? 'Đang lưu...' : 'Đặt mật khẩu mới'}
+              {showConfirm ? <EyeOff aria-hidden="true" size={21} /> : <Eye aria-hidden="true" size={21} />}
             </button>
-          </form>
+          </div>
+          {confirmPassword && !passwordsMatch && (
+            <p className="password-reset-field-error">Mật khẩu xác nhận không khớp</p>
+          )}
         </div>
-      </div>
-    </div>
+
+        <ul className="password-reset-rules">
+          <li className="password-reset-rules-title">Mật khẩu cần có</li>
+          {rules.map((rule, i) => (
+            <li key={rule.label} className={`password-reset-rule${passedRules[i] ? ' is-passed' : ''}`}>
+              {passedRules[i] ? (
+                <CheckCircle2 aria-hidden="true" size={15} fill="currentColor" stroke="white" />
+              ) : (
+                <Circle aria-hidden="true" size={15} />
+              )}
+              {rule.label}
+            </li>
+          ))}
+          <li className={`password-reset-rule${passwordsMatch ? ' is-passed' : ''}`}>
+            {passwordsMatch ? (
+              <CheckCircle2 aria-hidden="true" size={15} fill="currentColor" stroke="white" />
+            ) : (
+              <Circle aria-hidden="true" size={15} />
+            )}
+            Hai mật khẩu trùng khớp
+          </li>
+        </ul>
+
+        <button
+          type="submit"
+          disabled={loading || !allRulesPassed || !passwordsMatch}
+          className="password-reset-primary"
+        >
+          {loading ? 'Đang lưu...' : 'Đặt lại mật khẩu'}
+        </button>
+      </form>
+    </PasswordResetLayout>
   );
 }

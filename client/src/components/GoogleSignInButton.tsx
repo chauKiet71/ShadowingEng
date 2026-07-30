@@ -38,19 +38,21 @@ interface GoogleSignInButtonProps {
   label: string;
   redirectTo?: string;
   disabled?: boolean;
+  className?: string;
 }
 
 export default function GoogleSignInButton({
   label,
   redirectTo = '/',
   disabled = false,
+  className = '',
 }: GoogleSignInButtonProps) {
   return (
     <button
       type="button"
       disabled={disabled}
       onClick={() => startGoogleAuth(redirectTo)}
-      className="w-full py-3 border border-gray-200 rounded-xl flex items-center justify-center gap-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      className={`w-full py-3 border border-gray-200 rounded-xl flex items-center justify-center gap-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
     >
       <GoogleIcon />
       {label}

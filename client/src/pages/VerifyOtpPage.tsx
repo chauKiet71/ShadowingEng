@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import type { FormEvent, KeyboardEvent, ClipboardEvent } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronLeft, Shield } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Clock3 } from 'lucide-react';
+import PasswordResetLayout from '../components/PasswordResetLayout';
 import { api } from '../lib/api';
 
 const OTP_LENGTH = 6;
@@ -96,92 +97,75 @@ export default function VerifyOtpPage() {
   const maskedEmail = email.replace(/(.{2})(.*)(@.*)/, '$1***$3');
 
   return (
-    <div className="min-h-screen gradient-bg flex flex-col">
-      <div className="max-w-lg mx-auto w-full flex-1 flex flex-col px-6 py-6">
-        <Link to="/quen-mat-khau" className="text-gray-600 mb-6 inline-flex">
-          <ChevronLeft size={24} />
-        </Link>
+    <PasswordResetLayout
+      step={2}
+      backTo="/quen-mat-khau"
+      illustration="/images/auth/verify-email-illustration.png"
+      illustrationAlt="Phong bì chứa mã xác nhận và khiên bảo mật"
+      title="Xác nhận email"
+      description={
+        <>
+          Mã 6 số đã được gửi đến<br />
+          <strong>{maskedEmail}</strong>
+        </>
+      }
+      footer={
+        <>
+          <Clock3 aria-hidden="true" size={19} />
+          Mã có hiệu lực trong 10 phút
+        </>
+      }
+    >
+      {error && <div className="password-reset-alert" role="alert">{error}</div>}
 
-        <div className="flex justify-center mb-6">
-          <div className="w-36 h-28 bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl flex items-center justify-center relative">
-            <span className="text-5xl">✉️</span>
-            <span className="absolute bottom-2 right-2 text-xs bg-white px-2 py-1 rounded-lg shadow font-mono">******</span>
-          </div>
+      <form onSubmit={handleSubmit}>
+        <p className="password-reset-otp-label">Nhập mã xác nhận</p>
+        <div className="password-reset-otp-grid" onPaste={handlePaste}>
+          {digits.map((digit, i) => (
+            <input
+              key={i}
+              ref={(el) => { inputRefs.current[i] = el; }}
+              aria-label={`Số thứ ${i + 1} trong mã xác nhận`}
+              type="text"
+              inputMode="numeric"
+              autoComplete={i === 0 ? 'one-time-code' : 'off'}
+              maxLength={1}
+              value={digit}
+              onChange={(e) => handleChange(i, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(i, e)}
+              disabled={loading}
+              className={`password-reset-otp-input${digit ? ' has-value' : ''}`}
+            />
+          ))}
         </div>
 
-        <h1 className="text-xl font-bold text-gray-900 text-center mb-2">
-          Nhập mã xác nhận
-        </h1>
-        <p className="text-gray-500 text-sm text-center mb-8">
-          Chúng tôi đã gửi mã 6 số đến email{' '}
-          <span className="text-primary font-medium">{maskedEmail}</span>
-        </p>
-
-        <div className="bg-white rounded-2xl card-shadow p-6">
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl">
-              {error}
-            </div>
-          )}
-
-          <p className="text-sm text-gray-600 text-center mb-5">
-            Vui lòng nhập mã xác nhận 6 số để đặt lại mật khẩu
-          </p>
-
-          <form onSubmit={handleSubmit}>
-            <div className="flex justify-center gap-2.5 mb-6" onPaste={handlePaste}>
-              {digits.map((digit, i) => (
-                <input
-                  key={i}
-                  ref={(el) => { inputRefs.current[i] = el; }}
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleChange(i, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(i, e)}
-                  disabled={loading}
-                  className={`w-11 h-12 text-center text-lg font-bold border-2 rounded-xl focus:outline-none transition-colors ${
-                    digit ? 'border-primary bg-primary/5' : 'border-gray-200'
-                  } focus:border-primary disabled:opacity-60`}
-                />
-              ))}
-            </div>
-
-            <p className="text-center text-sm text-gray-500 mb-5">
-              Chưa nhận được mã?{' '}
-              {countdown > 0 ? (
-                <span className="text-gray-400">
-                  Gửi lại mã ({String(Math.floor(countdown / 60)).padStart(2, '0')}:
-                  {String(countdown % 60).padStart(2, '0')})
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleResend}
-                  disabled={resending}
-                  className="text-primary font-medium hover:underline"
-                >
-                  {resending ? 'Đang gửi...' : 'Gửi lại mã'}
-                </button>
-              )}
-            </p>
-
-            <button
-              type="submit"
-              disabled={loading || code.length !== OTP_LENGTH}
-              className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-60"
-            >
-              {loading ? 'Đang xác nhận...' : 'Xác nhận'}
+        <div className="password-reset-resend">
+          <span>Chưa nhận được mã?</span>
+          {countdown > 0 ? (
+            <button type="button" className="password-reset-text-link" disabled>
+              Gửi lại ({String(Math.floor(countdown / 60)).padStart(2, '0')}:
+              {String(countdown % 60).padStart(2, '0')})
             </button>
-          </form>
+          ) : (
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={resending}
+              className="password-reset-text-link"
+            >
+              {resending ? 'Đang gửi...' : 'Gửi lại mã'}
+            </button>
+          )}
         </div>
 
-        <div className="flex items-center justify-center gap-2 mt-6 text-xs text-gray-400">
-          <Shield size={14} className="text-primary" />
-          Mã xác nhận có hiệu lực trong 10 phút
-        </div>
-      </div>
-    </div>
+        <button
+          type="submit"
+          disabled={loading || code.length !== OTP_LENGTH}
+          className="password-reset-primary"
+        >
+          {loading ? 'Đang xác nhận...' : 'Xác nhận'}
+        </button>
+      </form>
+    </PasswordResetLayout>
   );
 }
