@@ -14,6 +14,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
   app.useWebSocketAdapter(new WsAdapter(app));
   app.setGlobalPrefix('api');
+
+  const corsOrigins = (process.env.CORS_ORIGINS ?? '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  if (corsOrigins.length > 0) {
+    app.enableCors({ origin: corsOrigins });
+  }
+
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, transform: true }),

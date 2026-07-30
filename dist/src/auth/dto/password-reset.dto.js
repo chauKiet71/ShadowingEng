@@ -49,11 +49,16 @@ class ResetPasswordDto {
 exports.ResetPasswordDto = ResetPasswordDto;
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(64, 64, { message: 'Phiên đặt lại mật khẩu không hợp lệ' }),
+    (0, class_validator_1.Matches)(/^[a-f\d]{64}$/i, {
+        message: 'Phiên đặt lại mật khẩu không hợp lệ',
+    }),
     __metadata("design:type", String)
 ], ResetPasswordDto.prototype, "resetToken", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(8, { message: 'Mật khẩu phải có ít nhất 8 ký tự' }),
+    (0, class_validator_1.MaxLength)(128, { message: 'Mật khẩu không được vượt quá 128 ký tự' }),
     (0, class_validator_1.Matches)(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/, {
         message: 'Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt',
     }),

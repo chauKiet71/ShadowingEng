@@ -1,9 +1,9 @@
-import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
-import { ForgotPasswordDto, VerifyResetCodeDto, ResendResetCodeDto, ResetPasswordDto } from './dto/password-reset.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { ForgotPasswordDto, ResendResetCodeDto, ResetPasswordDto, VerifyResetCodeDto } from './dto/password-reset.dto';
 export declare class PasswordResetService {
-    private prisma;
-    private mail;
+    private readonly prisma;
+    private readonly mail;
     constructor(prisma: PrismaService, mail: MailService);
     forgotPassword(dto: ForgotPasswordDto): Promise<{
         message: string;
@@ -14,11 +14,14 @@ export declare class PasswordResetService {
         email: string;
     }>;
     verifyCode(dto: VerifyResetCodeDto): Promise<{
-        resetToken: `${string}-${string}-${string}-${string}-${string}`;
+        resetToken: string;
         message: string;
     }>;
     resetPassword(dto: ResetPasswordDto): Promise<{
         message: string;
     }>;
+    private requestResetCode;
     private createAndSendCode;
+    private normalizeEmail;
+    private hashResetToken;
 }

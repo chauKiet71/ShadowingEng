@@ -126,7 +126,7 @@ export declare class AuthController {
         email: string;
     }>;
     verifyResetCode(dto: VerifyResetCodeDto): Promise<{
-        resetToken: `${string}-${string}-${string}-${string}-${string}`;
+        resetToken: string;
         message: string;
     }>;
     resetPassword(dto: ResetPasswordDto): Promise<{

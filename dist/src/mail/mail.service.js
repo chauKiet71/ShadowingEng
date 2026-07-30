@@ -50,49 +50,62 @@ const nodemailer = __importStar(require("nodemailer"));
 let MailService = MailService_1 = class MailService {
     config;
     logger = new common_1.Logger(MailService_1.name);
-    transporter = null;
+    transporter;
+    from;
+    isProduction;
     constructor(config) {
         this.config = config;
-        const host = this.config.get('SMTP_HOST');
-        const port = this.config.get('SMTP_PORT', 587);
-        const user = this.config.get('SMTP_USER');
-        const pass = this.config.get('SMTP_PASS')?.replace(/\s/g, '');
-        if (host && user && pass) {
-            this.transporter = nodemailer.createTransport({
-                host,
-                port,
-                secure: port === 465,
-                auth: { user, pass },
-            });
+        const host = this.config.get('SMTP_HOST')?.trim();
+        const configuredPort = Number(this.config.get('SMTP_PORT') ?? 587);
+        const port = Number.isInteger(configuredPort) ? configuredPort : 587;
+        const user = this.config.get('SMTP_USER')?.trim();
+        const pass = this.config.get('SMTP_PASS')?.trim();
+        this.isProduction = this.config.get('NODE_ENV') === 'production';
+        this.from =
+            this.config.get('SMTP_FROM')?.trim() ||
+                `Shadowing ENGLISH <${user ?? 'noreply@localhost'}>`;
+        this.transporter =
+            host && user && pass
+                ? nodemailer.createTransport({
+                    host,
+                    port,
+                    secure: port === 465,
+                    auth: { user, pass },
+                })
+                : null;
+        if (!this.transporter && this.isProduction) {
+            this.logger.error('SMTP chưa được cấu hình đầy đủ. API quên mật khẩu sẽ tạm thời không gửi được email.');
         }
     }
     async sendPasswordResetCode(email, code) {
-        const subject = 'Mã xác nhận đặt lại mật khẩu - Shadowing ENGLISH';
-        const html = `
-      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
-        <h2 style="color: #6366f1;">Shadowing ENGLISH</h2>
-        <p>Bạn đã yêu cầu đặt lại mật khẩu. Mã xác nhận của bạn là:</p>
-        <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #4f46e5;">${code}</p>
-        <p style="color: #666;">Mã có hiệu lực trong <strong>10 phút</strong>.</p>
-        <p style="color: #999; font-size: 12px;">Nếu bạn không yêu cầu, hãy bỏ qua email này.</p>
-      </div>
-    `;
         if (!this.transporter) {
-            this.logger.warn(`[DEV] SMTP chưa cấu hình — Mã OTP cho ${email}: ${code}`);
+            if (this.isProduction) {
+                throw new common_1.ServiceUnavailableException('Dịch vụ email chưa được cấu hình. Vui lòng thử lại sau');
+            }
+            this.logger.warn(`[DEV] Mã OTP cho ${email}: ${code}`);
             return;
         }
         try {
             await this.transporter.sendMail({
-                from: this.config.get('SMTP_FROM', 'noreply@shadowing.com'),
+                from: this.from,
                 to: email,
-                subject,
-                html,
+                subject: 'Mã xác nhận đặt lại mật khẩu - Shadowing ENGLISH',
+                text: `Mã xác nhận đặt lại mật khẩu của bạn là ${code}. Mã có hiệu lực trong 10 phút.`,
+                html: `
+          <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+            <h2 style="color: #6366f1;">Shadowing ENGLISH</h2>
+            <p>Bạn đã yêu cầu đặt lại mật khẩu. Mã xác nhận của bạn là:</p>
+            <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #4f46e5;">${code}</p>
+            <p style="color: #666;">Mã có hiệu lực trong <strong>10 phút</strong>.</p>
+            <p style="color: #999; font-size: 12px;">Nếu bạn không yêu cầu, hãy bỏ qua email này.</p>
+          </div>
+        `,
             });
             this.logger.log(`Đã gửi mã OTP đến ${email}`);
         }
         catch (error) {
-            this.logger.warn(`[DEV] Gửi email thất bại — Mã OTP cho ${email}: ${code}`);
-            this.logger.error(error instanceof Error ? error.message : 'Unknown mail error');
+            this.logger.error(`Không thể gửi email đặt lại mật khẩu đến ${email}`, error instanceof Error ? error.stack : undefined);
+            throw new common_1.ServiceUnavailableException('Không thể gửi email xác nhận. Vui lòng thử lại sau');
         }
     }
 };

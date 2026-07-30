@@ -25,6 +25,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+Hướng dẫn triển khai riêng API quên mật khẩu: [docs/email-api-deployment.md](docs/email-api-deployment.md).
+
 ## Project setup
 
 ```bash

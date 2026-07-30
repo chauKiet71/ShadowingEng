@@ -17,6 +17,13 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, { rawBody: true });
     app.useWebSocketAdapter(new platform_ws_1.WsAdapter(app));
     app.setGlobalPrefix('api');
+    const corsOrigins = (process.env.CORS_ORIGINS ?? '')
+        .split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean);
+    if (corsOrigins.length > 0) {
+        app.enableCors({ origin: corsOrigins });
+    }
     app.useGlobalFilters(new global_exception_filter_1.GlobalExceptionFilter());
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true, transform: true }));
     const expressApp = app.getHttpAdapter().getInstance();

@@ -4,6 +4,16 @@ const TOKEN_KEY = 'accessToken';
 const GUEST_TOKEN_KEY = 'guestToken';
 const GUEST_TOKEN_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const API_BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
+const EMAIL_API_BASE_URL = normalizeApiBaseUrl(
+  import.meta.env.VITE_EMAIL_API_BASE_URL,
+  API_BASE_URL,
+);
+
+function normalizeApiBaseUrl(value?: string, fallback = '/api') {
+  const normalized = value?.trim().replace(/\/+$/, '');
+  return normalized || fallback;
+}
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -29,6 +39,7 @@ export function getGuestToken(): string {
 async function request<T>(
   path: string,
   options: RequestInit = {},
+  baseUrl = API_BASE_URL,
 ): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
@@ -42,7 +53,7 @@ async function request<T>(
     headers['X-Guest-Token'] = getGuestToken();
   }
 
-  const res = await fetch(`/api${path}`, { ...options, headers });
+  const res = await fetch(`${baseUrl}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
@@ -119,31 +130,44 @@ export const api = {
   },
 
   forgotPassword(email: string) {
-    return request<{ message: string; email: string }>('/auth/forgot-password', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    });
+    return request<{ message: string; email: string }>(
+      '/auth/forgot-password',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      },
+      EMAIL_API_BASE_URL,
+    );
   },
 
   resendResetCode(email: string) {
-    return request<{ message: string }>('/auth/resend-reset-code', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    });
+    return request<{ message: string }>(
+      '/auth/resend-reset-code',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      },
+      EMAIL_API_BASE_URL,
+    );
   },
 
   verifyResetCode(email: string, code: string) {
     return request<{ resetToken: string; message: string }>(
       '/auth/verify-reset-code',
       { method: 'POST', body: JSON.stringify({ email, code }) },
+      EMAIL_API_BASE_URL,
     );
   },
 
   resetPassword(resetToken: string, password: string) {
-    return request<{ message: string }>('/auth/reset-password', {
-      method: 'POST',
-      body: JSON.stringify({ resetToken, password }),
-    });
+    return request<{ message: string }>(
+      '/auth/reset-password',
+      {
+        method: 'POST',
+        body: JSON.stringify({ resetToken, password }),
+      },
+      EMAIL_API_BASE_URL,
+    );
   },
 
   getUserStats() {

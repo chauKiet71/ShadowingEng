@@ -46,11 +46,13 @@ exports.PasswordResetService = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
 const crypto_1 = require("crypto");
-const prisma_service_1 = require("../prisma/prisma.service");
 const mail_service_1 = require("../mail/mail.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 const OTP_EXPIRY_MINUTES = 10;
+const OTP_MAX_ATTEMPTS = 5;
 const RESEND_COOLDOWN_SECONDS = 60;
 const RESET_TOKEN_EXPIRY_MINUTES = 15;
+const RESET_REQUEST_MESSAGE = 'Nếu email đã được đăng ký, chúng tôi sẽ gửi mã xác nhận đến hộp thư của bạn';
 let PasswordResetService = class PasswordResetService {
     prisma;
     mail;
@@ -58,92 +60,132 @@ let PasswordResetService = class PasswordResetService {
         this.prisma = prisma;
         this.mail = mail;
     }
-    async forgotPassword(dto) {
-        const email = dto.email.toLowerCase().trim();
-        const user = await this.prisma.user.findUnique({ where: { email } });
-        if (!user) {
-            throw new common_1.NotFoundException('Email không tồn tại trong hệ thống');
-        }
-        await this.createAndSendCode(email);
-        return {
-            message: 'Chúng tôi đã gửi mã xác nhận đến email của bạn',
-            email,
-        };
+    forgotPassword(dto) {
+        return this.requestResetCode(dto.email);
     }
-    async resendCode(dto) {
-        const email = dto.email.toLowerCase().trim();
-        const user = await this.prisma.user.findUnique({ where: { email } });
-        if (!user) {
-            throw new common_1.NotFoundException('Email không tồn tại trong hệ thống');
+    resendCode(dto) {
+        return this.requestResetCode(dto.email);
+    }
+    async verifyCode(dto) {
+        const email = this.normalizeEmail(dto.email);
+        const record = await this.prisma.passwordReset.findFirst({
+            where: { email, verified: false },
+            orderBy: { createdAt: 'desc' },
+        });
+        if (!record ||
+            record.expiresAt <= new Date() ||
+            record.attempts >= OTP_MAX_ATTEMPTS) {
+            throw new common_1.BadRequestException('Mã xác nhận không hợp lệ hoặc đã hết hạn');
         }
+        const valid = await bcrypt.compare(dto.code, record.codeHash);
+        if (!valid) {
+            const attempts = record.attempts + 1;
+            if (attempts >= OTP_MAX_ATTEMPTS) {
+                await this.prisma.passwordReset.delete({ where: { id: record.id } });
+            }
+            else {
+                await this.prisma.passwordReset.update({
+                    where: { id: record.id },
+                    data: { attempts: { increment: 1 } },
+                });
+            }
+            throw new common_1.BadRequestException(attempts >= OTP_MAX_ATTEMPTS
+                ? 'Bạn đã nhập sai quá số lần cho phép. Vui lòng yêu cầu mã mới'
+                : 'Mã xác nhận không đúng');
+        }
+        const resetToken = (0, crypto_1.randomBytes)(32).toString('hex');
+        const resetTokenHash = this.hashResetToken(resetToken);
+        const tokenExpires = new Date(Date.now() + RESET_TOKEN_EXPIRY_MINUTES * 60 * 1000);
+        const updated = await this.prisma.passwordReset.updateMany({
+            where: {
+                id: record.id,
+                verified: false,
+                expiresAt: { gt: new Date() },
+            },
+            data: {
+                verified: true,
+                resetToken: resetTokenHash,
+                expiresAt: tokenExpires,
+            },
+        });
+        if (updated.count !== 1) {
+            throw new common_1.BadRequestException('Mã xác nhận không hợp lệ hoặc đã hết hạn');
+        }
+        return { resetToken, message: 'Xác nhận thành công' };
+    }
+    async resetPassword(dto) {
+        const resetTokenHash = this.hashResetToken(dto.resetToken);
+        const record = await this.prisma.passwordReset.findUnique({
+            where: { resetToken: resetTokenHash },
+        });
+        if (!record || !record.verified || record.expiresAt <= new Date()) {
+            throw new common_1.BadRequestException('Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn');
+        }
+        const passwordHash = await bcrypt.hash(dto.password, 10);
+        await this.prisma.$transaction(async (transaction) => {
+            const consumed = await transaction.passwordReset.deleteMany({
+                where: {
+                    id: record.id,
+                    resetToken: resetTokenHash,
+                    verified: true,
+                    expiresAt: { gt: new Date() },
+                },
+            });
+            if (consumed.count !== 1) {
+                throw new common_1.BadRequestException('Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn');
+            }
+            await transaction.user.update({
+                where: { email: record.email },
+                data: { password: passwordHash },
+            });
+            await transaction.passwordReset.deleteMany({
+                where: { email: record.email },
+            });
+        });
+        return { message: 'Đặt lại mật khẩu thành công' };
+    }
+    async requestResetCode(rawEmail) {
+        const email = this.normalizeEmail(rawEmail);
+        const user = await this.prisma.user.findUnique({
+            where: { email },
+            select: { id: true },
+        });
+        if (!user)
+            return { message: RESET_REQUEST_MESSAGE, email };
         const latest = await this.prisma.passwordReset.findFirst({
             where: { email, verified: false },
             orderBy: { createdAt: 'desc' },
         });
         if (latest) {
-            const elapsed = (Date.now() - latest.createdAt.getTime()) / 1000;
-            if (elapsed < RESEND_COOLDOWN_SECONDS) {
-                const remaining = Math.ceil(RESEND_COOLDOWN_SECONDS - elapsed);
-                throw new common_1.HttpException(`Vui lòng đợi ${remaining} giây trước khi gửi lại mã`, common_1.HttpStatus.TOO_MANY_REQUESTS);
+            const elapsedSeconds = (Date.now() - latest.createdAt.getTime()) / 1000;
+            if (elapsedSeconds < RESEND_COOLDOWN_SECONDS) {
+                return { message: RESET_REQUEST_MESSAGE, email };
             }
         }
         await this.createAndSendCode(email);
-        return { message: 'Đã gửi lại mã xác nhận', email };
-    }
-    async verifyCode(dto) {
-        const email = dto.email.toLowerCase().trim();
-        const record = await this.prisma.passwordReset.findFirst({
-            where: { email, verified: false },
-            orderBy: { createdAt: 'desc' },
-        });
-        if (!record || record.expiresAt < new Date()) {
-            throw new common_1.BadRequestException('Mã xác nhận không hợp lệ hoặc đã hết hạn');
-        }
-        const valid = await bcrypt.compare(dto.code, record.codeHash);
-        if (!valid) {
-            throw new common_1.BadRequestException('Mã xác nhận không đúng');
-        }
-        const resetToken = (0, crypto_1.randomUUID)();
-        const tokenExpires = new Date(Date.now() + RESET_TOKEN_EXPIRY_MINUTES * 60 * 1000);
-        await this.prisma.passwordReset.update({
-            where: { id: record.id },
-            data: { verified: true, resetToken, expiresAt: tokenExpires },
-        });
-        return { resetToken, message: 'Xác nhận thành công' };
-    }
-    async resetPassword(dto) {
-        const record = await this.prisma.passwordReset.findUnique({
-            where: { resetToken: dto.resetToken },
-        });
-        if (!record || !record.verified || record.expiresAt < new Date()) {
-            throw new common_1.BadRequestException('Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn');
-        }
-        const user = await this.prisma.user.findUnique({
-            where: { email: record.email },
-        });
-        if (!user)
-            throw new common_1.NotFoundException('Người dùng không tồn tại');
-        const hashed = await bcrypt.hash(dto.password, 10);
-        await this.prisma.user.update({
-            where: { id: user.id },
-            data: { password: hashed },
-        });
-        await this.prisma.passwordReset.deleteMany({
-            where: { email: record.email },
-        });
-        return { message: 'Đặt lại mật khẩu thành công' };
+        return { message: RESET_REQUEST_MESSAGE, email };
     }
     async createAndSendCode(email) {
-        const code = String((0, crypto_1.randomInt)(100000, 999999));
+        const code = String((0, crypto_1.randomInt)(100000, 1_000_000));
         const codeHash = await bcrypt.hash(code, 10);
         const expiresAt = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
-        await this.prisma.passwordReset.deleteMany({
-            where: { email, verified: false },
-        });
-        await this.prisma.passwordReset.create({
+        await this.prisma.passwordReset.deleteMany({ where: { email } });
+        const record = await this.prisma.passwordReset.create({
             data: { email, codeHash, expiresAt },
         });
-        await this.mail.sendPasswordResetCode(email, code);
+        try {
+            await this.mail.sendPasswordResetCode(email, code);
+        }
+        catch (error) {
+            await this.prisma.passwordReset.deleteMany({ where: { id: record.id } });
+            throw error;
+        }
+    }
+    normalizeEmail(email) {
+        return email.toLowerCase().trim();
+    }
+    hashResetToken(token) {
+        return (0, crypto_1.createHash)('sha256').update(token).digest('hex');
     }
 };
 exports.PasswordResetService = PasswordResetService;
