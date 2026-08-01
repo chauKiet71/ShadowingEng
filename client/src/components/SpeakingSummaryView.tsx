@@ -28,19 +28,21 @@ const METRIC_STYLES: Record<
   { icon: string; score: string; badge: string }
 > = {
   emerald: {
-    icon: 'bg-emerald-400/15 text-emerald-300 ring-emerald-300/15',
-    score: 'text-emerald-300',
-    badge: 'bg-emerald-400/10 text-emerald-300',
+    icon: 'bg-emerald-100 text-emerald-600 ring-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:ring-emerald-300/15',
+    score: 'text-emerald-600 dark:text-emerald-300',
+    badge:
+      'bg-emerald-100 text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300',
   },
   sky: {
-    icon: 'bg-sky-400/15 text-sky-300 ring-sky-300/15',
-    score: 'text-sky-300',
-    badge: 'bg-sky-400/10 text-sky-300',
+    icon: 'bg-sky-100 text-sky-600 ring-sky-200 dark:bg-sky-400/15 dark:text-sky-300 dark:ring-sky-300/15',
+    score: 'text-sky-600 dark:text-sky-300',
+    badge: 'bg-sky-100 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300',
   },
   violet: {
-    icon: 'bg-violet-400/15 text-violet-300 ring-violet-300/15',
-    score: 'text-violet-300',
-    badge: 'bg-violet-400/10 text-violet-300',
+    icon: 'bg-violet-100 text-violet-600 ring-violet-200 dark:bg-violet-400/15 dark:text-violet-300 dark:ring-violet-300/15',
+    score: 'text-violet-600 dark:text-violet-300',
+    badge:
+      'bg-violet-100 text-violet-700 dark:bg-violet-400/10 dark:text-violet-300',
   },
 };
 
@@ -73,7 +75,7 @@ function SummaryMetric({
   const styles = METRIC_STYLES[tone];
 
   return (
-    <div className="flex min-h-[118px] min-w-0 flex-col items-center rounded-[20px] border border-white/10 bg-white/[0.055] px-2 py-3 text-center shadow-[0_18px_40px_rgba(0,0,0,0.22)]">
+    <div className="flex min-h-[118px] min-w-0 flex-col items-center rounded-[20px] border border-slate-200 bg-white px-2 py-3 text-center shadow-[0_12px_28px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.055] dark:shadow-[0_18px_40px_rgba(0,0,0,0.22)]">
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-full ring-1 ${styles.icon}`}
       >
@@ -84,7 +86,9 @@ function SummaryMetric({
       >
         {score}
       </p>
-      <p className="mt-1 text-[11px] font-medium text-slate-300">{label}</p>
+      <p className="mt-1 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+        {label}
+      </p>
       <span
         className={`mt-auto rounded-full px-2.5 py-1 text-[9px] font-bold ${styles.badge}`}
       >
@@ -107,13 +111,13 @@ export default function SpeakingSummaryView({
   return (
     <div
       data-testid="speaking-summary"
-      className="min-h-[100dvh] overflow-x-hidden bg-[#04091d] px-4 pb-28 pt-5 text-white"
+      className="min-h-[100dvh] overflow-x-hidden bg-white px-4 pb-28 pt-5 text-slate-950 dark:bg-[#04091d] dark:text-white"
     >
       <header className="relative flex min-h-[64px] items-start justify-center">
         <button
           type="button"
           onClick={onBack}
-          className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.07] text-white shadow-[0_12px_30px_rgba(0,0,0,0.24)] transition active:scale-95"
+          className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-900 shadow-[0_8px_22px_rgba(15,23,42,0.1)] transition active:scale-95 dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:shadow-[0_12px_30px_rgba(0,0,0,0.24)]"
           aria-label="Quay lại danh sách tình huống"
         >
           <ArrowLeft size={25} strokeWidth={2.5} />
@@ -134,7 +138,7 @@ export default function SpeakingSummaryView({
           />
           <div className="absolute inset-y-0 left-0 w-[56%] bg-gradient-to-r from-[#10174f]/95 via-[#10174f]/78 to-transparent" />
 
-          <div className="relative z-10 flex min-h-[240px] w-[55%] flex-col px-5 py-4">
+          <div className="relative z-10 flex min-h-[240px] w-[55%] flex-col px-5 py-4 text-white">
             <p className="text-[13px] font-medium text-indigo-200">
               Điểm trung bình
             </p>
@@ -211,7 +215,7 @@ export default function SpeakingSummaryView({
       </main>
 
       <footer
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#080d21]/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur dark:border-white/10 dark:bg-[#080d21]/95"
         aria-label="Điều hướng sau khi hoàn thành"
       >
         <div className="mx-auto grid max-w-lg grid-cols-2 gap-2.5">
@@ -219,7 +223,7 @@ export default function SpeakingSummaryView({
             data-summary-action="retry"
             type="button"
             onClick={onRetry}
-            className="flex h-12 items-center justify-center gap-2 rounded-[16px] border border-white/20 bg-white/[0.045] px-3 text-[13px] font-bold text-white transition active:scale-[0.98]"
+            className="flex h-12 items-center justify-center gap-2 rounded-[16px] border border-slate-200 bg-slate-50 px-3 text-[13px] font-bold text-slate-900 shadow-sm transition active:scale-[0.98] dark:border-white/20 dark:bg-white/[0.045] dark:text-white dark:shadow-none"
           >
             <RotateCcw size={18} aria-hidden="true" />
             Luyện lại
@@ -228,7 +232,7 @@ export default function SpeakingSummaryView({
             data-summary-action="home"
             type="button"
             onClick={onHome}
-            className="flex h-12 items-center justify-center gap-2 rounded-[16px] border border-white/20 bg-white/[0.045] px-3 text-[13px] font-bold text-white transition active:scale-[0.98]"
+            className="flex h-12 items-center justify-center gap-2 rounded-[16px] border border-slate-200 bg-slate-50 px-3 text-[13px] font-bold text-slate-900 shadow-sm transition active:scale-[0.98] dark:border-white/20 dark:bg-white/[0.045] dark:text-white dark:shadow-none"
           >
             <House size={18} fill="currentColor" aria-hidden="true" />
             Về trang chủ
