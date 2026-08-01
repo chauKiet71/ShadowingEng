@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { VocabularyLookupDetail } from '../lib/api';
 
 const CLOSE_ANIMATION_MS = 240;
+const ENABLE_LESSON_WORD_SAVING = false;
 
 interface LessonWordDetailSheetProps {
   detail: VocabularyLookupDetail | null;
@@ -207,32 +208,34 @@ export default function LessonWordDetailSheet({
               </p>
             </div>
 
-            <footer className="sticky bottom-0 mt-auto shrink-0 border-t border-slate-100 bg-white/95 p-4 backdrop-blur dark:border-white/10 dark:bg-neutral-950/95">
-              <button
-                data-testid="save-lesson-word"
-                type="button"
-                onClick={onSave}
-                disabled={saving || saved}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-bold text-white transition active:scale-[0.99] disabled:bg-emerald-500"
-              >
-                {saving ? (
-                  <Loader2
-                    size={18}
-                    className="animate-spin"
-                    aria-hidden="true"
-                  />
-                ) : saved ? (
-                  <BookmarkCheck size={19} aria-hidden="true" />
-                ) : (
-                  <BookmarkPlus size={19} aria-hidden="true" />
-                )}
-                {saving
-                  ? 'Đang lưu...'
-                  : saved
-                    ? 'Đã lưu từ vựng'
-                    : 'Lưu từ vựng'}
-              </button>
-            </footer>
+            {ENABLE_LESSON_WORD_SAVING && (
+              <footer className="sticky bottom-0 mt-auto shrink-0 border-t border-slate-100 bg-white/95 p-4 backdrop-blur dark:border-white/10 dark:bg-neutral-950/95">
+                <button
+                  data-testid="save-lesson-word"
+                  type="button"
+                  onClick={onSave}
+                  disabled={saving || saved}
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-bold text-white transition active:scale-[0.99] disabled:bg-emerald-500"
+                >
+                  {saving ? (
+                    <Loader2
+                      size={18}
+                      className="animate-spin"
+                      aria-hidden="true"
+                    />
+                  ) : saved ? (
+                    <BookmarkCheck size={19} aria-hidden="true" />
+                  ) : (
+                    <BookmarkPlus size={19} aria-hidden="true" />
+                  )}
+                  {saving
+                    ? 'Đang lưu...'
+                    : saved
+                      ? 'Đã lưu từ vựng'
+                      : 'Lưu từ vựng'}
+                </button>
+              </footer>
+            )}
           </>
         ) : null}
       </section>
