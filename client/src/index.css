@@ -346,6 +346,67 @@ button .loader {
   }
 }
 
+@keyframes lesson-word-sheet-in {
+  from {
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes lesson-word-sheet-out {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+@keyframes lesson-word-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lesson-word-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.lesson-word-sheet-in {
+  animation: lesson-word-sheet-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lesson-word-sheet-out {
+  animation: lesson-word-sheet-out 240ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.lesson-word-backdrop-in {
+  animation: lesson-word-backdrop-in 220ms ease-out both;
+}
+
+.lesson-word-backdrop-out {
+  animation: lesson-word-backdrop-out 240ms ease-in both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-word-sheet-in,
+  .lesson-word-sheet-out,
+  .lesson-word-backdrop-in,
+  .lesson-word-backdrop-out {
+    animation-duration: 1ms;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

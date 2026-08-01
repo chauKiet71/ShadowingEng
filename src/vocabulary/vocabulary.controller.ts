@@ -12,6 +12,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
 import {
   LearnVocabularyWordDto,
+  LookupVocabularyWordDto,
   ReviewVocabularyWordDto,
 } from './dto/vocabulary.dto';
 import { VocabularyService } from './vocabulary.service';
@@ -57,6 +58,15 @@ export class VocabularyController {
     @Body() dto: LearnVocabularyWordDto,
   ) {
     return this.vocabularyService.learnWord(user.id, dto.wordId);
+  }
+
+  @Post('words/lookup')
+  @UseGuards(OptionalJwtAuthGuard)
+  lookupWord(
+    @CurrentUser() user: { id: string } | null,
+    @Body() dto: LookupVocabularyWordDto,
+  ) {
+    return this.vocabularyService.lookupWord(user?.id, dto);
   }
 
   @Post('words/:id/review')

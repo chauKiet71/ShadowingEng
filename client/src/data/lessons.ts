@@ -7,6 +7,13 @@ export interface LessonSentence {
   vietnamese: string;
   time_start: number;
   time_end: number;
+  words?: LessonWordTiming[];
+}
+
+export interface LessonWordTiming {
+  text: string;
+  start: number;
+  end: number;
 }
 
 export interface Lesson {

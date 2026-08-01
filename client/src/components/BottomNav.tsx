@@ -74,38 +74,12 @@ export default function BottomNav() {
           <NavItem key={item.to} {...item} />
         ))}
 
-        <NavLink
+        <NavItem
           to="/luyen-noi"
-          onPointerEnter={prefetchSpeakingPage}
-          onFocus={prefetchSpeakingPage}
-          onTouchStart={prefetchSpeakingPage}
-          className="relative flex flex-col items-center -mt-6 mx-1 w-[72px] shrink-0"
-        >
-          {({ isActive }) => (
-            <>
-              <span className="relative w-14 h-14">
-                <span className="speaking-nav-pulse" aria-hidden />
-                <span className="speaking-nav-pulse" aria-hidden />
-                <span
-                  className={`relative z-10 w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-neutral-900 transition-transform ${
-                    isActive
-                      ? 'gradient-btn scale-105'
-                      : 'gradient-btn hover:scale-105'
-                  }`}
-                >
-                  <Mic size={26} className="text-white" strokeWidth={2.25} />
-                </span>
-              </span>
-              <span
-                className={`text-[10px] font-semibold mt-1 ${
-                  isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400'
-                }`}
-              >
-                Luyện nói
-              </span>
-            </>
-          )}
-        </NavLink>
+          icon={Mic}
+          label="Luyện nói"
+          onPrefetch={prefetchSpeakingPage}
+        />
 
         {rightItems.map((item) => (
           <NavItem

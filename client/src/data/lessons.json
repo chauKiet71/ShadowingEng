@@ -231,8 +231,8 @@
     "title": "Đặt phòng khách sạn",
     "description": "Hội thoại đặt phòng khách sạn qua điện thoại",
     "thumbnailUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=340&fit=crop",
-    "audioUrl": "",
-    "duration": 30,
+    "audioUrl": "/audio/lesson-03.mp3",
+    "duration": 31,
     "level": "BEGINNER",
     "topic": "Du lịch & Khám phá",
     "sentences": [
@@ -241,104 +241,635 @@
         "english": "Hello, I would like to book a room, please.",
         "phonetic": "",
         "vietnamese": "Xin chào, tôi muốn đặt phòng ạ.",
+        "words": [
+          {
+            "text": "Hello,",
+            "start": 0,
+            "end": 0.54
+          },
+          {
+            "text": "I",
+            "start": 0.6,
+            "end": 0.9
+          },
+          {
+            "text": "would",
+            "start": 0.9,
+            "end": 0.98
+          },
+          {
+            "text": "like",
+            "start": 0.98,
+            "end": 1.2
+          },
+          {
+            "text": "to",
+            "start": 1.2,
+            "end": 1.46
+          },
+          {
+            "text": "book",
+            "start": 1.46,
+            "end": 1.7
+          },
+          {
+            "text": "a",
+            "start": 1.7,
+            "end": 1.76
+          },
+          {
+            "text": "room,",
+            "start": 1.76,
+            "end": 2.16
+          },
+          {
+            "text": "please.",
+            "start": 2.16,
+            "end": 2.22
+          }
+        ],
         "time_start": 0,
-        "time_end": 2.13
+        "time_end": 2.22
       },
       {
         "id": "3-2",
         "english": "I need a double room for three nights.",
         "phonetic": "",
         "vietnamese": "Tôi cần phòng đôi trong ba đêm.",
-        "time_start": 2.13,
-        "time_end": 4.18
+        "words": [
+          {
+            "text": "I",
+            "start": 2.6,
+            "end": 2.72
+          },
+          {
+            "text": "need",
+            "start": 2.72,
+            "end": 2.82
+          },
+          {
+            "text": "a",
+            "start": 2.82,
+            "end": 3.22
+          },
+          {
+            "text": "double",
+            "start": 3.22,
+            "end": 3.36
+          },
+          {
+            "text": "room",
+            "start": 3.36,
+            "end": 3.46
+          },
+          {
+            "text": "for",
+            "start": 3.46,
+            "end": 3.68
+          },
+          {
+            "text": "three",
+            "start": 3.68,
+            "end": 3.96
+          },
+          {
+            "text": "nights.",
+            "start": 3.96,
+            "end": 4.26
+          }
+        ],
+        "time_start": 2.6,
+        "time_end": 4.26
       },
       {
         "id": "3-3",
         "english": "We will arrive on Friday, the 15th of August, and leave on Monday, the 18th.",
         "phonetic": "",
         "vietnamese": "Chúng tôi đến thứ Sáu ngày 15 tháng 8 và rời đi thứ Hai ngày 18.",
-        "time_start": 4.18,
-        "time_end": 9.24
+        "words": [
+          {
+            "text": "We",
+            "start": 4.7,
+            "end": 4.84
+          },
+          {
+            "text": "will",
+            "start": 4.84,
+            "end": 5.14
+          },
+          {
+            "text": "arrive",
+            "start": 5.14,
+            "end": 5.4
+          },
+          {
+            "text": "on",
+            "start": 5.4,
+            "end": 5.78
+          },
+          {
+            "text": "Friday,",
+            "start": 5.78,
+            "end": 6.04
+          },
+          {
+            "text": "the",
+            "start": 6.26,
+            "end": 6.34
+          },
+          {
+            "text": "15th",
+            "start": 6.34,
+            "end": 6.78
+          },
+          {
+            "text": "of",
+            "start": 6.78,
+            "end": 6.92
+          },
+          {
+            "text": "August,",
+            "start": 6.92,
+            "end": 7.16
+          },
+          {
+            "text": "and",
+            "start": 7.16,
+            "end": 7.56
+          },
+          {
+            "text": "leave",
+            "start": 7.56,
+            "end": 7.92
+          },
+          {
+            "text": "on",
+            "start": 7.92,
+            "end": 8.46
+          },
+          {
+            "text": "Monday,",
+            "start": 8.46,
+            "end": 8.58
+          },
+          {
+            "text": "the",
+            "start": 8.92,
+            "end": 9.06
+          },
+          {
+            "text": "18th.",
+            "start": 9.06,
+            "end": 9.66
+          }
+        ],
+        "time_start": 4.7,
+        "time_end": 9.66
       },
       {
         "id": "3-4",
         "english": "Do you have a room available?",
         "phonetic": "",
         "vietnamese": "Bạn còn phòng trống không?",
-        "time_start": 9.24,
-        "time_end": 11.07
+        "words": [
+          {
+            "text": "Do",
+            "start": 9.86,
+            "end": 9.98
+          },
+          {
+            "text": "you",
+            "start": 9.98,
+            "end": 10.1
+          },
+          {
+            "text": "have",
+            "start": 10.1,
+            "end": 10.26
+          },
+          {
+            "text": "a",
+            "start": 10.26,
+            "end": 10.56
+          },
+          {
+            "text": "room",
+            "start": 10.56,
+            "end": 10.66
+          },
+          {
+            "text": "available?",
+            "start": 10.66,
+            "end": 10.9
+          }
+        ],
+        "time_start": 9.86,
+        "time_end": 10.9
       },
       {
         "id": "3-5",
         "english": "Great.",
         "phonetic": "",
         "vietnamese": "Tuyệt vời.",
-        "time_start": 11.07,
-        "time_end": 12
+        "words": [
+          {
+            "text": "Great.",
+            "start": 11.42,
+            "end": 11.8
+          }
+        ],
+        "time_start": 11.42,
+        "time_end": 11.8
       },
       {
         "id": "3-6",
         "english": "Does the room have a bathroom and a TV?",
         "phonetic": "",
         "vietnamese": "Phòng có phòng tắm và TV không?",
-        "time_start": 12,
-        "time_end": 14.28
+        "words": [
+          {
+            "text": "Does",
+            "start": 12.22,
+            "end": 12.32
+          },
+          {
+            "text": "the",
+            "start": 12.32,
+            "end": 12.72
+          },
+          {
+            "text": "room",
+            "start": 12.72,
+            "end": 12.85
+          },
+          {
+            "text": "have",
+            "start": 12.85,
+            "end": 12.98
+          },
+          {
+            "text": "a",
+            "start": 12.98,
+            "end": 13.52
+          },
+          {
+            "text": "bathroom",
+            "start": 13.52,
+            "end": 13.8
+          },
+          {
+            "text": "and",
+            "start": 13.8,
+            "end": 13.9
+          },
+          {
+            "text": "a",
+            "start": 13.9,
+            "end": 14.42
+          },
+          {
+            "text": "TV?",
+            "start": 14.42,
+            "end": 14.54
+          }
+        ],
+        "time_start": 12.22,
+        "time_end": 14.54
       },
       {
         "id": "3-7",
         "english": "I also want to know if breakfast is included in the price.",
         "phonetic": "",
         "vietnamese": "Tôi cũng muốn biết bữa sáng có trong giá không.",
-        "time_start": 14.28,
-        "time_end": 18.12
+        "words": [
+          {
+            "text": "I",
+            "start": 14.72,
+            "end": 15.1
+          },
+          {
+            "text": "also",
+            "start": 15.1,
+            "end": 15.46
+          },
+          {
+            "text": "want",
+            "start": 15.46,
+            "end": 15.66
+          },
+          {
+            "text": "to",
+            "start": 15.66,
+            "end": 15.86
+          },
+          {
+            "text": "know",
+            "start": 15.86,
+            "end": 15.94
+          },
+          {
+            "text": "if",
+            "start": 15.94,
+            "end": 16.42
+          },
+          {
+            "text": "breakfast",
+            "start": 16.42,
+            "end": 16.52
+          },
+          {
+            "text": "is",
+            "start": 16.52,
+            "end": 16.98
+          },
+          {
+            "text": "included",
+            "start": 16.98,
+            "end": 17.26
+          },
+          {
+            "text": "in",
+            "start": 17.26,
+            "end": 17.56
+          },
+          {
+            "text": "the",
+            "start": 17.56,
+            "end": 17.72
+          },
+          {
+            "text": "price.",
+            "start": 17.72,
+            "end": 18.08
+          }
+        ],
+        "time_start": 14.72,
+        "time_end": 18.08
       },
       {
         "id": "3-8",
         "english": "How much is it for one night?",
         "phonetic": "",
         "vietnamese": "Một đêm bao nhiêu tiền?",
-        "time_start": 18.12,
-        "time_end": 20
+        "words": [
+          {
+            "text": "How",
+            "start": 18.52,
+            "end": 18.7
+          },
+          {
+            "text": "much",
+            "start": 18.7,
+            "end": 18.84
+          },
+          {
+            "text": "is",
+            "start": 18.84,
+            "end": 19.02
+          },
+          {
+            "text": "it",
+            "start": 19.02,
+            "end": 19.18
+          },
+          {
+            "text": "for",
+            "start": 19.18,
+            "end": 19.34
+          },
+          {
+            "text": "one",
+            "start": 19.34,
+            "end": 19.6
+          },
+          {
+            "text": "night?",
+            "start": 19.6,
+            "end": 19.84
+          }
+        ],
+        "time_start": 18.52,
+        "time_end": 19.84
       },
       {
         "id": "3-9",
         "english": "Okay, that is a good price.",
         "phonetic": "",
         "vietnamese": "Ổn, giá đó hợp lý.",
-        "time_start": 20,
-        "time_end": 21
+        "words": [
+          {
+            "text": "Okay,",
+            "start": 20.24,
+            "end": 20.6
+          },
+          {
+            "text": "that",
+            "start": 20.6,
+            "end": 20.82
+          },
+          {
+            "text": "is",
+            "start": 20.82,
+            "end": 21
+          },
+          {
+            "text": "a",
+            "start": 21,
+            "end": 21.2
+          },
+          {
+            "text": "good",
+            "start": 21.2,
+            "end": 21.34
+          },
+          {
+            "text": "price.",
+            "start": 21.34,
+            "end": 21.68
+          }
+        ],
+        "time_start": 20.24,
+        "time_end": 21.68
       },
       {
         "id": "3-10",
         "english": "My name is Anna Smith.",
         "phonetic": "",
         "vietnamese": "Tên tôi là Anna Smith.",
-        "time_start": 21,
-        "time_end": 23.14
+        "words": [
+          {
+            "text": "My",
+            "start": 22.1,
+            "end": 22.3
+          },
+          {
+            "text": "name",
+            "start": 22.3,
+            "end": 22.5
+          },
+          {
+            "text": "is",
+            "start": 22.5,
+            "end": 22.82
+          },
+          {
+            "text": "Anna",
+            "start": 22.82,
+            "end": 23.12
+          },
+          {
+            "text": "Smith.",
+            "start": 23.12,
+            "end": 23.42
+          }
+        ],
+        "time_start": 22.1,
+        "time_end": 23.42
       },
       {
         "id": "3-11",
         "english": "I can pay by credit card.",
         "phonetic": "",
         "vietnamese": "Tôi có thể trả bằng thẻ tín dụng.",
-        "time_start": 23.14,
-        "time_end": 25.08
+        "words": [
+          {
+            "text": "I",
+            "start": 23.72,
+            "end": 23.94
+          },
+          {
+            "text": "can",
+            "start": 23.94,
+            "end": 24.1
+          },
+          {
+            "text": "pay",
+            "start": 24.1,
+            "end": 24.2
+          },
+          {
+            "text": "by",
+            "start": 24.2,
+            "end": 24.42
+          },
+          {
+            "text": "credit",
+            "start": 24.42,
+            "end": 24.66
+          },
+          {
+            "text": "card.",
+            "start": 24.66,
+            "end": 24.98
+          }
+        ],
+        "time_start": 23.72,
+        "time_end": 24.98
       },
       {
         "id": "3-12",
         "english": "Can you send me an email to confirm my booking?",
         "phonetic": "",
         "vietnamese": "Bạn có thể gửi email xác nhận đặt phòng không?",
-        "time_start": 25.08,
-        "time_end": 28
+        "words": [
+          {
+            "text": "Can",
+            "start": 25.24,
+            "end": 25.38
+          },
+          {
+            "text": "you",
+            "start": 25.38,
+            "end": 25.64
+          },
+          {
+            "text": "send",
+            "start": 25.64,
+            "end": 25.74
+          },
+          {
+            "text": "me",
+            "start": 25.74,
+            "end": 25.92
+          },
+          {
+            "text": "an",
+            "start": 25.92,
+            "end": 26.22
+          },
+          {
+            "text": "email",
+            "start": 26.22,
+            "end": 26.4
+          },
+          {
+            "text": "to",
+            "start": 26.4,
+            "end": 26.74
+          },
+          {
+            "text": "confirm",
+            "start": 26.74,
+            "end": 27.08
+          },
+          {
+            "text": "my",
+            "start": 27.08,
+            "end": 27.64
+          },
+          {
+            "text": "booking?",
+            "start": 27.64,
+            "end": 27.76
+          }
+        ],
+        "time_start": 25.24,
+        "time_end": 27.76
       },
       {
         "id": "3-13",
         "english": "Thank you very much for your help.",
         "phonetic": "",
         "vietnamese": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",
-        "time_start": 28,
-        "time_end": 30.03
+        "words": [
+          {
+            "text": "Thank",
+            "start": 27.76,
+            "end": 28.36
+          },
+          {
+            "text": "you",
+            "start": 28.36,
+            "end": 28.48
+          },
+          {
+            "text": "very",
+            "start": 28.48,
+            "end": 28.84
+          },
+          {
+            "text": "much",
+            "start": 28.84,
+            "end": 29.1
+          },
+          {
+            "text": "for",
+            "start": 29.1,
+            "end": 29.32
+          },
+          {
+            "text": "your",
+            "start": 29.32,
+            "end": 29.56
+          },
+          {
+            "text": "help.",
+            "start": 29.56,
+            "end": 29.72
+          }
+        ],
+        "time_start": 27.76,
+        "time_end": 29.72
       }
     ]
   },

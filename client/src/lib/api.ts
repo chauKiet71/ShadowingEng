@@ -348,6 +348,17 @@ export const api = {
     );
   },
 
+  lookupVocabularyWord(payload: {
+    word: string;
+    sentence: string;
+    sentenceTranslation: string;
+  }) {
+    return request<VocabularyLookupDetail>('/vocabulary/words/lookup', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
   saveVocabularySet(id: string) {
     return request<{ saved: boolean }>(
       `/vocabulary/sets/${encodeURIComponent(id)}/save`,
@@ -800,6 +811,15 @@ export interface VocabularyWord {
   audioUrl: string | null;
   setTitle?: string;
   progress: VocabularyProgress | null;
+}
+
+export interface VocabularyLookupDetail extends VocabularyWord {
+  requestedWord: string;
+  partOfSpeech: string | null;
+  definition: string;
+  synonyms: string[];
+  relatedWords: Array<{ word: string; note: string }>;
+  source: 'catalog' | 'generated';
 }
 
 export interface VocabularySetSummary {

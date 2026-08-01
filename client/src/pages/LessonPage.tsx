@@ -15,25 +15,36 @@ import {
   Lock,
   Crown,
 } from 'lucide-react';
+import LessonWordDetailSheet from '../components/LessonWordDetailSheet';
+import { useAuth } from '../contexts/AuthContext';
 import {
   findActiveSentenceIndex,
   formatTime,
   getLessonById,
   type LessonSentence,
+  type LessonWordTiming,
 } from '../data/lessons';
 import { useHistory } from '../contexts/HistoryContext';
 import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
+import { ApiError, api, type VocabularyLookupDetail } from '../lib/api';
 import { resolveLessonPhonetics } from '../lib/phonetic';
 
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type PlaybackRate = (typeof PLAYBACK_RATES)[number];
 
-type LessonWordTiming = {
-  text: string;
-  start: number;
-  end: number;
+type LessonWordLookupContext = {
+  word: string;
+  sentence: string;
+  sentenceTranslation: string;
 };
+
+function cleanVocabularyToken(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/^[^a-z'-]+|[^a-z'-]+$/g, '');
+}
 
 function estimateLessonWordTimings(
   sentence: LessonSentence,
@@ -55,6 +66,32 @@ function estimateLessonWordTimings(
     cursor = end;
     return timing;
   });
+}
+
+function resolveLessonWordTimings(
+  sentence: LessonSentence,
+): LessonWordTiming[] {
+  const displayWords = sentence.english.split(/\s+/).filter(Boolean);
+  const alignedWords = sentence.words;
+  const hasUsableAlignment =
+    alignedWords?.length === displayWords.length &&
+    alignedWords.every(
+      (word, index) =>
+        Number.isFinite(word.start) &&
+        Number.isFinite(word.end) &&
+        word.end >= word.start &&
+        cleanVocabularyToken(word.text) ===
+          cleanVocabularyToken(displayWords[index]),
+    );
+
+  if (!hasUsableAlignment || !alignedWords) {
+    return estimateLessonWordTimings(sentence);
+  }
+
+  return alignedWords.map((word, index) => ({
+    ...word,
+    text: displayWords[index],
+  }));
 }
 
 function findActiveWordIndex(words: LessonWordTiming[], time: number) {
@@ -80,6 +117,14 @@ function wordBorderClass(active: boolean) {
 
 function formatPlaybackRate(rate: PlaybackRate) {
   return `${rate === 1 ? '1.0' : rate}x`;
+}
+
+function formatSentenceEndTime(sentence: LessonSentence) {
+  const displayEnd =
+    Math.floor(sentence.time_end) === Math.floor(sentence.time_start)
+      ? Math.ceil(sentence.time_end)
+      : sentence.time_end;
+  return formatTime(displayEnd);
 }
 
 function speakSentence(text: string, playbackRate: PlaybackRate) {
@@ -148,6 +193,7 @@ export default function LessonPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
   const lesson = useMemo(() => (id ? getLessonById(id) : undefined), [id]);
   const {
     canAccess,
@@ -177,6 +223,7 @@ export default function LessonPage() {
   const playbackSpeedRef = useRef<HTMLDivElement>(null);
   const sentenceRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
+  const wordLookupRequestRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranslation, setShowTranslation] = useState(true);
   const [showPhonetic, setShowPhonetic] = useState(false);
@@ -190,8 +237,16 @@ export default function LessonPage() {
     number | null
   >(null);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
+  const [wordLookupContext, setWordLookupContext] =
+    useState<LessonWordLookupContext | null>(null);
+  const [wordDetail, setWordDetail] = useState<VocabularyLookupDetail | null>(
+    null,
+  );
+  const [wordDetailLoading, setWordDetailLoading] = useState(false);
+  const [wordDetailError, setWordDetailError] = useState('');
+  const [wordDetailSaving, setWordDetailSaving] = useState(false);
   const wordTimingsBySentence = useMemo(
-    () => (lesson?.sentences ?? []).map(estimateLessonWordTimings),
+    () => (lesson?.sentences ?? []).map(resolveLessonWordTimings),
     [lesson?.sentences],
   );
 
@@ -237,10 +292,29 @@ export default function LessonPage() {
     setIsPlaying(false);
     setCurrentTime(0);
     setActiveIndex(0);
+    wordLookupRequestRef.current += 1;
+    setWordLookupContext(null);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(false);
+    setWordDetailSaving(false);
     if (audioRef.current) {
       audioRef.current.playbackRate = 1;
     }
   }, [lesson?.id]);
+
+  useEffect(() => {
+    if (!wordLookupContext) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      wordLookupRequestRef.current += 1;
+      setWordLookupContext(null);
+      setWordDetail(null);
+      setWordDetailError('');
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [wordLookupContext]);
 
   /** Click vào bài nghe → phát audio ngay khi vào trang */
   useEffect(() => {
@@ -337,40 +411,60 @@ export default function LessonPage() {
     const audio = audioRef.current;
     if (!audio || !lesson) return;
 
-    const onTimeUpdate = () => {
+    const getEffectiveDuration = () =>
+      audio.duration > 0 && Number.isFinite(audio.duration)
+        ? audio.duration
+        : lesson.duration;
+
+    const syncPlaybackPosition = () => {
       const time = audio.currentTime;
+      if (!Number.isFinite(time)) return;
       setCurrentTime(time);
       setActiveIndex((prev) => {
         const next = findActiveSentenceIndex(lesson.sentences, time);
         return prev === next ? prev : next;
       });
+    };
 
-      const effectiveDuration =
-        audio.duration && Number.isFinite(audio.duration)
-          ? audio.duration
-          : lesson.duration;
+    const saveListeningProgress = () => {
       const now = Date.now();
       if (now - lastProgressSaveRef.current >= 3000) {
         lastProgressSaveRef.current = now;
-        updateListeningProgress(lesson.id, time, effectiveDuration);
+        updateListeningProgress(
+          lesson.id,
+          audio.currentTime,
+          getEffectiveDuration(),
+        );
       }
     };
+
+    const syncDuration = () => {
+      const nextDuration = getEffectiveDuration();
+      if (nextDuration > 0) setDuration(nextDuration);
+    };
+
+    const onTimeUpdate = () => {
+      syncPlaybackPosition();
+      saveListeningProgress();
+    };
     const onEnded = () => {
+      syncPlaybackPosition();
       setIsPlaying(false);
       if (completedRef.current) return;
       completedRef.current = true;
-      const effectiveDuration =
-        audio.duration && Number.isFinite(audio.duration)
-          ? audio.duration
-          : lesson.duration;
-      markLessonCompleted(lesson.id, effectiveDuration);
+      markLessonCompleted(lesson.id, getEffectiveDuration());
     };
-    const onPlay = () => setIsPlaying(true);
-    const onPause = () => setIsPlaying(false);
+    const onPlay = () => {
+      setIsPlaying(true);
+      syncPlaybackPosition();
+    };
+    const onPause = () => {
+      syncPlaybackPosition();
+      setIsPlaying(false);
+    };
     const onLoadedMetadata = () => {
-      if (audio.duration && Number.isFinite(audio.duration)) {
-        setDuration(audio.duration);
-      }
+      syncDuration();
+      syncPlaybackPosition();
       audio.playbackRate = playbackRate;
     };
     const onError = () => {
@@ -380,43 +474,68 @@ export default function LessonPage() {
     audio.addEventListener('timeupdate', onTimeUpdate);
     audio.addEventListener('ended', onEnded);
     audio.addEventListener('play', onPlay);
+    audio.addEventListener('playing', onPlay);
     audio.addEventListener('pause', onPause);
     audio.addEventListener('loadedmetadata', onLoadedMetadata);
+    audio.addEventListener('durationchange', syncDuration);
+    audio.addEventListener('seeking', syncPlaybackPosition);
+    audio.addEventListener('seeked', syncPlaybackPosition);
     audio.addEventListener('error', onError);
 
     return () => {
       audio.removeEventListener('timeupdate', onTimeUpdate);
       audio.removeEventListener('ended', onEnded);
       audio.removeEventListener('play', onPlay);
+      audio.removeEventListener('playing', onPlay);
       audio.removeEventListener('pause', onPause);
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
+      audio.removeEventListener('durationchange', syncDuration);
+      audio.removeEventListener('seeking', syncPlaybackPosition);
+      audio.removeEventListener('seeked', syncPlaybackPosition);
       audio.removeEventListener('error', onError);
     };
   }, [lesson, playbackRate, updateListeningProgress, markLessonCompleted]);
 
   useEffect(() => {
-    if (!isPlaying || !lesson) return;
+    const audio = audioRef.current;
+    if (!audio || !lesson) return;
 
     let animationFrame = 0;
     const syncPlayback = () => {
-      const audio = audioRef.current;
-      if (audio) {
+      const actuallyPlaying = !audio.paused && !audio.ended;
+      setIsPlaying((previous) =>
+        previous === actuallyPlaying ? previous : actuallyPlaying,
+      );
+
+      if (actuallyPlaying || audio.seeking) {
         const time = audio.currentTime;
-        setCurrentTime(time);
-        setActiveIndex((prev) => {
-          const next = findActiveSentenceIndex(lesson.sentences, time);
-          return prev === next ? prev : next;
-        });
+        if (Number.isFinite(time)) {
+          setCurrentTime(time);
+          setActiveIndex((prev) => {
+            const next = findActiveSentenceIndex(lesson.sentences, time);
+            return prev === next ? prev : next;
+          });
+
+          const now = Date.now();
+          if (now - lastProgressSaveRef.current >= 3000) {
+            lastProgressSaveRef.current = now;
+            const effectiveDuration =
+              audio.duration > 0 && Number.isFinite(audio.duration)
+                ? audio.duration
+                : lesson.duration;
+            updateListeningProgress(lesson.id, time, effectiveDuration);
+          }
+        }
       }
       animationFrame = requestAnimationFrame(syncPlayback);
     };
 
     animationFrame = requestAnimationFrame(syncPlayback);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isPlaying, lesson]);
+  }, [lesson, updateListeningProgress]);
 
   useEffect(() => {
-    if (!lesson) navigate('/', { replace: true });
+    if (!lesson) void navigate('/', { replace: true });
   }, [lesson, navigate]);
 
   useEffect(() => {
@@ -493,14 +612,96 @@ export default function LessonPage() {
 
   const handleBack = () => {
     if (returnTo) {
-      navigate(returnTo, { replace: true });
+      void navigate(returnTo, { replace: true });
       return;
     }
-    if (window.history.state?.idx > 0) {
-      navigate(-1);
+    const historyState = window.history.state as { idx?: unknown } | null;
+    if (typeof historyState?.idx === 'number' && historyState.idx > 0) {
+      void navigate(-1);
       return;
     }
-    navigate('/');
+    void navigate('/');
+  };
+
+  const lookupWordDetail = async (context: LessonWordLookupContext) => {
+    const requestId = wordLookupRequestRef.current + 1;
+    wordLookupRequestRef.current = requestId;
+    setWordLookupContext(context);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(true);
+
+    try {
+      const detail = await api.lookupVocabularyWord(context);
+      if (wordLookupRequestRef.current === requestId) setWordDetail(detail);
+    } catch (error) {
+      if (wordLookupRequestRef.current !== requestId) return;
+      setWordDetailError(
+        error instanceof ApiError
+          ? error.message
+          : 'Không thể tra cứu từ này. Vui lòng thử lại.',
+      );
+    } finally {
+      if (wordLookupRequestRef.current === requestId) {
+        setWordDetailLoading(false);
+      }
+    }
+  };
+
+  const openWordDetail = (value: string, sentence: LessonSentence) => {
+    const word = cleanVocabularyToken(value);
+    if (!word) return;
+    audioRef.current?.pause();
+    setIsPlaying(false);
+    void lookupWordDetail({
+      word,
+      sentence: sentence.english,
+      sentenceTranslation: sentence.vietnamese,
+    });
+  };
+
+  const closeWordDetail = () => {
+    wordLookupRequestRef.current += 1;
+    setWordLookupContext(null);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(false);
+    setWordDetailSaving(false);
+  };
+
+  const retryWordLookup = () => {
+    if (wordLookupContext) void lookupWordDetail(wordLookupContext);
+  };
+
+  const lookupRelatedWord = (word: string) => {
+    if (!wordLookupContext) return;
+    void lookupWordDetail({ ...wordLookupContext, word });
+  };
+
+  const saveWordDetail = async () => {
+    if (!wordDetail || wordDetail.progress || wordDetailSaving) return;
+    if (!user) {
+      void navigate('/dang-nhap', {
+        state: { from: location.pathname },
+      });
+      return;
+    }
+
+    setWordDetailSaving(true);
+    try {
+      const progress = await api.learnVocabularyWord(wordDetail.id);
+      setWordDetail((current) =>
+        current ? { ...current, progress } : current,
+      );
+    } catch (error) {
+      setWordDetailError(
+        error instanceof ApiError
+          ? error.message
+          : 'Không thể lưu từ vựng lúc này.',
+      );
+    } finally {
+      setWordDetailSaving(false);
+    }
   };
 
   if (!lesson) return null;
@@ -532,11 +733,11 @@ export default function LessonPage() {
           </p>
           <button
             type="button"
-            onClick={() =>
-              navigate('/nang-cap', {
+            onClick={() => {
+              void navigate('/nang-cap', {
                 state: { from: `/bai-hoc/${lesson.id}` },
-              })
-            }
+              });
+            }}
             className="mt-6 inline-flex items-center gap-2 gradient-btn text-white font-semibold px-6 py-3 rounded-xl"
           >
             <Crown size={18} />
@@ -547,7 +748,8 @@ export default function LessonPage() {
     );
   }
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progressRatio =
+    duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
 
   const handleShadowingToggle = () => {
@@ -574,6 +776,7 @@ export default function LessonPage() {
     <div className="h-screen max-w-lg mx-auto flex flex-col bg-gray-50 overflow-hidden">
       <audio
         ref={audioRef}
+        data-testid="lesson-audio"
         src={lesson.audioUrl}
         preload="auto"
         loop={isLooping}
@@ -627,7 +830,7 @@ export default function LessonPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={togglePlay}
+                  onClick={() => void togglePlay()}
                   className="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/40"
                   aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
                 >
@@ -655,10 +858,14 @@ export default function LessonPage() {
                 <span className="text-white/90 text-[11px] tabular-nums w-9">
                   {formatTime(currentTime)}
                 </span>
-                <div className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden">
+                <div
+                  data-testid="lesson-progress-track"
+                  className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden"
+                >
                   <div
-                    className="h-full bg-primary rounded-full transition-all"
-                    style={{ width: `${Math.min(progress, 100)}%` }}
+                    data-testid="lesson-progress-fill"
+                    className="h-full w-full origin-left rounded-full bg-primary will-change-transform"
+                    style={{ transform: `scaleX(${progressRatio})` }}
                   />
                 </div>
                 <span className="text-white/90 text-[11px] tabular-nums w-9 text-right">
@@ -705,16 +912,22 @@ export default function LessonPage() {
                           const displayWord =
                             item.english.split(/\s+/)[wordIndex] ?? word.word;
                           return (
-                            <span
+                            <button
                               key={`${word.word}-${wordIndex}`}
+                              type="button"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                openWordDetail(displayWord, item);
+                              }}
+                              aria-label={`Xem chi tiết từ ${cleanVocabularyToken(displayWord)}`}
                               className={`${
                                 word.correct
                                   ? 'text-emerald-600'
                                   : 'text-red-500'
-                              } ${wordBorderClass(wordIndex === activeWordIndex)}`}
+                              } ${wordBorderClass(wordIndex === activeWordIndex)} cursor-pointer focus-visible:outline-2 focus-visible:outline-primary`}
                             >
                               {displayWord}
-                            </span>
+                            </button>
                           );
                         })}
                       </p>
@@ -727,14 +940,18 @@ export default function LessonPage() {
                         }`}
                       >
                         {timedWords.map((word, wordIndex) => (
-                          <span
+                          <button
                             key={`${word.start}-${word.text}-${wordIndex}`}
-                            className={wordBorderClass(
-                              wordIndex === activeWordIndex,
-                            )}
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              openWordDetail(word.text, item);
+                            }}
+                            aria-label={`Xem chi tiết từ ${cleanVocabularyToken(word.text)}`}
+                            className={`${wordBorderClass(wordIndex === activeWordIndex)} cursor-pointer focus-visible:outline-2 focus-visible:outline-primary`}
                           >
                             {word.text}
-                          </span>
+                          </button>
                         ))}
                       </p>
                     )}
@@ -768,7 +985,7 @@ export default function LessonPage() {
                     )}
                     <p className="text-[10px] text-gray-300 mt-2 tabular-nums">
                       {formatTime(item.time_start)} –{' '}
-                      {formatTime(item.time_end)}
+                      {formatSentenceEndTime(item)}
                     </p>
                   </div>
                   {isActive && (
@@ -789,6 +1006,20 @@ export default function LessonPage() {
           })}
         </div>
       </div>
+
+      {wordLookupContext && (
+        <LessonWordDetailSheet
+          detail={wordDetail}
+          error={wordDetailError}
+          loading={wordDetailLoading}
+          saving={wordDetailSaving}
+          onClose={closeWordDetail}
+          onRetry={retryWordLookup}
+          onSave={() => void saveWordDetail()}
+          onSpeak={(text) => speakSentence(text, 0.75)}
+          onLookupRelated={lookupRelatedWord}
+        />
+      )}
 
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800 z-50">
         <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">

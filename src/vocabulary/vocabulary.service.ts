@@ -1,6 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { VocabularyProgressStatus } from '@prisma/client';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { CefrLevel, VocabularyProgressStatus } from '@prisma/client';
+import OpenAI from 'openai';
 import { PrismaService } from '../prisma/prisma.service';
+import type { LookupVocabularyWordDto } from './dto/vocabulary.dto';
 import {
   TECH_VOCABULARY_SETS,
   type VocabularySeedSet,
@@ -30,16 +39,73 @@ const SETS: VocabularySeedSet[] = [
   FINANCE_VOCABULARY_SET,
 ];
 
+const LISTENING_WORDS_SET_SLUG = 'tu-vung-tu-bai-nghe';
+
+type GeneratedWordDetail = {
+  word: string;
+  phonetic: string | null;
+  partOfSpeech: string | null;
+  meaning: string;
+  definition: string;
+  example: string;
+  exampleTranslation: string;
+  synonyms: string[];
+  relatedWords: Array<{ word: string; note: string }>;
+};
+
 @Injectable()
 export class VocabularyService {
+  private readonly logger = new Logger(VocabularyService.name);
   private catalogSync: Promise<void> | null = null;
+  private readonly lookupRequests = new Map<
+    string,
+    Promise<GeneratedWordDetail>
+  >();
+  private readonly lookupDetailCache = new Map<string, GeneratedWordDetail>();
+  private openai: OpenAI | null = null;
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly config: ConfigService,
+  ) {
+    const apiKey = this.config.get<string>('OPENAI_API_KEY');
+    if (apiKey) this.openai = new OpenAI({ apiKey });
+  }
 
   private addDays(date: Date, days: number) {
     const next = new Date(date);
     next.setDate(next.getDate() + days);
     return next;
+  }
+
+  private normalizeLookupWord(value: string) {
+    return value
+      .trim()
+      .toLowerCase()
+      .replace(/^[^a-z'-]+|[^a-z'-]+$/g, '')
+      .slice(0, 64);
+  }
+
+  private lookupCandidates(word: string) {
+    const candidates = new Set([word]);
+    if (word.endsWith("'s")) candidates.add(word.slice(0, -2));
+    if (word.endsWith('ies') && word.length > 4) {
+      candidates.add(`${word.slice(0, -3)}y`);
+    }
+    if (word.endsWith('ing') && word.length > 5) {
+      const stem = word.slice(0, -3);
+      candidates.add(stem);
+      candidates.add(`${stem}e`);
+      if (stem.at(-1) === stem.at(-2)) candidates.add(stem.slice(0, -1));
+    }
+    if (word.endsWith('ed') && word.length > 4) {
+      const stem = word.slice(0, -2);
+      candidates.add(stem);
+      candidates.add(`${stem}e`);
+    }
+    if (word.endsWith('s') && word.length > 3)
+      candidates.add(word.slice(0, -1));
+    return [...candidates].filter(Boolean);
   }
 
   private ensureCatalog() {
@@ -280,6 +346,244 @@ export class VocabularyService {
         },
       })),
     };
+  }
+
+  async lookupWord(userId: string | undefined, input: LookupVocabularyWordDto) {
+    await this.ensureCatalog();
+    const requestedWord = this.normalizeLookupWord(input.word);
+    if (!requestedWord) {
+      throw new BadRequestException('Từ cần tra cứu không hợp lệ');
+    }
+
+    const cacheKey = `${requestedWord}\n${input.sentence.trim().toLowerCase()}`;
+    const candidates = this.lookupCandidates(requestedWord);
+    const existing = await this.prisma.vocabularyWord.findFirst({
+      where: {
+        OR: candidates.map((word) => ({
+          word: { equals: word, mode: 'insensitive' as const },
+        })),
+      },
+      orderBy: { sortOrder: 'asc' },
+      include: {
+        progress: {
+          where: { userId: userId ?? '__guest__' },
+          take: 1,
+        },
+      },
+    });
+
+    if (existing) {
+      let enriched = this.lookupDetailCache.get(cacheKey) ?? null;
+      if (!enriched && this.openai) {
+        try {
+          enriched = await this.getGeneratedWordDetail(
+            cacheKey,
+            requestedWord,
+            input,
+          );
+        } catch {
+          // Existing vocabulary remains usable when optional enrichment fails.
+        }
+      }
+
+      return {
+        id: existing.id,
+        requestedWord,
+        word: existing.word,
+        phonetic: enriched?.phonetic ?? existing.phonetic,
+        partOfSpeech: enriched?.partOfSpeech ?? null,
+        meaning: enriched?.meaning ?? existing.meaning,
+        definition: enriched?.definition ?? existing.meaning,
+        example: enriched?.example ?? existing.example,
+        exampleTranslation:
+          enriched?.exampleTranslation ?? existing.exampleTranslation,
+        audioUrl: existing.audioUrl,
+        synonyms: enriched?.synonyms ?? [],
+        relatedWords: enriched?.relatedWords ?? [],
+        progress: existing.progress[0] ?? null,
+        source: 'catalog' as const,
+      };
+    }
+
+    const generated = await this.getGeneratedWordDetail(
+      cacheKey,
+      requestedWord,
+      input,
+    );
+    const set = await this.prisma.vocabularySet.upsert({
+      where: { slug: LISTENING_WORDS_SET_SLUG },
+      create: {
+        slug: LISTENING_WORDS_SET_SLUG,
+        title: 'Từ vựng từ bài nghe',
+        description: 'Những từ bạn đã tra cứu trong các bài luyện nghe.',
+        icon: 'headphones',
+        color: 'violet',
+        cefrLevel: CefrLevel.A2,
+        topic: 'Bài nghe',
+        isFeatured: false,
+        sortOrder: 999,
+      },
+      update: {},
+    });
+
+    const storedWord = await this.prisma.vocabularyWord.upsert({
+      where: {
+        setId_word: {
+          setId: set.id,
+          word: generated.word,
+        },
+      },
+      create: {
+        setId: set.id,
+        word: generated.word,
+        phonetic: generated.phonetic,
+        meaning: generated.meaning,
+        example: generated.example,
+        exampleTranslation: generated.exampleTranslation,
+        sortOrder: 0,
+      },
+      update: {
+        phonetic: generated.phonetic,
+        meaning: generated.meaning,
+        example: generated.example,
+        exampleTranslation: generated.exampleTranslation,
+      },
+    });
+
+    return {
+      id: storedWord.id,
+      requestedWord,
+      ...generated,
+      audioUrl: storedWord.audioUrl,
+      progress: null,
+      source: 'generated' as const,
+    };
+  }
+
+  private async getGeneratedWordDetail(
+    cacheKey: string,
+    requestedWord: string,
+    input: LookupVocabularyWordDto,
+  ) {
+    const cached = this.lookupDetailCache.get(cacheKey);
+    if (cached) return cached;
+
+    let detailRequest = this.lookupRequests.get(cacheKey);
+    if (!detailRequest) {
+      detailRequest = this.generateWordDetail(requestedWord, input).finally(
+        () => this.lookupRequests.delete(cacheKey),
+      );
+      this.lookupRequests.set(cacheKey, detailRequest);
+    }
+
+    const detail = await detailRequest;
+    this.lookupDetailCache.set(cacheKey, detail);
+    if (this.lookupDetailCache.size > 500) {
+      const oldestKey = this.lookupDetailCache.keys().next().value as
+        string | undefined;
+      if (oldestKey) this.lookupDetailCache.delete(oldestKey);
+    }
+    return detail;
+  }
+
+  private async generateWordDetail(
+    requestedWord: string,
+    input: LookupVocabularyWordDto,
+  ): Promise<GeneratedWordDetail> {
+    if (!this.openai) {
+      throw new ServiceUnavailableException(
+        'Chưa thể tra cứu từ mới vì OPENAI_API_KEY chưa được cấu hình',
+      );
+    }
+
+    try {
+      const response = await this.openai.chat.completions.create({
+        model:
+          this.config.get<string>('VOCABULARY_LOOKUP_MODEL')?.trim() ||
+          'gpt-4o-mini',
+        temperature: 0.1,
+        max_tokens: 700,
+        response_format: { type: 'json_object' },
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'You create concise English vocabulary details for Vietnamese learners.',
+              'Use the supplied sentence to choose the correct contextual meaning.',
+              'Return only JSON with keys: word, phonetic, partOfSpeech, meaning, definition, example, exampleTranslation, synonyms, relatedWords.',
+              'word must be the lowercase dictionary headword. phonetic must be IPA wrapped in slashes.',
+              'partOfSpeech, meaning, definition, exampleTranslation, and relatedWords.note must be Vietnamese.',
+              'synonyms must contain at most 4 English words. relatedWords must contain at most 3 objects with word and note.',
+              'example must be one natural English sentence containing the headword or its inflected form.',
+            ].join(' '),
+          },
+          {
+            role: 'user',
+            content: JSON.stringify({
+              selectedWord: requestedWord,
+              sentence: input.sentence.trim(),
+              sentenceTranslation: input.sentenceTranslation.trim(),
+            }),
+          },
+        ],
+      });
+
+      const content = response.choices[0]?.message?.content?.trim();
+      if (!content) throw new Error('AI returned an empty vocabulary detail');
+      const parsed = JSON.parse(content) as Record<string, unknown>;
+      const text = (value: unknown, fallback = '') =>
+        typeof value === 'string' && value.trim() ? value.trim() : fallback;
+      const words = (value: unknown) =>
+        Array.isArray(value)
+          ? value
+              .filter((item): item is string => typeof item === 'string')
+              .map((item) => item.trim())
+              .filter(Boolean)
+              .slice(0, 4)
+          : [];
+      const relatedWords = Array.isArray(parsed.relatedWords)
+        ? parsed.relatedWords
+            .map((item) => {
+              if (!item || typeof item !== 'object') return null;
+              const record = item as Record<string, unknown>;
+              const word = text(record.word);
+              if (!word) return null;
+              return { word, note: text(record.note) };
+            })
+            .filter(
+              (item): item is { word: string; note: string } => item != null,
+            )
+            .slice(0, 3)
+        : [];
+      const normalizedHeadword =
+        this.normalizeLookupWord(text(parsed.word, requestedWord)) ||
+        requestedWord;
+      const meaning = text(parsed.meaning);
+      if (!meaning)
+        throw new Error('AI returned vocabulary detail without meaning');
+
+      return {
+        word: normalizedHeadword,
+        phonetic: text(parsed.phonetic) || null,
+        partOfSpeech: text(parsed.partOfSpeech) || null,
+        meaning,
+        definition: text(parsed.definition, meaning),
+        example: text(parsed.example, input.sentence.trim()),
+        exampleTranslation: text(
+          parsed.exampleTranslation,
+          input.sentenceTranslation.trim(),
+        ),
+        synonyms: words(parsed.synonyms),
+        relatedWords,
+      };
+    } catch (error) {
+      this.logger.error(
+        `Vocabulary lookup failed for "${requestedWord}": ${error instanceof Error ? error.message : String(error)}`,
+      );
+      throw new ServiceUnavailableException(
+        'Không thể tra cứu chi tiết từ vựng lúc này. Vui lòng thử lại.',
+      );
+    }
   }
 
   async getSets(userId?: string) {
