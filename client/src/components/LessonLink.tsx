@@ -9,6 +9,7 @@ const LESSON_PREMIUM_MESSAGE =
 
 interface LessonLinkProps {
   lessonId: string;
+  returnTo?: string;
   className?: string;
   children: ReactNode;
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
@@ -19,6 +20,7 @@ interface LessonLinkProps {
 
 export default function LessonLink({
   lessonId,
+  returnTo,
   className,
   children,
   onClick,
@@ -46,7 +48,7 @@ export default function LessonLink({
   return (
     <Link
       to={path}
-      state={{ autoPlay: true }}
+      state={{ autoPlay: true, returnTo }}
       className={className}
       onClick={onClick}
       {...rest}

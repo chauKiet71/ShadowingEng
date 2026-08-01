@@ -1,8 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
-  ChevronLeft, RotateCcw, RotateCw, Gauge,
-  Play, Pause, Maximize, Languages, Repeat, BookOpen, Mic, Lock, Crown,
+  ChevronLeft,
+  RotateCcw,
+  RotateCw,
+  Gauge,
+  Play,
+  Pause,
+  Maximize,
+  Languages,
+  Repeat,
+  BookOpen,
+  Mic,
+  Lock,
+  Crown,
 } from 'lucide-react';
 import {
   findActiveSentenceIndex,
@@ -63,9 +74,7 @@ function findActiveWordIndex(words: LessonWordTiming[], time: number) {
 
 function wordBorderClass(active: boolean) {
   return `inline-block rounded-[5px] border px-0.5 py-px transition-colors duration-75 ${
-    active
-      ? 'border-emerald-400 bg-emerald-400/10'
-      : 'border-transparent'
+    active ? 'border-emerald-400 bg-emerald-400/10' : 'border-transparent'
   }`;
 }
 
@@ -101,7 +110,10 @@ function scrollSentenceIntoView(
   const elementRect = element.getBoundingClientRect();
   const offsetTop = elementRect.top - containerRect.top + container.scrollTop;
   const targetTop = offsetTop - ACTIVE_SENTENCE_SLOT_TOP;
-  const maxScroll = Math.max(0, container.scrollHeight - container.clientHeight);
+  const maxScroll = Math.max(
+    0,
+    container.scrollHeight - container.clientHeight,
+  );
   const clampedTargetTop = Math.min(maxScroll, Math.max(0, targetTop));
 
   if (behavior !== 'smooth') {
@@ -117,7 +129,10 @@ function scrollSentenceIntoView(
   let animationFrame = 0;
 
   const animate = (now: number) => {
-    const progress = Math.min((now - startedAt) / TRANSCRIPT_SCROLL_DURATION_MS, 1);
+    const progress = Math.min(
+      (now - startedAt) / TRANSCRIPT_SCROLL_DURATION_MS,
+      1,
+    );
     container.scrollTop = startTop + distance * easeInOutCubic(progress);
 
     if (progress < 1) {
@@ -134,9 +149,17 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const lesson = useMemo(() => (id ? getLessonById(id) : undefined), [id]);
-  const { canAccess, locked, loading: accessLoading } = useCanAccessLesson(id ?? '');
-  const autoPlayOnOpen =
-    (location.state as { autoPlay?: boolean } | null)?.autoPlay !== false;
+  const {
+    canAccess,
+    locked,
+    loading: accessLoading,
+  } = useCanAccessLesson(id ?? '');
+  const lessonNavigationState = location.state as {
+    autoPlay?: boolean;
+    returnTo?: string;
+  } | null;
+  const autoPlayOnOpen = lessonNavigationState?.autoPlay !== false;
+  const returnTo = lessonNavigationState?.returnTo;
   const { updateListeningProgress, markLessonCompleted } = useHistory();
   const {
     result: shadowingResult,
@@ -163,7 +186,9 @@ export default function LessonPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(lesson?.duration ?? 0);
-  const [shadowingResultIndex, setShadowingResultIndex] = useState<number | null>(null);
+  const [shadowingResultIndex, setShadowingResultIndex] = useState<
+    number | null
+  >(null);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
   const wordTimingsBySentence = useMemo(
     () => (lesson?.sentences ?? []).map(estimateLessonWordTimings),
@@ -467,6 +492,10 @@ export default function LessonPage() {
   };
 
   const handleBack = () => {
+    if (returnTo) {
+      navigate(returnTo, { replace: true });
+      return;
+    }
     if (window.history.state?.idx > 0) {
       navigate(-1);
       return;
@@ -480,10 +509,17 @@ export default function LessonPage() {
     return (
       <div className="min-h-screen max-w-lg mx-auto flex flex-col bg-gray-50">
         <div className="px-4 py-3 flex items-center gap-2 border-b border-gray-100 bg-white">
-          <button type="button" onClick={handleBack} className="p-1 text-gray-600" aria-label="Quay lại">
+          <button
+            type="button"
+            onClick={handleBack}
+            className="p-1 text-gray-600"
+            aria-label="Quay lại"
+          >
             <ChevronLeft size={22} />
           </button>
-          <h1 className="text-sm font-semibold text-gray-900 truncate flex-1">{lesson.title}</h1>
+          <h1 className="text-sm font-semibold text-gray-900 truncate flex-1">
+            {lesson.title}
+          </h1>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
           <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
@@ -491,11 +527,16 @@ export default function LessonPage() {
           </div>
           <h2 className="text-lg font-bold text-gray-900">Bài học Pro</h2>
           <p className="text-sm text-gray-500 mt-2 max-w-xs">
-            Bài này đã bị khóa. Nâng cấp gói Pro để mở khóa và nghe không giới hạn.
+            Bài này đã bị khóa. Nâng cấp gói Pro để mở khóa và nghe không giới
+            hạn.
           </p>
           <button
             type="button"
-            onClick={() => navigate('/nang-cap', { state: { from: `/bai-hoc/${lesson.id}` } })}
+            onClick={() =>
+              navigate('/nang-cap', {
+                state: { from: `/bai-hoc/${lesson.id}` },
+              })
+            }
             className="mt-6 inline-flex items-center gap-2 gradient-btn text-white font-semibold px-6 py-3 rounded-xl"
           >
             <Crown size={18} />
@@ -531,7 +572,12 @@ export default function LessonPage() {
 
   return (
     <div className="h-screen max-w-lg mx-auto flex flex-col bg-gray-50 overflow-hidden">
-      <audio ref={audioRef} src={lesson.audioUrl} preload="auto" loop={isLooping} />
+      <audio
+        ref={audioRef}
+        src={lesson.audioUrl}
+        preload="auto"
+        loop={isLooping}
+      />
 
       <div className="flex-shrink-0 bg-white px-4 py-3 grid grid-cols-[auto_1fr_auto] items-center gap-2 border-b border-gray-100 z-20">
         <button
@@ -588,7 +634,11 @@ export default function LessonPage() {
                   {isPlaying ? (
                     <Pause size={26} className="text-white" />
                   ) : (
-                    <Play size={26} className="text-white ml-0.5" fill="white" />
+                    <Play
+                      size={26}
+                      className="text-white ml-0.5"
+                      fill="white"
+                    />
                   )}
                 </button>
                 <button
@@ -649,68 +699,77 @@ export default function LessonPage() {
               >
                 <div className="flex items-start gap-3">
                   <div className="min-w-0 flex-1">
-                  {shadowingResultIndex === index && shadowingResult ? (
-                    <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
-                      {shadowingResult.words.map((word, wordIndex) => {
-                        const displayWord =
-                          item.english.split(/\s+/)[wordIndex] ?? word.word;
-                        return (
+                    {shadowingResultIndex === index && shadowingResult ? (
+                      <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
+                        {shadowingResult.words.map((word, wordIndex) => {
+                          const displayWord =
+                            item.english.split(/\s+/)[wordIndex] ?? word.word;
+                          return (
+                            <span
+                              key={`${word.word}-${wordIndex}`}
+                              className={`${
+                                word.correct
+                                  ? 'text-emerald-600'
+                                  : 'text-red-500'
+                              } ${wordBorderClass(wordIndex === activeWordIndex)}`}
+                            >
+                              {displayWord}
+                            </span>
+                          );
+                        })}
+                      </p>
+                    ) : (
+                      <p
+                        className={`text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5 ${
+                          isActive
+                            ? 'text-slate-900 dark:text-white'
+                            : 'text-gray-900 dark:text-white'
+                        }`}
+                      >
+                        {timedWords.map((word, wordIndex) => (
                           <span
-                            key={`${word.word}-${wordIndex}`}
-                            className={`${
-                              word.correct ? 'text-emerald-600' : 'text-red-500'
-                            } ${wordBorderClass(wordIndex === activeWordIndex)}`}
+                            key={`${word.start}-${word.text}-${wordIndex}`}
+                            className={wordBorderClass(
+                              wordIndex === activeWordIndex,
+                            )}
                           >
-                            {displayWord}
+                            {word.text}
                           </span>
-                        );
-                      })}
-                    </p>
-                  ) : (
-                    <p
-                      className={`text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5 ${
-                        isActive
-                          ? 'text-slate-900 dark:text-white'
-                          : 'text-gray-900 dark:text-white'
-                      }`}
-                    >
-                      {timedWords.map((word, wordIndex) => (
-                        <span
-                          key={`${word.start}-${word.text}-${wordIndex}`}
-                          className={wordBorderClass(
-                            wordIndex === activeWordIndex,
-                          )}
-                        >
-                          {word.text}
+                        ))}
+                      </p>
+                    )}
+                    {shadowingResultIndex === index && shadowingResult && (
+                      <p className="text-xs text-gray-500 mt-2">
+                        Bạn nói:{' '}
+                        <span className="italic">
+                          {shadowingResult.transcript || '—'}
                         </span>
-                      ))}
+                      </p>
+                    )}
+                    {shadowingResultIndex === index && shadowingError && (
+                      <p className="text-xs text-red-500 mt-2">
+                        {shadowingError}
+                      </p>
+                    )}
+                    {shadowingResultIndex === index && isProcessing && (
+                      <p className="text-xs text-gray-400 mt-2">
+                        Đang chấm điểm...
+                      </p>
+                    )}
+                    {showPhonetic && phoneticText && (
+                      <p className="text-xs text-primary mt-1.5 italic leading-relaxed">
+                        {phoneticText}
+                      </p>
+                    )}
+                    {showTranslation && (
+                      <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                        {item.vietnamese}
+                      </p>
+                    )}
+                    <p className="text-[10px] text-gray-300 mt-2 tabular-nums">
+                      {formatTime(item.time_start)} –{' '}
+                      {formatTime(item.time_end)}
                     </p>
-                  )}
-                  {shadowingResultIndex === index && shadowingResult && (
-                    <p className="text-xs text-gray-500 mt-2">
-                      Bạn nói:{' '}
-                      <span className="italic">{shadowingResult.transcript || '—'}</span>
-                    </p>
-                  )}
-                  {shadowingResultIndex === index && shadowingError && (
-                    <p className="text-xs text-red-500 mt-2">{shadowingError}</p>
-                  )}
-                  {shadowingResultIndex === index && isProcessing && (
-                    <p className="text-xs text-gray-400 mt-2">Đang chấm điểm...</p>
-                  )}
-                  {showPhonetic && phoneticText && (
-                    <p className="text-xs text-primary mt-1.5 italic leading-relaxed">
-                      {phoneticText}
-                    </p>
-                  )}
-                  {showTranslation && (
-                    <p className="text-sm text-gray-400 mt-1 leading-relaxed">
-                      {item.vietnamese}
-                    </p>
-                  )}
-                  <p className="text-[10px] text-gray-300 mt-2 tabular-nums">
-                    {formatTime(item.time_start)} – {formatTime(item.time_end)}
-                  </p>
                   </div>
                   {isActive && (
                     <span
@@ -848,9 +907,15 @@ export default function LessonPage() {
             )}
             <div className="text-left">
               <p className="text-sm font-bold leading-none">
-                {isRecording ? 'Đang ghi âm...' : isFetching ? 'Đang xử lý...' : 'Shadowing'}
+                {isRecording
+                  ? 'Đang ghi âm...'
+                  : isFetching
+                    ? 'Đang xử lý...'
+                    : 'Shadowing'}
               </p>
-              <p className={`text-[10px] mt-0.5 ${shadowingSubtextClass}`}>{shadowingHint}</p>
+              <p className={`text-[10px] mt-0.5 ${shadowingSubtextClass}`}>
+                {shadowingHint}
+              </p>
             </div>
           </button>
         </div>

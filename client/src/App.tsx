@@ -30,6 +30,7 @@ import PaymentPage from './pages/PaymentPage';
 import LevelPage from './pages/LevelPage';
 import VocabularyPage from './pages/VocabularyPage';
 import SpeakingPage from './pages/SpeakingPage';
+import SpeakingHistoryPage from './pages/SpeakingHistoryPage';
 import VideoTranslatePage from './pages/VideoTranslatePage';
 
 function LessonPageRoute() {
@@ -41,151 +42,143 @@ export default function App() {
   return (
     <AuthProvider>
       <LessonAccessProvider>
-      <ThemeProvider>
-      <FavoritesProvider>
-      <HistoryProvider>
-      <LevelProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/kham-pha" element={<ExplorePage />} />
-          <Route
-            path="/bai-hoc/:id"
-            element={<LessonPageRoute />}
-          />
-          <Route
-            path="/ca-nhan"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/lich-su"
-            element={<HistoryPage />}
-          />
-          <Route
-            path="/dang-nhap"
-            element={
-              <GuestRoute>
-                <LoginPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/dang-ky"
-            element={
-              <GuestRoute>
-                <RegisterPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/xac-thuc-google"
-            element={
-              <GuestRoute>
-                <GoogleCallbackPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/quen-mat-khau"
-            element={
-              <GuestRoute>
-                <ForgotPasswordPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/quen-mat-khau/xac-nhan"
-            element={
-              <GuestRoute>
-                <VerifyOtpPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/quen-mat-khau/dat-lai"
-            element={
-              <GuestRoute>
-                <ResetPasswordPage />
-              </GuestRoute>
-            }
-          />
-          <Route
-            path="/trinh-do"
-            element={<LevelPage />}
-          />
-          <Route
-            path="/tu-vung"
-            element={<VocabularyPage />}
-          />
-          <Route
-            path="/luyen-noi"
-            element={<SpeakingPage />}
-          />
-          <Route
-            path="/dich-video"
-            element={<VideoTranslatePage />}
-          />
-          <Route path="/nang-cap" element={<UpgradePage />} />
-          <Route path="/nang-cap/thanh-toan" element={<PaymentPage />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminOverviewPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminUsersPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/content"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminLessonsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/packages"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminPackagesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/transactions"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminTransactionsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/stats"
-            element={
-              <ProtectedRoute adminOnly>
-                <AdminStatsPage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-      </LevelProvider>
-      </HistoryProvider>
-      </FavoritesProvider>
-      </ThemeProvider>
+        <ThemeProvider>
+          <FavoritesProvider>
+            <HistoryProvider>
+              <LevelProvider>
+                <BrowserRouter>
+                  <ScrollToTop />
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/kham-pha" element={<ExplorePage />} />
+                    <Route path="/bai-hoc/:id" element={<LessonPageRoute />} />
+                    <Route
+                      path="/ca-nhan"
+                      element={
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="/lich-su" element={<HistoryPage />} />
+                    <Route
+                      path="/dang-nhap"
+                      element={
+                        <GuestRoute>
+                          <LoginPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route
+                      path="/dang-ky"
+                      element={
+                        <GuestRoute>
+                          <RegisterPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route
+                      path="/xac-thuc-google"
+                      element={
+                        <GuestRoute>
+                          <GoogleCallbackPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route
+                      path="/quen-mat-khau"
+                      element={
+                        <GuestRoute>
+                          <ForgotPasswordPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route
+                      path="/quen-mat-khau/xac-nhan"
+                      element={
+                        <GuestRoute>
+                          <VerifyOtpPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route
+                      path="/quen-mat-khau/dat-lai"
+                      element={
+                        <GuestRoute>
+                          <ResetPasswordPage />
+                        </GuestRoute>
+                      }
+                    />
+                    <Route path="/trinh-do" element={<LevelPage />} />
+                    <Route path="/tu-vung" element={<VocabularyPage />} />
+                    <Route path="/luyen-noi" element={<SpeakingPage />} />
+                    <Route
+                      path="/luyen-noi/lich-su"
+                      element={<SpeakingHistoryPage />}
+                    />
+                    <Route
+                      path="/dich-video"
+                      element={<VideoTranslatePage />}
+                    />
+                    <Route path="/nang-cap" element={<UpgradePage />} />
+                    <Route
+                      path="/nang-cap/thanh-toan"
+                      element={<PaymentPage />}
+                    />
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminOverviewPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/users"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminUsersPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/content"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminLessonsPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/packages"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminPackagesPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/transactions"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminTransactionsPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/stats"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminStatsPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                  </Routes>
+                </BrowserRouter>
+              </LevelProvider>
+            </HistoryProvider>
+          </FavoritesProvider>
+        </ThemeProvider>
       </LessonAccessProvider>
     </AuthProvider>
   );

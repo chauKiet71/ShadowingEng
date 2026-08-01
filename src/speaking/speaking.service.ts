@@ -4,6 +4,7 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  Optional,
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -15,6 +16,10 @@ import {
 } from '@prisma/client';
 import OpenAI, { toFile } from 'openai';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  IflytekPronunciationResult,
+  IflytekPronunciationService,
+} from './iflytek-pronunciation.service';
 import { SPEAKING_SCENARIOS } from './speaking-scenarios';
 
 export const FREE_SPEAKING_TURNS_PER_DAY = 3;
@@ -30,14 +35,38 @@ const LEVEL_GUIDANCE: Record<CefrLevel, string> = {
   C2: 'Use C2 vocabulary and near-native fluency without sounding academic.',
 };
 
+type SpeakingTurnAssessment = {
+  grammar: number;
+  vocabulary: number;
+  coherence: number;
+  relevance: number;
+  cefrOverall: CefrLevel;
+};
+
+type TurnScoringInput = {
+  turnId: string;
+  scenarioTitle: string;
+  objective: string;
+  latestPrompt: string;
+  transcript: string;
+  durationMs?: number;
+  level: CefrLevel;
+  audio?: Buffer;
+  processingRaw?: Prisma.JsonValue | Prisma.InputJsonValue | null;
+};
+
 @Injectable()
 export class SpeakingService {
   private readonly logger = new Logger(SpeakingService.name);
   private openai: OpenAI | null = null;
+  private catalogPromise: Promise<void> | null = null;
+  private readonly pendingTurnScores = new Map<string, Promise<void>>();
 
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
+    @Optional()
+    private readonly iflytekPronunciation?: IflytekPronunciationService,
   ) {
     const apiKey = this.config.get<string>('OPENAI_API_KEY');
     if (apiKey) {
@@ -90,6 +119,107 @@ export class SpeakingService {
     };
   }
 
+  async getHistory(userId: string) {
+    await this.ensureCatalog();
+
+    const sessions = await this.prisma.speakingSession.findMany({
+      where: {
+        userId,
+        turnCount: { gt: 0 },
+      },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        scenario: {
+          select: {
+            id: true,
+            slug: true,
+            title: true,
+            description: true,
+            icon: true,
+            color: true,
+            learnerRole: true,
+            aiRole: true,
+            objective: true,
+            minLevel: true,
+            maxLevel: true,
+            sortOrder: true,
+          },
+        },
+        turns: {
+          orderBy: { turnIndex: 'asc' },
+          select: {
+            transcript: true,
+            durationMs: true,
+            overall: true,
+          },
+        },
+      },
+    });
+
+    const items = sessions.map((session) => {
+      const spokenTurns = session.turns.filter((turn) => turn.transcript);
+      const scores = spokenTurns
+        .map((turn) => turn.overall)
+        .filter((score): score is number => typeof score === 'number');
+      const averageOverall = scores.length
+        ? Math.round(
+            scores.reduce((total, score) => total + score, 0) / scores.length,
+          )
+        : null;
+
+      return {
+        id: session.id,
+        level: session.level,
+        dialect: session.dialect,
+        status: session.status,
+        createdAt: session.createdAt,
+        completedAt: session.completedAt,
+        durationMs: spokenTurns.reduce(
+          (total, turn) => total + (turn.durationMs ?? 0),
+          0,
+        ),
+        turnsSpoken: spokenTurns.length,
+        averageOverall,
+        scenario: session.scenario,
+      };
+    });
+
+    const allScores = items
+      .map((item) => item.averageOverall)
+      .filter((score): score is number => typeof score === 'number');
+    const averageScore = allScores.length
+      ? Math.round(
+          allScores.reduce((total, score) => total + score, 0) /
+            allScores.length,
+        )
+      : null;
+
+    const practicedDays = new Set(
+      items.map((item) => item.createdAt.toISOString().slice(0, 10)),
+    );
+    const toDayKey = (date: Date) => date.toISOString().slice(0, 10);
+    const cursor = new Date();
+    cursor.setUTCHours(0, 0, 0, 0);
+    if (!practicedDays.has(toDayKey(cursor))) {
+      cursor.setUTCDate(cursor.getUTCDate() - 1);
+    }
+    let streakDays = 0;
+    while (practicedDays.has(toDayKey(cursor))) {
+      streakDays += 1;
+      cursor.setUTCDate(cursor.getUTCDate() - 1);
+    }
+
+    return {
+      stats: {
+        totalSessions: items.length,
+        averageScore,
+        streakDays,
+        practicedTopics: new Set(items.map((item) => item.scenario.id)).size,
+      },
+      items,
+    };
+  }
+
   async createSession(
     userId: string,
     scenarioId: string,
@@ -118,24 +248,28 @@ export class SpeakingService {
       isOpening: true,
     });
 
-    const session = await this.prisma.speakingSession.create({
-      data: {
-        userId,
-        scenarioId: scenario.id,
-        level,
-        dialect,
-      },
-    });
+    const { session, turn } = await this.prisma.$transaction(async (tx) => {
+      const session = await tx.speakingSession.create({
+        data: {
+          userId,
+          scenarioId: scenario.id,
+          level,
+          dialect,
+        },
+      });
 
-    const turn = await this.prisma.speakingTurn.create({
-      data: {
-        sessionId: session.id,
-        turnIndex: 0,
-        promptText: opening.aiReply,
-        aiReply: opening.aiReply,
-        suggestion: opening.suggestion,
-        feedback: opening.feedback,
-      },
+      const turn = await tx.speakingTurn.create({
+        data: {
+          sessionId: session.id,
+          turnIndex: 0,
+          promptText: opening.aiReply,
+          aiReply: opening.aiReply,
+          suggestion: opening.suggestion,
+          feedback: opening.feedback,
+        },
+      });
+
+      return { session, turn };
     });
 
     const quota = await this.getQuota(userId);
@@ -237,12 +371,13 @@ export class SpeakingService {
     const history = session.turns
       .filter((turn) => turn.aiReply || turn.transcript)
       .flatMap((turn) => {
-        const items: Array<{ role: 'assistant' | 'user'; content: string }> = [];
-        if (turn.aiReply) {
-          items.push({ role: 'assistant', content: turn.aiReply });
-        }
+        const items: Array<{ role: 'assistant' | 'user'; content: string }> =
+          [];
         if (turn.transcript) {
           items.push({ role: 'user', content: turn.transcript });
+        }
+        if (turn.aiReply) {
+          items.push({ role: 'assistant', content: turn.aiReply });
         }
         return items;
       });
@@ -277,7 +412,9 @@ export class SpeakingService {
           feedback: ai.feedback,
           aiReply: ai.aiReply,
           durationMs: durationMs ?? null,
-          processingRaw: transcription.raw,
+          processingRaw: {
+            transcription: transcription.raw,
+          },
         },
       }),
       this.prisma.speakingSession.update({
@@ -286,6 +423,20 @@ export class SpeakingService {
       }),
     ]);
 
+    this.queueTurnScoring({
+      turnId: turn.id,
+      scenarioTitle: session.scenario.title,
+      objective: session.scenario.objective,
+      latestPrompt,
+      transcript: transcription.transcript,
+      durationMs,
+      level: session.level,
+      audio: file.buffer,
+      processingRaw: {
+        transcription: transcription.raw,
+      },
+    });
+
     return {
       turn: this.mapTurn(turn),
       quota: await this.getQuota(userId),
@@ -293,7 +444,7 @@ export class SpeakingService {
   }
 
   async completeSession(userId: string, sessionId: string) {
-    const session = await this.prisma.speakingSession.findFirst({
+    let session = await this.prisma.speakingSession.findFirst({
       where: { id: sessionId, userId },
       include: {
         scenario: true,
@@ -302,6 +453,54 @@ export class SpeakingService {
     });
     if (!session) {
       throw new NotFoundException('Không tìm thấy phiên luyện nói');
+    }
+
+    const pendingScores = session.turns
+      .map((turn) => this.pendingTurnScores.get(turn.id))
+      .filter((pending): pending is Promise<void> => pending !== undefined);
+    if (pendingScores.length) {
+      await Promise.allSettled(pendingScores);
+      const refreshedSession = await this.prisma.speakingSession.findFirst({
+        where: { id: sessionId, userId },
+        include: {
+          scenario: true,
+          turns: { orderBy: { turnIndex: 'asc' } },
+        },
+      });
+      if (!refreshedSession) {
+        throw new NotFoundException('Không tìm thấy phiên luyện nói');
+      }
+      session = refreshedSession;
+    }
+
+    const unscoredTurns = session.turns.filter(
+      (turn) => turn.transcript && turn.overall == null,
+    );
+    for (const turn of unscoredTurns) {
+      await this.scoreAndPersistTurn({
+        turnId: turn.id,
+        scenarioTitle: session.scenario.title,
+        objective: session.scenario.objective,
+        latestPrompt: turn.promptText,
+        transcript: turn.transcript!,
+        durationMs: turn.durationMs ?? undefined,
+        level: session.level,
+        processingRaw: turn.processingRaw,
+      });
+    }
+
+    if (unscoredTurns.length) {
+      const refreshedSession = await this.prisma.speakingSession.findFirst({
+        where: { id: sessionId, userId },
+        include: {
+          scenario: true,
+          turns: { orderBy: { turnIndex: 'asc' } },
+        },
+      });
+      if (!refreshedSession) {
+        throw new NotFoundException('Không tìm thấy phiên luyện nói');
+      }
+      session = refreshedSession;
     }
 
     const updated =
@@ -322,12 +521,16 @@ export class SpeakingService {
     const scoredTurns = updated.turns.filter(
       (turn) => turn.overall != null || turn.transcript,
     );
-    const avg = (picker: (turn: (typeof scoredTurns)[number]) => number | null) => {
+    const avg = (
+      picker: (turn: (typeof scoredTurns)[number]) => number | null,
+    ) => {
       const values = scoredTurns
         .map(picker)
         .filter((value): value is number => typeof value === 'number');
       if (!values.length) return null;
-      return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+      return Math.round(
+        values.reduce((sum, value) => sum + value, 0) / values.length,
+      );
     };
 
     return {
@@ -347,25 +550,36 @@ export class SpeakingService {
   }
 
   private async ensureCatalog() {
-    for (const scenario of SPEAKING_SCENARIOS) {
-      await this.prisma.speakingScenario.upsert({
-        where: { slug: scenario.slug },
-        create: { ...scenario },
-        update: {
-          title: scenario.title,
-          description: scenario.description,
-          icon: scenario.icon,
-          color: scenario.color,
-          learnerRole: scenario.learnerRole,
-          aiRole: scenario.aiRole,
-          objective: scenario.objective,
-          minLevel: scenario.minLevel,
-          maxLevel: scenario.maxLevel,
-          openingHint: scenario.openingHint,
-          sortOrder: scenario.sortOrder,
-          isVisible: true,
-        },
-      });
+    if (!this.catalogPromise) {
+      this.catalogPromise = Promise.all(
+        SPEAKING_SCENARIOS.map((scenario) =>
+          this.prisma.speakingScenario.upsert({
+            where: { slug: scenario.slug },
+            create: { ...scenario },
+            update: {
+              title: scenario.title,
+              description: scenario.description,
+              icon: scenario.icon,
+              color: scenario.color,
+              learnerRole: scenario.learnerRole,
+              aiRole: scenario.aiRole,
+              objective: scenario.objective,
+              minLevel: scenario.minLevel,
+              maxLevel: scenario.maxLevel,
+              openingHint: scenario.openingHint,
+              sortOrder: scenario.sortOrder,
+              isVisible: true,
+            },
+          }),
+        ),
+      ).then(() => undefined);
+    }
+
+    try {
+      await this.catalogPromise;
+    } catch (error) {
+      this.catalogPromise = null;
+      throw error;
     }
   }
 
@@ -458,6 +672,232 @@ export class SpeakingService {
     `;
   }
 
+  private queueTurnScoring(input: TurnScoringInput) {
+    if (this.pendingTurnScores.has(input.turnId)) return;
+
+    const pending = this.scoreAndPersistTurn(input)
+      .catch((error: unknown) => {
+        const message =
+          error instanceof Error ? error.message : JSON.stringify(error);
+        this.logger.error(
+          `Background speaking score failed for turn ${input.turnId}: ${message}`,
+        );
+      })
+      .finally(() => {
+        this.pendingTurnScores.delete(input.turnId);
+      });
+
+    this.pendingTurnScores.set(input.turnId, pending);
+  }
+
+  private async scoreAndPersistTurn(input: TurnScoringInput) {
+    const pronunciationPromise =
+      input.audio && this.iflytekPronunciation?.isConfigured()
+        ? this.iflytekPronunciation
+            .assess({
+              audio: input.audio,
+              referenceText: input.transcript,
+            })
+            .catch((error: unknown) => {
+              const message =
+                error instanceof Error ? error.message : JSON.stringify(error);
+              this.logger.warn(
+                `iFLYTEK pronunciation assessment failed for turn ${input.turnId}: ${message}`,
+              );
+              return null;
+            })
+        : Promise.resolve(null);
+    const [assessment, pronunciationAssessment] = await Promise.all([
+      this.assessSpeakingTurn({
+        scenarioTitle: input.scenarioTitle,
+        objective: input.objective,
+        latestPrompt: input.latestPrompt,
+        transcript: input.transcript,
+        level: input.level,
+      }),
+      pronunciationPromise,
+    ]);
+    const scores = this.buildTurnScores(
+      assessment,
+      input.transcript,
+      input.durationMs,
+      input.level,
+      pronunciationAssessment,
+    );
+    const raw = input.processingRaw;
+    const scoringData = pronunciationAssessment
+      ? { assessment, pronunciationAssessment: pronunciationAssessment.raw }
+      : { assessment };
+    const processingRaw =
+      raw && typeof raw === 'object' && !Array.isArray(raw)
+        ? { ...raw, ...scoringData }
+        : scoringData;
+
+    await this.prisma.speakingTurn.update({
+      where: { id: input.turnId },
+      data: {
+        ...scores,
+        processingRaw: processingRaw as Prisma.InputJsonValue,
+      },
+    });
+  }
+
+  private async assessSpeakingTurn(input: {
+    scenarioTitle: string;
+    objective: string;
+    latestPrompt: string;
+    transcript: string;
+    level: CefrLevel;
+  }) {
+    this.ensureOpenAi();
+
+    let response;
+    try {
+      response = await this.openai!.chat.completions.create({
+        model: 'gpt-4o-mini',
+        temperature: 0.1,
+        max_tokens: 180,
+        response_format: { type: 'json_object' },
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'You assess an English learner speaking turn from its transcript.',
+              'Return ONLY valid JSON with keys: grammar, vocabulary, coherence, relevance, cefrOverall.',
+              'All four scores must be integers from 0 to 100.',
+              'cefrOverall must be one of A1, A2, B1, B2, C1, or C2.',
+              'Grade fairly against the requested learner CEFR level.',
+              'Relevance measures how directly the learner answered the latest prompt.',
+              'Do not grade pronunciation because only a transcript is provided.',
+              'No markdown. No extra keys.',
+            ].join('\n'),
+          },
+          {
+            role: 'user',
+            content: [
+              `Scenario: ${input.scenarioTitle}`,
+              `Objective: ${input.objective}`,
+              `Requested learner level: ${input.level}`,
+              `Latest prompt: ${input.latestPrompt}`,
+              `Learner transcript: ${input.transcript}`,
+            ].join('\n'),
+          },
+        ],
+      });
+    } catch (error) {
+      this.logger.error('OpenAI speaking assessment failed', error);
+      throw new ServiceUnavailableException(
+        'Không thể chấm điểm lúc này. Vui lòng thử lại sau.',
+      );
+    }
+
+    const text = response.choices[0]?.message?.content?.trim();
+    if (!text) {
+      throw new ServiceUnavailableException('AI không trả về điểm lượt nói');
+    }
+
+    let parsed: {
+      grammar?: unknown;
+      vocabulary?: unknown;
+      coherence?: unknown;
+      relevance?: unknown;
+      cefrOverall?: unknown;
+    };
+    try {
+      parsed = JSON.parse(text) as typeof parsed;
+    } catch {
+      throw new ServiceUnavailableException(
+        'AI trả về điểm lượt nói không hợp lệ',
+      );
+    }
+
+    return this.parseSpeakingAssessment(parsed);
+  }
+
+  private buildTurnScores(
+    assessment: SpeakingTurnAssessment,
+    transcript: string,
+    durationMs: number | undefined,
+    level: CefrLevel,
+    pronunciationAssessment?: IflytekPronunciationResult | null,
+  ) {
+    const localFluency = this.calculateFluencyScore(
+      transcript,
+      durationMs,
+      level,
+    );
+    const fluency = pronunciationAssessment?.fluency ?? localFluency;
+    const pronunciation = pronunciationAssessment?.pronunciation ?? null;
+    const prosody =
+      pronunciationAssessment?.standard ??
+      pronunciationAssessment?.tone ??
+      pronunciationAssessment?.emotion ??
+      null;
+    const weightedScores = [
+      { value: assessment.grammar, weight: 0.25 },
+      { value: assessment.vocabulary, weight: 0.2 },
+      { value: assessment.coherence, weight: 0.2 },
+      { value: assessment.relevance, weight: 0.25 },
+      ...(fluency == null ? [] : [{ value: fluency, weight: 0.1 }]),
+      ...(pronunciation == null
+        ? []
+        : [{ value: pronunciation, weight: 0.15 }]),
+      ...(prosody == null ? [] : [{ value: prosody, weight: 0.1 }]),
+    ];
+    const totalWeight = weightedScores.reduce(
+      (total, score) => total + score.weight,
+      0,
+    );
+    const overall = Math.round(
+      weightedScores.reduce(
+        (total, score) => total + score.value * score.weight,
+        0,
+      ) / totalWeight,
+    );
+
+    return {
+      pronunciation,
+      fluency,
+      grammar: assessment.grammar,
+      vocabulary: assessment.vocabulary,
+      coherence: assessment.coherence,
+      overall,
+      relevance: `${assessment.relevance}/100`,
+      cefrOverall: assessment.cefrOverall,
+    };
+  }
+
+  private calculateFluencyScore(
+    transcript: string,
+    durationMs: number | undefined,
+    level: CefrLevel,
+  ) {
+    if (!durationMs || durationMs < 500) return null;
+
+    const wordCount =
+      transcript.match(/[A-Za-z]+(?:'[A-Za-z]+)?/g)?.length ?? 0;
+    if (!wordCount) return null;
+
+    const wordsPerMinute = wordCount / (durationMs / 60_000);
+    const targetRanges: Record<CefrLevel, [number, number]> = {
+      A1: [55, 90],
+      A2: [65, 105],
+      B1: [75, 120],
+      B2: [85, 135],
+      C1: [95, 150],
+      C2: [100, 160],
+    };
+    const [minimum, maximum] = targetRanges[level];
+    const distance =
+      wordsPerMinute < minimum
+        ? minimum - wordsPerMinute
+        : wordsPerMinute > maximum
+          ? wordsPerMinute - maximum
+          : 0;
+
+    return Math.round(Math.max(45, Math.min(100, 100 - distance * 0.8)));
+  }
+
   private async transcribeAudio(file: {
     buffer: Buffer;
     mimetype: string;
@@ -536,14 +976,6 @@ export class SpeakingService {
     history: Array<{ role: 'user' | 'assistant'; content: string }>;
     learnerTranscript: string | null;
     isOpening: boolean;
-    scores?: {
-      pronunciation: number | null;
-      fluency: number | null;
-      grammar: number | null;
-      vocabulary: number | null;
-      coherence: number | null;
-      overall: number | null;
-    };
   }) {
     this.ensureOpenAi();
 
@@ -556,8 +988,11 @@ export class SpeakingService {
       `Learner CEFR level: ${input.level}. ${LEVEL_GUIDANCE[input.level]}`,
       'Return ONLY valid JSON with keys: aiReply, feedback, suggestion.',
       'aiReply: your next spoken line in English (1-3 short sentences), stay in role, ask one clear follow-up when natural.',
-      'feedback: short Vietnamese feedback about the learner utterance and scores if provided.',
-      'suggestion: one better English sentence the learner could say next time.',
+      'feedback: short Vietnamese feedback about the learner utterance.',
+      'suggestion: one short, natural English reply the learner can say NEXT to answer aiReply.',
+      'The suggestion must directly fit the latest aiReply, match the learner CEFR level, and be easy to read aloud.',
+      'If the suggestion needs the learner name, use "Nam" directly. Never use placeholders such as [Your Name] or "your name".',
+      'Do not repeat the learner transcript as the suggestion.',
       'No markdown. No extra keys.',
     ].join('\n');
 
@@ -565,9 +1000,6 @@ export class SpeakingService {
       ? `Start the role-play. Opening hint: ${input.openingHint}`
       : [
           `Learner said: ${input.learnerTranscript}`,
-          input.scores
-            ? `Speaking scores (0-100): ${JSON.stringify(input.scores)}`
-            : '',
           'Respond in character and give concise coaching feedback.',
         ]
           .filter(Boolean)
@@ -627,11 +1059,58 @@ export class SpeakingService {
     if (!aiReply) {
       throw new ServiceUnavailableException('AI không tạo được câu trả lời');
     }
+    const rawSuggestion = parsed.suggestion?.trim();
+    if (!rawSuggestion) {
+      throw new ServiceUnavailableException('AI không tạo được câu gợi ý');
+    }
+    const suggestion = rawSuggestion.replace(
+      /\[\s*your\s+name\s*\]|\(\s*your\s+name\s*\)|<\s*your\s+name\s*>|\byour\s+name\b/gi,
+      'Nam',
+    );
 
     return {
       aiReply,
       feedback: parsed.feedback?.trim() || null,
-      suggestion: parsed.suggestion?.trim() || null,
+      suggestion,
+    };
+  }
+
+  private parseSpeakingAssessment(
+    assessment:
+      | {
+          grammar?: unknown;
+          vocabulary?: unknown;
+          coherence?: unknown;
+          relevance?: unknown;
+          cefrOverall?: unknown;
+        }
+      | null
+      | undefined,
+  ): SpeakingTurnAssessment {
+    const score = (value: unknown) => {
+      if (typeof value !== 'number' || !Number.isFinite(value)) {
+        throw new ServiceUnavailableException(
+          'AI trả về điểm lượt nói không hợp lệ',
+        );
+      }
+      return Math.round(Math.max(0, Math.min(100, value)));
+    };
+    const cefrOverall = assessment?.cefrOverall;
+    if (
+      typeof cefrOverall !== 'string' ||
+      !Object.values(CefrLevel).includes(cefrOverall as CefrLevel)
+    ) {
+      throw new ServiceUnavailableException(
+        'AI trả về trình độ lượt nói không hợp lệ',
+      );
+    }
+
+    return {
+      grammar: score(assessment?.grammar),
+      vocabulary: score(assessment?.vocabulary),
+      coherence: score(assessment?.coherence),
+      relevance: score(assessment?.relevance),
+      cefrOverall: cefrOverall as CefrLevel,
     };
   }
 

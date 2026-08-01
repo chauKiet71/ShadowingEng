@@ -226,11 +226,11 @@ let SpeakingService = SpeakingService_1 = class SpeakingService {
             .filter((turn) => turn.aiReply || turn.transcript)
             .flatMap((turn) => {
             const items = [];
-            if (turn.aiReply) {
-                items.push({ role: 'assistant', content: turn.aiReply });
-            }
             if (turn.transcript) {
                 items.push({ role: 'user', content: turn.transcript });
+            }
+            if (turn.aiReply) {
+                items.push({ role: 'assistant', content: turn.aiReply });
             }
             return items;
         });
@@ -485,7 +485,10 @@ let SpeakingService = SpeakingService_1 = class SpeakingService {
             'Return ONLY valid JSON with keys: aiReply, feedback, suggestion.',
             'aiReply: your next spoken line in English (1-3 short sentences), stay in role, ask one clear follow-up when natural.',
             'feedback: short Vietnamese feedback about the learner utterance and scores if provided.',
-            'suggestion: one better English sentence the learner could say next time.',
+            'suggestion: one short, natural English reply the learner can say NEXT to answer aiReply.',
+            'The suggestion must directly fit the latest aiReply, match the learner CEFR level, and be easy to read aloud.',
+            'If the suggestion needs the learner name, use "Nam" directly. Never use placeholders such as [Your Name] or "your name".',
+            'Do not repeat the learner transcript as the suggestion.',
             'No markdown. No extra keys.',
         ].join('\n');
         const userContent = input.isOpening
@@ -541,10 +544,15 @@ let SpeakingService = SpeakingService_1 = class SpeakingService {
         if (!aiReply) {
             throw new common_1.ServiceUnavailableException('AI không tạo được câu trả lời');
         }
+        const rawSuggestion = parsed.suggestion?.trim();
+        if (!rawSuggestion) {
+            throw new common_1.ServiceUnavailableException('AI không tạo được câu gợi ý');
+        }
+        const suggestion = rawSuggestion.replace(/\[\s*your\s+name\s*\]|\(\s*your\s+name\s*\)|<\s*your\s+name\s*>|\byour\s+name\b/gi, 'Nam');
         return {
             aiReply,
             feedback: parsed.feedback?.trim() || null,
-            suggestion: parsed.suggestion?.trim() || null,
+            suggestion,
         };
     }
     mapSession(session, scenario) {

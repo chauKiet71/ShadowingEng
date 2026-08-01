@@ -162,11 +162,11 @@
 }
 
 .account-auth-card--login .account-auth-fields {
-  gap: 20px;
+  gap: 15px;
 }
 
 .account-auth-card--register .account-auth-fields {
-  gap: 20px;
+  gap: 15px;
 }
 
 .account-auth-field {
@@ -191,9 +191,15 @@
 }
 
 .account-auth-card--register .account-auth-field input {
-  height: 58px;
+  height: 51px;
   padding-left: 56px;
+  border-radius: 9px;
   font-size: 15px;
+}
+
+.account-auth-card--login .account-auth-field input {
+  height: 51px;
+  border-radius: 9px;
 }
 
 .account-auth-field input::placeholder {
@@ -246,6 +252,20 @@
   background-color: #f3f7ff;
 }
 
+.account-auth-card--login .account-auth-eye {
+  right: 8px;
+  width: 35px;
+  height: 35px;
+  border-radius: 7px;
+}
+
+.account-auth-card--register .account-auth-eye {
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+}
+
 .account-auth-forgot {
   align-self: flex-end;
   min-height: 26px;
@@ -264,6 +284,11 @@
   text-decoration: underline;
 }
 
+.account-auth-card--login .account-auth-forgot {
+  min-height: 22px;
+  margin-top: 15px;
+}
+
 .account-auth-primary {
   width: 100%;
   min-height: 64px;
@@ -280,7 +305,7 @@
   background-size: cover;
   box-shadow: 0 10px 22px rgba(60, 54, 244, 0.22);
   font: inherit;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   transition:
@@ -290,9 +315,16 @@
 }
 
 .account-auth-card--register .account-auth-primary {
-  min-height: 60px;
-  margin-top: 18px;
+  min-height: 50px;
+  margin-top: 14px;
+  border-radius: 9px;
   font-size: 18px;
+}
+
+.account-auth-card--login .account-auth-primary {
+  min-height: 50px;
+  margin-top: 29px;
+  border-radius: 9px;
 }
 
 .account-auth-primary:hover:not(:disabled) {
@@ -320,7 +352,11 @@
 }
 
 .account-auth-card--register .account-auth-divider {
-  margin: 16px 0 14px;
+  margin: 12px 0 11px;
+}
+
+.account-auth-card--login .account-auth-divider {
+  margin: 20px 0 15px;
 }
 
 .account-auth-divider::before,
@@ -343,8 +379,20 @@
 }
 
 .account-auth-card--register .account-auth-google {
-  min-height: 60px;
+  height: 50px;
+  min-height: 50px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 9px !important;
   font-size: 15px !important;
+}
+
+.account-auth-card--login .account-auth-google {
+  height: 50px;
+  min-height: 50px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 9px !important;
 }
 
 .account-auth-google:hover:not(:disabled) {

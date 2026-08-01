@@ -1,10 +1,8 @@
 export type SpeakingRecorderStatus =
-  | 'idle'
-  | 'recording'
-  | 'stopping'
-  | 'error';
+  'idle' | 'recording' | 'stopping' | 'error';
 
 const MAX_DURATION_MS = 60_000;
+let activeSpeakingAudio: HTMLAudioElement | null = null;
 
 export class SpeakingRecorder {
   private mediaRecorder: MediaRecorder | null = null;
@@ -89,10 +87,39 @@ export class SpeakingRecorder {
 }
 
 export function speakEnglish(text: string) {
+  stopSpeakingAudio();
   if (!('speechSynthesis' in window) || !text.trim()) return;
-  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'en-US';
   utterance.rate = 0.95;
   window.speechSynthesis.speak(utterance);
+}
+
+export function stopSpeakingAudio() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  if (activeSpeakingAudio) {
+    activeSpeakingAudio.pause();
+    activeSpeakingAudio.currentTime = 0;
+    activeSpeakingAudio = null;
+  }
+}
+
+export async function playSpeakingAudio(url: string, fallbackText = '') {
+  stopSpeakingAudio();
+  const audio = new Audio(url);
+  activeSpeakingAudio = audio;
+  const release = () => {
+    if (activeSpeakingAudio === audio) activeSpeakingAudio = null;
+  };
+  audio.addEventListener('ended', release, { once: true });
+  audio.addEventListener('error', release, { once: true });
+
+  try {
+    await audio.play();
+  } catch {
+    release();
+    if (fallbackText) speakEnglish(fallbackText);
+  }
 }

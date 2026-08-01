@@ -16,7 +16,6 @@ import {
   Cloud,
   Code2,
   Cpu,
-  Flame,
   Gamepad2,
   Globe,
   GraduationCap,
@@ -149,6 +148,20 @@ const colorMap: Record<string, { bg: string; text: string; soft: string }> = {
   },
 };
 
+const vocabularyCoverMap: Record<string, string> = {
+  '1000-tu-thong-dung': '/images/vocabulary/common-1000-cover.webp?v=1',
+  'du-lich-co-ban': '/images/vocabulary/travel-basic-cover.webp?v=1',
+  'giao-tiep-hang-ngay': '/images/vocabulary/daily-conversation-cover.webp?v=1',
+  'cong-viec-van-phong': '/images/vocabulary/office-work-cover.webp?v=1',
+  'phim-anh-giai-tri': '/images/vocabulary/movies-entertainment-cover.webp?v=1',
+  'cong-nghe': '/images/vocabulary/technology-cover.webp?v=1',
+  'giao-duc': '/images/vocabulary/education-cover.webp?v=1',
+  'kinh-te': '/images/vocabulary/economics-cover.webp?v=1',
+  'kinh-doanh': '/images/vocabulary/business-cover.webp?v=1',
+  'ngan-hang': '/images/vocabulary/banking-cover.webp?v=1',
+  'tai-chinh': '/images/vocabulary/finance-cover.webp?v=1',
+};
+
 function speak(text: string) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
@@ -204,12 +217,6 @@ function normalizeAnswer(value: string): string {
 
 const DAILY_WORD_GOAL = 10;
 
-function truncateText(value: string, maxChars: number): string {
-  const text = value.trim();
-  if (text.length <= maxChars) return text;
-  return `${text.slice(0, maxChars).trimEnd()}…`;
-}
-
 function SetCard({
   set,
   onClick,
@@ -221,57 +228,60 @@ function SetCard({
 }) {
   const Icon = iconMap[set.icon as keyof typeof iconMap] ?? BookOpen;
   const colors = colorMap[set.color] ?? colorMap.blue;
-  const progress =
-    set.wordCount > 0
-      ? Math.round(((set.learnedCount ?? 0) / set.wordCount) * 100)
-      : 0;
+  const coverImage = vocabularyCoverMap[set.slug];
 
   return (
     <button
       type="button"
       disabled={loading}
       onClick={onClick}
-      className="flex flex-col min-w-[168px] max-w-[168px] w-[168px] overflow-hidden text-left bg-white/90 dark:bg-neutral-900 rounded-[22px] border border-white/80 dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-3.5 disabled:opacity-80"
+      className="group flex min-w-[146px] w-[146px] flex-col overflow-hidden rounded-xl border border-gray-200 bg-white text-left shadow-[0_3px_12px_rgba(15,23,42,0.12)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-[0_8px_20px_rgba(15,23,42,0.16)] disabled:opacity-80 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-indigo-700"
+      aria-label={`${set.title}, ${set.wordCount} từ, trình độ ${set.cefrLevel}`}
     >
-      <div className="flex items-start justify-between gap-2 w-full">
-        <div
-          className={`w-10 h-10 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center shrink-0`}
-        >
-          {loading ? (
-            <RotateCcw size={18} className="animate-spin" />
-          ) : (
-            <Icon size={18} />
-          )}
-        </div>
-        <span className="text-[10px] font-semibold text-indigo-500 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full shrink-0">
-          {set.cefrLevel}
-        </span>
-      </div>
-      <p className="w-full font-bold text-gray-900 dark:text-white mt-3 text-sm truncate">
-        {set.title}
-      </p>
-      <p
-        className="w-full text-[11px] text-gray-500 dark:text-gray-400 mt-1 h-[2.5rem] overflow-hidden leading-[1.25rem]"
-        title={set.description}
-      >
-        {truncateText(set.description, 52)}
-      </p>
-      <div className="mt-3 flex items-center justify-between text-[10px] text-gray-400 dark:text-gray-500">
-        <span>{set.wordCount} từ</span>
-        {(set.learnedCount ?? 0) > 0 && (
-          <span>
-            {set.learnedCount}/{set.wordCount}
-          </span>
+      <div className={`relative h-[132px] w-full overflow-hidden ${colors.bg}`}>
+        {coverImage ? (
+          <img
+            src={coverImage}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="h-full w-full select-none object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div className="flex h-full w-full flex-col items-center justify-center text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/25">
+              <Icon size={20} strokeWidth={2.2} />
+            </div>
+            <span className="mt-2 text-[22px] font-black leading-none tabular-nums">
+              {set.wordCount}
+            </span>
+            <span className="mt-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/85">
+              {set.cefrLevel} · CEFR
+            </span>
+          </div>
+        )}
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/55 text-white backdrop-blur-[1px]">
+            <RotateCcw size={22} className="animate-spin" />
+          </div>
         )}
       </div>
-      {(set.learnedCount ?? 0) > 0 && (
-        <div className="mt-2 h-1.5 rounded-full bg-indigo-50 dark:bg-neutral-800 overflow-hidden">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-violet-500"
-            style={{ width: `${progress}%` }}
-          />
+
+      <div className="flex min-h-[86px] w-full flex-col bg-white px-2.5 py-2.5 dark:bg-neutral-900">
+        <p className="line-clamp-2 min-h-8 text-[12px] font-bold leading-4 text-slate-900 dark:text-white">
+          {set.title}
+        </p>
+        <div className="mt-auto flex items-center gap-3 text-[9px] font-medium text-slate-500 dark:text-neutral-400">
+          <span className="inline-flex items-center gap-1">
+            <BookOpen size={10} strokeWidth={2} />
+            {set.wordCount}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <CheckCircle2 size={10} strokeWidth={2} />
+            {set.learnedCount ?? 0}
+          </span>
         </div>
-      )}
+      </div>
     </button>
   );
 }
@@ -1057,6 +1067,7 @@ export default function VocabularyPage() {
               const Icon =
                 iconMap[set.icon as keyof typeof iconMap] ?? BookOpen;
               const colors = colorMap[set.color] ?? colorMap.blue;
+              const coverImage = vocabularyCoverMap[set.slug];
               return (
                 <button
                   key={set.id}
@@ -1066,12 +1077,25 @@ export default function VocabularyPage() {
                   className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-3 text-left disabled:opacity-80"
                 >
                   <div
-                    className={`w-12 h-12 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center shrink-0`}
+                    className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl ${colors.soft} ${colors.text}`}
                   >
-                    {busyId === set.id ? (
-                      <RotateCcw size={21} className="animate-spin" />
+                    {coverImage ? (
+                      <img
+                        src={coverImage}
+                        alt=""
+                        aria-hidden="true"
+                        draggable={false}
+                        className="h-full w-full select-none object-cover object-center"
+                      />
                     ) : (
-                      <Icon size={21} />
+                      <div className="flex h-full w-full items-center justify-center">
+                        <Icon size={21} />
+                      </div>
+                    )}
+                    {busyId === set.id && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 text-white backdrop-blur-[1px]">
+                        <RotateCcw size={21} className="animate-spin" />
+                      </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -1118,7 +1142,6 @@ export default function VocabularyPage() {
   const learning = stats?.learning ?? 0;
   const learnedToday = stats?.learnedToday ?? 0;
   const dueCount = stats?.dueCount ?? 0;
-  const streakDays = user?.streakDays ?? 0;
   const dailyGoalPct = Math.min(
     100,
     Math.round((learnedToday / DAILY_WORD_GOAL) * 100),
@@ -1197,15 +1220,6 @@ export default function VocabularyPage() {
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-orange-50 dark:bg-orange-950/40 border border-orange-100 dark:border-orange-900/50 px-2.5 py-1.5">
-                <Flame size={14} className="text-orange-500 fill-orange-400" />
-                <span className="text-xs font-bold text-orange-500">
-                  {streakDays}
-                </span>
-                <span className="text-[11px] font-medium text-orange-400">
-                  ngày
-                </span>
-              </div>
               <button
                 type="button"
                 onClick={() => {
@@ -1450,6 +1464,7 @@ export default function VocabularyPage() {
                   const Icon =
                     iconMap[set.icon as keyof typeof iconMap] ?? BookOpen;
                   const colors = colorMap[set.color] ?? colorMap.blue;
+                  const coverImage = vocabularyCoverMap[set.slug];
                   return (
                     <button
                       key={set.id}
@@ -1459,12 +1474,25 @@ export default function VocabularyPage() {
                       className="w-full bg-white dark:bg-neutral-900 rounded-[22px] border border-white dark:border-neutral-800 shadow-[0_8px_24px_rgba(99,102,241,0.08)] p-4 flex items-center gap-3 text-left"
                     >
                       <div
-                        className={`w-11 h-11 ${colors.soft} ${colors.text} rounded-2xl flex items-center justify-center`}
+                        className={`relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl ${colors.soft} ${colors.text}`}
                       >
-                        {busyId === set.id ? (
-                          <RotateCcw size={20} className="animate-spin" />
+                        {coverImage ? (
+                          <img
+                            src={coverImage}
+                            alt=""
+                            aria-hidden="true"
+                            draggable={false}
+                            className="h-full w-full select-none object-cover object-center"
+                          />
                         ) : (
-                          <Icon size={20} />
+                          <div className="flex h-full w-full items-center justify-center">
+                            <Icon size={20} />
+                          </div>
+                        )}
+                        {busyId === set.id && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 text-white backdrop-blur-[1px]">
+                            <RotateCcw size={20} className="animate-spin" />
+                          </div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">

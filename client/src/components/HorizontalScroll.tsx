@@ -13,6 +13,7 @@ interface HorizontalScrollProps {
   autoPlay?: boolean;
   autoPlayInterval?: number;
   hideScrollbar?: boolean;
+  startAtBeginning?: boolean;
 }
 
 export default function HorizontalScroll({
@@ -22,6 +23,7 @@ export default function HorizontalScroll({
   autoPlay = false,
   autoPlayInterval = 3000,
   hideScrollbar = false,
+  startAtBeginning = false,
 }: HorizontalScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({
@@ -44,7 +46,8 @@ export default function HorizontalScroll({
     const gap = 12;
     const style = window.getComputedStyle(el);
     const paddingX =
-      (parseFloat(style.paddingLeft) || 0) + (parseFloat(style.paddingRight) || 0);
+      (parseFloat(style.paddingLeft) || 0) +
+      (parseFloat(style.paddingRight) || 0);
     const contentWidth = el.clientWidth - paddingX;
     const width = (contentWidth - gap * (visibleItems - 1)) / visibleItems;
     el.style.setProperty('--carousel-item-width', `${Math.max(width, 0)}px`);
@@ -59,6 +62,17 @@ export default function HorizontalScroll({
     observer.observe(el);
     return () => observer.disconnect();
   }, [updateItemWidth]);
+
+  useEffect(() => {
+    if (!startAtBeginning) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      el.scrollLeft = 0;
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [startAtBeginning]);
 
   useEffect(() => {
     const el = ref.current;

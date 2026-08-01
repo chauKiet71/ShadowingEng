@@ -10,6 +10,12 @@ Set `YT_DLP_PATH` to use a preinstalled binary instead. Set
 `YT_DLP_SKIP_INSTALL=true` to skip the download, or
 `YT_DLP_FORCE_INSTALL=true` to replace an existing local binary.
 
+The installer downloads from the direct GitHub release URL instead of the
+rate-limited GitHub API. A download failure is non-fatal by default so an
+external outage cannot block the whole application deploy. Set
+`YT_DLP_INSTALL_REQUIRED=true` when the deployment must fail without yt-dlp,
+or set `YT_DLP_RELEASE_BASE_URL` to use a trusted release mirror.
+
 ## RapidAPI (preferred audio download)
 
 When captions are missing, the app can download audio via RapidAPI instead of yt-dlp:

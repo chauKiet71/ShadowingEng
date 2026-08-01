@@ -1,5 +1,11 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Home, Compass, BookOpen, User, Mic } from 'lucide-react';
+import {
+  fetchSpeakingQuota,
+  fetchSpeakingScenarios,
+  fetchVocabularyOverview,
+} from '../lib/prefetchFeatures';
 
 const leftItems = [
   { to: '/', icon: Home, label: 'Trang chủ' },
@@ -11,18 +17,36 @@ const rightItems = [
   { to: '/ca-nhan', icon: User, label: 'Cá nhân' },
 ];
 
+function prefetchSpeakingPage() {
+  void Promise.allSettled([fetchSpeakingScenarios(), fetchSpeakingQuota()]);
+}
+
+function prefetchVocabularyPage() {
+  void fetchVocabularyOverview().catch(() => undefined);
+}
+
+function prefetchPrimaryTabs() {
+  prefetchSpeakingPage();
+  prefetchVocabularyPage();
+}
+
 function NavItem({
   to,
   icon: Icon,
   label,
+  onPrefetch,
 }: {
   to: string;
   icon: typeof Home;
   label: string;
+  onPrefetch?: () => void;
 }) {
   return (
     <NavLink
       to={to}
+      onPointerEnter={onPrefetch}
+      onFocus={onPrefetch}
+      onTouchStart={onPrefetch}
       className={({ isActive }) =>
         `flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-colors flex-1 ${
           isActive
@@ -38,6 +62,11 @@ function NavItem({
 }
 
 export default function BottomNav() {
+  useEffect(() => {
+    const timeoutId = window.setTimeout(prefetchPrimaryTabs, 250);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 border-t border-gray-100 dark:border-neutral-800 z-50">
       <div className="max-w-lg mx-auto flex items-end justify-between px-2 pt-2 pb-2">
@@ -47,6 +76,9 @@ export default function BottomNav() {
 
         <NavLink
           to="/luyen-noi"
+          onPointerEnter={prefetchSpeakingPage}
+          onFocus={prefetchSpeakingPage}
+          onTouchStart={prefetchSpeakingPage}
           className="relative flex flex-col items-center -mt-6 mx-1 w-[72px] shrink-0"
         >
           {({ isActive }) => (
@@ -76,7 +108,13 @@ export default function BottomNav() {
         </NavLink>
 
         {rightItems.map((item) => (
-          <NavItem key={item.to} {...item} />
+          <NavItem
+            key={item.to}
+            {...item}
+            onPrefetch={
+              item.to === '/tu-vung' ? prefetchVocabularyPage : undefined
+            }
+          />
         ))}
       </div>
     </nav>

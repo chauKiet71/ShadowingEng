@@ -1,4 +1,9 @@
-import type { AuthResponse, LoginPayload, RegisterPayload, User } from '../types/auth';
+import type {
+  AuthResponse,
+  LoginPayload,
+  RegisterPayload,
+  User,
+} from '../types/auth';
 
 const TOKEN_KEY = 'accessToken';
 const GUEST_TOKEN_KEY = 'guestToken';
@@ -115,10 +120,9 @@ export const api = {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      const message =
-        Array.isArray(data.message)
-          ? data.message.join(', ')
-          : data.message || 'Không thể cập nhật ảnh đại diện';
+      const message = Array.isArray(data.message)
+        ? data.message.join(', ')
+        : data.message || 'Không thể cập nhật ảnh đại diện';
       throw new Error(message);
     }
     return data as User;
@@ -383,6 +387,10 @@ export const api = {
     return request<SpeakingQuota>('/speaking/quota');
   },
 
+  getSpeakingHistory() {
+    return request<SpeakingHistoryResponse>('/speaking/history');
+  },
+
   translateSpeakingText(text: string) {
     return request<{ translation: string }>('/speaking/translate', {
       method: 'POST',
@@ -390,14 +398,18 @@ export const api = {
     });
   },
 
-  createSpeakingSession(payload: {
-    scenarioId: string;
-    level: CefrLevel;
-    dialect: SpeakingDialect;
-  }) {
+  createSpeakingSession(
+    payload: {
+      scenarioId: string;
+      level: CefrLevel;
+      dialect: SpeakingDialect;
+    },
+    signal?: AbortSignal,
+  ) {
     return request<CreateSpeakingSessionResponse>('/speaking/sessions', {
       method: 'POST',
       body: JSON.stringify(payload),
+      signal,
     });
   },
 
@@ -805,8 +817,10 @@ export interface VocabularySetSummary {
   saved: boolean;
 }
 
-export interface VocabularySetDetail
-  extends Omit<VocabularySetSummary, 'wordCount'> {
+export interface VocabularySetDetail extends Omit<
+  VocabularySetSummary,
+  'wordCount'
+> {
   words: VocabularyWord[];
 }
 
@@ -893,6 +907,42 @@ export interface SpeakingSession {
   };
 }
 
+export interface SpeakingHistoryItem {
+  id: string;
+  level: CefrLevel;
+  dialect: SpeakingDialect;
+  status: 'ACTIVE' | 'COMPLETED';
+  createdAt: string;
+  completedAt: string | null;
+  durationMs: number;
+  turnsSpoken: number;
+  averageOverall: number | null;
+  scenario: {
+    id: string;
+    slug: string;
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    learnerRole: string;
+    aiRole: string;
+    objective: string;
+    minLevel: CefrLevel;
+    maxLevel: CefrLevel;
+    sortOrder: number;
+  };
+}
+
+export interface SpeakingHistoryResponse {
+  stats: {
+    totalSessions: number;
+    averageScore: number | null;
+    streakDays: number;
+    practicedTopics: number;
+  };
+  items: SpeakingHistoryItem[];
+}
+
 export interface CreateSpeakingSessionResponse {
   session: SpeakingSession;
   turn: SpeakingTurn;
@@ -947,10 +997,7 @@ export interface VideoTranslateSegment {
 }
 
 export type VideoTranslateStatus =
-  | 'PENDING'
-  | 'PROCESSING'
-  | 'READY'
-  | 'FAILED';
+  'PENDING' | 'PROCESSING' | 'READY' | 'FAILED';
 
 export interface VideoTranslateJob {
   id: string;

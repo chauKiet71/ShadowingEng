@@ -11,17 +11,17 @@ export const PrefetchKeys = {
   vocabularySet: (id: string) => `vocabulary-set:${id}`,
   speakingScenarios: 'speaking-scenarios',
   speakingQuota: 'speaking-quota',
+  speakingHistory: 'speaking-history',
   packages: 'packages-active',
 } as const;
 
 const DEFAULT_TTL = 5 * 60 * 1000;
 
 export function fetchLessonStats(force = false) {
-  return cachedFetch(
-    PrefetchKeys.lessonStats,
-    () => api.getMyLessonStats(),
-    { ttlMs: DEFAULT_TTL, force },
-  );
+  return cachedFetch(PrefetchKeys.lessonStats, () => api.getMyLessonStats(), {
+    ttlMs: DEFAULT_TTL,
+    force,
+  });
 }
 
 export function fetchVocabularyOverview(force = false) {
@@ -58,10 +58,17 @@ export function fetchSpeakingScenarios(force = false) {
 }
 
 export function fetchSpeakingQuota(force = false) {
+  return cachedFetch(PrefetchKeys.speakingQuota, () => api.getSpeakingQuota(), {
+    ttlMs: DEFAULT_TTL,
+    force,
+  });
+}
+
+export function fetchSpeakingHistory(force = false) {
   return cachedFetch(
-    PrefetchKeys.speakingQuota,
-    () => api.getSpeakingQuota(),
-    { ttlMs: DEFAULT_TTL, force },
+    PrefetchKeys.speakingHistory,
+    () => api.getSpeakingHistory(),
+    { ttlMs: 30 * 1000, force },
   );
 }
 
@@ -75,9 +82,7 @@ export function prefetchHomeFeatures(isAuthenticated: boolean) {
   ];
 
   if (isAuthenticated) {
-    tasks.push(
-      fetchLessonStats(),
-    );
+    tasks.push(fetchLessonStats());
   }
 
   return Promise.allSettled(tasks);
@@ -89,6 +94,7 @@ export function clearAuthenticatedPrefetch() {
     PrefetchKeys.vocabularyOverview,
     PrefetchKeys.speakingScenarios,
     PrefetchKeys.speakingQuota,
+    PrefetchKeys.speakingHistory,
   ]);
   invalidateCacheByPrefix('vocabulary-set:');
 }

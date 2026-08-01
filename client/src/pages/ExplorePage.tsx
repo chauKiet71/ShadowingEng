@@ -1,26 +1,11 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import {
-  Bookmark,
-  ChevronLeft,
-  Search,
-  Sparkles,
-  X,
-} from 'lucide-react';
+import { Bookmark, ChevronLeft, Search, Sparkles, X } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
 import LessonGrid from '../components/LessonGrid';
 import PopularTopics from '../components/PopularTopics';
 import { getCategoryById } from '../data/categories';
-import {
-  getLessonsByCategory,
-  lessons,
-} from '../data/lessons';
+import { getLessonsByCategory, lessons } from '../data/lessons';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useHistory } from '../contexts/HistoryContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -40,7 +25,7 @@ function normalizeSearchText(value: string) {
 
 export default function ExplorePage() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -48,11 +33,8 @@ export default function ExplorePage() {
   const allTopicsRef = useRef<HTMLDivElement>(null);
   const favoriteTopicsRef = useRef<HTMLDivElement>(null);
   const [topicsPanelHeight, setTopicsPanelHeight] = useState<number>();
-  const {
-    favoriteCategoryIds,
-    isCategoryFavorite,
-    toggleCategoryFavorite,
-  } = useFavorites();
+  const { favoriteCategoryIds, isCategoryFavorite, toggleCategoryFavorite } =
+    useFavorites();
   const { todayListeningSeconds, dailyGoalSeconds } = useHistory();
   const { user } = useAuth();
 
@@ -109,6 +91,15 @@ export default function ExplorePage() {
     if (next === activeFilter) return;
     setActiveFilter(next);
     setSearchQuery('');
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete('category');
+    if (next === 'fav') {
+      nextParams.set('filter', 'fav');
+    } else {
+      nextParams.delete('filter');
+    }
+    setSearchParams(nextParams, { replace: true });
   };
 
   useLayoutEffect(() => {
@@ -122,7 +113,7 @@ export default function ExplorePage() {
     const observer = new ResizeObserver(updateHeight);
     observer.observe(panel);
     return () => observer.disconnect();
-  }, [activeFilter, favoriteCategoryIds.length]);
+  }, [activeFilter, categoryId, favoriteCategoryIds.length]);
 
   useEffect(() => {
     if (searchOpen) searchInputRef.current?.focus();
@@ -141,7 +132,7 @@ export default function ExplorePage() {
     return (
       <MobileLayout>
         <div className="min-h-screen bg-gradient-to-b from-[#F3EEFF] via-[#F7F5FC] to-gray-50 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 -mx-0">
-          <div className="px-4 pt-5 pb-3">
+          <div className="sticky top-0 z-30 px-4 pt-5 pb-3 bg-[#F3EEFF]/95 dark:bg-neutral-950/95 backdrop-blur-md">
             <div className="flex items-center gap-2 mb-3">
               <button
                 type="button"
@@ -181,7 +172,11 @@ export default function ExplorePage() {
           </div>
 
           <div className="px-4 mb-4 pt-1">
-            <LessonGrid lessons={categoryLessons} variant="soft" />
+            <LessonGrid
+              lessons={categoryLessons}
+              variant="soft"
+              returnTo={`/kham-pha?category=${activeCategory.id}`}
+            />
           </div>
         </div>
       </MobileLayout>
@@ -328,9 +323,7 @@ export default function ExplorePage() {
         >
           <div
             className={`flex w-[200%] will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              activeFilter === 'fav'
-                ? '-translate-x-1/2'
-                : 'translate-x-0'
+              activeFilter === 'fav' ? '-translate-x-1/2' : 'translate-x-0'
             }`}
           >
             <div ref={allTopicsRef} className="w-1/2 shrink-0">

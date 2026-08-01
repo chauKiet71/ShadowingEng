@@ -18,6 +18,7 @@ const levelBadgeStyles: Record<string, string> = {
 
 interface LessonGridProps {
   lessons: Lesson[];
+  returnTo?: string;
   emptyMessage?: string;
   /** Kept for call-site compatibility; all cards share the soft layout */
   variant?: 'classic' | 'soft';
@@ -25,6 +26,7 @@ interface LessonGridProps {
 
 export default function LessonGrid({
   lessons,
+  returnTo,
   emptyMessage,
 }: LessonGridProps) {
   const { user } = useAuth();
@@ -53,6 +55,7 @@ export default function LessonGrid({
           <LessonLink
             key={lesson.id}
             lessonId={lesson.id}
+            returnTo={returnTo}
             className="flex items-center gap-3 rounded-[20px] bg-white dark:bg-neutral-900 px-3 py-3 shadow-[0_2px_12px_rgba(99,102,241,0.08)] dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)]"
           >
             <div
@@ -96,7 +99,11 @@ export default function LessonGrid({
                     : 'bg-white dark:bg-neutral-700 shadow-[0_2px_8px_rgba(37,99,235,0.18)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.55)] ring-transparent dark:ring-white/10'
                 }`}
                 aria-label={
-                  locked ? 'Bài học bị khóa' : completed ? 'Đã hoàn thành' : 'Phát bài học'
+                  locked
+                    ? 'Bài học bị khóa'
+                    : completed
+                      ? 'Đã hoàn thành'
+                      : 'Phát bài học'
                 }
               >
                 {locked ? (
@@ -104,7 +111,11 @@ export default function LessonGrid({
                 ) : completed ? (
                   <Check size={16} className="text-white" strokeWidth={2.75} />
                 ) : (
-                  <Play size={14} className="text-primary ml-0.5" fill="currentColor" />
+                  <Play
+                    size={14}
+                    className="text-primary ml-0.5"
+                    fill="currentColor"
+                  />
                 )}
               </div>
             </div>

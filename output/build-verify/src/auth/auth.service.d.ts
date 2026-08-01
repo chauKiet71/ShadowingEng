@@ -1,0 +1,138 @@
+import { JwtService } from '@nestjs/jwt';
+import type { Profile } from 'passport-google-oauth20';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { RegisterDto, LoginDto } from './dto/auth.dto';
+interface UploadedAvatarFile {
+    buffer: Buffer;
+    mimetype: string;
+    originalname: string;
+}
+export declare class AuthService {
+    private prisma;
+    private jwtService;
+    private cloudinary;
+    constructor(prisma: PrismaService, jwtService: JwtService, cloudinary: CloudinaryService);
+    register(dto: RegisterDto): Promise<{
+        user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
+            id: string;
+            email: string;
+            fullName: string;
+            avatarUrl: string | null;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
+            xp: number;
+            level: number;
+            streakDays: number;
+            isPremium: boolean;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
+        }, "status">;
+        accessToken: string;
+    }>;
+    login(dto: LoginDto): Promise<{
+        user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
+            id: string;
+            email: string;
+            fullName: string;
+            avatarUrl: string | null;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
+            xp: number;
+            level: number;
+            streakDays: number;
+            isPremium: boolean;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
+        }, "status">;
+        accessToken: string;
+    }>;
+    loginWithGoogle(profile: Profile): Promise<{
+        user: Omit<{
+            package: {
+                id: string;
+                name: string;
+                duration: string;
+                durationUnit: import("@prisma/client").$Enums.DurationUnit;
+                days: number;
+                months: number;
+            } | null;
+            id: string;
+            email: string;
+            fullName: string;
+            avatarUrl: string | null;
+            role: import("@prisma/client").$Enums.UserRole;
+            status: import("@prisma/client").$Enums.UserStatus;
+            xp: number;
+            level: number;
+            streakDays: number;
+            isPremium: boolean;
+            premiumExpiresAt: Date | null;
+            packageId: string | null;
+        }, "status">;
+        accessToken: string;
+    }>;
+    getProfile(userId: string): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
+        id: string;
+        email: string;
+        fullName: string;
+        avatarUrl: string | null;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
+        xp: number;
+        level: number;
+        streakDays: number;
+        isPremium: boolean;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
+    }, "status">>;
+    updateAvatar(userId: string, file: UploadedAvatarFile): Promise<Omit<{
+        package: {
+            id: string;
+            name: string;
+            duration: string;
+            durationUnit: import("@prisma/client").$Enums.DurationUnit;
+            days: number;
+            months: number;
+        } | null;
+        id: string;
+        email: string;
+        fullName: string;
+        avatarUrl: string | null;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
+        xp: number;
+        level: number;
+        streakDays: number;
+        isPremium: boolean;
+        premiumExpiresAt: Date | null;
+        packageId: string | null;
+    }, "status">>;
+    private signToken;
+    private sanitizeUser;
+}
+export {};

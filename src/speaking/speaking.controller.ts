@@ -47,6 +47,15 @@ export class SpeakingController {
     return this.speakingService.getQuota(userId);
   }
 
+  @Get('history')
+  async getHistory(
+    @CurrentUser() user: { id: string } | null,
+    @Headers('x-guest-token') guestToken?: string,
+  ) {
+    const userId = await this.guestIdentity.resolveUserId(user, guestToken);
+    return this.speakingService.getHistory(userId);
+  }
+
   @Post('sessions')
   async createSession(
     @CurrentUser() user: { id: string } | null,

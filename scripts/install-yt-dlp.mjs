@@ -8,6 +8,8 @@ const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const toolsDir = join(repositoryRoot, 'tools');
 const platform = process.env.npm_config_platform || process.platform;
 const arch = process.env.npm_config_arch || process.arch;
+const defaultReleaseBaseUrl =
+  'https://github.com/yt-dlp/yt-dlp/releases/latest/download';
 
 const releaseAssets = {
   'win32:x64': { asset: 'yt-dlp.exe', target: 'yt-dlp.exe' },
@@ -31,7 +33,7 @@ async function fetchOrThrow(url) {
   const response = await fetch(url, {
     redirect: 'follow',
     headers: {
-      accept: 'application/vnd.github+json',
+      accept: 'application/octet-stream, text/plain;q=0.9, */*;q=0.8',
       'user-agent': 'ShadowingEng-build',
     },
   });
@@ -77,29 +79,18 @@ async function main() {
     return;
   }
 
-  const releaseResponse = await fetchOrThrow(
-    'https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest',
-  );
-  const releaseData = await releaseResponse.json();
-  const assets = Array.isArray(releaseData.assets) ? releaseData.assets : [];
-  const checksumsAsset = assets.find((asset) => asset?.name === 'SHA2-256SUMS');
-  const binaryAsset = assets.find((asset) => asset?.name === release.asset);
-  if (
-    !checksumsAsset?.browser_download_url ||
-    !binaryAsset?.browser_download_url
-  ) {
-    throw new Error(
-      `Release ${releaseData.tag_name ?? 'latest'} does not contain ` +
-        `${release.asset} or SHA2-256SUMS`,
-    );
-  }
+  const releaseBaseUrl = (
+    process.env.YT_DLP_RELEASE_BASE_URL || defaultReleaseBaseUrl
+  ).replace(/\/$/, '');
 
   const checksumsResponse = await fetchOrThrow(
-    checksumsAsset.browser_download_url,
+    `${releaseBaseUrl}/SHA2-256SUMS`,
   );
   const checksums = await checksumsResponse.text();
   const expectedChecksum = checksumForAsset(checksums, release.asset);
-  const binaryResponse = await fetchOrThrow(binaryAsset.browser_download_url);
+  const binaryResponse = await fetchOrThrow(
+    `${releaseBaseUrl}/${encodeURIComponent(release.asset)}`,
+  );
   const binary = Buffer.from(await binaryResponse.arrayBuffer());
   const actualChecksum = createHash('sha256').update(binary).digest('hex');
 
@@ -122,10 +113,16 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(
-    `[yt-dlp] Installation failed: ${
-      error instanceof Error ? error.message : String(error)
-    }`,
+  const message = error instanceof Error ? error.message : String(error);
+  if (process.env.YT_DLP_INSTALL_REQUIRED === 'true') {
+    console.error(`[yt-dlp] Required installation failed: ${message}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  console.warn(
+    `[yt-dlp] Optional installation skipped: ${message}. ` +
+      'The app will continue to install. Set YT_DLP_INSTALL_REQUIRED=true ' +
+      'to make this failure fatal.',
   );
-  process.exitCode = 1;
 });
