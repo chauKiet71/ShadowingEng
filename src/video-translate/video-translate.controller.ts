@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
@@ -14,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { GuestIdentityService } from '../auth/guest-identity.service';
 import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
+import { CreateVideoTranslateDto } from './dto/create-video-translate.dto';
 import { VideoTranslateService } from './video-translate.service';
 
 const MAX_UPLOAD_BYTES = 120 * 1024 * 1024;
@@ -70,13 +72,22 @@ export class VideoTranslateController {
   async createJob(
     @CurrentUser() user: { id: string } | null,
     @Headers('x-guest-token') guestToken: string | undefined,
+    @Body() dto: CreateVideoTranslateDto,
     @UploadedFile() file?: UploadedMediaFile,
   ) {
-    if (!file?.buffer?.length) {
-      throw new BadRequestException('Hãy chọn file video hoặc audio để dịch');
+    const url = dto?.url?.trim();
+    if (!file?.buffer?.length && !url) {
+      throw new BadRequestException(
+        'Hãy dán link YouTube hoặc chọn file video/audio để dịch',
+      );
     }
+
     const userId = await this.guestIdentity.resolveUserId(user, guestToken);
-    return this.videoTranslateService.createJobFromUpload(userId, file);
+    if (file?.buffer?.length) {
+      return this.videoTranslateService.createJobFromUpload(userId, file);
+    }
+    if (url) return this.videoTranslateService.createJob(userId, url);
+    throw new BadRequestException('Thiếu nguồn video để dịch');
   }
 
   @Delete('jobs/:id')

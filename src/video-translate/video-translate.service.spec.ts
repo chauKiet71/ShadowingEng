@@ -311,7 +311,7 @@ describe('VideoTranslateService processing concurrency', () => {
 
   it('retries only missing batch translations and keeps valid results', async () => {
     const create = jest.fn(
-      async (request: { messages: Array<{ content: string }> }) => {
+      (request: { messages: Array<{ content: string }> }) => {
         const content = request.messages[1].content;
         if (content.startsWith('{')) {
           return {
@@ -358,6 +358,71 @@ describe('VideoTranslateService processing concurrency', () => {
       'Fallback Second',
       'Fallback Third',
     ]);
+  });
+});
+
+describe('VideoTranslateService YouTube jobs', () => {
+  it('reuses a ready YouTube transcript without requiring an OpenAI key', async () => {
+    const createdAt = new Date('2026-08-02T00:00:00.000Z');
+    const cached = {
+      id: 'cached-job',
+      userId: 'another-user',
+      youtubeVideoId: 'dQw4w9WgXcQ',
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      originalFilename: null,
+      mediaUrl: null,
+      title: 'Cached video',
+      thumbnailUrl: 'https://example.com/thumb.jpg',
+      durationSec: 212,
+      status: 'READY',
+      source: 'captions',
+      errorMessage: null,
+      segmentsJson: [{ start: 0, end: 1.5, en: 'Hello.', vi: 'Xin chào.' }],
+      dubbedAudioUrl: null,
+      pipelineVersion: 12,
+      fromCache: false,
+      createdAt,
+      updatedAt: createdAt,
+      completedAt: createdAt,
+    };
+    const cloned = {
+      ...cached,
+      id: 'cloned-job',
+      userId: 'user-1',
+      fromCache: true,
+    };
+    const prisma = {
+      videoTranslateJob: {
+        findFirst: jest.fn().mockResolvedValue(cached),
+        create: jest.fn().mockResolvedValue(cloned),
+      },
+      user: {
+        findUniqueOrThrow: jest.fn().mockResolvedValue({
+          isPremium: false,
+          premiumExpiresAt: null,
+        }),
+      },
+      videoTranslateDailyUsage: {
+        findUnique: jest.fn().mockResolvedValue(null),
+      },
+    };
+    const service = new VideoTranslateService(
+      prisma as never,
+      { get: jest.fn().mockReturnValue(undefined) } as never,
+    );
+
+    const result = await service.createJob(
+      'user-1',
+      'https://youtu.be/dQw4w9WgXcQ',
+    );
+
+    expect(result.fromCache).toBe(true);
+    expect(result.job).toMatchObject({
+      id: 'cloned-job',
+      youtubeVideoId: 'dQw4w9WgXcQ',
+      fromCache: true,
+      segments: [{ start: 0, end: 1.5, en: 'Hello.', vi: 'Xin chào.' }],
+    });
   });
 });
 
@@ -451,80 +516,5 @@ describe('VideoTranslateService yt-dlp integration', () => {
     expect(
       service.commandErrorDetail(new Error(`Command failed with ${proxy}`)),
     ).toBe('Command failed with [redacted proxy]');
-  });
-});
-
-describe('VideoTranslateService RapidAPI helpers', () => {
-  function createService(config: Record<string, string | undefined> = {}) {
-    return new VideoTranslateService(
-      {} as never,
-      {
-        get: jest.fn((key: string) => config[key]),
-      } as never,
-    );
-  }
-
-  it('picks the best m4a audio stream', () => {
-    const service = createService() as unknown as {
-      pickBestAudioMedia: (
-        medias: Array<Record<string, unknown>>,
-      ) => Record<string, unknown> | null;
-    };
-
-    const best = service.pickBestAudioMedia([
-      {
-        type: 'video',
-        ext: 'mp4',
-        bitrate: 999999,
-        download_url: 'https://example.com/video',
-      },
-      {
-        type: 'audio',
-        ext: 'opus',
-        bitrate: 140000,
-        audioQuality: 'AUDIO_QUALITY_MEDIUM',
-        download_url: 'https://example.com/opus',
-      },
-      {
-        type: 'audio',
-        ext: 'm4a',
-        bitrate: 130000,
-        audioQuality: 'AUDIO_QUALITY_MEDIUM',
-        download_url: 'https://example.com/m4a',
-      },
-      {
-        type: 'audio',
-        ext: 'm4a',
-        bitrate: 50000,
-        audioQuality: 'AUDIO_QUALITY_LOW',
-        download_url: 'https://example.com/m4a-low',
-      },
-    ]);
-
-    expect(best?.download_url).toBe('https://example.com/m4a');
-  });
-
-  it('reads duration from googlevideo dur query param', () => {
-    const service = createService() as unknown as {
-      extractDurationFromUrl: (url: string) => number | null;
-      resolveDurationSec: (payload: {
-        medias?: Array<{ duration?: number; url?: string }>;
-      }) => number;
-    };
-
-    expect(
-      service.extractDurationFromUrl(
-        'https://redirector.googlevideo.com/videoplayback?dur=239.026&expire=1',
-      ),
-    ).toBeCloseTo(239.026);
-
-    expect(
-      service.resolveDurationSec({
-        medias: [
-          { duration: 3, url: 'https://x?dur=239.026' },
-          { duration: 3, url: 'https://y?dur=238.9' },
-        ],
-      }),
-    ).toBe(239);
   });
 });

@@ -1,24 +1,37 @@
-const YOUTUBE_ID_RE =
-  /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+const YOUTUBE_VIDEO_ID_RE = /^[a-zA-Z0-9_-]{11}$/;
+
+function validVideoId(value: string | undefined | null) {
+  return value && YOUTUBE_VIDEO_ID_RE.test(value) ? value : null;
+}
 
 export function extractYoutubeVideoId(input: string): string | null {
   const trimmed = input.trim();
-  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  if (YOUTUBE_VIDEO_ID_RE.test(trimmed)) return trimmed;
 
   try {
     const url = new URL(trimmed);
-    if (url.hostname.includes('youtu.be')) {
-      const id = url.pathname.split('/').filter(Boolean)[0];
-      return id && /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
+    const hostname = url.hostname.toLowerCase().replace(/^www\./, '');
+    const pathParts = url.pathname.split('/').filter(Boolean);
+
+    if (hostname === 'youtu.be') {
+      return validVideoId(pathParts[0]);
     }
-    const v = url.searchParams.get('v');
-    if (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
+
+    const isYoutubeHost =
+      hostname === 'youtube.com' || hostname.endsWith('.youtube.com');
+    if (!isYoutubeHost) return null;
+
+    const watchId = validVideoId(url.searchParams.get('v'));
+    if (watchId) return watchId;
+
+    if (['embed', 'shorts', 'live'].includes(pathParts[0])) {
+      return validVideoId(pathParts[1]);
+    }
   } catch {
-    // fall through to regex
+    return null;
   }
 
-  const match = trimmed.match(YOUTUBE_ID_RE);
-  return match?.[1] ?? null;
+  return null;
 }
 
 export function youtubeWatchUrl(videoId: string) {

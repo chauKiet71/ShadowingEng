@@ -496,7 +496,14 @@ export const api = {
     );
   },
 
-  createVideoTranslateJob(file: File) {
+  createVideoTranslateJob(url: string) {
+    return request<CreateVideoTranslateResponse>('/video-translate/jobs', {
+      method: 'POST',
+      body: JSON.stringify({ url }),
+    });
+  },
+
+  createVideoTranslateJobFromUpload(file: File) {
     const formData = new FormData();
     formData.append('file', file);
     const token = getToken();

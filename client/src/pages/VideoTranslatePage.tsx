@@ -6,6 +6,7 @@ import {
   Clapperboard,
   Gauge,
   Languages,
+  Link2,
   Loader2,
   Mic,
   Repeat,
@@ -29,6 +30,75 @@ const ACCEPT_MEDIA =
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type PlaybackRate = (typeof PLAYBACK_RATES)[number];
 
+type YoutubePlayer = {
+  destroy: () => void;
+  getCurrentTime: () => number;
+  pauseVideo: () => void;
+  playVideo: () => void;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  setPlaybackRate: (rate: number) => void;
+  unMute: () => void;
+};
+
+declare global {
+  interface Window {
+    YT?: {
+      Player: new (
+        element: HTMLElement | string,
+        options: {
+          videoId: string;
+          width?: string | number;
+          height?: string | number;
+          playerVars?: Record<string, number | string>;
+          events?: {
+            onReady?: (event: { target: YoutubePlayer }) => void;
+            onStateChange?: (event: {
+              data: number;
+              target: YoutubePlayer;
+            }) => void;
+            onError?: () => void;
+          };
+        },
+      ) => YoutubePlayer;
+      PlayerState: {
+        PLAYING: number;
+        PAUSED: number;
+        ENDED: number;
+      };
+    };
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
+
+let youtubeApiPromise: Promise<void> | null = null;
+
+function loadYoutubeApi() {
+  if (window.YT?.Player) return Promise.resolve();
+  if (youtubeApiPromise !== null) return youtubeApiPromise;
+
+  youtubeApiPromise = new Promise<void>((resolve, reject) => {
+    const previousCallback = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      previousCallback?.();
+      resolve();
+    };
+
+    if (!document.querySelector('script[data-youtube-iframe-api]')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.async = true;
+      script.dataset.youtubeIframeApi = 'true';
+      script.onerror = () => {
+        youtubeApiPromise = null;
+        reject(new Error('Không tải được trình phát YouTube'));
+      };
+      document.body.appendChild(script);
+    }
+  });
+
+  return youtubeApiPromise;
+}
+
 function formatPlaybackRate(rate: PlaybackRate) {
   return `${rate === 1 ? '1.0' : rate}x`;
 }
@@ -37,7 +107,7 @@ function getDeletedRecentVideoIds() {
   try {
     const parsed = JSON.parse(
       localStorage.getItem(DELETED_RECENT_VIDEO_IDS_KEY) ?? '[]',
-    );
+    ) as unknown;
     return new Set(Array.isArray(parsed) ? parsed.filter(Boolean) : []);
   } catch {
     return new Set<string>();
@@ -73,9 +143,7 @@ function findActiveSegmentIndex(
   return active;
 }
 
-type SegmentWordTiming = NonNullable<
-  VideoTranslateSegment['words']
->[number];
+type SegmentWordTiming = NonNullable<VideoTranslateSegment['words']>[number];
 
 function estimateSegmentWordTimings(
   segment: VideoTranslateSegment,
@@ -126,9 +194,7 @@ function findActiveWordIndex(words: SegmentWordTiming[], time: number) {
 
 function wordBorderClass(active: boolean) {
   return `inline-block rounded-[5px] border px-0.5 py-px transition-colors duration-75 ${
-    active
-      ? 'border-emerald-400 bg-emerald-400/10'
-      : 'border-transparent'
+    active ? 'border-emerald-400 bg-emerald-400/10' : 'border-transparent'
   }`;
 }
 
@@ -156,6 +222,7 @@ function isAudioMediaUrl(url: string | null | undefined) {
 
 export default function VideoTranslatePage() {
   const navigate = useNavigate();
+  const [url, setUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [quota, setQuota] = useState<VideoTranslateQuota | null>(null);
   const [job, setJob] = useState<VideoTranslateJob | null>(null);
@@ -171,9 +238,9 @@ export default function VideoTranslatePage() {
   const [playbackRate, setPlaybackRate] = useState<PlaybackRate>(1);
   const [isPlaybackRateOpen, setIsPlaybackRateOpen] = useState(false);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
-  const [shadowingResultIndex, setShadowingResultIndex] = useState<number | null>(
-    null,
-  );
+  const [shadowingResultIndex, setShadowingResultIndex] = useState<
+    number | null
+  >(null);
   const {
     result: shadowingResult,
     error: shadowingError,
@@ -184,6 +251,9 @@ export default function VideoTranslatePage() {
     reset: resetShadowing,
   } = useShadowing();
   const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
+  const youtubePlayerRef = useRef<YoutubePlayer | null>(null);
+  const youtubePlayerMountRef = useRef<HTMLDivElement | null>(null);
+  const isLoopingRef = useRef(false);
   const autoPlayRequestedRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const syncRafRef = useRef<number | null>(null);
@@ -225,17 +295,24 @@ export default function VideoTranslatePage() {
     setShowTranslation(true);
     setShowPhonetic(false);
     setIsLooping(false);
+    isLoopingRef.current = false;
     setPlaybackRate(1);
     setIsPlaybackRateOpen(false);
     if (mediaRef.current) {
       mediaRef.current.loop = false;
       mediaRef.current.playbackRate = 1;
     }
+    youtubePlayerRef.current?.setPlaybackRate(1);
   }, [job?.id]);
+
+  useEffect(() => {
+    isLoopingRef.current = isLooping;
+  }, [isLooping]);
 
   useEffect(() => {
     const media = mediaRef.current;
     if (media) media.playbackRate = playbackRate;
+    youtubePlayerRef.current?.setPlaybackRate(playbackRate);
   }, [playbackRate]);
 
   useEffect(() => {
@@ -268,8 +345,13 @@ export default function VideoTranslatePage() {
   function startSyncLoop() {
     stopSyncLoop();
     const tick = () => {
+      const youtubePlayer = youtubePlayerRef.current;
       const media = mediaRef.current;
-      if (media) setCurrentTime(media.currentTime || 0);
+      if (youtubePlayer) {
+        setCurrentTime(youtubePlayer.getCurrentTime() || 0);
+      } else if (media) {
+        setCurrentTime(media.currentTime || 0);
+      }
       syncRafRef.current = window.requestAnimationFrame(tick);
     };
     syncRafRef.current = window.requestAnimationFrame(tick);
@@ -293,6 +375,7 @@ export default function VideoTranslatePage() {
   }
 
   function pausePlayback() {
+    youtubePlayerRef.current?.pauseVideo();
     mediaRef.current?.pause();
     setIsPlaying(false);
     stopSyncLoop();
@@ -325,6 +408,12 @@ export default function VideoTranslatePage() {
   async function toggleLoop() {
     const next = !isLooping;
     setIsLooping(next);
+    isLoopingRef.current = next;
+    const youtubePlayer = youtubePlayerRef.current;
+    if (youtubePlayer) {
+      if (next && !isPlaying) youtubePlayer.playVideo();
+      return;
+    }
     const media = mediaRef.current;
     if (!media) return;
 
@@ -341,6 +430,7 @@ export default function VideoTranslatePage() {
   function selectPlaybackRate(rate: PlaybackRate) {
     setPlaybackRate(rate);
     setIsPlaybackRateOpen(false);
+    youtubePlayerRef.current?.setPlaybackRate(rate);
     if (mediaRef.current) mediaRef.current.playbackRate = rate;
   }
 
@@ -430,16 +520,132 @@ export default function VideoTranslatePage() {
     return () => window.clearInterval(timer);
   }, [job?.id, job?.status]);
 
+  useEffect(() => {
+    const youtubeVideoId = job?.youtubeVideoId;
+    if (!youtubeVideoId || job.status !== 'READY') return;
+
+    let disposed = false;
+    let player: YoutubePlayer | null = null;
+
+    void loadYoutubeApi()
+      .then(() => {
+        const mount = youtubePlayerMountRef.current;
+        if (disposed || !mount || !window.YT) return;
+
+        player = new window.YT.Player(mount, {
+          videoId: youtubeVideoId,
+          width: '100%',
+          height: '100%',
+          playerVars: {
+            rel: 0,
+            playsinline: 1,
+            enablejsapi: 1,
+          },
+          events: {
+            onReady: (event) => {
+              if (disposed) return;
+              youtubePlayerRef.current = event.target;
+              event.target.unMute();
+              event.target.setPlaybackRate(playbackRate);
+              if (autoPlayRequestedRef.current) {
+                autoPlayRequestedRef.current = false;
+                event.target.playVideo();
+              }
+            },
+            onStateChange: (event) => {
+              const states = window.YT?.PlayerState;
+              if (!states) return;
+              if (event.data === states.PLAYING) {
+                setIsPlaying(true);
+                startSyncLoop();
+                return;
+              }
+              if (event.data === states.ENDED && isLoopingRef.current) {
+                event.target.seekTo(0, true);
+                event.target.playVideo();
+                return;
+              }
+              if (event.data === states.PAUSED || event.data === states.ENDED) {
+                setIsPlaying(false);
+                stopSyncLoop();
+              }
+            },
+            onError: () => {
+              setIsPlaying(false);
+              stopSyncLoop();
+              setError(
+                'Video này không cho phép phát nhúng. Hãy mở một video YouTube khác.',
+              );
+            },
+          },
+        });
+        youtubePlayerRef.current = player;
+      })
+      .catch((err: unknown) => {
+        if (!disposed) {
+          setError(
+            err instanceof Error
+              ? err.message
+              : 'Không tải được trình phát YouTube',
+          );
+        }
+      });
+
+    return () => {
+      disposed = true;
+      stopSyncLoop();
+      player?.destroy();
+      if (youtubePlayerRef.current === player) {
+        youtubePlayerRef.current = null;
+      }
+    };
+  }, [job?.id, job?.status, job?.youtubeVideoId]);
+
   useEffect(() => () => stopSyncLoop(), []);
 
   function goToUpgrade() {
-    navigate('/nang-cap', {
+    void navigate('/nang-cap', {
       state: {
         from: '/dich-video',
         message:
           'Bạn đã hết 3 video miễn phí hôm nay. Nâng cấp Premium để dịch không giới hạn.',
       },
     });
+  }
+
+  async function submitUrl() {
+    const nextUrl = url.trim();
+    if (!nextUrl) {
+      setError('Hãy dán link YouTube');
+      return;
+    }
+
+    setSubmitting(true);
+    setError('');
+    try {
+      const result = await api.createVideoTranslateJob(nextUrl);
+      setJob(result.job);
+      setQuota(result.quota);
+      setSelectedFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (result.job.status === 'READY') {
+        setRecent((prev) => {
+          const without = prev.filter((item) => item.id !== result.job.id);
+          return [result.job, ...without].slice(0, 8);
+        });
+      }
+    } catch (err) {
+      if (
+        err instanceof ApiError &&
+        err.code === 'VIDEO_TRANSLATE_QUOTA_EXCEEDED'
+      ) {
+        goToUpgrade();
+        return;
+      }
+      setError(err instanceof Error ? err.message : 'Không tạo được job dịch');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   async function submitUpload() {
@@ -455,7 +661,7 @@ export default function VideoTranslatePage() {
     setSubmitting(true);
     setError('');
     try {
-      const result = await api.createVideoTranslateJob(selectedFile);
+      const result = await api.createVideoTranslateJobFromUpload(selectedFile);
       setJob(result.job);
       setQuota(result.quota);
       setSelectedFile(null);
@@ -513,6 +719,15 @@ export default function VideoTranslatePage() {
   }
 
   function seekToSegment(seg: VideoTranslateSegment) {
+    const youtubePlayer = youtubePlayerRef.current;
+    if (youtubePlayer) {
+      youtubePlayer.seekTo(seg.start, true);
+      youtubePlayer.setPlaybackRate(playbackRate);
+      youtubePlayer.playVideo();
+      setCurrentTime(seg.start);
+      startSyncLoop();
+      return;
+    }
     const media = mediaRef.current;
     if (media) {
       media.currentTime = seg.start;
@@ -523,8 +738,7 @@ export default function VideoTranslatePage() {
     startSyncLoop();
   }
 
-  const processing =
-    job?.status === 'PENDING' || job?.status === 'PROCESSING';
+  const processing = job?.status === 'PENDING' || job?.status === 'PROCESSING';
   const ready = job?.status === 'READY';
   const mediaIsAudio = isAudioMediaUrl(job?.mediaUrl);
 
@@ -537,12 +751,15 @@ export default function VideoTranslatePage() {
             : 'px-4 pt-4 pb-8 space-y-4'
         }
       >
-        <div className={`flex items-center gap-3 ${ready ? 'shrink-0 mb-2' : ''}`}>
+        <div
+          className={`flex items-center gap-3 ${ready ? 'shrink-0 mb-2' : ''}`}
+        >
           <button
             type="button"
             onClick={() => {
               if (ready) {
                 setJob(null);
+                setUrl('');
                 setSelectedFile(null);
                 setError('');
                 setCurrentTime(0);
@@ -550,11 +767,11 @@ export default function VideoTranslatePage() {
                 if (fileInputRef.current) fileInputRef.current.value = '';
                 return;
               }
-              if (window.history.state?.idx > 0) {
-                navigate(-1);
+              if (window.history.length > 1) {
+                void navigate(-1);
                 return;
               }
-              navigate('/');
+              void navigate('/');
             }}
             className="text-gray-600 p-1 -ml-1"
             aria-label="Quay lại"
@@ -563,9 +780,7 @@ export default function VideoTranslatePage() {
           </button>
           <div className="min-w-0 flex-1">
             {!ready && (
-              <h1 className="text-xl font-bold text-gray-900">
-                Dịch video
-              </h1>
+              <h1 className="text-xl font-bold text-gray-900">Dịch video</h1>
             )}
           </div>
           {ready && job ? (
@@ -573,6 +788,7 @@ export default function VideoTranslatePage() {
               type="button"
               onClick={() => {
                 setJob(null);
+                setUrl('');
                 setSelectedFile(null);
                 setError('');
                 setCurrentTime(0);
@@ -596,6 +812,62 @@ export default function VideoTranslatePage() {
           <>
             {!ready && (
               <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-4 space-y-3">
+                <label
+                  htmlFor="youtube-url"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                >
+                  Dán link YouTube
+                </label>
+                <div className="relative">
+                  <Link2
+                    size={17}
+                    aria-hidden
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  />
+                  <input
+                    id="youtube-url"
+                    type="url"
+                    inputMode="url"
+                    autoComplete="off"
+                    spellCheck={false}
+                    value={url}
+                    disabled={submitting || processing}
+                    onChange={(event) => {
+                      setUrl(event.target.value);
+                      setError('');
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') void submitUrl();
+                    }}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-3 text-sm outline-none transition-colors focus:border-primary dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+                  />
+                </div>
+                <button
+                  type="button"
+                  disabled={submitting || processing || !url.trim()}
+                  onClick={() => void submitUrl()}
+                  className="w-full rounded-full bg-gradient-to-r from-primary to-secondary py-2.5 text-sm font-semibold text-white shadow-md shadow-primary/25 hover:opacity-95 disabled:opacity-60 flex items-center justify-center gap-2"
+                >
+                  {submitting ||
+                  (processing && Boolean(job?.youtubeVideoId)) ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Languages size={16} />
+                  )}
+                  {processing && job?.youtubeVideoId
+                    ? 'Đang tạo phụ đề…'
+                    : 'Tạo phụ đề'}
+                </button>
+
+                <div className="flex items-center gap-3 py-1" aria-hidden>
+                  <span className="h-px flex-1 bg-gray-100 dark:bg-neutral-800" />
+                  <span className="text-[11px] text-gray-400">
+                    hoặc tải lên
+                  </span>
+                  <span className="h-px flex-1 bg-gray-100 dark:bg-neutral-800" />
+                </div>
+
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                   Tải video lên
                 </label>
@@ -607,6 +879,7 @@ export default function VideoTranslatePage() {
                   onChange={(e) => {
                     const file = e.target.files?.[0] ?? null;
                     setSelectedFile(file);
+                    if (file) setUrl('');
                     setError('');
                   }}
                 />
@@ -654,29 +927,42 @@ export default function VideoTranslatePage() {
 
             {processing && (
               <div className="rounded-2xl bg-white dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-6 text-center space-y-2">
-                <Loader2 className="animate-spin text-primary mx-auto" size={28} />
+                <Loader2
+                  className="animate-spin text-primary mx-auto"
+                  size={28}
+                />
                 <p className="font-semibold text-gray-900 dark:text-white">
                   Đang xử lý video
                 </p>
                 <p className="text-xs text-gray-500">
-                  Nhận dạng tiếng Anh (Whisper) rồi dịch sang tiếng Việt…
+                  {job?.youtubeVideoId
+                    ? 'Đang lấy lời thoại YouTube và dịch sang tiếng Việt…'
+                    : 'Nhận dạng tiếng Anh (Whisper) rồi dịch sang tiếng Việt…'}
                 </p>
               </div>
             )}
 
-            {ready && job && job.mediaUrl && (
+            {ready && job && (job.youtubeVideoId || job.mediaUrl) && (
               <>
                 <div className="shrink-0 space-y-2 bg-white dark:bg-neutral-950 z-10">
                   <div
                     className={`rounded-2xl overflow-hidden bg-black ${
-                      mediaIsAudio ? 'aspect-[16/7] flex items-center justify-center' : 'aspect-video'
+                      mediaIsAudio
+                        ? 'aspect-[16/7] flex items-center justify-center'
+                        : 'aspect-video'
                     }`}
                   >
-                    {mediaIsAudio ? (
+                    {job.youtubeVideoId ? (
+                      <div
+                        key={job.id}
+                        ref={youtubePlayerMountRef}
+                        className="h-full w-full"
+                      />
+                    ) : mediaIsAudio ? (
                       <audio
                         key={job.id}
                         ref={attachMediaElement}
-                        src={job.mediaUrl}
+                        src={job.mediaUrl ?? undefined}
                         autoPlay={autoPlayRequestedRef.current}
                         controls
                         loop={isLooping}
@@ -692,7 +978,7 @@ export default function VideoTranslatePage() {
                       <video
                         key={job.id}
                         ref={attachMediaElement}
-                        src={job.mediaUrl}
+                        src={job.mediaUrl ?? undefined}
                         autoPlay={autoPlayRequestedRef.current}
                         controls
                         loop={isLooping}
@@ -712,7 +998,11 @@ export default function VideoTranslatePage() {
                     className="min-w-0 text-sm font-semibold text-gray-900 dark:text-white truncate"
                     title={job.title || undefined}
                   >
-                    {job.title || job.originalFilename || 'Video đã tải lên'}
+                    {job.title ||
+                      job.originalFilename ||
+                      (job.youtubeVideoId
+                        ? 'YouTube video'
+                        : 'Video đã tải lên')}
                   </p>
                 </div>
 
@@ -749,22 +1039,25 @@ export default function VideoTranslatePage() {
                           <div className="min-w-0 pr-7">
                             {showScore ? (
                               <p className="text-sm font-semibold leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
-                                {shadowingResult!.words.map((word, wordIndex) => {
-                                  const displayWord =
-                                    seg.en.split(/\s+/)[wordIndex] ?? word.word;
-                                  return (
-                                    <span
-                                      key={`${word.word}-${wordIndex}`}
-                                      className={`${
-                                        word.correct
-                                          ? 'text-emerald-600'
-                                          : 'text-red-500'
-                                      } ${wordBorderClass(wordIndex === activeWordIndex)}`}
-                                    >
-                                      {displayWord}
-                                    </span>
-                                  );
-                                })}
+                                {shadowingResult.words.map(
+                                  (word, wordIndex) => {
+                                    const displayWord =
+                                      seg.en.split(/\s+/)[wordIndex] ??
+                                      word.word;
+                                    return (
+                                      <span
+                                        key={`${word.word}-${wordIndex}`}
+                                        className={`${
+                                          word.correct
+                                            ? 'text-emerald-600'
+                                            : 'text-red-500'
+                                        } ${wordBorderClass(wordIndex === activeWordIndex)}`}
+                                      >
+                                        {displayWord}
+                                      </span>
+                                    );
+                                  },
+                                )}
                               </p>
                             ) : (
                               <p className="text-sm font-semibold text-slate-900 dark:text-white leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
@@ -889,9 +1182,7 @@ export default function VideoTranslatePage() {
                         <button
                           type="button"
                           data-testid="video-speed-toggle"
-                          onClick={() =>
-                            setIsPlaybackRateOpen((open) => !open)
-                          }
+                          onClick={() => setIsPlaybackRateOpen((open) => !open)}
                           aria-label="Tùy chỉnh tốc độ phát"
                           aria-haspopup="menu"
                           aria-expanded={isPlaybackRateOpen}
@@ -1035,7 +1326,11 @@ export default function VideoTranslatePage() {
                       )}
                       <div className="min-w-0 flex-1 py-0.5">
                         <p className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">
-                          {item.title || item.originalFilename || 'Video đã tải lên'}
+                          {item.title ||
+                            item.originalFilename ||
+                            (item.youtubeVideoId
+                              ? 'YouTube video'
+                              : 'Video đã tải lên')}
                         </p>
                         <p className="text-[11px] text-gray-500 mt-1">
                           {item.durationSec

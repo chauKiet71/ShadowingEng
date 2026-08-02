@@ -16,24 +16,13 @@ external outage cannot block the whole application deploy. Set
 `YT_DLP_INSTALL_REQUIRED=true` when the deployment must fail without yt-dlp,
 or set `YT_DLP_RELEASE_BASE_URL` to use a trusted release mirror.
 
-## RapidAPI (preferred audio download)
-
-When captions are missing, the app can download audio via RapidAPI instead of yt-dlp:
-
-```bash
-RAPIDAPI_KEY=your-rapidapi-key
-# optional overrides
-RAPIDAPI_YT_HOST=youtube-video-downloader-fast.p.rapidapi.com
-RAPIDAPI_YT_PATH=/download.php
-```
+## YouTube processing flow
 
 Flow:
 
 1. Try YouTube captions (`youtube-transcript`)
-2. If none → RapidAPI media list → pick best `type=audio` → download → Whisper
-3. If RapidAPI fails → fall back to yt-dlp
-
-Do not commit API keys. Rotate any key that was shared in chat/logs.
+2. If none → use `yt-dlp` to download the best audio stream
+3. Transcribe the downloaded audio with Whisper
 
 ## Production: YouTube bot check
 

@@ -76,35 +76,11 @@ export type VideoSegment = TimedEnglishSegment & {
   vi: string;
 };
 
-type RapidApiMediaItem = {
-  download_url?: string;
-  url?: string;
-  type?: string;
-  ext?: string;
-  quality?: string;
-  bitrate?: number | null;
-  audioQuality?: string | null;
-  duration?: number | null;
-  mimeType?: string | null;
-};
-
-type RapidApiMediaResponse = {
-  title?: string;
-  thumbnail?: string;
-  medias?: RapidApiMediaItem[];
-  error?: string;
-  message?: string;
-};
-
 @Injectable()
 export class VideoTranslateService {
   private readonly logger = new Logger(VideoTranslateService.name);
   private openai: OpenAI | null = null;
   private readonly processing = new Set<string>();
-  private readonly rapidApiCache = new Map<
-    string,
-    { at: number; data: RapidApiMediaResponse }
-  >();
 
   constructor(
     private readonly prisma: PrismaService,
@@ -287,11 +263,83 @@ export class VideoTranslateService {
     };
   }
 
-  /** @deprecated YouTube URL flow — kept temporarily unused */
   async createJob(userId: string, rawUrl: string) {
-    throw new BadRequestException(
-      'Tính năng đã chuyển sang upload file. Hãy tải video/audio lên thay vì dán link.',
-    );
+    const videoId = extractYoutubeVideoId(rawUrl);
+    if (!videoId) {
+      throw new BadRequestException(
+        'Link YouTube không hợp lệ. Hãy dùng link youtube.com/watch?v=..., youtu.be/... hoặc YouTube Shorts.',
+      );
+    }
+
+    const youtubeUrl = youtubeWatchUrl(videoId);
+    const cached = await this.prisma.videoTranslateJob.findFirst({
+      where: {
+        youtubeVideoId: videoId,
+        status: VideoTranslateStatus.READY,
+        segmentsJson: { not: Prisma.DbNull },
+        pipelineVersion: { gte: DUBBED_PIPELINE_VERSION },
+      },
+      orderBy: { completedAt: 'desc' },
+    });
+
+    if (cached) {
+      const cloned = await this.prisma.videoTranslateJob.create({
+        data: {
+          userId,
+          youtubeVideoId: videoId,
+          youtubeUrl,
+          title: cached.title,
+          thumbnailUrl: cached.thumbnailUrl ?? youtubeThumbnailUrl(videoId),
+          durationSec: cached.durationSec,
+          status: VideoTranslateStatus.READY,
+          source: cached.source,
+          segmentsJson: cached.segmentsJson ?? Prisma.JsonNull,
+          dubbedAudioUrl: null,
+          pipelineVersion: cached.pipelineVersion,
+          fromCache: true,
+          completedAt: new Date(),
+        },
+      });
+      return {
+        job: this.serializeJob(cloned),
+        quota: await this.getQuota(userId),
+        fromCache: true,
+      };
+    }
+
+    this.ensureOpenAi();
+    await this.assertAndReserveQuota(userId);
+
+    let job;
+    try {
+      job = await this.prisma.videoTranslateJob.create({
+        data: {
+          userId,
+          youtubeVideoId: videoId,
+          youtubeUrl,
+          thumbnailUrl: youtubeThumbnailUrl(videoId),
+          status: VideoTranslateStatus.PENDING,
+          pipelineVersion: DUBBED_PIPELINE_VERSION,
+        },
+      });
+    } catch (error) {
+      await this.releaseQuotaReservation(userId);
+      throw error;
+    }
+
+    void this.processJob(job.id).catch((error) => {
+      this.logger.error(
+        `Video translate job ${job.id} failed: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    });
+
+    return {
+      job: this.serializeJob(job),
+      quota: await this.getQuota(userId),
+      fromCache: false,
+    };
   }
 
   private async processJob(jobId: string) {
@@ -319,8 +367,72 @@ export class VideoTranslateService {
         data: { status: VideoTranslateStatus.PROCESSING, errorMessage: null },
       });
 
+      const user = await this.prisma.user.findUniqueOrThrow({
+        where: { id: job.userId },
+        select: { isPremium: true, premiumExpiresAt: true },
+      });
+      const isPremium = this.resolvePremium(user);
+      const maxSeconds = isPremium
+        ? this.maxSecondsPremium()
+        : this.maxSecondsFree();
+
+      if (job.youtubeVideoId && job.youtubeUrl) {
+        const meta = await this.fetchVideoMeta(
+          job.youtubeVideoId,
+          job.youtubeUrl,
+        );
+        if (meta.durationSec > maxSeconds) {
+          throw new BadRequestException(
+            `Video dài ${Math.ceil(meta.durationSec / 60)} phút — tối đa ${Math.floor(
+              maxSeconds / 60,
+            )} phút cho tài khoản ${isPremium ? 'Premium' : 'miễn phí'}.`,
+          );
+        }
+
+        await this.prisma.videoTranslateJob.update({
+          where: { id: jobId },
+          data: {
+            title: meta.title,
+            durationSec: meta.durationSec,
+            thumbnailUrl:
+              meta.thumbnailUrl ?? youtubeThumbnailUrl(job.youtubeVideoId),
+          },
+        });
+        logStage('metadata ready');
+
+        const { segments: timed, source } = await this.getTimedTranscript(
+          job.youtubeVideoId,
+          job.youtubeUrl,
+          workDir,
+          meta.durationSec,
+        );
+        logStage('transcript ready');
+        if (!timed.length) {
+          throw new BadRequestException(
+            'Không tìm thấy lời thoại tiếng Anh trong video này',
+          );
+        }
+        const translated = await this.translateSegments(timed);
+        logStage('translations ready');
+
+        await this.prisma.videoTranslateJob.update({
+          where: { id: jobId },
+          data: {
+            status: VideoTranslateStatus.READY,
+            source,
+            segmentsJson: translated,
+            dubbedAudioUrl: null,
+            pipelineVersion: DUBBED_PIPELINE_VERSION,
+            completedAt: new Date(),
+            errorMessage: null,
+          },
+        });
+        logStage('completed');
+        return;
+      }
+
       if (!job.mediaUrl) {
-        throw new BadRequestException('Job thiếu file media tải lên');
+        throw new BadRequestException('Job thiếu nguồn video hoặc audio');
       }
 
       const sourcePath = this.resolveMediaPath(job.mediaUrl);
@@ -328,18 +440,8 @@ export class VideoTranslateService {
         throw new BadRequestException('Không tìm thấy file đã tải lên');
       }
 
-      const [probedDurationSec, user] = await Promise.all([
-        this.probeDurationSec(sourcePath),
-        this.prisma.user.findUniqueOrThrow({
-          where: { id: job.userId },
-          select: { isPremium: true, premiumExpiresAt: true },
-        }),
-      ]);
+      const probedDurationSec = await this.probeDurationSec(sourcePath);
       const durationSec = Math.max(1, Math.round(probedDurationSec));
-      const isPremium = this.resolvePremium(user);
-      const maxSeconds = isPremium
-        ? this.maxSecondsPremium()
-        : this.maxSecondsFree();
 
       if (durationSec > maxSeconds) {
         throw new BadRequestException(
@@ -1472,49 +1574,6 @@ export class VideoTranslateService {
   }
 
   private async downloadAudio(youtubeUrl: string, workDir: string) {
-    if (this.isRapidApiConfigured()) {
-      try {
-        const path = await this.downloadAudioViaRapidApi(youtubeUrl, workDir);
-        this.logger.log(`Audio downloaded via RapidAPI: ${path}`);
-        return path;
-      } catch (error) {
-        this.logger.warn(
-          `RapidAPI audio download failed, falling back to yt-dlp: ${
-            error instanceof Error ? error.message : String(error)
-          }`,
-        );
-      }
-    }
-
-    return this.downloadAudioViaYtDlp(youtubeUrl, workDir);
-  }
-
-  private async downloadAudioViaRapidApi(
-    youtubeUrl: string,
-    workDir: string,
-  ): Promise<string> {
-    const payload = await this.fetchRapidApiMedia(youtubeUrl);
-    const audio = this.pickBestAudioMedia(payload.medias ?? []);
-    if (!audio) {
-      throw new ServiceUnavailableException(
-        'RapidAPI không trả về stream audio cho video này',
-      );
-    }
-
-    const sourceUrl = (audio.download_url || audio.url || '').trim();
-    if (!sourceUrl) {
-      throw new ServiceUnavailableException(
-        'RapidAPI audio thiếu download_url',
-      );
-    }
-
-    const ext = this.normalizeAudioExt(audio.ext) || 'm4a';
-    const outPath = join(workDir, `audio.${ext}`);
-    await this.downloadBinaryToFile(sourceUrl, outPath);
-    return outPath;
-  }
-
-  private async downloadAudioViaYtDlp(youtubeUrl: string, workDir: string) {
     const ytDlp = this.resolveYtDlpPath();
     const ffmpeg = this.resolveFfmpegPath();
     const outTemplate = join(workDir, 'audio.%(ext)s');
@@ -1716,24 +1775,6 @@ export class VideoTranslateService {
   }
 
   private async fetchVideoMeta(videoId: string, youtubeUrl: string) {
-    if (this.isRapidApiConfigured()) {
-      try {
-        const payload = await this.fetchRapidApiMedia(youtubeUrl);
-        const durationSec = this.resolveDurationSec(payload);
-        return {
-          title: payload.title?.trim() || `YouTube ${videoId}`,
-          durationSec,
-          thumbnailUrl: payload.thumbnail || youtubeThumbnailUrl(videoId),
-        };
-      } catch (error) {
-        this.logger.warn(
-          `RapidAPI meta failed, falling back: ${
-            error instanceof Error ? error.message : String(error)
-          }`,
-        );
-      }
-    }
-
     try {
       const ytDlp = this.resolveYtDlpPath();
       const { stdout } = await execFileAsync(
@@ -1782,199 +1823,6 @@ export class VideoTranslateService {
         durationSec: this.maxSecondsFree(),
         thumbnailUrl: youtubeThumbnailUrl(videoId),
       };
-    }
-  }
-
-  private isRapidApiConfigured() {
-    return Boolean(this.config.get<string>('RAPIDAPI_KEY')?.trim());
-  }
-
-  private rapidApiHost() {
-    return (
-      this.config.get<string>('RAPIDAPI_YT_HOST')?.trim() ||
-      'youtube-video-downloader-fast.p.rapidapi.com'
-    );
-  }
-
-  private async fetchRapidApiMedia(
-    youtubeUrl: string,
-  ): Promise<RapidApiMediaResponse> {
-    const cached = this.rapidApiCache.get(youtubeUrl);
-    if (cached && Date.now() - cached.at < 120_000) {
-      return cached.data;
-    }
-
-    const apiKey = this.config.get<string>('RAPIDAPI_KEY')?.trim();
-    if (!apiKey) {
-      throw new ServiceUnavailableException('RAPIDAPI_KEY chưa cấu hình');
-    }
-
-    const host = this.rapidApiHost();
-    const path =
-      this.config.get<string>('RAPIDAPI_YT_PATH')?.trim() || '/download.php';
-    const url = `https://${host}${path}?url=${encodeURIComponent(youtubeUrl)}`;
-
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 90_000);
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'x-rapidapi-key': apiKey,
-          'x-rapidapi-host': host,
-        },
-        signal: controller.signal,
-      });
-      const text = await res.text();
-      let data: RapidApiMediaResponse = {};
-      try {
-        data = JSON.parse(text) as RapidApiMediaResponse;
-      } catch {
-        throw new ServiceUnavailableException(
-          `RapidAPI trả về dữ liệu không hợp lệ (HTTP ${res.status})`,
-        );
-      }
-
-      if (!res.ok) {
-        throw new ServiceUnavailableException(
-          data.message || data.error || `RapidAPI lỗi HTTP ${res.status}`,
-        );
-      }
-
-      if (!Array.isArray(data.medias) || data.medias.length === 0) {
-        throw new ServiceUnavailableException(
-          'RapidAPI không trả về danh sách media',
-        );
-      }
-
-      this.rapidApiCache.set(youtubeUrl, { at: Date.now(), data });
-      return data;
-    } catch (error) {
-      if (error instanceof ServiceUnavailableException) throw error;
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new ServiceUnavailableException('RapidAPI hết thời gian chờ');
-      }
-      throw new ServiceUnavailableException(
-        error instanceof Error
-          ? `RapidAPI thất bại: ${error.message}`
-          : 'RapidAPI thất bại',
-      );
-    } finally {
-      clearTimeout(timer);
-    }
-  }
-
-  private pickBestAudioMedia(
-    medias: RapidApiMediaItem[],
-  ): RapidApiMediaItem | null {
-    const audios = medias.filter(
-      (item) => String(item.type || '').toLowerCase() === 'audio',
-    );
-    if (!audios.length) return null;
-
-    const rankExt = (ext?: string) => {
-      const value = String(ext || '').toLowerCase();
-      if (value === 'm4a' || value === 'mp4') return 3;
-      if (value === 'mp3') return 2;
-      if (value === 'webm' || value === 'opus') return 1;
-      return 0;
-    };
-
-    const rankQuality = (quality?: string | null) => {
-      const value = String(quality || '').toUpperCase();
-      if (value.includes('HIGH')) return 3;
-      if (value.includes('MEDIUM')) return 2;
-      if (value.includes('LOW')) return 1;
-      return 0;
-    };
-
-    return [...audios].sort((a, b) => {
-      const extDiff = rankExt(b.ext) - rankExt(a.ext);
-      if (extDiff) return extDiff;
-      const qDiff = rankQuality(b.audioQuality) - rankQuality(a.audioQuality);
-      if (qDiff) return qDiff;
-      return (Number(b.bitrate) || 0) - (Number(a.bitrate) || 0);
-    })[0];
-  }
-
-  private resolveDurationSec(payload: RapidApiMediaResponse): number {
-    const medias = payload.medias ?? [];
-    for (const item of medias) {
-      const fromUrl = this.extractDurationFromUrl(
-        item.url || item.download_url || '',
-      );
-      if (fromUrl && fromUrl >= 5) return Math.round(fromUrl);
-    }
-
-    let best = 0;
-    for (const item of medias) {
-      const value = Number(item.duration) || 0;
-      if (value > best) best = value;
-    }
-    if (best >= 5) return Math.round(best);
-
-    return this.maxSecondsFree();
-  }
-
-  private extractDurationFromUrl(rawUrl: string): number | null {
-    if (!rawUrl) return null;
-    try {
-      const decoded = decodeURIComponent(rawUrl);
-      const match = decoded.match(/[?&]dur=([0-9]+(?:\.[0-9]+)?)/);
-      if (!match) return null;
-      const value = Number(match[1]);
-      return Number.isFinite(value) ? value : null;
-    } catch {
-      return null;
-    }
-  }
-
-  private normalizeAudioExt(ext?: string): string | null {
-    const value = String(ext || '')
-      .toLowerCase()
-      .replace(/^\./, '');
-    if (['mp3', 'm4a', 'webm', 'opus', 'wav'].includes(value)) return value;
-    if (value === 'mp4') return 'm4a';
-    return null;
-  }
-
-  private async downloadBinaryToFile(sourceUrl: string, outPath: string) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 180_000);
-    try {
-      const res = await fetch(sourceUrl, {
-        signal: controller.signal,
-        redirect: 'follow',
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-          Accept: '*/*',
-        },
-      });
-      if (!res.ok) {
-        throw new ServiceUnavailableException(
-          `Không tải được audio (HTTP ${res.status})`,
-        );
-      }
-      const buffer = Buffer.from(await res.arrayBuffer());
-      if (buffer.length < 1024) {
-        throw new ServiceUnavailableException(
-          'File audio tải về quá nhỏ hoặc rỗng',
-        );
-      }
-      writeFileSync(outPath, buffer);
-    } catch (error) {
-      if (error instanceof ServiceUnavailableException) throw error;
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new ServiceUnavailableException('Hết thời gian tải audio');
-      }
-      throw new ServiceUnavailableException(
-        error instanceof Error
-          ? `Tải audio thất bại: ${error.message}`
-          : 'Tải audio thất bại',
-      );
-    } finally {
-      clearTimeout(timer);
     }
   }
 
