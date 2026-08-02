@@ -1,8 +1,10 @@
+import { apiEndpoint } from '../lib/api';
+
 const OAUTH_REDIRECT_KEY = 'oauth_redirect';
 
 export function startGoogleAuth(redirectTo = '/') {
   sessionStorage.setItem(OAUTH_REDIRECT_KEY, redirectTo);
-  window.location.href = '/api/auth/google';
+  window.location.href = apiEndpoint('/auth/google');
 }
 
 export function consumeOAuthRedirect(): string {

@@ -9,11 +9,16 @@ const TOKEN_KEY = 'accessToken';
 const GUEST_TOKEN_KEY = 'guestToken';
 const GUEST_TOKEN_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const EMAIL_API_BASE_URL = ['localhost', '127.0.0.1'].includes(
-  window.location.hostname,
-)
-  ? '/api'
-  : 'https://hihienglish.netlify.app/api';
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+
+export const API_BASE_URL = (configuredApiBaseUrl || '/api').replace(
+  /\/+$/,
+  '',
+);
+
+export function apiEndpoint(path: string) {
+  return `${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
+}
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -39,7 +44,7 @@ export function getGuestToken(): string {
 async function request<T>(
   path: string,
   options: RequestInit = {},
-  baseUrl = '/api',
+  baseUrl = API_BASE_URL,
 ): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
@@ -113,7 +118,7 @@ export const api = {
     const formData = new FormData();
     formData.append('avatar', file);
     const token = getToken();
-    const res = await fetch('/api/auth/avatar', {
+    const res = await fetch(apiEndpoint('/auth/avatar'), {
       method: 'PATCH',
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: formData,
@@ -135,7 +140,7 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ email }),
       },
-      EMAIL_API_BASE_URL,
+      API_BASE_URL,
     );
   },
 
@@ -146,7 +151,7 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ email }),
       },
-      EMAIL_API_BASE_URL,
+      API_BASE_URL,
     );
   },
 
@@ -154,7 +159,7 @@ export const api = {
     return request<{ resetToken: string; message: string }>(
       '/auth/verify-reset-code',
       { method: 'POST', body: JSON.stringify({ email, code }) },
-      EMAIL_API_BASE_URL,
+      API_BASE_URL,
     );
   },
 
@@ -165,7 +170,7 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ resetToken, password }),
       },
-      EMAIL_API_BASE_URL,
+      API_BASE_URL,
     );
   },
 
@@ -446,7 +451,7 @@ export const api = {
     }
 
     const res = await fetch(
-      `/api/speaking/sessions/${encodeURIComponent(sessionId)}/turns`,
+      apiEndpoint(`/speaking/sessions/${encodeURIComponent(sessionId)}/turns`),
       {
         method: 'POST',
         headers,
@@ -513,7 +518,7 @@ export const api = {
     } else {
       headers['X-Guest-Token'] = getGuestToken();
     }
-    return fetch('/api/video-translate/jobs', {
+    return fetch(apiEndpoint('/video-translate/jobs'), {
       method: 'POST',
       headers,
       body: formData,

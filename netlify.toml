@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build:client"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "22"
+  YT_DLP_SKIP_INSTALL = "true"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

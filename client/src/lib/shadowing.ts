@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './api';
+
 export interface ScoredWord {
   word: string;
   correct: boolean;
@@ -10,16 +12,15 @@ export interface ShadowingResult {
 }
 
 export type ShadowingStatus =
-  | 'idle'
-  | 'connecting'
-  | 'recording'
-  | 'processing'
-  | 'done'
-  | 'error';
+  'idle' | 'connecting' | 'recording' | 'processing' | 'done' | 'error';
 
 function getShadowingWsUrl() {
-  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  return `${protocol}//${window.location.host}/api/shadowing`;
+  const url = new URL(API_BASE_URL, window.location.origin);
+  url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+  url.pathname = `${url.pathname.replace(/\/$/, '')}/shadowing`;
+  url.search = '';
+  url.hash = '';
+  return url.toString();
 }
 
 function blobToBase64(blob: Blob): Promise<string> {
@@ -82,7 +83,10 @@ export class ShadowingClient {
 
       const handler = (event: MessageEvent) => {
         try {
-          const data = JSON.parse(String(event.data)) as Record<string, unknown>;
+          const data = JSON.parse(String(event.data)) as Record<
+            string,
+            unknown
+          >;
           if (types.includes(String(data.type))) {
             cleanup();
             if (data.type === 'error') {
@@ -112,7 +116,9 @@ export class ShadowingClient {
 
     this.ws?.send(JSON.stringify({ type: 'start', expectedText }));
 
-    this.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    this.mediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
     this.chunks = [];
 
     const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
@@ -134,7 +140,9 @@ export class ShadowingClient {
     const recorder = this.mediaRecorder;
     const blob = await new Promise<Blob>((resolve) => {
       recorder.onstop = () => {
-        resolve(new Blob(this.chunks, { type: recorder.mimeType || 'audio/webm' }));
+        resolve(
+          new Blob(this.chunks, { type: recorder.mimeType || 'audio/webm' }),
+        );
       };
       recorder.stop();
     });
