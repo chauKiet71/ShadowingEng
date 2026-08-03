@@ -19,11 +19,14 @@ import {
   X,
 } from 'lucide-react';
 import BottomNav from '../components/BottomNav';
+import LessonWordDetailSheet from '../components/LessonWordDetailSheet';
 import MobileLayout from '../components/MobileLayout';
+import { useAuth } from '../contexts/AuthContext';
 import { useShadowing } from '../hooks/useShadowing';
 import {
   ApiError,
   api,
+  type VocabularyLookupDetail,
   type VideoTranslateJob,
   type VideoTranslateQuota,
   type VideoTranslateSegment,
@@ -35,6 +38,12 @@ const ACCEPT_MEDIA =
   'video/mp4,video/webm,video/quicktime,audio/mpeg,audio/mp4,audio/wav,audio/x-m4a,.mp4,.webm,.mov,.mkv,.mp3,.m4a,.wav';
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type PlaybackRate = (typeof PLAYBACK_RATES)[number];
+
+type VideoWordLookupContext = {
+  word: string;
+  sentence: string;
+  sentenceTranslation: string;
+};
 
 type YoutubePlayer = {
   destroy: () => void;
@@ -107,6 +116,22 @@ function loadYoutubeApi() {
 
 function formatPlaybackRate(rate: PlaybackRate) {
   return `${rate === 1 ? '1.0' : rate}x`;
+}
+
+function cleanVocabularyToken(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/^[^a-z'-]+|[^a-z'-]+$/g, '');
+}
+
+function speakVocabularyText(text: string) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-US';
+  utterance.rate = 0.75;
+  window.speechSynthesis.speak(utterance);
 }
 
 function getDeletedRecentVideoIds() {
@@ -251,6 +276,7 @@ function formatRecentDate(value: string) {
 
 export default function VideoTranslatePage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [url, setUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [quota, setQuota] = useState<VideoTranslateQuota | null>(null);
@@ -270,6 +296,14 @@ export default function VideoTranslatePage() {
   const [playbackRate, setPlaybackRate] = useState<PlaybackRate>(1);
   const [isPlaybackRateOpen, setIsPlaybackRateOpen] = useState(false);
   const [phoneticTexts, setPhoneticTexts] = useState<string[]>([]);
+  const [wordLookupContext, setWordLookupContext] =
+    useState<VideoWordLookupContext | null>(null);
+  const [wordDetail, setWordDetail] = useState<VocabularyLookupDetail | null>(
+    null,
+  );
+  const [wordDetailLoading, setWordDetailLoading] = useState(false);
+  const [wordDetailError, setWordDetailError] = useState('');
+  const [wordDetailSaving, setWordDetailSaving] = useState(false);
   const [shadowingResultIndex, setShadowingResultIndex] = useState<
     number | null
   >(null);
@@ -292,8 +326,9 @@ export default function VideoTranslatePage() {
   const syncRafRef = useRef<number | null>(null);
   const transcriptListRef = useRef<HTMLDivElement | null>(null);
   const playbackSpeedRef = useRef<HTMLDivElement | null>(null);
-  const segmentRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const segmentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
+  const wordLookupRequestRef = useRef(0);
 
   const activeIndex = useMemo(
     () =>
@@ -415,6 +450,84 @@ export default function VideoTranslatePage() {
     stopSyncLoop();
   }
 
+  async function lookupWordDetail(context: VideoWordLookupContext) {
+    const requestId = wordLookupRequestRef.current + 1;
+    wordLookupRequestRef.current = requestId;
+    setWordLookupContext(context);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(true);
+
+    try {
+      const detail = await api.lookupVocabularyWord(context);
+      if (wordLookupRequestRef.current === requestId) setWordDetail(detail);
+    } catch (lookupError) {
+      if (wordLookupRequestRef.current !== requestId) return;
+      setWordDetailError(
+        lookupError instanceof ApiError
+          ? lookupError.message
+          : 'Không thể tra cứu từ này. Vui lòng thử lại.',
+      );
+    } finally {
+      if (wordLookupRequestRef.current === requestId) {
+        setWordDetailLoading(false);
+      }
+    }
+  }
+
+  function openWordDetail(value: string, segment: VideoTranslateSegment) {
+    const word = cleanVocabularyToken(value);
+    if (!word) return;
+    pausePlayback();
+    void lookupWordDetail({
+      word,
+      sentence: segment.en,
+      sentenceTranslation: segment.vi,
+    });
+  }
+
+  function closeWordDetail() {
+    wordLookupRequestRef.current += 1;
+    setWordLookupContext(null);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(false);
+    setWordDetailSaving(false);
+  }
+
+  function retryWordLookup() {
+    if (wordLookupContext) void lookupWordDetail(wordLookupContext);
+  }
+
+  function lookupRelatedWord(word: string) {
+    if (!wordLookupContext) return;
+    void lookupWordDetail({ ...wordLookupContext, word });
+  }
+
+  async function saveWordDetail() {
+    if (!wordDetail || wordDetail.progress || wordDetailSaving) return;
+    if (!user) {
+      void navigate('/dang-nhap', { state: { from: '/dich-video' } });
+      return;
+    }
+
+    setWordDetailSaving(true);
+    try {
+      const progress = await api.learnVocabularyWord(wordDetail.id);
+      setWordDetail((current) =>
+        current ? { ...current, progress } : current,
+      );
+    } catch (saveError) {
+      setWordDetailError(
+        saveError instanceof ApiError
+          ? saveError.message
+          : 'Không thể lưu từ vựng lúc này.',
+      );
+    } finally {
+      setWordDetailSaving(false);
+    }
+  }
+
   function handleMediaPlay() {
     setIsPlaying(true);
     startSyncLoop();
@@ -472,6 +585,12 @@ export default function VideoTranslatePage() {
     resetShadowing();
     setShadowingResultIndex(null);
     setPhoneticTexts([]);
+    wordLookupRequestRef.current += 1;
+    setWordLookupContext(null);
+    setWordDetail(null);
+    setWordDetailError('');
+    setWordDetailLoading(false);
+    setWordDetailSaving(false);
   }, [job?.id, resetShadowing]);
 
   useEffect(() => {
@@ -1061,9 +1180,6 @@ export default function VideoTranslatePage() {
                           : '--:--'}{' '}
                         · {formatRecentDate(item.createdAt)}
                       </p>
-                      <span className="mt-2 inline-flex rounded-md bg-[#eee9ff] px-2 py-1 text-[11px] font-semibold text-[#5b2cf4] dark:bg-[#29213f]">
-                        Đã dịch
-                      </span>
                     </div>
                     <button
                       type="button"
@@ -1409,13 +1525,22 @@ export default function VideoTranslatePage() {
                             )
                           : -1;
                       return (
-                        <button
+                        <div
                           key={`${seg.start}-${idx}`}
                           ref={(el) => {
                             segmentRefs.current[idx] = el;
                           }}
-                          type="button"
+                          role="group"
+                          aria-label={`Phát phụ đề từ ${formatTime(seg.start)}`}
+                          tabIndex={0}
                           onClick={() => seekToSegment(seg)}
+                          onKeyDown={(event) => {
+                            if (event.target !== event.currentTarget) return;
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              event.preventDefault();
+                              seekToSegment(seg);
+                            }
+                          }}
                           className={`relative w-full text-left p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
                             active
                               ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(99,102,241,0.35)]'
@@ -1431,16 +1556,22 @@ export default function VideoTranslatePage() {
                                       seg.en.split(/\s+/)[wordIndex] ??
                                       word.word;
                                     return (
-                                      <span
+                                      <button
                                         key={`${word.word}-${wordIndex}`}
+                                        type="button"
+                                        onClick={(event) => {
+                                          event.stopPropagation();
+                                          openWordDetail(displayWord, seg);
+                                        }}
+                                        aria-label={`Xem chi tiết từ ${cleanVocabularyToken(displayWord)}`}
                                         className={`${
                                           word.correct
                                             ? 'text-emerald-600'
                                             : 'text-red-500'
-                                        } ${wordBorderClass(wordIndex === activeWordIndex)}`}
+                                        } ${wordBorderClass(wordIndex === activeWordIndex)} cursor-pointer focus-visible:outline-2 focus-visible:outline-primary`}
                                       >
                                         {displayWord}
-                                      </span>
+                                      </button>
                                     );
                                   },
                                 )}
@@ -1448,14 +1579,20 @@ export default function VideoTranslatePage() {
                             ) : (
                               <p className="text-sm font-semibold text-slate-900 dark:text-white leading-relaxed flex flex-wrap gap-x-1 gap-y-0.5">
                                 {timedWords.map((word, wordIndex) => (
-                                  <span
+                                  <button
                                     key={`${word.start}-${word.text}-${wordIndex}`}
-                                    className={wordBorderClass(
+                                    type="button"
+                                    onClick={(event) => {
+                                      event.stopPropagation();
+                                      openWordDetail(word.text, seg);
+                                    }}
+                                    aria-label={`Xem chi tiết từ ${cleanVocabularyToken(word.text)}`}
+                                    className={`${wordBorderClass(
                                       wordIndex === activeWordIndex,
-                                    )}
+                                    )} cursor-pointer focus-visible:outline-2 focus-visible:outline-primary`}
                                   >
                                     {word.text}
-                                  </span>
+                                  </button>
                                 ))}
                               </p>
                             )}
@@ -1508,11 +1645,25 @@ export default function VideoTranslatePage() {
                               <span />
                             </span>
                           )}
-                        </button>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
+
+                {wordLookupContext && (
+                  <LessonWordDetailSheet
+                    detail={wordDetail}
+                    error={wordDetailError}
+                    loading={wordDetailLoading}
+                    saving={wordDetailSaving}
+                    onClose={closeWordDetail}
+                    onRetry={retryWordLookup}
+                    onSave={() => void saveWordDetail()}
+                    onSpeak={speakVocabularyText}
+                    onLookupRelated={lookupRelatedWord}
+                  />
+                )}
 
                 <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800">
                   <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">

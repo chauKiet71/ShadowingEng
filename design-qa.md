@@ -306,6 +306,59 @@
 
 final result: passed
 
+## 20. Video subtitle vocabulary detail sheet
+
+**Source visual truth**
+
+- Reference loading state: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-cfb424fc-409b-484a-91fa-148e4a7090b0.png` (`402 x 561px`).
+- Target flow: `/dich-video`, open a READY translated video, then select an English word in a subtitle card.
+
+**Implementation evidence**
+
+- Stable loading capture: `C:\Users\DELL\AppData\Local\Temp\video-word-detail-loading-stable-qa.png` (`516 x 958px`).
+- Completed detail capture: `C:\Users\DELL\AppData\Local\Temp\video-word-detail-qa.png` (`516 x 958px`).
+- Browser viewport override: `418 x 776` CSS pixels; the in-app browser capture backend emitted `516 x 958px` images.
+- The reference is a focused crop of the sheet while the implementation evidence includes the dimmed video background, so the comparison is based on the shared sheet region rather than absolute top offset.
+
+**Full-view and focused comparison evidence**
+
+- The loading state matches the reference hierarchy: rounded white bottom sheet, centered drag handle, sticky title row, circular close action, centered indigo spinner, bold loading label, and muted contextual helper copy.
+- The completed state keeps the same sheet dimensions and adds the selected headword, pronunciation action, phonetic, part of speech, synonyms, Vietnamese meaning, definition, and bilingual example.
+- A separate focused crop was not needed because the complete loading sheet region and all text remain legible in both source and implementation captures.
+
+**Required fidelity surfaces**
+
+- Fonts and typography: the existing application font stack, `18px` sheet title, compact loading copy, and clear detail hierarchy match the established lesson vocabulary sheet.
+- Spacing and layout rhythm: the shared component preserves its `82dvh` stable height during loading and result states, `24px` top radius, sticky header, centered loader, and fixed close target.
+- Colors and visual tokens: white surface, slate text, primary indigo actions, subtle separators, dim backdrop, and light-theme contrast follow the reference and existing product tokens.
+- Image quality and asset fidelity: no custom imagery is required for this sheet; Lucide icons remain sharp at the tested mobile viewport.
+- Copy and content: loading text matches the reference. The lookup request includes the selected word, full English subtitle sentence, and Vietnamese translation so the returned meaning is contextual.
+
+**Comparison history**
+
+1. The video transcript initially supported segment seeking only and had no vocabulary-detail interaction.
+2. English subtitle tokens were converted into independent word buttons and connected to the existing lesson vocabulary lookup sheet without changing segment seeking.
+3. Browser verification selected `compensate` and received the matching headword and contextual Vietnamese meaning; an uncached lookup showed the expected loading state before resolving successfully.
+4. No actionable P0/P1/P2 visual or interaction differences remain for the requested scope.
+
+**Interaction and technical checks**
+
+- Opening a word pauses playback and opens the sheet immediately.
+- Closing the sheet keeps the existing downward exit animation.
+- Related-word lookups, pronunciation controls, retry handling, and stale-request protection remain wired through the shared component.
+- Client production build, ESLint, TypeScript compilation, and all `68` backend tests pass.
+
+### 20.1. Remove translated-status badges from recent videos
+
+- Source state: Browser Comment 1 on `/dich-video` at a `355 x 602` viewport, targeting the violet `Đã dịch` pill in a recent-video card.
+- Browser-rendered evidence: `C:\Users\DELL\AppData\Local\Temp\video-recent-without-translated-badge-qa.png` (`351 x 595px`), closely matching the annotated `355 x 602` viewport without density resampling.
+- Implementation state: the status pill is removed from every recent-video card while thumbnail, duration, title, metadata, overflow menu, card spacing, and open-video behavior remain unchanged.
+- Browser verification rendered two recent-video cards and found zero exact `Đã dịch` labels. The removed row collapses cleanly without leaving an empty gap or horizontal overflow.
+- Fonts, colors, image crop, icons, and app-specific copy outside the requested badge are unchanged. No new image asset was required.
+- Production client build, ESLint, and TypeScript compilation pass; browser console has no errors.
+
+final result: passed
+
 ## 13. Speaking response loader
 
 **Source visual truth**
