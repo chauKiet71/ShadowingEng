@@ -133,8 +133,11 @@ export class VideoTranslateService {
       orderBy: { createdAt: 'desc' },
       take: 20,
     });
+    const repairedJobs = await Promise.all(
+      jobs.map((job) => this.repairLegacyYoutubeDuration(job)),
+    );
     return {
-      jobs: jobs.map((job) => this.serializeJob(job)),
+      jobs: repairedJobs.map((job) => this.serializeJob(job)),
       quota: await this.getQuota(userId),
     };
   }
@@ -294,19 +297,21 @@ export class VideoTranslateService {
     });
 
     if (cached) {
+      const repairedCached = await this.repairLegacyYoutubeDuration(cached);
       const cloned = await this.prisma.videoTranslateJob.create({
         data: {
           userId,
           youtubeVideoId: videoId,
           youtubeUrl,
-          title: cached.title,
-          thumbnailUrl: cached.thumbnailUrl ?? youtubeThumbnailUrl(videoId),
-          durationSec: cached.durationSec,
+          title: repairedCached.title,
+          thumbnailUrl:
+            repairedCached.thumbnailUrl ?? youtubeThumbnailUrl(videoId),
+          durationSec: repairedCached.durationSec,
           status: VideoTranslateStatus.READY,
-          source: cached.source,
-          segmentsJson: cached.segmentsJson ?? Prisma.JsonNull,
+          source: repairedCached.source,
+          segmentsJson: repairedCached.segmentsJson ?? Prisma.JsonNull,
           dubbedAudioUrl: null,
-          pipelineVersion: cached.pipelineVersion,
+          pipelineVersion: repairedCached.pipelineVersion,
           fromCache: true,
           completedAt: new Date(),
         },
@@ -392,7 +397,7 @@ export class VideoTranslateService {
           job.youtubeVideoId,
           job.youtubeUrl,
         );
-        if (meta.durationSec > maxSeconds) {
+        if (meta.durationSec != null && meta.durationSec > maxSeconds) {
           throw new BadRequestException(
             `Video dài ${Math.ceil(meta.durationSec / 60)} phút — tối đa ${Math.floor(
               maxSeconds / 60,
@@ -415,12 +420,21 @@ export class VideoTranslateService {
           job.youtubeVideoId,
           job.youtubeUrl,
           workDir,
-          meta.durationSec,
+          meta.durationSec ?? maxSeconds,
         );
         logStage('transcript ready');
         if (!timed.length) {
           throw new BadRequestException(
             'Không tìm thấy lời thoại tiếng Anh trong video này',
+          );
+        }
+        const durationSec =
+          meta.durationSec ?? this.inferTranscriptDuration(timed);
+        if (durationSec > maxSeconds) {
+          throw new BadRequestException(
+            `Video dài ${Math.ceil(durationSec / 60)} phút - tối đa ${Math.floor(
+              maxSeconds / 60,
+            )} phút cho tài khoản ${isPremium ? 'Premium' : 'miễn phí'}.`,
           );
         }
         const translated = await this.translateSegments(timed);
@@ -431,6 +445,7 @@ export class VideoTranslateService {
           data: {
             status: VideoTranslateStatus.READY,
             source,
+            durationSec,
             segmentsJson: translated,
             dubbedAudioUrl: null,
             pipelineVersion: DUBBED_PIPELINE_VERSION,
@@ -1892,6 +1907,9 @@ export class VideoTranslateService {
         thumbnailUrl: data.thumbnail || youtubeThumbnailUrl(videoId),
       };
     } catch {
+      const durationSec = await this.fetchYoutubeWatchDuration(youtubeUrl);
+      let title = `YouTube ${videoId}`;
+      let thumbnailUrl = youtubeThumbnailUrl(videoId);
       try {
         const res = await fetch(
           `https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`,
@@ -1901,21 +1919,93 @@ export class VideoTranslateService {
             title?: string;
             thumbnail_url?: string;
           };
-          return {
-            title: data.title?.trim() || `YouTube ${videoId}`,
-            durationSec: this.maxSecondsFree(),
-            thumbnailUrl: data.thumbnail_url || youtubeThumbnailUrl(videoId),
-          };
+          title = data.title?.trim() || title;
+          thumbnailUrl = data.thumbnail_url || thumbnailUrl;
         }
       } catch {
         // ignore
       }
       return {
-        title: `YouTube ${videoId}`,
-        durationSec: this.maxSecondsFree(),
-        thumbnailUrl: youtubeThumbnailUrl(videoId),
+        title,
+        durationSec,
+        thumbnailUrl,
       };
     }
+  }
+
+  private parseYoutubeWatchDuration(content: string) {
+    const match = content.match(/"lengthSeconds"\s*:\s*"?(\d+)"?/);
+    const durationSec = Number(match?.[1]);
+    return Number.isFinite(durationSec) && durationSec > 0
+      ? Math.round(durationSec)
+      : null;
+  }
+
+  private async fetchYoutubeWatchDuration(youtubeUrl: string) {
+    try {
+      const response = await fetch(youtubeUrl, {
+        headers: {
+          'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/127 Safari/537.36',
+          'accept-language': 'en-US,en;q=0.9',
+        },
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!response.ok) return null;
+      return this.parseYoutubeWatchDuration(await response.text());
+    } catch {
+      return null;
+    }
+  }
+
+  private inferTranscriptDuration(
+    segments: Array<{ start: number; end: number }>,
+  ) {
+    const lastTimestamp = segments.reduce(
+      (max, segment) => Math.max(max, segment.end, segment.start),
+      0,
+    );
+    return Math.max(1, Math.ceil(lastTimestamp));
+  }
+
+  private async repairLegacyYoutubeDuration<
+    T extends {
+      id: string;
+      youtubeVideoId: string | null;
+      youtubeUrl: string | null;
+      durationSec: number | null;
+      status: VideoTranslateStatus;
+      segmentsJson: Prisma.JsonValue | null;
+    },
+  >(job: T): Promise<T> {
+    if (
+      job.status !== VideoTranslateStatus.READY ||
+      !job.youtubeVideoId ||
+      !job.youtubeUrl ||
+      job.durationSec == null
+    ) {
+      return job;
+    }
+
+    const knownFallbackDurations = new Set([
+      this.maxSecondsFree(),
+      this.maxSecondsPremium(),
+    ]);
+    if (!knownFallbackDurations.has(job.durationSec)) return job;
+
+    const transcriptDuration = this.inferTranscriptDuration(
+      this.parseSegments(job.segmentsJson),
+    );
+    if (transcriptDuration >= job.durationSec - 2) return job;
+
+    const durationSec = await this.fetchYoutubeWatchDuration(job.youtubeUrl);
+    if (durationSec == null || durationSec === job.durationSec) return job;
+
+    await this.prisma.videoTranslateJob.update({
+      where: { id: job.id },
+      data: { durationSec },
+    });
+    return { ...job, durationSec };
   }
 
   private resolveYtDlpPath() {

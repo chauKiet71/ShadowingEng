@@ -357,6 +357,16 @@ final result: passed
 - Fonts, colors, image crop, icons, and app-specific copy outside the requested badge are unchanged. No new image asset was required.
 - Production client build, ESLint, and TypeScript compilation pass; browser console has no errors.
 
+### 20.2. Correct recent-video durations
+
+- Source state: Browser Comment 1 on `/dich-video` showed unrelated YouTube videos with the same `10:00` duration in both the thumbnail badge and metadata row.
+- Root cause: when `yt-dlp` metadata failed, the backend stored the free-account limit (`600` seconds) as though it were the video's duration.
+- Browser-rendered evidence: `C:\Users\DELL\AppData\Local\Temp\video-recent-duration-fixed-qa.png`.
+- The fallback now reads YouTube's `lengthSeconds`; only when that is unavailable does a newly processed job infer duration from the transcript timestamps. Existing READY jobs whose duration equals a configured quota limit are repaired from YouTube metadata on the next jobs-list request.
+- Browser verification confirmed `00:21` for `Video vs Image: Which ad actually CONVERTS?`, `01:01` for `$7M worth of Business Advice in 60 seconds`, `05:14` for `Why does Japan work so hard?`, and `08:27` for `Urgent Message For Facebook Advertisers!`.
+- Thumbnail duration and metadata duration use the same corrected API field. The full recent list has no `10:00` fallback values and browser console has no errors.
+- ESLint, TypeScript compilation, and all `70` test cases pass.
+
 final result: passed
 
 ## 13. Speaking response loader

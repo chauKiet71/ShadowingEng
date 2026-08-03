@@ -269,6 +269,69 @@ describe('VideoTranslateService transcript segmentation', () => {
   });
 });
 
+describe('VideoTranslateService duration metadata', () => {
+  it('parses the exact duration from a YouTube watch payload', () => {
+    const service = new VideoTranslateService(
+      {} as never,
+      { get: jest.fn().mockReturnValue(undefined) } as never,
+    ) as unknown as {
+      parseYoutubeWatchDuration: (content: string) => number | null;
+    };
+
+    expect(
+      service.parseYoutubeWatchDuration(
+        '<script>{"videoDetails":{"lengthSeconds":"21"}}</script>',
+      ),
+    ).toBe(21);
+    expect(service.parseYoutubeWatchDuration('<html></html>')).toBeNull();
+  });
+
+  it('repairs a legacy quota-duration value using YouTube metadata', async () => {
+    const update = jest.fn().mockResolvedValue({});
+    const service = new VideoTranslateService(
+      { videoTranslateJob: { update } } as never,
+      { get: jest.fn().mockReturnValue(undefined) } as never,
+    ) as unknown as {
+      repairLegacyYoutubeDuration: (job: {
+        id: string;
+        youtubeVideoId: string;
+        youtubeUrl: string;
+        durationSec: number;
+        status: string;
+        segmentsJson: Array<{
+          start: number;
+          end: number;
+          en: string;
+          vi: string;
+        }>;
+      }) => Promise<{ durationSec: number }>;
+    };
+    const fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue({
+      ok: true,
+      text: jest.fn().mockResolvedValue('{"lengthSeconds":"21"}'),
+    } as unknown as Response);
+
+    try {
+      const result = await service.repairLegacyYoutubeDuration({
+        id: 'job-1',
+        youtubeVideoId: 'KSp8WQmj6DM',
+        youtubeUrl: 'https://www.youtube.com/watch?v=KSp8WQmj6DM',
+        durationSec: 600,
+        status: 'READY',
+        segmentsJson: [{ start: 0, end: 21, en: 'Example.', vi: 'Ví dụ.' }],
+      });
+
+      expect(result.durationSec).toBe(21);
+      expect(update).toHaveBeenCalledWith({
+        where: { id: 'job-1' },
+        data: { durationSec: 21 },
+      });
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+});
+
 describe('VideoTranslateService processing concurrency', () => {
   let service: VideoTranslateService;
 
