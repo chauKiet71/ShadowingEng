@@ -49,6 +49,17 @@ describe('VideoTranslateService transcript segmentation', () => {
     ).buildWhisperTimedSegments(input);
   }
 
+  function buildCaptionWordTimings(segments: TimedSegment[], durationSec = 60) {
+    return (
+      service as unknown as {
+        buildCaptionWordTimings: (
+          input: TimedSegment[],
+          duration: number,
+        ) => RawTimedWord[];
+      }
+    ).buildCaptionWordTimings(segments, durationSec);
+  }
+
   it('cuts at an exact 0.5 second pause', () => {
     const result = finalize([
       { start: 0, end: 1, en: 'The first thought' },
@@ -182,6 +193,51 @@ describe('VideoTranslateService transcript segmentation', () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].en).toBe('Let me check.');
+  });
+
+  it('deduplicates rolling caption words while preserving cue transitions', () => {
+    const words = buildCaptionWordTimings([
+      { start: 0, end: 1, en: 'Let me' },
+      { start: 0.7, end: 1.6, en: 'Let me check.' },
+    ]);
+
+    expect(words.map((word) => word.en)).toEqual(['Let', 'me', 'check.']);
+    expect(words[2].start).toBeGreaterThanOrEqual(1.1);
+  });
+
+  it('keeps word focus aligned to the original caption cue boundaries', () => {
+    const captions = [
+      {
+        start: 44.239,
+        end: 47.28,
+        en: "one, I wouldn't be letting you know",
+      },
+      {
+        start: 45.68,
+        end: 48.64,
+        en: 'about it. We just think that was anomaly',
+      },
+      {
+        start: 47.28,
+        end: 50.16,
+        en: 'and try and work it out. But, this has',
+      },
+      {
+        start: 48.64,
+        end: 51.44,
+        en: 'happened in a number of accounts enough',
+      },
+    ];
+    const words = buildCaptionWordTimings(captions);
+    const result = finalize(captions, 60, words);
+    const sentence = result.find((segment) =>
+      segment.en.includes('We just think that was anomaly'),
+    );
+    const work = sentence?.words?.find((word) => word.text === 'work');
+
+    expect(sentence?.start).toBeLessThan(46.2);
+    expect(work?.start).toBeGreaterThan(47.65);
+    expect(work?.start).toBeLessThan(47.8);
   });
 
   it('collapses a completed sentence repeated by an overlapping rolling cue', () => {

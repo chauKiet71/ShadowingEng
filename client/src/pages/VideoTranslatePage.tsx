@@ -139,11 +139,13 @@ function formatTime(sec: number) {
 function findActiveSegmentIndex(
   segments: VideoTranslateSegment[],
   time: number,
+  playbackRate: PlaybackRate,
 ): number {
   if (!segments.length) return -1;
+  const lookahead = 0.08 * playbackRate;
   let active = -1;
   for (let i = 0; i < segments.length; i += 1) {
-    if (segments[i].start <= time + 0.08) active = i;
+    if (segments[i].start <= time + lookahead) active = i;
     else break;
   }
   return active;
@@ -183,17 +185,23 @@ function resolveSegmentWordTimings(segment: VideoTranslateSegment) {
   return stored?.length ? stored : estimateSegmentWordTimings(segment);
 }
 
-function findActiveWordIndex(words: SegmentWordTiming[], time: number) {
+function findActiveWordIndex(
+  words: SegmentWordTiming[],
+  time: number,
+  playbackRate: PlaybackRate,
+) {
+  const lookahead = 0.04 * playbackRate;
+  const minimumVisibleDuration = 0.12 * playbackRate;
   let active = -1;
   for (let index = 0; index < words.length; index += 1) {
     const word = words[index];
-    if (time + 0.04 < word.start) break;
+    if (time + lookahead < word.start) break;
     const nextStart = words[index + 1]?.start ?? word.end;
     const visibleEnd = Math.max(
       word.end,
-      Math.min(nextStart, word.start + 0.12),
+      Math.min(nextStart, word.start + minimumVisibleDuration),
     );
-    if (time <= visibleEnd + 0.04) active = index;
+    if (time <= visibleEnd + lookahead) active = index;
   }
   return active;
 }
@@ -288,8 +296,9 @@ export default function VideoTranslatePage() {
   const prevActiveIndexRef = useRef(-1);
 
   const activeIndex = useMemo(
-    () => findActiveSegmentIndex(job?.segments ?? [], currentTime),
-    [job?.segments, currentTime],
+    () =>
+      findActiveSegmentIndex(job?.segments ?? [], currentTime, playbackRate),
+    [job?.segments, currentTime, playbackRate],
   );
   const activeSegment =
     activeIndex >= 0 && job?.segments ? job.segments[activeIndex] : null;
@@ -974,9 +983,7 @@ export default function VideoTranslatePage() {
 
           <section ref={recentSectionRef} className="scroll-mt-4">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-[19px] font-extrabold">
-                Video gần đây
-              </h2>
+              <h2 className="text-[19px] font-extrabold">Video gần đây</h2>
               {recent.length > 0 && (
                 <button
                   type="button"
@@ -1395,7 +1402,11 @@ export default function VideoTranslatePage() {
                       const timedWords = wordTimingsBySegment[idx] ?? [];
                       const activeWordIndex =
                         active && isPlaying
-                          ? findActiveWordIndex(timedWords, currentTime)
+                          ? findActiveWordIndex(
+                              timedWords,
+                              currentTime,
+                              playbackRate,
+                            )
                           : -1;
                       return (
                         <button

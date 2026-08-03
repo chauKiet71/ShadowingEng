@@ -36,7 +36,7 @@ export const DEFAULT_MAX_SECONDS_PREMIUM = 1200;
 const DEFAULT_TRANSLATION_BATCH_SIZE = 24;
 const DEFAULT_TRANSLATION_CONCURRENCY = 3;
 /** Bump when processing pipeline changes — old cache bị bỏ qua */
-export const DUBBED_PIPELINE_VERSION = 12;
+export const DUBBED_PIPELINE_VERSION = 13;
 
 /**
  * Quy tắc tạo transcript: mỗi thẻ = một câu nói tự nhiên.
@@ -70,6 +70,17 @@ type TimedEnglishSegment = {
   end: number;
   en: string;
   words?: VideoWordTiming[];
+};
+
+type RawEnglishWordTiming = {
+  start: number;
+  end: number;
+  en: string;
+};
+
+type CaptionTranscript = {
+  segments: TimedEnglishSegment[];
+  words: RawEnglishWordTiming[];
 };
 
 export type VideoSegment = TimedEnglishSegment & {
@@ -702,10 +713,14 @@ export class VideoTranslateService {
     segments: Array<{ start: number; end: number; en: string }>;
     source: string;
   }> {
-    const captionSegments = await this.tryFetchCaptions(videoId, durationSec);
-    if (captionSegments.length > 0) {
+    const captionTranscript = await this.tryFetchCaptions(videoId, durationSec);
+    if (captionTranscript.segments.length > 0) {
       return {
-        segments: this.finalizeSegments(captionSegments, durationSec),
+        segments: this.finalizeSegments(
+          captionTranscript.segments,
+          durationSec,
+          captionTranscript.words,
+        ),
         source: 'captions',
       };
     }
@@ -728,20 +743,23 @@ export class VideoTranslateService {
     };
   }
 
-  private async tryFetchCaptions(videoId: string, durationSec: number) {
+  private async tryFetchCaptions(
+    videoId: string,
+    durationSec: number,
+  ): Promise<CaptionTranscript> {
     try {
       let items = await fetchTranscript(videoId, { lang: 'en' });
       if (!items?.length) {
         items = await fetchTranscript(videoId);
       }
-      if (!items?.length) return [];
+      if (!items?.length) return { segments: [], words: [] };
 
       const maxOffset = Math.max(
         ...items.map((item) => Number(item.offset) || 0),
       );
       const unitIsMs = maxOffset > durationSec * 1.5 + 5;
 
-      return items
+      const segments = items
         .map((item) => {
           const rawStart = Number(item.offset) || 0;
           const rawDur = Number(item.duration) || 0;
@@ -766,13 +784,18 @@ export class VideoTranslateService {
             seg != null && seg.en.length > 0,
         )
         .sort((a, b) => a.start - b.start || a.end - b.end);
+
+      return {
+        segments,
+        words: this.buildCaptionWordTimings(segments, durationSec),
+      };
     } catch (error) {
       this.logger.warn(
         `Caption fetch failed for ${videoId}: ${
           error instanceof Error ? error.message : String(error)
         }`,
       );
-      return [];
+      return { segments: [], words: [] };
     }
   }
 
@@ -782,6 +805,57 @@ export class VideoTranslateService {
       .replace(/\(.*?\)/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  /**
+   * YouTube captions expose cue timestamps, but usually not timestamps for
+   * individual words. Use the next cue as the end of an overlapping cue and
+   * distribute its words inside that smaller window. This preserves the real
+   * caption transitions instead of stretching a merged sentence uniformly.
+   */
+  private buildCaptionWordTimings(
+    segments: TimedEnglishSegment[],
+    durationSec: number,
+  ): RawEnglishWordTiming[] {
+    const words: RawEnglishWordTiming[] = [];
+    const normalize = (value: string) =>
+      value.toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+    segments.forEach((segment, index) => {
+      const nextStart = segments[index + 1]?.start;
+      const clippedEnd =
+        nextStart != null && nextStart > segment.start + 0.05
+          ? Math.min(segment.end, nextStart)
+          : segment.end;
+      const end = Math.min(
+        durationSec,
+        Math.max(segment.start + 0.12, clippedEnd),
+      );
+      const estimated = this.estimateWordTimings({ ...segment, end }).map(
+        (word) => ({ start: word.start, end: word.end, en: word.text }),
+      );
+
+      const maxOverlap = Math.min(words.length, estimated.length);
+      let overlap = maxOverlap;
+      while (overlap > 0) {
+        const tail = words.slice(-overlap);
+        const head = estimated.slice(0, overlap);
+        if (
+          tail.every(
+            (word, wordIndex) =>
+              normalize(word.en).length > 0 &&
+              normalize(word.en) === normalize(head[wordIndex].en),
+          )
+        ) {
+          break;
+        }
+        overlap -= 1;
+      }
+
+      words.push(...estimated.slice(overlap));
+    });
+
+    return words;
   }
 
   /**
@@ -1018,19 +1092,20 @@ export class VideoTranslateService {
 
   private attachWordTimings(
     segments: Array<{ start: number; end: number; en: string }>,
-    rawWords: Array<{ start: number; end: number; en: string }>,
+    rawWords: RawEnglishWordTiming[],
   ): TimedEnglishSegment[] {
     const words = [...rawWords].sort(
       (a, b) => a.start - b.start || a.end - b.end,
     );
 
-    return segments.map((segment, index) => {
-      const nextStart = segments[index + 1]?.start;
-      const lowerBound = segment.start - 0.1;
-      const upperBound = nextStart ?? segment.end + 0.1;
+    const mappedSegments = segments.map((segment, index) => {
+      const previousStart = segments[index - 1]?.start;
+      const nextEnd = segments[index + 1]?.end;
+      const lowerBound = (previousStart ?? segment.start - 1) - 0.1;
+      const upperBound = (nextEnd ?? segment.end + 1) + 0.1;
       const candidates = words.filter((word) => {
         const midpoint = (word.start + word.end) / 2;
-        return midpoint >= lowerBound && midpoint < upperBound;
+        return midpoint >= lowerBound && midpoint <= upperBound;
       });
       const mapped = this.mapWordsToSegment(segment, candidates);
 
@@ -1039,6 +1114,23 @@ export class VideoTranslateService {
         words: mapped.length
           ? this.stabilizeWordTimingWindows(mapped, segment.end)
           : this.estimateWordTimings(segment),
+      };
+    });
+
+    return mappedSegments.map((segment, index) => {
+      if (!segment.words?.length) return segment;
+      const firstWordStart = segment.words[0].start;
+      const lastWordEnd = segment.words[segment.words.length - 1].end;
+      const nextWordStart = mappedSegments[index + 1]?.words?.[0]?.start;
+      const end =
+        nextWordStart != null
+          ? Math.max(lastWordEnd, nextWordStart - 0.04)
+          : Math.max(lastWordEnd, segment.end);
+
+      return {
+        ...segment,
+        start: firstWordStart,
+        end: Math.max(firstWordStart + 0.12, end),
       };
     });
   }
@@ -1053,7 +1145,7 @@ export class VideoTranslateService {
 
     for (
       let startOffset = 0;
-      startOffset <= Math.min(3, candidates.length - 1);
+      startOffset <= candidates.length - 1;
       startOffset += 1
     ) {
       const mapped: VideoWordTiming[] = [];
