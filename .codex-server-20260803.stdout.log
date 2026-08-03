@@ -1,0 +1,7 @@
+
+> shadowing-english@1.0.0 start:dev
+> nest start --watch
+
+
+ Error  EPERM: operation not permitted, unlink 'D:\Code\ShowdingEng\backend\dist\prisma.config.js.map'
+

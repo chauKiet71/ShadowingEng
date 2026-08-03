@@ -1010,12 +1010,13 @@ export default function VocabularyPage() {
     );
   }
 
-  const filteredSets =
-    overview?.sets.filter((set) =>
-      `${set.title} ${set.description} ${set.topic}`
-        .toLowerCase()
-        .includes(search.trim().toLowerCase()),
-    ) ?? [];
+  const filteredSets = Array.isArray(overview?.sets)
+    ? overview.sets.filter((set) =>
+        `${set.title} ${set.description} ${set.topic}`
+          .toLowerCase()
+          .includes(search.trim().toLowerCase()),
+      )
+    : [];
 
   if (showAllSets) {
     return (

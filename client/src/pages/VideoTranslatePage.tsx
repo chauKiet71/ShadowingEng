@@ -3,16 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   BookOpen,
+  ChevronRight,
   Clapperboard,
   Gauge,
   Languages,
+  Lightbulb,
   Link2,
   Loader2,
   Mic,
+  MoreVertical,
+  Play,
   Repeat,
+  Trash2,
   Upload,
   X,
 } from 'lucide-react';
+import BottomNav from '../components/BottomNav';
 import MobileLayout from '../components/MobileLayout';
 import { useShadowing } from '../hooks/useShadowing';
 import {
@@ -220,6 +226,21 @@ function isAudioMediaUrl(url: string | null | undefined) {
   return Boolean(url && /\.(mp3|m4a|wav|opus)(\?|$)/i.test(url));
 }
 
+function formatRecentDate(value: string) {
+  const date = new Date(value);
+  const now = new Date();
+  if (date.toDateString() === now.toDateString()) return 'Hôm nay';
+
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  if (date.toDateString() === yesterday.toDateString()) return 'Hôm qua';
+
+  return new Intl.DateTimeFormat('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+  }).format(date);
+}
+
 export default function VideoTranslatePage() {
   const navigate = useNavigate();
   const [url, setUrl] = useState('');
@@ -230,6 +251,9 @@ export default function VideoTranslatePage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [sourceMode, setSourceMode] = useState<'url' | 'upload'>('url');
+  const [showAllRecent, setShowAllRecent] = useState(false);
+  const [recentMenuId, setRecentMenuId] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showTranslation, setShowTranslation] = useState(true);
@@ -256,6 +280,7 @@ export default function VideoTranslatePage() {
   const isLoopingRef = useRef(false);
   const autoPlayRequestedRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const recentSectionRef = useRef<HTMLDivElement | null>(null);
   const syncRafRef = useRef<number | null>(null);
   const transcriptListRef = useRef<HTMLDivElement | null>(null);
   const playbackSpeedRef = useRef<HTMLDivElement | null>(null);
@@ -741,9 +766,359 @@ export default function VideoTranslatePage() {
   const processing = job?.status === 'PENDING' || job?.status === 'PROCESSING';
   const ready = job?.status === 'READY';
   const mediaIsAudio = isAudioMediaUrl(job?.mediaUrl);
+  const visibleRecent = showAllRecent ? recent : recent.slice(0, 2);
+
+  if (!ready) {
+    return (
+      <MobileLayout showNav={false}>
+        <div className="min-h-[100dvh] bg-white px-4 pb-32 pt-3 text-[#081333] dark:bg-neutral-950 dark:text-white">
+          <header className="relative flex h-12 items-center justify-center">
+            <button
+              type="button"
+              onClick={() => {
+                if (window.history.length > 1) {
+                  void navigate(-1);
+                  return;
+                }
+                void navigate('/');
+              }}
+              className="absolute left-0 inline-flex h-10 w-10 items-center justify-center text-[#081333] dark:text-white"
+              aria-label="Quay lại"
+            >
+              <ArrowLeft size={25} strokeWidth={2.25} />
+            </button>
+            <h1 className="text-[22px] font-extrabold leading-none">
+              Dịch video
+            </h1>
+          </header>
+
+          <div className="mt-4 grid h-12 grid-cols-2 rounded-full border border-slate-200 bg-white p-1 shadow-[0_2px_8px_rgba(15,23,42,0.04)] dark:border-neutral-700 dark:bg-neutral-900">
+            <button
+              type="button"
+              onClick={() => {
+                setSourceMode('url');
+                setError('');
+              }}
+              className={`rounded-full text-sm font-bold outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#8b7cf6]/40 ${
+                sourceMode === 'url'
+                  ? 'bg-[#6264ef] text-white shadow-[0_7px_16px_rgba(98,100,239,0.28)]'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-neutral-300 dark:hover:text-white'
+              }`}
+            >
+              Link video
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setSourceMode('upload');
+                setError('');
+              }}
+              className={`rounded-full text-sm font-bold outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#8b7cf6]/40 ${
+                sourceMode === 'upload'
+                  ? 'bg-[#6264ef] text-white shadow-[0_7px_16px_rgba(98,100,239,0.28)]'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-neutral-300 dark:hover:text-white'
+              }`}
+            >
+              Tải video
+            </button>
+          </div>
+
+          <section className="mt-6">
+            <h2 className="text-[19px] font-extrabold">
+              {sourceMode === 'url' ? 'Dán link video' : 'Tải video lên'}
+            </h2>
+
+            <div className="mt-3 rounded-2xl border border-[#ebe8f7] bg-white p-4 shadow-[0_8px_28px_rgba(73,53,152,0.08)] dark:border-neutral-800 dark:bg-neutral-900">
+              {sourceMode === 'url' ? (
+                <>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f0ebff] text-[#5b2cf4] dark:bg-[#29213f]">
+                      <Link2 size={22} strokeWidth={2.5} />
+                    </span>
+                    <p className="text-[13px] leading-5 text-slate-500 dark:text-neutral-300">
+                      Dán liên kết Youtube
+                    </p>
+                  </div>
+                  <div className="mt-4 flex h-12 overflow-hidden rounded-xl border border-slate-200 bg-white focus-within:border-[#6736f5] dark:border-neutral-700 dark:bg-neutral-950">
+                    <label htmlFor="youtube-url" className="sr-only">
+                      Dán link video
+                    </label>
+                    <div className="relative min-w-0 flex-1">
+                      <Link2
+                        size={18}
+                        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      />
+                      <input
+                        id="youtube-url"
+                        type="url"
+                        inputMode="url"
+                        autoComplete="off"
+                        spellCheck={false}
+                        value={url}
+                        disabled={submitting || processing}
+                        onChange={(event) => {
+                          setUrl(event.target.value);
+                          setError('');
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter') void submitUrl();
+                        }}
+                        placeholder="https://www.youtube.com/watch?v=..."
+                        className="h-full w-full bg-transparent pl-10 pr-2 text-sm text-slate-800 outline-none placeholder:text-slate-400 dark:text-white"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      disabled={submitting || processing || !url.trim()}
+                      onClick={() => void submitUrl()}
+                      className="m-1 min-w-[104px] rounded-lg bg-gradient-to-r from-[#632ef4] to-[#4b25ef] px-4 text-sm font-bold text-white transition-opacity disabled:opacity-50"
+                    >
+                      {submitting || processing ? (
+                        <Loader2 className="mx-auto animate-spin" size={18} />
+                      ) : (
+                        'Dịch ngay'
+                      )}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f0ebff] text-[#5b2cf4] dark:bg-[#29213f]">
+                      <Upload size={22} strokeWidth={2.5} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-[#101a39] dark:text-white">
+                        Chọn video từ thiết bị
+                      </p>
+                      <p className="mt-0.5 text-[12px] text-slate-500 dark:text-neutral-400">
+                        MP4, WebM, MOV, MP3, M4A, WAV · tối đa 120MB
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept={ACCEPT_MEDIA}
+                    className="hidden"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0] ?? null;
+                      setSelectedFile(file);
+                      if (file) setUrl('');
+                      setError('');
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="mt-4 flex min-h-12 w-full items-center justify-center rounded-xl border border-dashed border-[#8b72e7] bg-[#f8f6ff] px-4 text-sm font-semibold text-[#5b2cf4] dark:bg-[#211b34]"
+                  >
+                    <span className="max-w-full truncate">
+                      {selectedFile?.name ?? 'Chọn file video hoặc audio'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={submitting || processing || !selectedFile}
+                    onClick={() => void submitUpload()}
+                    className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#632ef4] to-[#4b25ef] text-sm font-bold text-white disabled:opacity-50"
+                  >
+                    {submitting || processing ? (
+                      <Loader2 className="animate-spin" size={18} />
+                    ) : (
+                      <Languages size={18} />
+                    )}
+                    Dịch ngay
+                  </button>
+                </>
+              )}
+
+              {quota && (
+                <p className="mt-3 text-center text-[11px] text-slate-400">
+                  {quota.isPremium
+                    ? 'Premium · không giới hạn số video'
+                    : `Còn ${quota.remaining ?? 0}/${quota.limit} lượt hôm nay · tối đa ${Math.floor(quota.maxSeconds / 60)} phút/video`}
+                </p>
+              )}
+            </div>
+          </section>
+
+          {error && (
+            <div className="mt-4 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-950/40 dark:text-red-300">
+              {error}
+            </div>
+          )}
+
+          {processing && (
+            <div className="mt-4 rounded-2xl border border-[#ebe8f7] bg-[#faf9ff] p-5 text-center dark:border-neutral-800 dark:bg-neutral-900">
+              <Loader2
+                className="mx-auto animate-spin text-[#5b2cf4]"
+                size={27}
+              />
+              <p className="mt-2 text-sm font-bold">Đang xử lý video</p>
+              <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-neutral-400">
+                AI đang nhận dạng nội dung và tạo phụ đề tiếng Việt. Bạn có thể
+                chờ tại đây.
+              </p>
+            </div>
+          )}
+
+          <div
+            className="my-6 flex items-center gap-4 text-sm text-slate-500"
+            aria-hidden
+          >
+            <span className="h-px flex-1 bg-slate-200 dark:bg-neutral-800" />
+            <span>Hoặc</span>
+            <span className="h-px flex-1 bg-slate-200 dark:bg-neutral-800" />
+          </div>
+
+          <section ref={recentSectionRef} className="scroll-mt-4">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-[19px] font-extrabold">
+                Video gần đây
+              </h2>
+              {recent.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllRecent((value) => !value)}
+                  className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-[#5b2cf4]"
+                >
+                  {showAllRecent ? 'Thu gọn' : 'Xem tất cả'}
+                  <ChevronRight
+                    size={17}
+                    className={
+                      showAllRecent ? 'rotate-90 transition-transform' : ''
+                    }
+                  />
+                </button>
+              )}
+            </div>
+
+            {loading ? (
+              <div className="flex justify-center py-10">
+                <Loader2 className="animate-spin text-[#5b2cf4]" size={26} />
+              </div>
+            ) : visibleRecent.length > 0 ? (
+              <div className="mt-3 space-y-3">
+                {visibleRecent.map((item) => (
+                  <article
+                    key={item.id}
+                    className="relative flex min-h-[104px] cursor-pointer gap-3 rounded-2xl border border-[#eeebf6] bg-white p-2.5 pr-9 shadow-[0_6px_20px_rgba(37,31,82,0.05)] dark:border-neutral-800 dark:bg-neutral-900"
+                    onClick={() => openJob(item)}
+                  >
+                    <div className="relative h-[84px] w-[132px] shrink-0 overflow-hidden rounded-xl bg-[#eeeaff]">
+                      {item.thumbnailUrl ? (
+                        <img
+                          src={item.thumbnailUrl}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      ) : item.mediaUrl && !isAudioMediaUrl(item.mediaUrl) ? (
+                        <video
+                          src={`${item.mediaUrl}#t=0.1`}
+                          muted
+                          playsInline
+                          preload="metadata"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <img
+                          src="/images/video-translate/video-translate-hero.png"
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/55 text-white">
+                          <Play
+                            size={15}
+                            className="ml-0.5"
+                            fill="currentColor"
+                          />
+                        </span>
+                      </span>
+                      <span className="absolute bottom-1 right-1 rounded bg-black/65 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                        {item.durationSec
+                          ? formatTime(item.durationSec)
+                          : '--:--'}
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1 py-1">
+                      <h3 className="line-clamp-2 text-sm font-extrabold leading-5 text-[#101a39] dark:text-white">
+                        {item.title || item.originalFilename || 'Video đã dịch'}
+                      </h3>
+                      <p className="mt-1 text-[11px] text-slate-500 dark:text-neutral-400">
+                        {item.youtubeVideoId ? 'YouTube' : 'Tải lên'} ·{' '}
+                        {item.durationSec
+                          ? formatTime(item.durationSec)
+                          : '--:--'}{' '}
+                        · {formatRecentDate(item.createdAt)}
+                      </p>
+                      <span className="mt-2 inline-flex rounded-md bg-[#eee9ff] px-2 py-1 text-[11px] font-semibold text-[#5b2cf4] dark:bg-[#29213f]">
+                        Đã dịch
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label="Tùy chọn video"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setRecentMenuId((value) =>
+                          value === item.id ? null : item.id,
+                        );
+                      }}
+                      className="absolute right-1.5 top-2 inline-flex h-8 w-8 items-center justify-center text-slate-500"
+                    >
+                      <MoreVertical size={19} />
+                    </button>
+                    {recentMenuId === item.id && (
+                      <div className="absolute right-2 top-10 z-20 rounded-lg border border-slate-100 bg-white p-1 shadow-xl dark:border-neutral-700 dark:bg-neutral-800">
+                        <button
+                          type="button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setRecentMenuId(null);
+                            void deleteRecentJob(item);
+                          }}
+                          className="flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40"
+                        >
+                          <Trash2 size={15} />
+                          Xóa video
+                        </button>
+                      </div>
+                    )}
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-3 rounded-2xl border border-dashed border-[#ddd7f3] px-5 py-8 text-center dark:border-neutral-800">
+                <Clapperboard className="mx-auto text-[#8065df]" size={25} />
+                <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-neutral-300">
+                  Video đã dịch sẽ xuất hiện tại đây
+                </p>
+              </div>
+            )}
+          </section>
+
+          <aside className="mt-6 flex items-center gap-3 rounded-2xl border border-[#eee9ff] bg-[#faf9ff] p-4 dark:border-neutral-800 dark:bg-neutral-900">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eee9ff] text-[#5b2cf4] dark:bg-[#29213f]">
+              <Lightbulb size={22} />
+            </span>
+            <div>
+              <h2 className="text-sm font-extrabold">Mẹo nhỏ</h2>
+              <p className="mt-0.5 text-xs leading-5 text-slate-500 dark:text-neutral-400">
+                Video có phụ đề gốc sẽ cho kết quả dịch chính xác hơn.
+              </p>
+            </div>
+          </aside>
+        </div>
+        <BottomNav />
+      </MobileLayout>
+    );
+  }
 
   return (
-    <MobileLayout showNav={!ready}>
+    <MobileLayout showNav={false}>
       <div
         className={
           ready

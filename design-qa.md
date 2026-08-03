@@ -719,6 +719,28 @@ final result: passed
 
 final result: passed
 
+## 19. Video translation landing-screen redesign
+
+**Source visual truth**
+
+- Reference mockup: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-a2dc8322-0484-41d9-a18f-531038002a7d.png`.
+- Target state: `/dich-video`, light theme, Link video selected, recent translated video visible.
+
+**Implementation evidence**
+
+- The reference and browser-rendered implementation were normalized to the same mobile app width and compared side by side.
+- A dedicated generated raster asset is used for the purple 3D clapperboard hero artwork.
+- The existing URL submission, file upload, quota, processing, recent-job open, and recent-job delete flows remain connected to their production API handlers.
+
+**Required fidelity surfaces**
+
+- Header, segmented mode control, lavender hero, feature row, inline link form, recent-video card, tip panel, and page-specific bottom navigation follow the reference hierarchy.
+- Typography remains within the existing product font stack while matching the reference's navy headings, compact support copy, and violet actions.
+- The page has no horizontal overflow, the upload tab and recent-video menu are interactive, and the browser console reports no errors.
+- The production client build completes successfully.
+
+final result: passed
+
 ## 17. Remove the CEFR badge from speaking-history rows
 
 **Source visual truth**

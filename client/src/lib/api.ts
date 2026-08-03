@@ -59,7 +59,9 @@ async function request<T>(
   }
 
   const res = await fetch(`${baseUrl}${path}`, { ...options, headers });
-  const data = await res.json().catch(() => ({}));
+  const contentType = res.headers.get('content-type')?.toLowerCase() ?? '';
+  const isJson = contentType.includes('application/json');
+  const data = isJson ? await res.json().catch(() => ({})) : {};
 
   if (!res.ok) {
     const rawMessage = data.message;
@@ -78,6 +80,15 @@ async function request<T>(
           ? rawMessage.code
           : undefined;
     throw new ApiError(message, code, res.status);
+  }
+
+  if (res.status === 204) return undefined as T;
+  if (!isJson) {
+    throw new ApiError(
+      'Máy chủ API trả về phản hồi không hợp lệ. Hãy kiểm tra VITE_API_BASE_URL trên Netlify.',
+      'INVALID_API_RESPONSE',
+      res.status,
+    );
   }
 
   return data as T;

@@ -1,0 +1,4 @@
+
+> shadowing-english@1.0.0 start:prod
+> node dist/src/main
+

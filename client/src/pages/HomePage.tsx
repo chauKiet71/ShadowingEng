@@ -142,11 +142,14 @@ export default function HomePage() {
     SpeakingScenario[]
   >(() => peekCache<SpeakingScenario[]>(PrefetchKeys.speakingScenarios) ?? []);
 
-  const vocabularySets =
-    vocabularyOverview?.sets.filter((set) => vocabularyCoverMap[set.slug]) ??
-    vocabularyFallbackSets;
+  const vocabularySets = Array.isArray(vocabularyOverview?.sets)
+    ? vocabularyOverview.sets.filter((set) => vocabularyCoverMap[set.slug])
+    : vocabularyFallbackSets;
+  const availableSpeakingScenarios = Array.isArray(speakingScenarios)
+    ? speakingScenarios
+    : [];
   const speakingCards = speakingFallbackCards.map((fallback) => {
-    const scenario = speakingScenarios.find(
+    const scenario = availableSpeakingScenarios.find(
       (item) => item.slug === fallback.slug,
     );
 
