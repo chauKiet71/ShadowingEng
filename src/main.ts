@@ -19,6 +19,7 @@ async function bootstrap() {
     'https://www.hihienglish.com',
     'https://hihienglish.com',
     'https://hihienglish.netlify.app',
+    'https://hihienglishh.netlify.app',
     'http://localhost:3000',
     'http://localhost:5173',
     ...(process.env.CORS_ORIGINS ?? '')

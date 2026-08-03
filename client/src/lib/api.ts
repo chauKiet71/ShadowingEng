@@ -10,11 +10,17 @@ const GUEST_TOKEN_KEY = 'guestToken';
 const GUEST_TOKEN_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
-
-export const API_BASE_URL = (configuredApiBaseUrl || '/api').replace(
+const normalizedApiBaseUrl = (configuredApiBaseUrl || '/api').replace(
   /\/+$/,
   '',
 );
+
+export const API_BASE_URL =
+  typeof window !== 'undefined' &&
+  window.location.protocol === 'https:' &&
+  normalizedApiBaseUrl.startsWith('http://')
+    ? normalizedApiBaseUrl.replace(/^http:\/\//, 'https://')
+    : normalizedApiBaseUrl;
 
 export function apiEndpoint(path: string) {
   return `${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
