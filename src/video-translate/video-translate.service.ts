@@ -1685,13 +1685,14 @@ export class VideoTranslateService {
     const ffmpeg = this.resolveFfmpegPath();
     const outTemplate = join(workDir, 'audio.%(ext)s');
     const connectionArgs = this.ytDlpConnectionArgs();
-    try {
-      await execFileAsync(
+    const usingProxy = connectionArgs.includes('--proxy');
+    const runDownload = (args: string[]) =>
+      execFileAsync(
         ytDlp,
         [
           '--js-runtimes',
           'node',
-          ...connectionArgs,
+          ...args,
           '-f',
           'bestaudio/best',
           '-x',
@@ -1708,12 +1709,42 @@ export class VideoTranslateService {
         ],
         { timeout: 180_000, maxBuffer: 10 * 1024 * 1024 },
       );
+
+    try {
+      await runDownload(connectionArgs);
     } catch (error) {
       const detail = this.commandErrorDetail(error);
       this.logger.error(
         `yt-dlp download failed: ${this.commandErrorLog(error)}`,
       );
-      throw new ServiceUnavailableException(this.ytDlpUserFacingError(detail));
+
+      if (usingProxy && this.isProxyParseError(detail)) {
+        this.logger.warn(
+          'YT_DLP_PROXY không hợp lệ; đang thử tải lại bằng kết nối trực tiếp.',
+        );
+        try {
+          await runDownload(this.ytDlpConnectionArgs(false));
+        } catch (retryError) {
+          const retryDetail = this.commandErrorDetail(retryError);
+          this.logger.error(
+            `yt-dlp direct retry failed: ${this.commandErrorLog(retryError)}`,
+          );
+          throw new ServiceUnavailableException(
+            this.ytDlpInvalidProxyError(retryDetail, true),
+          );
+        }
+      } else if (
+        this.hasConfiguredYtDlpProxy() &&
+        !this.normalizedYtDlpProxy()
+      ) {
+        throw new ServiceUnavailableException(
+          this.ytDlpInvalidProxyError(detail),
+        );
+      } else {
+        throw new ServiceUnavailableException(
+          this.ytDlpUserFacingError(detail),
+        );
+      }
     }
 
     const files = readdirSync(workDir).filter((name) =>
@@ -2034,9 +2065,12 @@ export class VideoTranslateService {
     return 'ffmpeg';
   }
 
-  private ytDlpConnectionArgs() {
+  private ytDlpConnectionArgs(includeProxy = true) {
     const args: string[] = [];
-    const proxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
+    const configuredProxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
+    const proxy = includeProxy
+      ? this.normalizeYtDlpProxy(configuredProxy)
+      : null;
     const cookiesPath = this.resolveYtDlpCookiesPath();
     const forceIpv4 =
       this.config.get<string>('YT_DLP_FORCE_IPV4')?.trim().toLowerCase() ===
@@ -2045,7 +2079,13 @@ export class VideoTranslateService {
       this.config.get<string>('YT_DLP_EXTRACTOR_ARGS')?.trim() ||
       'youtube:player_client=android,tv,web';
 
-    if (proxy) args.push('--proxy', proxy);
+    if (proxy) {
+      args.push('--proxy', proxy);
+    } else if (includeProxy && configuredProxy) {
+      this.logger.warn(
+        'YT_DLP_PROXY không đúng định dạng; sẽ thử kết nối trực tiếp.',
+      );
+    }
     if (cookiesPath) {
       args.push('--cookies', cookiesPath);
     } else {
@@ -2058,6 +2098,88 @@ export class VideoTranslateService {
     if (extractorArgs) args.push('--extractor-args', extractorArgs);
 
     return args;
+  }
+
+  private hasConfiguredYtDlpProxy() {
+    return Boolean(this.config.get<string>('YT_DLP_PROXY')?.trim());
+  }
+
+  private normalizedYtDlpProxy() {
+    return this.normalizeYtDlpProxy(
+      this.config.get<string>('YT_DLP_PROXY')?.trim(),
+    );
+  }
+
+  private normalizeYtDlpProxy(raw: string | undefined): string | null {
+    let value = raw?.trim();
+    if (!value) return null;
+
+    if (/^YT_DLP_PROXY\s*=/i.test(value)) {
+      value = value.replace(/^YT_DLP_PROXY\s*=\s*/i, '').trim();
+    }
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1).trim();
+    }
+    if (!value || /[\r\n\t ]/.test(value)) return null;
+
+    const prefixedProviderFormat = value.match(
+      /^(https?|socks4|socks5|socks5h):\/\/([^:/@]+):([^:/@]+):([^:/@]+):(\d+)$/i,
+    );
+    if (prefixedProviderFormat) {
+      const [, scheme, username, password, host, port] = prefixedProviderFormat;
+      value = `${scheme.toLowerCase()}://${encodeURIComponent(
+        username,
+      )}:${encodeURIComponent(password)}@${host}:${port}`;
+    } else if (!/^[a-z][a-z\d+.-]*:\/\//i.test(value)) {
+      const providerFormat = value.match(/^([^:@/]+):(\d+):([^:]+):(.+)$/);
+      if (providerFormat) {
+        const [, host, port, username, password] = providerFormat;
+        value = `http://${encodeURIComponent(username)}:${encodeURIComponent(
+          password,
+        )}@${host}:${port}`;
+      } else {
+        value = `http://${value}`;
+      }
+    }
+
+    try {
+      const parsed = new URL(value);
+      const supportedProtocols = new Set([
+        'http:',
+        'https:',
+        'socks4:',
+        'socks5:',
+        'socks5h:',
+      ]);
+      if (
+        !supportedProtocols.has(parsed.protocol) ||
+        !parsed.hostname ||
+        parsed.search ||
+        parsed.hash ||
+        (parsed.pathname && parsed.pathname !== '/')
+      ) {
+        return null;
+      }
+      return value;
+    } catch {
+      return null;
+    }
+  }
+
+  private isProxyParseError(detail: string) {
+    const lower = detail.toLowerCase();
+    return lower.includes('failed to parse') || lower.includes('invalid proxy');
+  }
+
+  private ytDlpInvalidProxyError(detail: string, directRetryFailed = false) {
+    return (
+      'YT_DLP_PROXY không hợp lệ. Hãy dùng định dạng ' +
+      'http://user:password@host:port (không đặt trong dấu ngoặc kép). ' +
+      `${directRetryFailed ? 'Kết nối trực tiếp cũng thất bại' : 'Chi tiết'}: ${detail.slice(0, 350)}`
+    );
   }
 
   /**
@@ -2098,6 +2220,9 @@ export class VideoTranslateService {
 
   private ytDlpUserFacingError(detail: string) {
     const lower = detail.toLowerCase();
+    if (this.isProxyParseError(detail)) {
+      return this.ytDlpInvalidProxyError(detail);
+    }
     if (
       lower.includes('sign in to confirm') ||
       lower.includes("you're not a bot") ||
@@ -2142,8 +2267,14 @@ export class VideoTranslateService {
   }
 
   private redactCommandSecrets(value: string) {
-    const proxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
-    return proxy ? value.split(proxy).join('[redacted proxy]') : value;
+    const configuredProxy = this.config.get<string>('YT_DLP_PROXY')?.trim();
+    const normalizedProxy = this.normalizeYtDlpProxy(configuredProxy);
+    return [configuredProxy, normalizedProxy]
+      .filter((proxy): proxy is string => Boolean(proxy))
+      .reduce(
+        (redacted, proxy) => redacted.split(proxy).join('[redacted proxy]'),
+        value,
+      );
   }
 
   private commandOutput(output: string | Buffer | undefined) {

@@ -596,6 +596,34 @@ describe('VideoTranslateService yt-dlp integration', () => {
     ]);
   });
 
+  it.each([
+    ['"http://proxy.example:8080"', 'http://proxy.example:8080'],
+    ['proxy.example:8080', 'http://proxy.example:8080'],
+    [
+      'http://account:secret:proxy.example:8080',
+      'http://account:secret@proxy.example:8080',
+    ],
+    ['proxy.example:8080:user:p@ss', 'http://user:p%40ss@proxy.example:8080'],
+    ['YT_DLP_PROXY=socks5://proxy.example:1080', 'socks5://proxy.example:1080'],
+    ['not a proxy value', null],
+  ])('normalizes Railway proxy value %s', (input, expected) => {
+    const service = createService() as unknown as {
+      normalizeYtDlpProxy: (value: string) => string | null;
+    };
+
+    expect(service.normalizeYtDlpProxy(input)).toBe(expected);
+  });
+
+  it('omits an invalid proxy so yt-dlp can use the direct connection', () => {
+    const service = createService({
+      YT_DLP_PROXY: 'not a proxy value',
+    }) as unknown as {
+      ytDlpConnectionArgs: () => string[];
+    };
+
+    expect(service.ytDlpConnectionArgs()).not.toContain('--proxy');
+  });
+
   it('writes cookies from YT_DLP_COOKIES_BASE64', () => {
     const netscape = [
       '# Netscape HTTP Cookie File',
@@ -622,6 +650,16 @@ describe('VideoTranslateService yt-dlp integration', () => {
         "ERROR: [youtube] abc: Sign in to confirm you're not a bot",
       ),
     ).toMatch(/YT_DLP_COOKIES/);
+  });
+
+  it('maps proxy parse errors to a Railway configuration hint', () => {
+    const service = createService() as unknown as {
+      ytDlpUserFacingError: (detail: string) => string;
+    };
+
+    expect(
+      service.ytDlpUserFacingError('ERROR: Failed to parse: [redacted proxy]'),
+    ).toMatch(/http:\/\/user:password@host:port/);
   });
 
   it('redacts proxy credentials from command failures', () => {

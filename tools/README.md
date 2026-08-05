@@ -66,7 +66,11 @@ The app writes `storage/youtube-cookies.txt` at runtime and passes `--cookies` t
 
 ### Optional
 
-- `YT_DLP_PROXY`: residential proxy URL (helps if the server IP is heavily flagged)
+- `YT_DLP_PROXY`: residential proxy URL (helps if the server IP is heavily flagged).
+  On Railway, enter the value without quotes, for example
+  `http://user:password@host:port`. The app also accepts `host:port`,
+  `user:password@host:port`, and the provider format
+  `host:port:user:password` or `http://user:password:host:port`.
 - `YT_DLP_FORCE_IPV4=true`: disable IPv6
 - `YT_DLP_EXTRACTOR_ARGS`: default `youtube:player_client=android,tv,web`
 

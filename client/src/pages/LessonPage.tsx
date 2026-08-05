@@ -1,9 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
-  RotateCcw,
-  RotateCw,
   Gauge,
   Play,
   Pause,
@@ -31,6 +29,7 @@ import { ApiError, api, type VocabularyLookupDetail } from '../lib/api';
 import { resolveLessonPhonetics } from '../lib/phonetic';
 
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
+const VIDEO_CONTROLS_VISIBLE_MS = 2000;
 type PlaybackRate = (typeof PLAYBACK_RATES)[number];
 
 type LessonWordLookupContext = {
@@ -217,6 +216,7 @@ export default function LessonPage() {
     reset: resetShadowing,
   } = useShadowing();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const videoSurfaceRef = useRef<HTMLDivElement>(null);
   const completedRef = useRef(false);
   const lastProgressSaveRef = useRef(0);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -224,7 +224,11 @@ export default function LessonPage() {
   const sentenceRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
   const wordLookupRequestRef = useRef(0);
+  const videoControlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoControlsVisible, setIsVideoControlsVisible] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
   const [showPhonetic, setShowPhonetic] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -249,6 +253,39 @@ export default function LessonPage() {
     () => (lesson?.sentences ?? []).map(resolveLessonWordTimings),
     [lesson?.sentences],
   );
+
+  const clearVideoControlsTimer = useCallback(() => {
+    if (videoControlsTimerRef.current === null) return;
+    window.clearTimeout(videoControlsTimerRef.current);
+    videoControlsTimerRef.current = null;
+  }, []);
+
+  const showVideoControlsTemporarily = useCallback(() => {
+    clearVideoControlsTimer();
+    setIsVideoControlsVisible(true);
+    videoControlsTimerRef.current = window.setTimeout(() => {
+      setIsVideoControlsVisible(false);
+      videoControlsTimerRef.current = null;
+    }, VIDEO_CONTROLS_VISIBLE_MS);
+  }, [clearVideoControlsTimer]);
+
+  const hideVideoControls = useCallback(() => {
+    clearVideoControlsTimer();
+    setIsVideoControlsVisible(false);
+  }, [clearVideoControlsTimer]);
+
+  const toggleVideoControls = useCallback(() => {
+    if (isVideoControlsVisible) {
+      hideVideoControls();
+      return;
+    }
+    showVideoControlsTemporarily();
+  }, [hideVideoControls, isVideoControlsVisible, showVideoControlsTemporarily]);
+
+  useEffect(() => {
+    showVideoControlsTemporarily();
+    return clearVideoControlsTimer;
+  }, [lesson?.id, showVideoControlsTemporarily, clearVideoControlsTimer]);
 
   useEffect(() => {
     resetShadowing();
@@ -569,28 +606,6 @@ export default function LessonPage() {
     setCurrentTime(sentence.time_start);
   };
 
-  const goToAdjacentSentence = (direction: -1 | 1) => {
-    if (!lesson) return;
-    const nextIndex = activeIndex + direction;
-    if (nextIndex < 0 || nextIndex >= lesson.sentences.length) return;
-
-    const audio = audioRef.current;
-    const sentence = lesson.sentences[nextIndex];
-    if (!audio || !sentence) return;
-
-    const wasPaused = !isPlaying;
-    setActiveIndex(nextIndex);
-    audio.currentTime = sentence.time_start;
-    setCurrentTime(sentence.time_start);
-
-    if (wasPaused) {
-      audio.playbackRate = playbackRate;
-      void audio.play().catch(() => {
-        speakSentence(sentence.english, playbackRate);
-      });
-    }
-  };
-
   const selectPlaybackRate = (rate: PlaybackRate) => {
     setPlaybackRate(rate);
     setIsPlaybackRateOpen(false);
@@ -752,6 +767,21 @@ export default function LessonPage() {
     duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
   const activeSentence = lesson.sentences[activeIndex]?.english ?? '';
 
+  const toggleVideoFullscreen = async () => {
+    const surface = videoSurfaceRef.current;
+    if (!surface) return;
+
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await surface.requestFullscreen();
+      }
+    } catch {
+      // Some embedded browsers do not expose the Fullscreen API.
+    }
+  };
+
   const handleShadowingToggle = () => {
     if (isFetching) return;
     if (!isRecording) {
@@ -798,7 +828,12 @@ export default function LessonPage() {
       </div>
 
       <div className="flex-shrink-0 z-10 bg-gray-50 px-0 mb-3">
-        <div className="bg-black aspect-[20/11] relative overflow-hidden w-full">
+        <div
+          ref={videoSurfaceRef}
+          data-testid="lesson-video-surface"
+          className="bg-black aspect-[20/11] relative overflow-hidden rounded-b-md w-full cursor-pointer"
+          onClick={toggleVideoControls}
+        >
           <img
             src={lesson.thumbnailUrl}
             alt={lesson.title}
@@ -808,70 +843,86 @@ export default function LessonPage() {
             className="absolute inset-0 backdrop-blur-[2px] bg-gradient-to-b from-black/25 via-black/35 to-black/55"
             aria-hidden
           />
-          <div className="absolute inset-0 flex flex-col justify-between p-3.5">
-            <div />
-
-            <div className="text-center px-3">
-              <p className="text-white text-[15px] font-semibold leading-snug drop-shadow-sm">
+          <div className="absolute inset-0 p-3.5">
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center">
+              <p className="max-w-full text-[15px] font-semibold leading-snug text-white drop-shadow-sm">
                 {activeSentence}
               </p>
             </div>
 
-            <div>
-              <div className="flex items-center justify-center gap-5 mb-2.5">
-                <button
-                  type="button"
-                  className="text-white disabled:opacity-40"
-                  disabled={activeIndex === 0}
-                  onClick={() => goToAdjacentSentence(-1)}
-                  aria-label="Câu trước"
-                >
-                  <RotateCcw size={20} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => void togglePlay()}
-                  className="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/40"
-                  aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
-                >
-                  {isPlaying ? (
-                    <Pause size={26} className="text-white" />
-                  ) : (
-                    <Play
-                      size={26}
-                      className="text-white ml-0.5"
-                      fill="white"
-                    />
-                  )}
-                </button>
-                <button
-                  type="button"
-                  className="text-white disabled:opacity-40"
-                  disabled={activeIndex >= lesson.sentences.length - 1}
-                  onClick={() => goToAdjacentSentence(1)}
-                  aria-label="Câu sau"
-                >
-                  <RotateCw size={20} />
-                </button>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-white/90 text-[11px] tabular-nums w-9">
-                  {formatTime(currentTime)}
-                </span>
+            <div
+              data-testid="lesson-video-controls"
+              aria-hidden={!isVideoControlsVisible}
+              inert={!isVideoControlsVisible}
+              onClick={(event) => {
+                event.stopPropagation();
+                showVideoControlsTemporarily();
+              }}
+              className={`absolute inset-x-0 bottom-0 z-10 px-3 pb-2.5 pt-2.5 transition-[opacity,translate] duration-500 ease-out will-change-[opacity,translate] ${
+                isVideoControlsVisible
+                  ? 'opacity-100 translate-y-0 pointer-events-auto'
+                  : 'opacity-0 translate-y-1 pointer-events-none'
+              }`}
+            >
+              <div
+                className="flex h-3 cursor-pointer items-center"
+                onClick={(event) => {
+                  const audio = audioRef.current;
+                  if (!audio || duration <= 0) return;
+                  const bounds = event.currentTarget.getBoundingClientRect();
+                  const nextRatio = Math.min(
+                    1,
+                    Math.max(0, (event.clientX - bounds.left) / bounds.width),
+                  );
+                  const nextTime = nextRatio * duration;
+                  audio.currentTime = nextTime;
+                  setCurrentTime(nextTime);
+                }}
+                aria-label="Seek audio"
+              >
                 <div
                   data-testid="lesson-progress-track"
-                  className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden"
+                  className="relative h-[3px] flex-1 rounded-full bg-white/30"
                 >
                   <div
                     data-testid="lesson-progress-fill"
-                    className="h-full w-full origin-left rounded-full bg-primary will-change-transform"
+                    className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-primary transition-transform duration-100 will-change-transform"
                     style={{ transform: `scaleX(${progressRatio})` }}
                   />
+                  <span
+                    data-testid="lesson-progress-thumb"
+                    className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-sm"
+                    style={{
+                      left: `clamp(5px, ${progressRatio * 100}%, calc(100% - 5px))`,
+                    }}
+                    aria-hidden
+                  />
                 </div>
-                <span className="text-white/90 text-[11px] tabular-nums w-9 text-right">
-                  {formatTime(duration)}
+              </div>
+              <div className="mt-1 flex h-9 items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => void togglePlay()}
+                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center text-white"
+                  aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
+                >
+                  {isPlaying ? (
+                    <Pause size={20} fill="white" />
+                  ) : (
+                    <Play size={20} className="ml-0.5" fill="white" />
+                  )}
+                </button>
+                <span className="whitespace-nowrap text-[12px] font-medium tabular-nums text-white">
+                  {formatTime(currentTime)} / {formatTime(duration)}
                 </span>
-                <Maximize size={14} className="text-white/90" />
+                <button
+                  type="button"
+                  onClick={() => void toggleVideoFullscreen()}
+                  className="ml-auto flex h-9 w-9 flex-shrink-0 items-center justify-center text-white"
+                  aria-label="Toàn màn hình"
+                >
+                  <Maximize size={20} />
+                </button>
               </div>
             </div>
           </div>

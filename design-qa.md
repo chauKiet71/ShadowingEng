@@ -306,6 +306,40 @@
 
 final result: passed
 
+## 22. Lesson video controls auto-hide
+
+**Source and rendered evidence**
+
+- User reference: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-ee205bb6-1a0f-40a5-ab2a-754f7a55222b.png`.
+- Visible-state browser capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-shown-qa.png`.
+- Hidden-state browser capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-hidden-qa.png`.
+- Side-by-side reference comparison: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-reference-comparison.png`.
+- Centered-caption browser capture: `C:\Users\DELL\AppData\Local\Temp\lesson-caption-centered-qa.png`.
+- Tap-toggle browser capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-tap-toggle-qa.png`.
+- Compact-controls reference: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-da1533af-6b8e-4239-a54c-fa9748327d8d.png` (`491 x 74px`).
+- Compact-controls final capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-compact-final.png` (`1280 x 720px`).
+- Focused side-by-side comparison: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-compact-comparison.png` (`990 x 74px`).
+- Transparent-controls final capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-no-background.png` (`1280 x 720px`).
+- Test state: `/bai-hoc/lesson-04` at the existing desktop viewport.
+
+**Interaction and visual checks**
+
+- The compact play/pause, combined time, progress, and fullscreen controls appear when the lesson opens, remain available for 2 seconds, then fade and move down over 500ms.
+- Clicking anywhere on the video surface reveals the controls with the reverse smooth transition and restarts the 2-second timer.
+- When the controls are already visible, tapping the video surface immediately starts the hide transition. Tapping the hidden surface reveals them again.
+- Clicks inside the control group stop propagation and restart the 2-second timer, so playback, seek, and fullscreen actions do not accidentally hide the controls.
+- The active English caption remains visible while the controls are hidden.
+- The caption uses an independent full-surface centering layer. Browser geometry for `I can pay by credit card.` reports a vertical center delta of approximately `0.000004px` from the video surface center.
+- Hidden controls use `inert`, `aria-hidden`, and disabled pointer events so invisible buttons cannot receive interaction.
+- The latest controls use the requested compact bottom band: a `3px` progress track and white thumb above a `36px` icon row, with play/pause and `current / duration` grouped left and fullscreen aligned right.
+- Browser geometry reports a `512 x 72px` control band, `488 x 3px` progress track, `10 x 10px` progress thumb, and `6px` lower-corner radius. The focused comparison confirms the requested visual hierarchy without changing the video or caption geometry.
+- The separate black control-band fill was removed. Browser-computed background color is fully transparent (`rgba(0, 0, 0, 0)`), so the controls now sit directly over the video image while retaining their spacing and contrast.
+- Clicking the middle of the progress track set the live audio ratio to `0.5114`; the displayed progress continued from the same `audio.currentTime`, confirming the new visual remains synchronized with playback.
+- Play/pause remains functional, the controls hide after 2 seconds, a first surface tap reveals them, and a second surface tap hides them immediately.
+- Production client build passes and the browser console reports no errors.
+
+final result: passed
+
 ## 20. Video subtitle vocabulary detail sheet
 
 **Source visual truth**
