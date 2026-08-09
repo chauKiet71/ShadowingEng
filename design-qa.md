@@ -306,6 +306,29 @@
 
 final result: passed
 
+## 23. Lesson bottom control bar layout
+
+**Source visual truth**
+
+- Browser Comment 1 on `/bai-hoc/lesson-04` requested the existing fixed lesson controls to adopt the attached single-row layout while preserving the application's current light/dark color tone.
+- Required order: `Tốc độ`, `Dịch`, `Phiên âm`, `Lặp lại`, then a larger highlighted `Nói` action.
+
+**Implementation evidence**
+
+- The former utility row plus full-width Shadowing button is now one five-column control bar.
+- The four utility controls use spacing instead of vertical dividers; the final speaking control remains visually dominant and keeps the existing primary-to-secondary gradient.
+- Existing behavior is preserved: the speed menu exposes five rates, translation/phonetic/repeat retain their toggle states, recording remains red, and scoring remains disabled with the existing loader-only state.
+- The translated-video player now uses the same control order, proportions, labels, and divider-free treatment while retaining its existing video-specific test hooks and playback handlers.
+
+**Interaction and technical checks**
+
+- Browser QA at `530 x 706px` confirmed the exact requested order and stable button dimensions (`76px` utility height, `68px` speaking height).
+- Selecting `0.75x` updates the audio element's playback rate to `0.75`; the phonetic and repeat controls remain interactive.
+- The document has no horizontal overflow, labels fit their cells, and the fixed bar does not shift between controls.
+- Production client build and independent client TypeScript compilation pass.
+
+final result: passed
+
 ## 22. Lesson video controls auto-hide
 
 **Source and rendered evidence**
@@ -320,21 +343,33 @@ final result: passed
 - Compact-controls final capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-compact-final.png` (`1280 x 720px`).
 - Focused side-by-side comparison: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-compact-comparison.png` (`990 x 74px`).
 - Transparent-controls final capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-no-background.png` (`1280 x 720px`).
-- Test state: `/bai-hoc/lesson-04` at the existing desktop viewport.
+- Restored-controls final capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-restored-final.png` (`498 x 544px`).
+- Ended-state replay capture: `C:\Users\DELL\AppData\Local\Temp\lesson-controls-ended-replay.png` (`498 x 544px`).
+- Test state: `/bai-hoc/lesson-02` at the user's current `498 x 544px` viewport.
 
 **Interaction and visual checks**
 
-- The compact play/pause, combined time, progress, and fullscreen controls appear when the lesson opens, remain available for 2 seconds, then fade and move down over 500ms.
+- The restored controls show previous sentence, a large centered play/pause action, next sentence, separate current/duration labels, progress, and fullscreen. They appear when the lesson opens, remain available for 2 seconds, then fade and move down over 500ms.
 - Clicking anywhere on the video surface reveals the controls with the reverse smooth transition and restarts the 2-second timer.
 - When the controls are already visible, tapping the video surface immediately starts the hide transition. Tapping the hidden surface reveals them again.
 - Clicks inside the control group stop propagation and restart the 2-second timer, so playback, seek, and fullscreen actions do not accidentally hide the controls.
 - The active English caption remains visible while the controls are hidden.
 - The caption uses an independent full-surface centering layer. Browser geometry for `I can pay by credit card.` reports a vertical center delta of approximately `0.000004px` from the video surface center.
 - Hidden controls use `inert`, `aria-hidden`, and disabled pointer events so invisible buttons cannot receive interaction.
-- The latest controls use the requested compact bottom band: a `3px` progress track and white thumb above a `36px` icon row, with play/pause and `current / duration` grouped left and fullscreen aligned right.
-- Browser geometry reports a `512 x 72px` control band, `488 x 3px` progress track, `10 x 10px` progress thumb, and `6px` lower-corner radius. The focused comparison confirms the requested visual hierarchy without changing the video or caption geometry.
+- The latest layout matches the supplied reference hierarchy: a `56px` circular primary control centered between two `36px` sentence controls, with the timeline and timestamps aligned below it.
 - The separate black control-band fill was removed. Browser-computed background color is fully transparent (`rgba(0, 0, 0, 0)`), so the controls now sit directly over the video image while retaining their spacing and contrast.
-- Clicking the middle of the progress track set the live audio ratio to `0.5114`; the displayed progress continued from the same `audio.currentTime`, confirming the new visual remains synchronized with playback.
+- The next-sentence control advanced to `First, I go to the check-in desk.` and resumed playback. Clicking the middle of the restored progress track set the live audio ratio to `0.5009`, confirming both restored controls remain functional and synchronized.
+- When playback reaches the native audio `ended` event, the controls are forced visible and remain visible beyond the normal 2-second timeout. The center action changes from Play to a white circular replay icon with the accessible label `Phát lại từ đầu`.
+- Activating replay reset the audio from `28.081625` seconds to `0.294414` seconds during the first verification sample, resumed playback, restored the Pause icon, and re-enabled the normal 2-second auto-hide behavior.
+- Replay now resets the transcript without smooth scrolling. Browser verification started at transcript `scrollTop 1582.4`; within the first `20ms` sample after clicking replay it was already `0`, the caption was the first sentence, and audio had restarted at `0.031092` seconds. The settled `250ms` sample remained at `scrollTop 0`.
+- The progress fill transition was removed so it resets in the same frame as replay. From the ended state (`matrix(1, 0, 0, 1, 0, 0)`), the first `20ms` sample showed `transitionDuration: 0s`, audio at `0.030272` seconds, and the fill at approximately `0.1%`; there is no reverse-slide animation.
+- The active transcript card no longer uses a primary-blue border or focus-like outer shadow. Browser-computed styles confirm the subtle active background remains, the border is the neutral `gray-100` token, `boxShadow` is `none`, and card width remains stable at `357.6px` in the current mobile viewport.
+- Inactive transcript cards now inherit the surrounding transcript surface visually: both their background and border compute to fully transparent `rgba(0, 0, 0, 0)`. Their padding, radius, text hierarchy, word interaction, and sentence-seek behavior remain unchanged.
+- Selecting a transcript sentence while audio is paused now seeks to that sentence and immediately resumes playback at the current speed. Browser verification clicked `I am going to London.` from a paused `0s` state and observed `paused: false`, the matching caption, playback rate `1`, and audio advancing from the sentence start.
+- Lesson repeat no longer delegates to the native audio `loop` attribute. At the end of a repeated lesson, the application resets audio time, progress, active sentence, and transcript position together before immediately resuming playback.
+- Browser boundary verification started on the final sentence at `28.511s` with transcript `scrollTop 1668.8`; just before the end it was at `30.303s` and `scrollTop 1683.2`. The first sample after wrapping reported audio at `0.014s`, `paused: false`, `ended: false`, and transcript `scrollTop 0`, confirming an immediate reset without a reverse scroll animation.
+- Shadowing processing now uses one visual status only: a centered loader in the disabled bottom action. The duplicate visible `Đang chấm điểm...` transcript line and the bottom `Đang xử lý...` / `Đang chấm điểm...` labels are removed; the button keeps the accessible name `Đang chấm điểm` while loading.
+- Browser verification recorded and submitted a real Shadowing attempt. During the API request, the loading button contained one loader and no visible text, the page contained zero processing labels, and the active transcript contained no processing paragraph. After completion, the loading state cleared and the normal `Bạn nói:` result remained visible with no console error.
 - Play/pause remains functional, the controls hide after 2 seconds, a first surface tap reveals them, and a second surface tap hides them immediately.
 - Production client build passes and the browser console reports no errors.
 
@@ -400,6 +435,15 @@ final result: passed
 - Browser verification confirmed `00:21` for `Video vs Image: Which ad actually CONVERTS?`, `01:01` for `$7M worth of Business Advice in 60 seconds`, `05:14` for `Why does Japan work so hard?`, and `08:27` for `Urgent Message For Facebook Advertisers!`.
 - Thumbnail duration and metadata duration use the same corrected API field. The full recent list has no `10:00` fallback values and browser console has no errors.
 - ESLint, TypeScript compilation, and all `70` test cases pass.
+
+### 20.3. Align uploaded-video transcript cards with lesson cards
+
+- Source state: the supplied active sentence reference and the recently approved lesson transcript styling.
+- Scope: `/dich-video` in the `Tải video` flow; URL and uploaded-video playback share the same transcript renderer, so the visual state stays consistent across both modes.
+- Active segments keep a subtle primary-tinted background but now use the neutral `gray-100` border and no outer shadow. Inactive segments use transparent backgrounds and borders so they visually inherit the transcript surface.
+- Browser-computed styles confirm the active card has no shadow and a neutral border, the inactive card is fully transparent, and all `12` rendered cards keep the same `472px` width.
+- Existing interaction remains intact: from a paused uploaded video at `50.4s`, selecting the second subtitle segment immediately sought to `5.15s`, changed the active segment, and resumed playback at `1x`.
+- The production client build passes and the browser console reports no errors or warnings.
 
 final result: passed
 

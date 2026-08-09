@@ -1543,8 +1543,8 @@ export default function VideoTranslatePage() {
                           }}
                           className={`relative w-full text-left p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
                             active
-                              ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(99,102,241,0.35)]'
-                              : 'bg-white border-gray-100 dark:bg-neutral-900 dark:border-neutral-800'
+                              ? 'bg-primary/5 border-gray-100 dark:bg-primary/10 dark:border-neutral-800'
+                              : 'bg-transparent border-transparent'
                           }`}
                         >
                           <div className="min-w-0 pr-7">
@@ -1665,9 +1665,66 @@ export default function VideoTranslatePage() {
                   />
                 )}
 
-                <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800">
-                  <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">
-                    <div className="flex items-center justify-around mb-3 rounded-2xl bg-slate-50 dark:bg-neutral-950 px-1 py-2">
+                <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-100 bg-white/95 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/95">
+                  <div className="mx-auto max-w-lg px-3 py-2.5">
+                    <div className="grid grid-cols-[repeat(4,minmax(0,1fr))_minmax(4.75rem,1.15fr)] items-stretch overflow-visible rounded-2xl bg-slate-50 p-1.5 shadow-sm dark:bg-neutral-950">
+                      <div ref={playbackSpeedRef} className="relative min-w-0">
+                        <button
+                          type="button"
+                          data-testid="video-speed-toggle"
+                          onClick={() => setIsPlaybackRateOpen((open) => !open)}
+                          aria-label="Tùy chỉnh tốc độ phát"
+                          aria-haspopup="menu"
+                          aria-expanded={isPlaybackRateOpen}
+                          className={`flex h-[4.75rem] w-full flex-col items-center justify-center gap-0.5 transition-colors ${
+                            isPlaybackRateOpen || playbackRate !== 1
+                              ? 'text-primary'
+                              : 'text-gray-400'
+                          }`}
+                        >
+                          <Gauge
+                            size={21}
+                            strokeWidth={
+                              isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
+                            }
+                          />
+                          <span className="text-[10px] font-semibold tabular-nums leading-none">
+                            {formatPlaybackRate(playbackRate)}
+                          </span>
+                          <span className="mt-1 text-[10px] font-medium leading-none">
+                            Tốc độ
+                          </span>
+                        </button>
+
+                        {isPlaybackRateOpen && (
+                          <div
+                            role="menu"
+                            aria-label="Tốc độ phát"
+                            className="absolute bottom-full left-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
+                          >
+                            {PLAYBACK_RATES.map((rate) => {
+                              const selected = playbackRate === rate;
+                              return (
+                                <button
+                                  key={rate}
+                                  type="button"
+                                  role="menuitemradio"
+                                  aria-checked={selected}
+                                  onClick={() => selectPlaybackRate(rate)}
+                                  className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
+                                    selected
+                                      ? 'bg-primary text-white'
+                                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
+                                  }`}
+                                >
+                                  {formatPlaybackRate(rate)}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+
                       {[
                         {
                           icon: Languages,
@@ -1697,124 +1754,49 @@ export default function VideoTranslatePage() {
                           data-testid={testId}
                           onClick={action}
                           aria-pressed={active}
-                          className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                          className={`flex h-[4.75rem] min-w-0 flex-col items-center justify-center gap-1 px-1 transition-colors ${
                             active ? 'text-primary' : 'text-gray-400'
                           }`}
                         >
-                          <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-                          <span
-                            className={`text-[10px] font-medium ${
-                              active ? 'border-b-2 border-primary pb-0.5' : ''
-                            }`}
-                          >
+                          <Icon size={21} strokeWidth={active ? 2.5 : 2} />
+                          <span className="max-w-full text-[10px] font-medium leading-tight">
                             {label}
                           </span>
                         </button>
                       ))}
 
-                      <div
-                        ref={playbackSpeedRef}
-                        className="relative flex min-w-[4.25rem] justify-center"
+                      <button
+                        type="button"
+                        data-testid="video-shadowing-toggle"
+                        onClick={handleShadowingToggle}
+                        disabled={isFetching || !activeSegment?.en}
+                        aria-label={
+                          isFetching
+                            ? 'Đang chấm điểm'
+                            : isRecording
+                              ? 'Dừng Shadowing'
+                              : 'Bắt đầu Shadowing'
+                        }
+                        className={`m-1 flex h-[4.25rem] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 text-white transition-all disabled:opacity-60 ${
+                          isRecording
+                            ? 'bg-red-500 hover:bg-red-600 ring-2 ring-red-300 ring-offset-2'
+                            : isFetching
+                              ? 'bg-gray-400 cursor-not-allowed'
+                              : 'bg-gradient-to-r from-primary to-secondary hover:opacity-95 shadow-md shadow-primary/25'
+                        }`}
                       >
-                        <button
-                          type="button"
-                          data-testid="video-speed-toggle"
-                          onClick={() => setIsPlaybackRateOpen((open) => !open)}
-                          aria-label="Tùy chỉnh tốc độ phát"
-                          aria-haspopup="menu"
-                          aria-expanded={isPlaybackRateOpen}
-                          className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
-                            isPlaybackRateOpen || playbackRate !== 1
-                              ? 'text-primary'
-                              : 'text-gray-400'
-                          }`}
-                        >
-                          <Gauge
-                            size={20}
-                            strokeWidth={
-                              isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
-                            }
-                          />
-                          <span
-                            className={`text-[10px] font-medium tabular-nums ${
-                              isPlaybackRateOpen || playbackRate !== 1
-                                ? 'border-b-2 border-primary pb-0.5'
-                                : ''
-                            }`}
-                          >
-                            {formatPlaybackRate(playbackRate)}
-                          </span>
-                        </button>
-
-                        {isPlaybackRateOpen && (
-                          <div
-                            role="menu"
-                            aria-label="Tốc độ phát"
-                            className="absolute bottom-full right-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
-                          >
-                            {PLAYBACK_RATES.map((rate) => {
-                              const selected = playbackRate === rate;
-                              return (
-                                <button
-                                  key={rate}
-                                  type="button"
-                                  role="menuitemradio"
-                                  aria-checked={selected}
-                                  onClick={() => selectPlaybackRate(rate)}
-                                  className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
-                                    selected
-                                      ? 'bg-primary text-white'
-                                      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
-                                  }`}
-                                >
-                                  {formatPlaybackRate(rate)}
-                                </button>
-                              );
-                            })}
-                          </div>
+                        {isFetching ? (
+                          <Loader2 size={20} className="animate-spin" aria-hidden />
+                        ) : (
+                          <>
+                            <Mic size={24} />
+                            <span className="text-[11px] font-semibold leading-none">
+                              {isRecording ? 'Dừng' : 'Nói'}
+                            </span>
+                          </>
                         )}
-                      </div>
+                      </button>
                     </div>
-
-                    <button
-                      type="button"
-                      data-testid="video-shadowing-toggle"
-                      onClick={handleShadowingToggle}
-                      disabled={isFetching || !activeSegment?.en}
-                      className={`w-full py-3.5 text-white font-semibold rounded-full flex items-center justify-center gap-2.5 transition-all disabled:opacity-60 ${
-                        isRecording
-                          ? 'bg-red-500 hover:bg-red-600 ring-2 ring-red-300 ring-offset-2'
-                          : isFetching
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-primary to-secondary hover:opacity-95 shadow-md shadow-primary/25'
-                      }`}
-                    >
-                      {isFetching ? (
-                        <Loader2 size={20} className="animate-spin" />
-                      ) : (
-                        <Mic size={20} />
-                      )}
-                      <span className="text-left">
-                        <span className="block text-sm font-bold leading-none">
-                          {isRecording
-                            ? 'Đang ghi âm...'
-                            : isFetching
-                              ? 'Đang xử lý...'
-                              : 'Shadowing'}
-                        </span>
-                        <span
-                          className={`block text-[10px] mt-0.5 ${
-                            isRecording ? 'text-red-100' : 'text-white/80'
-                          }`}
-                        >
-                          {isRecording
-                            ? 'Đang ghi âm — bấm để dừng'
-                            : isFetching
-                              ? 'Đang chấm điểm...'
-                              : 'Luyện nói theo audio'}
-                        </span>
-                      </span>
-                    </button>
                   </div>
                 </div>
               </>

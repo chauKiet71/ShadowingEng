@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   ChevronLeft,
+  RotateCcw,
+  RotateCw,
+  RefreshCw,
   Gauge,
   Play,
   Pause,
@@ -210,7 +213,6 @@ export default function LessonPage() {
     result: shadowingResult,
     error: shadowingError,
     isRecording,
-    isProcessing,
     isFetching,
     toggleRecording,
     reset: resetShadowing,
@@ -228,6 +230,7 @@ export default function LessonPage() {
     null,
   );
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasPlaybackEnded, setHasPlaybackEnded] = useState(false);
   const [isVideoControlsVisible, setIsVideoControlsVisible] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
   const [showPhonetic, setShowPhonetic] = useState(false);
@@ -273,6 +276,15 @@ export default function LessonPage() {
     clearVideoControlsTimer();
     setIsVideoControlsVisible(false);
   }, [clearVideoControlsTimer]);
+
+  const resetPlaybackToStart = useCallback((audio: HTMLAudioElement) => {
+    prevActiveIndexRef.current = -1;
+    if (transcriptRef.current) transcriptRef.current.scrollTop = 0;
+    audio.currentTime = 0;
+    setCurrentTime(0);
+    setActiveIndex(0);
+    setHasPlaybackEnded(false);
+  }, []);
 
   const toggleVideoControls = useCallback(() => {
     if (isVideoControlsVisible) {
@@ -327,6 +339,7 @@ export default function LessonPage() {
     setShowTranslation(true);
     setShowPhonetic(false);
     setIsPlaying(false);
+    setHasPlaybackEnded(false);
     setCurrentTime(0);
     setActiveIndex(0);
     wordLookupRequestRef.current += 1;
@@ -485,14 +498,33 @@ export default function LessonPage() {
       saveListeningProgress();
     };
     const onEnded = () => {
+      if (!completedRef.current) {
+        completedRef.current = true;
+        markLessonCompleted(lesson.id, getEffectiveDuration());
+      }
+
+      if (isLooping) {
+        resetPlaybackToStart(audio);
+        audio.playbackRate = playbackRate;
+        setIsPlaying(true);
+        void audio.play().catch(() => {
+          setIsPlaying(false);
+          setHasPlaybackEnded(true);
+          clearVideoControlsTimer();
+          setIsVideoControlsVisible(true);
+        });
+        return;
+      }
+
       syncPlaybackPosition();
       setIsPlaying(false);
-      if (completedRef.current) return;
-      completedRef.current = true;
-      markLessonCompleted(lesson.id, getEffectiveDuration());
+      setHasPlaybackEnded(true);
+      clearVideoControlsTimer();
+      setIsVideoControlsVisible(true);
     };
     const onPlay = () => {
       setIsPlaying(true);
+      setHasPlaybackEnded(false);
       syncPlaybackPosition();
     };
     const onPause = () => {
@@ -531,7 +563,15 @@ export default function LessonPage() {
       audio.removeEventListener('seeked', syncPlaybackPosition);
       audio.removeEventListener('error', onError);
     };
-  }, [lesson, playbackRate, updateListeningProgress, markLessonCompleted]);
+  }, [
+    lesson,
+    playbackRate,
+    updateListeningProgress,
+    markLessonCompleted,
+    clearVideoControlsTimer,
+    isLooping,
+    resetPlaybackToStart,
+  ]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -586,6 +626,9 @@ export default function LessonPage() {
       audio.pause();
     } else {
       try {
+        if (hasPlaybackEnded || audio.ended) {
+          resetPlaybackToStart(audio);
+        }
         audio.playbackRate = playbackRate;
         await audio.play();
       } catch {
@@ -601,9 +644,41 @@ export default function LessonPage() {
     const audio = audioRef.current;
     const sentence = lesson?.sentences[index];
     if (!audio || !sentence) return;
+    const wasPaused = audio.paused;
     setActiveIndex(index);
     audio.currentTime = sentence.time_start;
     setCurrentTime(sentence.time_start);
+    setHasPlaybackEnded(false);
+
+    if (wasPaused) {
+      audio.playbackRate = playbackRate;
+      void audio.play().catch(() => {
+        speakSentence(sentence.english, playbackRate);
+      });
+    }
+  };
+
+  const goToAdjacentSentence = (direction: -1 | 1) => {
+    if (!lesson) return;
+    const nextIndex = activeIndex + direction;
+    if (nextIndex < 0 || nextIndex >= lesson.sentences.length) return;
+
+    const audio = audioRef.current;
+    const sentence = lesson.sentences[nextIndex];
+    if (!audio || !sentence) return;
+
+    const wasPaused = !isPlaying;
+    setActiveIndex(nextIndex);
+    audio.currentTime = sentence.time_start;
+    setCurrentTime(sentence.time_start);
+    setHasPlaybackEnded(false);
+
+    if (wasPaused) {
+      audio.playbackRate = playbackRate;
+      void audio.play().catch(() => {
+        speakSentence(sentence.english, playbackRate);
+      });
+    }
   };
 
   const selectPlaybackRate = (rate: PlaybackRate) => {
@@ -616,8 +691,11 @@ export default function LessonPage() {
     const next = !isLooping;
     setIsLooping(next);
     const audio = audioRef.current;
-    if (next && audio?.paused) {
+    if (next && audio) {
+      if (hasPlaybackEnded || audio.ended) resetPlaybackToStart(audio);
+      if (!audio.paused) return;
       try {
+        audio.playbackRate = playbackRate;
         await audio.play();
       } catch {
         /* autoplay blocked */
@@ -795,12 +873,6 @@ export default function LessonPage() {
     : isFetching
       ? 'bg-gray-400 cursor-not-allowed'
       : 'bg-gradient-to-r from-primary to-secondary hover:opacity-95 shadow-md shadow-primary/25';
-  const shadowingSubtextClass = isRecording ? 'text-red-100' : 'text-white/80';
-  const shadowingHint = isRecording
-    ? 'Đang ghi âm — bấm để dừng'
-    : isFetching
-      ? 'Đang chấm điểm...'
-      : 'Luyện nói theo audio';
 
   return (
     <div className="h-screen max-w-lg mx-auto flex flex-col bg-gray-50 overflow-hidden">
@@ -809,7 +881,6 @@ export default function LessonPage() {
         data-testid="lesson-audio"
         src={lesson.audioUrl}
         preload="auto"
-        loop={isLooping}
       />
 
       <div className="flex-shrink-0 bg-white px-4 py-3 grid grid-cols-[auto_1fr_auto] items-center gap-2 border-b border-gray-100 z-20">
@@ -858,70 +929,96 @@ export default function LessonPage() {
                 event.stopPropagation();
                 showVideoControlsTemporarily();
               }}
-              className={`absolute inset-x-0 bottom-0 z-10 px-3 pb-2.5 pt-2.5 transition-[opacity,translate] duration-500 ease-out will-change-[opacity,translate] ${
+              className={`absolute inset-x-3.5 bottom-3.5 z-10 transition-[opacity,translate] duration-500 ease-out will-change-[opacity,translate] ${
                 isVideoControlsVisible
                   ? 'opacity-100 translate-y-0 pointer-events-auto'
                   : 'opacity-0 translate-y-1 pointer-events-none'
               }`}
             >
-              <div
-                className="flex h-3 cursor-pointer items-center"
-                onClick={(event) => {
-                  const audio = audioRef.current;
-                  if (!audio || duration <= 0) return;
-                  const bounds = event.currentTarget.getBoundingClientRect();
-                  const nextRatio = Math.min(
-                    1,
-                    Math.max(0, (event.clientX - bounds.left) / bounds.width),
-                  );
-                  const nextTime = nextRatio * duration;
-                  audio.currentTime = nextTime;
-                  setCurrentTime(nextTime);
-                }}
-                aria-label="Seek audio"
-              >
-                <div
-                  data-testid="lesson-progress-track"
-                  className="relative h-[3px] flex-1 rounded-full bg-white/30"
+              <div className="mb-2.5 flex items-center justify-center gap-5">
+                <button
+                  type="button"
+                  className="flex h-9 w-9 items-center justify-center text-white disabled:opacity-40"
+                  disabled={activeIndex === 0}
+                  onClick={() => goToAdjacentSentence(-1)}
+                  aria-label="Câu trước"
                 >
-                  <div
-                    data-testid="lesson-progress-fill"
-                    className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-primary transition-transform duration-100 will-change-transform"
-                    style={{ transform: `scaleX(${progressRatio})` }}
-                  />
-                  <span
-                    data-testid="lesson-progress-thumb"
-                    className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-sm"
-                    style={{
-                      left: `clamp(5px, ${progressRatio * 100}%, calc(100% - 5px))`,
-                    }}
-                    aria-hidden
-                  />
-                </div>
-              </div>
-              <div className="mt-1 flex h-9 items-center gap-1">
+                  <RotateCcw size={22} />
+                </button>
                 <button
                   type="button"
                   onClick={() => void togglePlay()}
-                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center text-white"
-                  aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
+                  className="flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/40"
+                  aria-label={
+                    hasPlaybackEnded
+                      ? 'Phát lại từ đầu'
+                      : isPlaying
+                        ? 'Tạm dừng'
+                        : 'Phát'
+                  }
                 >
-                  {isPlaying ? (
-                    <Pause size={20} fill="white" />
+                  {hasPlaybackEnded ? (
+                    <RefreshCw size={27} className="text-white" />
+                  ) : isPlaying ? (
+                    <Pause size={26} className="text-white" fill="white" />
                   ) : (
-                    <Play size={20} className="ml-0.5" fill="white" />
+                    <Play
+                      size={26}
+                      className="ml-0.5 text-white"
+                      fill="white"
+                    />
                   )}
                 </button>
-                <span className="whitespace-nowrap text-[12px] font-medium tabular-nums text-white">
-                  {formatTime(currentTime)} / {formatTime(duration)}
+                <button
+                  type="button"
+                  className="flex h-9 w-9 items-center justify-center text-white disabled:opacity-40"
+                  disabled={activeIndex >= lesson.sentences.length - 1}
+                  onClick={() => goToAdjacentSentence(1)}
+                  aria-label="Câu sau"
+                >
+                  <RotateCw size={22} />
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-9 text-[11px] tabular-nums text-white/90">
+                  {formatTime(currentTime)}
+                </span>
+                <div
+                  data-testid="lesson-progress-track"
+                  className="h-3 flex-1 cursor-pointer py-1"
+                  onClick={(event) => {
+                    const audio = audioRef.current;
+                    if (!audio || duration <= 0) return;
+                    const bounds = event.currentTarget.getBoundingClientRect();
+                    const nextRatio = Math.min(
+                      1,
+                      Math.max(0, (event.clientX - bounds.left) / bounds.width),
+                    );
+                    const nextTime = nextRatio * duration;
+                    audio.currentTime = nextTime;
+                    setCurrentTime(nextTime);
+                    setHasPlaybackEnded(false);
+                  }}
+                  aria-label="Tua audio"
+                >
+                  <div className="h-1 overflow-hidden rounded-full bg-white/30">
+                    <div
+                      data-testid="lesson-progress-fill"
+                      className="h-full w-full origin-left rounded-full bg-primary will-change-transform"
+                      style={{ transform: `scaleX(${progressRatio})` }}
+                    />
+                  </div>
+                </div>
+                <span className="w-9 text-right text-[11px] tabular-nums text-white/90">
+                  {formatTime(duration)}
                 </span>
                 <button
                   type="button"
                   onClick={() => void toggleVideoFullscreen()}
-                  className="ml-auto flex h-9 w-9 flex-shrink-0 items-center justify-center text-white"
+                  className="flex h-7 w-7 flex-shrink-0 items-center justify-center text-white/90"
                   aria-label="Toàn màn hình"
                 >
-                  <Maximize size={20} />
+                  <Maximize size={16} />
                 </button>
               </div>
             </div>
@@ -951,8 +1048,8 @@ export default function LessonPage() {
                 onClick={() => seekToSentence(index)}
                 className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 ease-out ${
                   isActive
-                    ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(99,102,241,0.35)]'
-                    : 'bg-white border-gray-100'
+                    ? 'bg-primary/5 border-gray-100'
+                    : 'bg-transparent border-transparent'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -1019,11 +1116,6 @@ export default function LessonPage() {
                         {shadowingError}
                       </p>
                     )}
-                    {shadowingResultIndex === index && isProcessing && (
-                      <p className="text-xs text-gray-400 mt-2">
-                        Đang chấm điểm...
-                      </p>
-                    )}
                     {showPhonetic && phoneticText && (
                       <p className="text-xs text-primary mt-1.5 italic leading-relaxed">
                         {phoneticText}
@@ -1072,9 +1164,68 @@ export default function LessonPage() {
         />
       )}
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-neutral-900/95 backdrop-blur border-t border-gray-100 dark:border-neutral-800 z-50">
-        <div className="max-w-lg mx-auto px-4 pt-2.5 pb-3">
-          <div className="flex items-center justify-around mb-3 rounded-2xl bg-slate-50 dark:bg-neutral-950 px-1 py-2">
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-100 bg-white/95 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/95">
+        <div className="mx-auto max-w-lg px-3 py-2.5">
+          <div className="grid grid-cols-[repeat(4,minmax(0,1fr))_minmax(4.75rem,1.15fr)] items-stretch overflow-visible rounded-2xl bg-slate-50 p-1.5 shadow-sm dark:bg-neutral-950">
+            <div
+              ref={playbackSpeedRef}
+              className="relative min-w-0"
+            >
+              <button
+                type="button"
+                onClick={() => setIsPlaybackRateOpen((open) => !open)}
+                aria-label="Tùy chỉnh tốc độ phát"
+                aria-haspopup="menu"
+                aria-expanded={isPlaybackRateOpen}
+                className={`flex h-[4.75rem] w-full flex-col items-center justify-center gap-0.5 transition-colors ${
+                  isPlaybackRateOpen || playbackRate !== 1
+                    ? 'text-primary'
+                    : 'text-gray-400'
+                }`}
+              >
+                <Gauge
+                  size={21}
+                  strokeWidth={
+                    isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
+                  }
+                />
+                <span className="text-[10px] font-semibold tabular-nums leading-none">
+                  {formatPlaybackRate(playbackRate)}
+                </span>
+                <span className="mt-1 text-[10px] font-medium leading-none">
+                  Tốc độ
+                </span>
+              </button>
+
+              {isPlaybackRateOpen && (
+                <div
+                  role="menu"
+                  aria-label="Tốc độ phát"
+                  className="absolute bottom-full left-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
+                >
+                  {PLAYBACK_RATES.map((rate) => {
+                    const selected = playbackRate === rate;
+                    return (
+                      <button
+                        key={rate}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={selected}
+                        onClick={() => selectPlaybackRate(rate)}
+                        className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
+                          selected
+                            ? 'bg-primary text-white'
+                            : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
+                        }`}
+                      >
+                        {formatPlaybackRate(rate)}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             {[
               {
                 icon: Languages,
@@ -1100,106 +1251,42 @@ export default function LessonPage() {
                 type="button"
                 onClick={action}
                 aria-pressed={!!active}
-                className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
+                className={`flex h-[4.75rem] min-w-0 flex-col items-center justify-center gap-1 px-1 transition-colors ${
                   active ? 'text-primary' : 'text-gray-400'
                 }`}
               >
-                <Icon size={20} strokeWidth={active ? 2.5 : 2} />
-                <span
-                  className={`text-[10px] font-medium ${
-                    active ? 'border-b-2 border-primary pb-0.5' : ''
-                  }`}
-                >
+                <Icon size={21} strokeWidth={active ? 2.5 : 2} />
+                <span className="max-w-full text-[10px] font-medium leading-tight">
                   {label}
                 </span>
               </button>
             ))}
-            <div
-              ref={playbackSpeedRef}
-              className="relative flex min-w-[4.25rem] justify-center"
-            >
-              <button
-                type="button"
-                onClick={() => setIsPlaybackRateOpen((open) => !open)}
-                aria-label="Tùy chỉnh tốc độ phát"
-                aria-haspopup="menu"
-                aria-expanded={isPlaybackRateOpen}
-                className={`flex flex-col items-center gap-1 min-w-[4.25rem] px-2 py-1 rounded-xl transition-colors ${
-                  isPlaybackRateOpen || playbackRate !== 1
-                    ? 'text-primary'
-                    : 'text-gray-400'
-                }`}
-              >
-                <Gauge
-                  size={20}
-                  strokeWidth={
-                    isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
-                  }
-                />
-                <span
-                  className={`text-[10px] font-medium tabular-nums ${
-                    isPlaybackRateOpen || playbackRate !== 1
-                      ? 'border-b-2 border-primary pb-0.5'
-                      : ''
-                  }`}
-                >
-                  {formatPlaybackRate(playbackRate)}
-                </span>
-              </button>
 
-              {isPlaybackRateOpen && (
-                <div
-                  role="menu"
-                  aria-label="Tốc độ phát"
-                  className="absolute bottom-full right-0 mb-2 grid w-[min(20rem,calc(100vw-2rem))] grid-cols-5 gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-xl dark:border-neutral-700 dark:bg-neutral-900"
-                >
-                  {PLAYBACK_RATES.map((rate) => {
-                    const selected = playbackRate === rate;
-                    return (
-                      <button
-                        key={rate}
-                        type="button"
-                        role="menuitemradio"
-                        aria-checked={selected}
-                        onClick={() => selectPlaybackRate(rate)}
-                        className={`h-9 rounded-md text-xs font-semibold tabular-nums transition-colors ${
-                          selected
-                            ? 'bg-primary text-white'
-                            : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-neutral-800'
-                        }`}
-                      >
-                        {formatPlaybackRate(rate)}
-                      </button>
-                    );
-                  })}
-                </div>
+            <button
+              type="button"
+              onClick={handleShadowingToggle}
+              disabled={isFetching}
+              aria-label={
+                isFetching
+                  ? 'Đang chấm điểm'
+                  : isRecording
+                    ? 'Dừng Shadowing'
+                    : 'Bắt đầu Shadowing'
+              }
+              className={`m-1 flex h-[4.25rem] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 text-white transition-all ${shadowingButtonClass}`}
+            >
+              {isFetching ? (
+                <div className="loader" aria-hidden />
+              ) : (
+                <>
+                  <Mic size={24} />
+                  <span className="text-[11px] font-semibold leading-none">
+                    {isRecording ? 'Dừng' : 'Nói'}
+                  </span>
+                </>
               )}
-            </div>
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={handleShadowingToggle}
-            disabled={isFetching}
-            className={`w-full py-3.5 text-white font-semibold rounded-full flex items-center justify-center gap-2.5 transition-all ${shadowingButtonClass}`}
-          >
-            {isFetching ? (
-              <div className="loader" aria-hidden />
-            ) : (
-              <Mic size={20} />
-            )}
-            <div className="text-left">
-              <p className="text-sm font-bold leading-none">
-                {isRecording
-                  ? 'Đang ghi âm...'
-                  : isFetching
-                    ? 'Đang xử lý...'
-                    : 'Shadowing'}
-              </p>
-              <p className={`text-[10px] mt-0.5 ${shadowingSubtextClass}`}>
-                {shadowingHint}
-              </p>
-            </div>
-          </button>
         </div>
       </div>
     </div>
