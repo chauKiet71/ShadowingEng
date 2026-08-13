@@ -306,6 +306,92 @@
 
 final result: passed
 
+## 19. Home floating add-video action
+
+**Source visual truth**
+
+- User reference: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-cd1f0f0d-017c-40a0-a06e-a3e3a14f87d2.png`.
+- Requested placement: lower-right floating action, `40px` from the app's right edge and `200px` from the viewport bottom.
+
+**Implementation and interaction checks**
+
+- The home page renders a blue pill action with the existing Lucide video icon and the label `Them video`.
+- Browser measurement at a `432 x 630px` viewport reports a `48px` button height, `199.6px` bottom offset, and `40px` right offset from the layout viewport. The document has no horizontal overflow.
+- Activating the action opens the video-source bottom sheet without leaving the home page.
+- TypeScript validation, the production client build, and `git diff --check` pass. Browser console reports no warnings or errors.
+
+final result: passed
+
+## 20. Home add-video source bottom sheet
+
+**Source visual truth**
+
+- User reference: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-c833e697-54c2-4727-95f4-daa39f23ce55.png` (`467 x 307px`).
+- Requested interaction: slide up after activating `Thêm video`; slide down and close after tapping anywhere outside the sheet.
+
+**Implementation evidence**
+
+- Final browser capture: `D:\Code\ShowdingEng\backend\output\design-qa\home-add-video-sheet-open.png` (`1280 x 720px`) with the production home page rendered in its centered `512px` application column.
+- Source/implementation comparison: `D:\Code\ShowdingEng\backend\output\design-qa\home-add-video-sheet-comparison.png`.
+- The sheet preserves the application's light/dark color tokens while matching the reference's rounded top, heading hierarchy, compact subtitle, two bordered source rows, and icon/text alignment.
+
+**Interaction and technical checks**
+
+- The existing `320ms` sheet-in and `240ms` sheet-out animations drive the vertical motion; the backdrop fades in and out at the same time.
+- Tapping the backdrop removes the dialog and restores body scrolling. `Escape` closes it through the same path.
+- `URL Youtube` closes the source sheet and opens the compact URL dialog directly on Home.
+- `Phương tiện địa phương` opens the native file chooser while Home remains visible; cancelling the chooser leaves the source sheet in place.
+- Reduced-motion users receive the same behavior without animation. TypeScript, production build, `git diff --check`, and browser console checks pass.
+
+final result: passed
+
+## 21. Home Youtube URL dialog and background-processing flow
+
+**Source visual truth**
+
+- User reference: `C:\Users\DELL\AppData\Local\Temp\codex-clipboard-e74dc207-8de0-4b9f-878d-6d6b3416b075.png` (`295 x 214px`).
+- Requested flow: selecting `URL Youtube` opens the compact URL dialog; activating `Lưu` starts video processing without leaving Home. The learning player opens only after the job is ready.
+
+**Implementation evidence**
+
+- Final browser capture: `D:\Code\ShowdingEng\backend\output\design-qa\home-youtube-url-dialog.png` (`1280 x 720px`) with the production home page rendered in its centered application column.
+- Source/implementation comparison: `D:\Code\ShowdingEng\backend\output\design-qa\home-youtube-url-dialog-comparison.png`.
+- The dialog matches the reference hierarchy and spacing: title, single URL field, paired `Đóng`/`Lưu` actions, rounded surface, and dimmed page backdrop. Colors use the application's existing primary palette.
+
+**Interaction and technical checks**
+
+- `Đóng`, backdrop click, and `Escape` dismiss the dialog without navigation.
+- `Lưu` requires a non-empty URL and calls `createVideoTranslateJob()` directly from Home. The browser URL remains `/`; the Dịch video input/processing screen is never rendered.
+- While the created job is `PENDING` or `PROCESSING`, Home keeps the dialog open in a non-dismissible `Đang xử lý video` state and polls the existing job endpoint once per second.
+- A `READY` response navigates with the completed job in router state. `VideoTranslatePage` initializes from that state, bypasses its loading/input screen, and immediately renders the learning player with playback prepared from the beginning. The job id remains in the URL as a reload fallback.
+- `FAILED` and request errors restore the URL form inside the Home dialog, preserving the entered URL and displaying the backend message without navigating away.
+- Browser verification with a deliberately unavailable 11-character Youtube ID confirmed that the URL stayed `http://localhost:3000/` immediately after `Lưu`, the `Đang tạo phụ đề Youtube` state appeared, and the handled `Video unavailable` error returned in the same dialog. No ready/recent item was created by the test.
+- Processing-state capture: `D:\Code\ShowdingEng\backend\output\design-qa\home-youtube-processing-dialog.png`.
+- Browser verification with an existing cached `READY` video confirmed the complete success path: Home submitted the URL, navigation occurred only after the API response, and the destination immediately contained the YouTube player, translated transcript, vocabulary word actions, and `Shadowing` controls with no link-entry screen.
+- Ready learning-player capture: `D:\Code\ShowdingEng\backend\output\design-qa\home-youtube-ready-learning.png`.
+- TypeScript, production client build, `git diff --check`, and browser console checks pass.
+
+final result: passed
+
+## 24. Home local-media background-processing flow
+
+**Requested flow**
+
+- Selecting `Phương tiện địa phương` lets the user choose a supported video or audio file from the device.
+- After file selection, processing begins directly from Home and the learning player opens only when the job reaches `READY`.
+
+**Implementation and interaction checks**
+
+- The source row uses a native file input layered over the existing visual treatment, preserving direct pointer, keyboard, and assistive-technology access to the device picker.
+- Supported formats match the existing video-translation upload flow: MP4, WebM, MOV, MP3, M4A, and WAV.
+- Home calls `createVideoTranslateJobFromUpload()` immediately after selection. While the job is pending, a non-dismissible dialog shows the selected filename and translation progress; the shared one-second poller handles both URL and local jobs.
+- A `READY` response passes the complete job through router state and opens the learning player without rendering the Dịch video upload screen. Request and processing failures remain in the Home dialog with `Đóng` and `Chọn lại` actions.
+- Browser verification uploaded `storage/video-translate-audio-benchmark.mp3` from the Home source sheet. The completed job navigated directly to `/dich-video?job=c21c2b90-ce70-4082-80c5-b4535dbea9e4`, where the audio title, translated transcript, vocabulary actions, playback controls, and Shadowing action rendered successfully.
+- Ready-state capture: `D:\Code\ShowdingEng\backend\output\design-qa\home-local-upload-ready.png`.
+- Browser console warnings/errors: none.
+
+final result: passed
+
 ## 23. Lesson bottom control bar layout
 
 **Source visual truth**
@@ -444,6 +530,14 @@ final result: passed
 - Browser-computed styles confirm the active card has no shadow and a neutral border, the inactive card is fully transparent, and all `12` rendered cards keep the same `472px` width.
 - Existing interaction remains intact: from a paused uploaded video at `50.4s`, selecting the second subtitle segment immediately sought to `5.15s`, changed the active segment, and resumed playback at `1x`.
 - The production client build passes and the browser console reports no errors or warnings.
+
+### 20.4. Keep uploaded-video word focus synchronized
+
+- Scope: the translated transcript on `/dich-video`, verified against READY upload job `da8797ec-f794-4085-a4a5-2cafaafcfb1d` (`0728(2)`).
+- Stored word timings are normalized for absolute or segment-relative timestamps and clamped into a monotonic sequence, while segments without word timestamps retain the existing duration-weighted fallback.
+- The latest word whose start time has passed remains focused until the next word starts or the segment ends. Focus is therefore stable through short timestamp gaps and remains visible while paused.
+- Browser evidence: `D:\Code\ShowdingEng\backend\output\design-qa\video-upload-word-focus.png`. The green focus moved between words during real playback, and the active word exposes `aria-current="true"` for deterministic accessibility and QA checks.
+- Production client build and TypeScript compilation pass; browser console reports no errors or warnings.
 
 final result: passed
 

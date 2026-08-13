@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Bell,
   ChevronRight,
-  Clapperboard,
   Clock,
   Crown,
   Flame,
@@ -17,6 +16,7 @@ import {
   RefreshCw,
   Sun,
   Target,
+  Video,
   Volume2,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
@@ -580,18 +580,18 @@ export default function ProfilePage() {
               to="/lich-su"
             />
             <MenuRow
+              icon={Video}
+              iconBg="bg-blue-50 dark:bg-blue-950/40"
+              iconColor="text-blue-500"
+              label="Video của tôi"
+              to="/video-cua-toi"
+            />
+            <MenuRow
               icon={Mic}
               iconBg="bg-violet-50 dark:bg-violet-950/40"
               iconColor="text-violet-500"
               label="Luyện nói tình huống"
               to="/luyen-noi"
-            />
-            <MenuRow
-              icon={Clapperboard}
-              iconBg="bg-fuchsia-50 dark:bg-fuchsia-950/40"
-              iconColor="text-fuchsia-500"
-              label="Dịch video YouTube"
-              to="/dich-video"
             />
             <MenuRow
               icon={Target}

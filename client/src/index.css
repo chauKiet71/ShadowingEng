@@ -390,6 +390,60 @@ button .loader {
   animation: lesson-word-sheet-out 240ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
+@keyframes video-source-sheet-in {
+  from {
+    opacity: 0.7;
+    transform: translate3d(0, calc(100% + 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes video-source-sheet-out {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 110%, 0);
+  }
+}
+
+@keyframes video-source-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes video-source-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.video-source-sheet-in {
+  animation: video-source-sheet-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.video-source-sheet-out {
+  animation: video-source-sheet-out 420ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.video-source-backdrop-in {
+  animation: video-source-backdrop-in 220ms ease-out both;
+}
+
+.video-source-backdrop-out {
+  animation: video-source-backdrop-out 420ms ease-in both;
+}
+
 .lesson-word-backdrop-in {
   animation: lesson-word-backdrop-in 220ms ease-out both;
 }

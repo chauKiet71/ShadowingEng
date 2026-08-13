@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
   BookOpen,
@@ -38,6 +38,11 @@ const ACCEPT_MEDIA =
   'video/mp4,video/webm,video/quicktime,audio/mpeg,audio/mp4,audio/wav,audio/x-m4a,.mp4,.webm,.mov,.mkv,.mp3,.m4a,.wav';
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type PlaybackRate = (typeof PLAYBACK_RATES)[number];
+
+type VideoTranslateNavigationState = {
+  videoTranslateJob?: VideoTranslateJob;
+  videoTranslateQuota?: VideoTranslateQuota;
+};
 
 type VideoWordLookupContext = {
   word: string;
@@ -207,26 +212,45 @@ function resolveSegmentWordTimings(segment: VideoTranslateSegment) {
       Number.isFinite(word.start) &&
       Number.isFinite(word.end),
   );
-  return stored?.length ? stored : estimateSegmentWordTimings(segment);
+  if (!stored?.length) return estimateSegmentWordTimings(segment);
+
+  const segmentDuration = Math.max(0.12, segment.end - segment.start);
+  const latestStoredEnd = Math.max(...stored.map((word) => word.end));
+  const timingsAreRelative =
+    segment.start > 0.1 && latestStoredEnd <= segmentDuration + 0.25;
+  let previousEnd = segment.start;
+
+  return stored.map((word, index) => {
+    const offset = timingsAreRelative ? segment.start : 0;
+    const rawStart = word.start + offset;
+    const rawEnd = word.end + offset;
+    const start = Math.min(
+      segment.end,
+      Math.max(segment.start, previousEnd, rawStart),
+    );
+    const end =
+      index === stored.length - 1
+        ? segment.end
+        : Math.min(segment.end, Math.max(start, rawEnd));
+    previousEnd = end;
+    return { ...word, start, end };
+  });
 }
 
 function findActiveWordIndex(
   words: SegmentWordTiming[],
   time: number,
   playbackRate: PlaybackRate,
+  segmentEnd: number,
 ) {
   const lookahead = 0.04 * playbackRate;
-  const minimumVisibleDuration = 0.12 * playbackRate;
+  if (time > segmentEnd + lookahead) return -1;
+
   let active = -1;
   for (let index = 0; index < words.length; index += 1) {
     const word = words[index];
     if (time + lookahead < word.start) break;
-    const nextStart = words[index + 1]?.start ?? word.end;
-    const visibleEnd = Math.max(
-      word.end,
-      Math.min(nextStart, word.start + minimumVisibleDuration),
-    );
-    if (time <= visibleEnd + lookahead) active = index;
+    active = index;
   }
   return active;
 }
@@ -276,16 +300,26 @@ function formatRecentDate(value: string) {
 
 export default function VideoTranslatePage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { user } = useAuth();
-  const [url, setUrl] = useState('');
+  const navigationState = location.state as VideoTranslateNavigationState | null;
+  const routedJob = navigationState?.videoTranslateJob ?? null;
+  const requestedJobId = searchParams.get('job');
+  const initialUrl = searchParams.get('url')?.trim() ?? '';
+  const [url, setUrl] = useState(initialUrl);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [quota, setQuota] = useState<VideoTranslateQuota | null>(null);
-  const [job, setJob] = useState<VideoTranslateJob | null>(null);
+  const [quota, setQuota] = useState<VideoTranslateQuota | null>(
+    navigationState?.videoTranslateQuota ?? null,
+  );
+  const [job, setJob] = useState<VideoTranslateJob | null>(routedJob);
   const [recent, setRecent] = useState<VideoTranslateJob[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!routedJob);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [sourceMode, setSourceMode] = useState<'url' | 'upload'>('url');
+  const [sourceMode, setSourceMode] = useState<'url' | 'upload'>(() =>
+    searchParams.get('mode') === 'upload' ? 'upload' : 'url',
+  );
   const [showAllRecent, setShowAllRecent] = useState(false);
   const [recentMenuId, setRecentMenuId] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
@@ -320,7 +354,7 @@ export default function VideoTranslatePage() {
   const youtubePlayerRef = useRef<YoutubePlayer | null>(null);
   const youtubePlayerMountRef = useRef<HTMLDivElement | null>(null);
   const isLoopingRef = useRef(false);
-  const autoPlayRequestedRef = useRef(false);
+  const autoPlayRequestedRef = useRef(Boolean(routedJob));
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const recentSectionRef = useRef<HTMLDivElement | null>(null);
   const syncRafRef = useRef<number | null>(null);
@@ -329,6 +363,9 @@ export default function VideoTranslatePage() {
   const segmentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const prevActiveIndexRef = useRef(-1);
   const wordLookupRequestRef = useRef(0);
+  const autoSubmitUrlRef = useRef<string | null>(
+    searchParams.get('autoSubmit') === '1' && initialUrl ? initialUrl : null,
+  );
 
   const activeIndex = useMemo(
     () =>
@@ -618,13 +655,19 @@ export default function VideoTranslatePage() {
     let cancelled = false;
     async function load() {
       try {
-        const [nextQuota, list] = await Promise.all([
+        const requestedJobPromise =
+          requestedJobId && !routedJob
+            ? api.getVideoTranslateJob(requestedJobId)
+            : Promise.resolve(null);
+        const [nextQuota, list, requestedJob] = await Promise.all([
           api.getVideoTranslateQuota(),
           api.listVideoTranslateJobs(),
+          requestedJobPromise,
         ]);
         if (cancelled) return;
         const deletedIds = getDeletedRecentVideoIds();
-        setQuota(nextQuota);
+        setQuota(requestedJob?.quota ?? nextQuota);
+        if (requestedJob) setJob(requestedJob.job);
         setRecent(
           list.jobs
             .filter(
@@ -649,6 +692,15 @@ export default function VideoTranslatePage() {
   }, []);
 
   useEffect(() => {
+    if (loading || !autoSubmitUrlRef.current) return;
+
+    const pendingUrl = autoSubmitUrlRef.current;
+    autoSubmitUrlRef.current = null;
+    navigate('/dich-video?mode=url', { replace: true });
+    void submitUrl(pendingUrl);
+  }, [loading, navigate]);
+
+  useEffect(() => {
     if (!job || (job.status !== 'PENDING' && job.status !== 'PROCESSING')) {
       return;
     }
@@ -656,7 +708,11 @@ export default function VideoTranslatePage() {
       void api
         .getVideoTranslateJob(job.id)
         .then((result) => {
-          setJob(result.job);
+          if (result.job.status === 'READY') {
+            openJob(result.job);
+          } else {
+            setJob(result.job);
+          }
           setQuota(result.quota);
           if (result.job.status === 'READY') {
             setRecent((prev) => {
@@ -766,8 +822,8 @@ export default function VideoTranslatePage() {
     });
   }
 
-  async function submitUrl() {
-    const nextUrl = url.trim();
+  async function submitUrl(urlOverride?: string) {
+    const nextUrl = (urlOverride ?? url).trim();
     if (!nextUrl) {
       setError('Hãy dán link YouTube');
       return;
@@ -777,7 +833,11 @@ export default function VideoTranslatePage() {
     setError('');
     try {
       const result = await api.createVideoTranslateJob(nextUrl);
-      setJob(result.job);
+      if (result.job.status === 'READY') {
+        openJob(result.job);
+      } else {
+        setJob(result.job);
+      }
       setQuota(result.quota);
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -815,7 +875,11 @@ export default function VideoTranslatePage() {
     setError('');
     try {
       const result = await api.createVideoTranslateJobFromUpload(selectedFile);
-      setJob(result.job);
+      if (result.job.status === 'READY') {
+        openJob(result.job);
+      } else {
+        setJob(result.job);
+      }
       setQuota(result.quota);
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -1517,11 +1581,12 @@ export default function VideoTranslatePage() {
                       const phoneticText = phoneticTexts[idx] ?? '';
                       const timedWords = wordTimingsBySegment[idx] ?? [];
                       const activeWordIndex =
-                        active && isPlaying
+                        active
                           ? findActiveWordIndex(
                               timedWords,
                               currentTime,
                               playbackRate,
+                              seg.end,
                             )
                           : -1;
                       return (
@@ -1564,6 +1629,11 @@ export default function VideoTranslatePage() {
                                           openWordDetail(displayWord, seg);
                                         }}
                                         aria-label={`Xem chi tiết từ ${cleanVocabularyToken(displayWord)}`}
+                                        aria-current={
+                                          wordIndex === activeWordIndex
+                                            ? 'true'
+                                            : undefined
+                                        }
                                         className={`${
                                           word.correct
                                             ? 'text-emerald-600'
@@ -1587,6 +1657,11 @@ export default function VideoTranslatePage() {
                                       openWordDetail(word.text, seg);
                                     }}
                                     aria-label={`Xem chi tiết từ ${cleanVocabularyToken(word.text)}`}
+                                    aria-current={
+                                      wordIndex === activeWordIndex
+                                        ? 'true'
+                                        : undefined
+                                    }
                                     className={`${wordBorderClass(
                                       wordIndex === activeWordIndex,
                                     )} cursor-pointer focus-visible:outline-2 focus-visible:outline-primary`}

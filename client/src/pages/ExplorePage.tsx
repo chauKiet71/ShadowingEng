@@ -33,8 +33,11 @@ export default function ExplorePage() {
   const allTopicsRef = useRef<HTMLDivElement>(null);
   const favoriteTopicsRef = useRef<HTMLDivElement>(null);
   const [topicsPanelHeight, setTopicsPanelHeight] = useState<number>();
-  const { favoriteCategoryIds, isCategoryFavorite, toggleCategoryFavorite } =
-    useFavorites();
+  const {
+    favoriteIds,
+    isCategoryFavorite,
+    toggleCategoryFavorite,
+  } = useFavorites();
   const { todayListeningSeconds, dailyGoalSeconds } = useHistory();
   const { user } = useAuth();
 
@@ -52,6 +55,10 @@ export default function ExplorePage() {
     () => (categoryId ? getLessonsByCategory(categoryId) : []),
     [categoryId],
   );
+  const favoriteLessons = useMemo(() => {
+    const favoriteIdSet = new Set(favoriteIds);
+    return lessons.filter((lesson) => favoriteIdSet.has(lesson.id));
+  }, [favoriteIds]);
   const normalizedQuery = normalizeSearchText(searchQuery);
   const searchResults = useMemo(() => {
     if (!normalizedQuery) return [];
@@ -113,7 +120,7 @@ export default function ExplorePage() {
     const observer = new ResizeObserver(updateHeight);
     observer.observe(panel);
     return () => observer.disconnect();
-  }, [activeFilter, categoryId, favoriteCategoryIds.length]);
+  }, [activeFilter, categoryId, favoriteIds.length]);
 
   useEffect(() => {
     if (searchOpen) searchInputRef.current?.focus();
@@ -132,25 +139,25 @@ export default function ExplorePage() {
     return (
       <MobileLayout>
         <div className="min-h-screen bg-gradient-to-b from-[#F3EEFF] via-[#F7F5FC] to-gray-50 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-950 -mx-0">
-          <div className="sticky top-0 z-30 px-4 pt-5 pb-3 bg-[#F3EEFF]/95 dark:bg-neutral-950/95 backdrop-blur-md">
-            <div className="flex items-center gap-2 mb-3">
+          <div className="sticky top-0 z-30 bg-[#F3EEFF]/95 px-4 py-2 backdrop-blur-md dark:bg-neutral-950/95">
+            <div className="flex min-h-8 items-center gap-1.5">
               <button
                 type="button"
                 onClick={handleBack}
-                className="-ml-1 p-1 text-slate-700 dark:text-gray-200"
+                className="-ml-1 inline-flex h-8 w-8 shrink-0 items-center justify-center text-slate-700 dark:text-gray-200"
                 aria-label="Quay lại trang trước"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={18} />
               </button>
               <div className="min-w-0 flex-1">
-                <h1 className="text-xl font-bold text-slate-900 dark:text-white truncate">
+                <h1 className="text-[15px] font-bold text-slate-900 dark:text-white truncate">
                   {activeCategory.name}
                 </h1>
               </div>
               <button
                 type="button"
                 onClick={() => toggleCategoryFavorite(activeCategory.id)}
-                className={`shrink-0 w-9 h-9 rounded-full inline-flex items-center justify-center transition-colors ${
+                className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors ${
                   categorySaved
                     ? 'bg-primary text-white'
                     : 'bg-white dark:bg-neutral-900 text-primary border border-primary/20'
@@ -164,7 +171,7 @@ export default function ExplorePage() {
                 title={categorySaved ? 'Đã lưu' : 'Lưu'}
               >
                 <Bookmark
-                  size={17}
+                  size={14}
                   className={categorySaved ? 'fill-current' : ''}
                 />
               </button>
@@ -330,11 +337,21 @@ export default function ExplorePage() {
               <PopularTopics />
             </div>
             <div ref={favoriteTopicsRef} className="w-1/2 shrink-0">
-              <PopularTopics
-                categoryIds={favoriteCategoryIds}
-                title="Chủ đề đã lưu"
-                emptyMessage="Chưa có chủ đề yêu thích. Mở một chủ đề và bấm “Lưu” để thêm."
-              />
+              <div className="px-4 mb-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="font-bold text-gray-900 dark:text-white">
+                    Bài học đã lưu
+                  </h2>
+                  <span className="text-xs text-gray-400">
+                    {favoriteLessons.length} bài
+                  </span>
+                </div>
+                <LessonGrid
+                  lessons={favoriteLessons}
+                  returnTo="/kham-pha?filter=fav"
+                  emptyMessage="Chưa có bài học đã lưu. Mở một bài học và bấm “Lưu bài” để thêm."
+                />
+              </div>
             </div>
           </div>
         </div>

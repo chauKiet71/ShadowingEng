@@ -32,6 +32,7 @@ import VocabularyPage from './pages/VocabularyPage';
 import SpeakingPage from './pages/SpeakingPage';
 import SpeakingHistoryPage from './pages/SpeakingHistoryPage';
 import VideoTranslatePage from './pages/VideoTranslatePage';
+import MyVideosPage from './pages/MyVideosPage';
 
 function LessonPageRoute() {
   const { id } = useParams<{ id: string }>();
@@ -119,6 +120,14 @@ export default function App() {
                     <Route
                       path="/dich-video"
                       element={<VideoTranslatePage />}
+                    />
+                    <Route
+                      path="/video-cua-toi"
+                      element={
+                        <ProtectedRoute>
+                          <MyVideosPage />
+                        </ProtectedRoute>
+                      }
                     />
                     <Route path="/nang-cap" element={<UpgradePage />} />
                     <Route

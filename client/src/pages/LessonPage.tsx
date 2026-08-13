@@ -11,7 +11,7 @@ import {
   Maximize,
   Languages,
   Repeat,
-  BookOpen,
+  Bookmark,
   Mic,
   Lock,
   Crown,
@@ -26,6 +26,7 @@ import {
   type LessonWordTiming,
 } from '../data/lessons';
 import { useHistory } from '../contexts/HistoryContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { ApiError, api, type VocabularyLookupDetail } from '../lib/api';
@@ -209,6 +210,8 @@ export default function LessonPage() {
   const autoPlayOnOpen = lessonNavigationState?.autoPlay !== false;
   const returnTo = lessonNavigationState?.returnTo;
   const { updateListeningProgress, markLessonCompleted } = useHistory();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const lessonSaved = lesson ? isFavorite(lesson.id) : false;
   const {
     result: shadowingResult,
     error: shadowingError,
@@ -902,7 +905,7 @@ export default function LessonPage() {
         <div
           ref={videoSurfaceRef}
           data-testid="lesson-video-surface"
-          className="bg-black aspect-[20/11] relative overflow-hidden rounded-b-md w-full cursor-pointer"
+          className="bg-black aspect-[20/11] relative overflow-hidden w-full cursor-pointer"
           onClick={toggleVideoControls}
         >
           <img
@@ -1165,8 +1168,8 @@ export default function LessonPage() {
       )}
 
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-100 bg-white/95 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/95">
-        <div className="mx-auto max-w-lg px-3 py-2.5">
-          <div className="grid grid-cols-[repeat(4,minmax(0,1fr))_minmax(4.75rem,1.15fr)] items-stretch overflow-visible rounded-2xl bg-slate-50 p-1.5 shadow-sm dark:bg-neutral-950">
+        <div className="mx-auto max-w-lg px-3 py-1">
+          <div className="grid grid-cols-[repeat(4,minmax(0,1fr))_minmax(4.75rem,1.15fr)] items-stretch overflow-visible rounded-xl bg-slate-50 p-0.5 shadow-sm dark:bg-neutral-950">
             <div
               ref={playbackSpeedRef}
               className="relative min-w-0"
@@ -1177,22 +1180,22 @@ export default function LessonPage() {
                 aria-label="Tùy chỉnh tốc độ phát"
                 aria-haspopup="menu"
                 aria-expanded={isPlaybackRateOpen}
-                className={`flex h-[4.75rem] w-full flex-col items-center justify-center gap-0.5 transition-colors ${
+                className={`flex h-11 w-full flex-col items-center justify-center gap-px transition-colors ${
                   isPlaybackRateOpen || playbackRate !== 1
                     ? 'text-primary'
                     : 'text-gray-400'
                 }`}
               >
                 <Gauge
-                  size={21}
+                  size={16}
                   strokeWidth={
                     isPlaybackRateOpen || playbackRate !== 1 ? 2.5 : 2
                   }
                 />
-                <span className="text-[10px] font-semibold tabular-nums leading-none">
+                <span className="text-[8px] font-semibold tabular-nums leading-none">
                   {formatPlaybackRate(playbackRate)}
                 </span>
-                <span className="mt-1 text-[10px] font-medium leading-none">
+                <span className="text-[8px] font-medium leading-none">
                   Tốc độ
                 </span>
               </button>
@@ -1234,10 +1237,13 @@ export default function LessonPage() {
                 action: () => setShowTranslation((prev) => !prev),
               },
               {
-                icon: BookOpen,
-                label: 'Phiên âm',
-                active: showPhonetic,
-                action: () => setShowPhonetic((prev) => !prev),
+                icon: Bookmark,
+                label: lessonSaved ? 'Đã lưu' : 'Lưu bài',
+                active: lessonSaved,
+                fillIcon: lessonSaved,
+                action: () => {
+                  if (lesson) toggleFavorite(lesson.id);
+                },
               },
               {
                 icon: Repeat,
@@ -1245,18 +1251,22 @@ export default function LessonPage() {
                 active: isLooping,
                 action: () => void toggleLoop(),
               },
-            ].map(({ icon: Icon, label, action, active }) => (
+            ].map(({ icon: Icon, label, action, active, fillIcon }) => (
               <button
                 key={label}
                 type="button"
                 onClick={action}
                 aria-pressed={!!active}
-                className={`flex h-[4.75rem] min-w-0 flex-col items-center justify-center gap-1 px-1 transition-colors ${
+                className={`flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 px-1 transition-colors ${
                   active ? 'text-primary' : 'text-gray-400'
                 }`}
               >
-                <Icon size={21} strokeWidth={active ? 2.5 : 2} />
-                <span className="max-w-full text-[10px] font-medium leading-tight">
+                <Icon
+                  size={16}
+                  strokeWidth={active ? 2.5 : 2}
+                  className={fillIcon ? 'fill-current' : undefined}
+                />
+                <span className="max-w-full text-[8px] font-medium leading-tight">
                   {label}
                 </span>
               </button>
@@ -1273,14 +1283,14 @@ export default function LessonPage() {
                     ? 'Dừng Shadowing'
                     : 'Bắt đầu Shadowing'
               }
-              className={`m-1 flex h-[4.25rem] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1 text-white transition-all ${shadowingButtonClass}`}
+              className={`m-0.5 flex h-10 min-w-0 flex-col items-center justify-center gap-0.5 rounded-lg px-1 text-white transition-all ${shadowingButtonClass}`}
             >
               {isFetching ? (
                 <div className="loader" aria-hidden />
               ) : (
                 <>
-                  <Mic size={24} />
-                  <span className="text-[11px] font-semibold leading-none">
+                  <Mic size={18} />
+                  <span className="text-[9px] font-semibold leading-none">
                     {isRecording ? 'Dừng' : 'Nói'}
                   </span>
                 </>

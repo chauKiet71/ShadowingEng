@@ -1,0 +1,99 @@
+[Nest] 15908  - 08/12/2026, 9:24:57 PM     LOG [DatabaseSync] Đang đồng bộ schema database (tạo bảng/cột nếu chưa có)...
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [DatabaseSync] Đồng bộ schema database thành công
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [NestFactory] Starting Nest application... +16ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] PassportModule dependencies initialized +47ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +22ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] AppModule dependencies initialized +53ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] ServeStaticModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] PrismaModule dependencies initialized +2ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] CloudinaryModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] MailModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] JwtModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] ShadowingModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] UsersModule dependencies initialized +3ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] CategoriesModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] PackagesModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] PaymentsModule dependencies initialized +2ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] LessonsModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] ChatModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] VocabularyModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] AdminModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] VideoTranslateModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] SpeakingModule dependencies initialized +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [InstanceLoader] AuthModule dependencies initialized +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] AppController {/api}: +32ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/health, GET} route +2ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] AuthController {/api/auth}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/register, POST} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/login, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/google, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/google/callback, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/me, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/avatar, PATCH} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/forgot-password, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/resend-reset-code, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/verify-reset-code, POST} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/auth/reset-password, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] UsersController {/api/users}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/users/stats, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/users, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/users/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] LessonsController {/api/lessons}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/access, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/access/:lessonId, PUT} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/me/stats, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/history/:userId, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/history/:userId/stats, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/lessons/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] CategoriesController {/api/categories}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/categories, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/categories/popular, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] PackagesController {/api/packages}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/packages, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/packages/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/packages, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/packages/:id, PUT} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/packages/:id, DELETE} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] PaymentsController {/api/payments}: +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/payments/orders, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/payments/orders/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/payments/webhooks/sepay, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] ChatController {/api/chat}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/chat/quota, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/chat/conversations, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/chat/conversations/:id/messages, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] VocabularyController {/api/vocabulary}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/overview, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/sets, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/sets/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/sets/:id/save, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/sets/:id/save, DELETE} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/words/learn, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/words/lookup, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/vocabulary/words/:id/review, POST} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] SpeakingController {/api/speaking}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/scenarios, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/quota, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/history, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/sessions, POST} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/translate, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/sessions/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/sessions/:id/turns, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/speaking/sessions/:id/complete, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] VideoTranslateController {/api/video-translate}: +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/video-translate/quota, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/video-translate/jobs, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/video-translate/jobs/:id, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/video-translate/jobs, POST} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/video-translate/jobs/:id, DELETE} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RoutesResolver] AdminController {/api/admin}: +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/overview, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/stats, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/packages/:id/subscribers, GET} route +2ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/users/:id/premium, PATCH} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/transactions/stats, GET} route +0ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [RouterExplorer] Mapped {/api/admin/transactions, GET} route +1ms
+[Nest] 15908  - 08/12/2026, 9:25:14 PM     LOG [NestApplication] Nest application successfully started +68ms
+🚀 Shadowing ENGLISH running at http://localhost:3000
