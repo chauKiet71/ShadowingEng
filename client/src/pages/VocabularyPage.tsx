@@ -23,7 +23,6 @@ import {
   Languages,
   Landmark,
   Layers,
-  Loader2,
   MessageCircle,
   Plane,
   Plus,
@@ -43,6 +42,7 @@ import { useAuth } from '../contexts/AuthContext';
 import {
   api,
   type VocabularyOverview,
+  type VocabularyProgress,
   type VocabularySetDetail,
   type VocabularySetSummary,
   type VocabularyWord,
@@ -54,6 +54,7 @@ import {
   fetchVocabularySet,
 } from '../lib/prefetchFeatures';
 import { playAnswerFeedback } from '../lib/profileSettings';
+import { speakEnglishText } from '../lib/speech';
 
 const iconMap = {
   plane: Plane,
@@ -163,12 +164,30 @@ const vocabularyCoverMap: Record<string, string> = {
 };
 
 function speak(text: string) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.85;
-  window.speechSynthesis.speak(utterance);
+  speakEnglishText(text, 0.85);
+}
+
+function CircleReload({
+  size = 22,
+  className = '',
+}: {
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`inline-block rounded-full animate-spin ${className}`}
+      style={{
+        width: size,
+        height: size,
+        borderWidth: 2.5,
+        borderStyle: 'solid',
+        borderColor: 'color-mix(in srgb, currentColor 22%, transparent)',
+        borderTopColor: 'currentColor',
+      }}
+      aria-hidden="true"
+    />
+  );
 }
 
 function playWordAudio(word: VocabularyWord) {
@@ -217,6 +236,11 @@ function normalizeAnswer(value: string): string {
 
 const DAILY_WORD_GOAL = 10;
 
+function isProgressDue(progress: VocabularyProgress | null | undefined) {
+  if (!progress?.nextReviewAt) return false;
+  return new Date(progress.nextReviewAt).getTime() <= Date.now();
+}
+
 function SetCard({
   set,
   onClick,
@@ -262,7 +286,7 @@ function SetCard({
         )}
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-950/55 text-white backdrop-blur-[1px]">
-            <RotateCcw size={22} className="animate-spin" />
+            <CircleReload size={22} />
           </div>
         )}
       </div>
@@ -342,6 +366,7 @@ export default function VocabularyPage() {
   const [loading, setLoading] = useState(() => !cachedOverview);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [continueLoading, setContinueLoading] = useState(false);
+  const [sessionBusy, setSessionBusy] = useState(false);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [showAllSets, setShowAllSets] = useState(false);
@@ -439,6 +464,64 @@ export default function VocabularyPage() {
     resetLearningForm();
   }
 
+  function requireAuth(message: string) {
+    if (isAuthenticated) return true;
+    navigate('/dang-nhap', {
+      state: {
+        from: '/tu-vung',
+        message,
+      },
+    });
+    return false;
+  }
+
+  async function startReviewSession(setId?: string) {
+    if (!requireAuth('Vui lòng đăng nhập để ôn từ vựng.')) return;
+    setSessionBusy(true);
+    setError('');
+    try {
+      const session = await api.getVocabularyReviewSession({
+        setId,
+        limit: 20,
+      });
+      if (session.words.length === 0) {
+        setError(
+          setId
+            ? 'Chưa có từ đến hạn trong bộ này. Hãy học thêm từ mới.'
+            : 'Bạn đã ôn tập xong',
+        );
+        await loadOverview(true);
+        return;
+      }
+      startLearningQueue(session.words, 'review');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Không tải được bài ôn');
+    } finally {
+      setSessionBusy(false);
+    }
+  }
+
+  async function startLearnSession(setId: string) {
+    if (!requireAuth('Vui lòng đăng nhập để học từ vựng.')) return;
+    setSessionBusy(true);
+    setError('');
+    try {
+      const session = await api.getVocabularyLearnSession({
+        setId,
+        limit: 5,
+      });
+      if (session.words.length === 0) {
+        setError('Bạn đã học hết bộ từ này');
+        return;
+      }
+      startLearningQueue(session.words, 'learn');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Không tải được bài học');
+    } finally {
+      setSessionBusy(false);
+    }
+  }
+
   function startLearningQueue(
     words: VocabularyWord[],
     mode: 'learn' | 'review' = 'learn',
@@ -453,10 +536,10 @@ export default function VocabularyPage() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
-  function saveLearnedWord(word: VocabularyWord) {
+  function saveLearnedWord(word: VocabularyWord, correct: boolean) {
     if (!isAuthenticated) return;
     void api
-      .learnVocabularyWord(word.id)
+      .learnVocabularyWord(word.id, correct)
       .then((progress) => {
         setSelectedSet((current) => {
           if (!current) return current;
@@ -520,9 +603,7 @@ export default function VocabularyPage() {
       return;
     }
 
-    if (isCorrect) {
-      saveLearnedWord(learningWord);
-    }
+    saveLearnedWord(learningWord, isCorrect);
   }
 
   function continueLearning() {
@@ -541,7 +622,7 @@ export default function VocabularyPage() {
     return (
       <MobileLayout>
         <div className="p-8 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-          <Loader2 size={16} className="animate-spin" />
+          <CircleReload size={16} />
           Đang tải từ vựng...
         </div>
       </MobileLayout>
@@ -770,12 +851,14 @@ export default function VocabularyPage() {
                   <p className="text-sm text-gray-700 dark:text-gray-200">
                     {learningMode === 'review'
                       ? 'Đã cập nhật lịch ôn tập của bạn'
-                      : 'Đã thêm vào danh sách học của bạn'}
+                      : 'Đã thêm vào danh sách học. Sẽ ôn lại trong hôm nay'}
                   </p>
                 </div>
               ) : (
                 <p className="mt-4 text-center text-xs text-gray-500 dark:text-gray-400">
-                  Hãy nhớ đáp án rồi sang từ tiếp theo.
+                  {learningMode === 'review'
+                    ? 'Từ này sẽ được ôn lại sau 10 phút.'
+                    : 'Đã lưu từ này. Bạn sẽ ôn lại sau vài phút.'}
                 </p>
               )}
 
@@ -804,6 +887,9 @@ export default function VocabularyPage() {
       (word) => word.progress?.status === 'LEARNING',
     );
     const newWords = selectedSet.words.filter((word) => !word.progress);
+    const dueWords = learnedWords.filter((word) =>
+      isProgressDue(word.progress),
+    );
     const nextFiveWords = newWords.slice(0, 5);
     const learnedPercent =
       selectedSet.words.length > 0
@@ -833,6 +919,12 @@ export default function VocabularyPage() {
             </div>
           </div>
         </div>
+
+        {error && (
+          <div className="mx-4 mt-3 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 text-xs px-3 py-2">
+            {error}
+          </div>
+        )}
 
         <div className="px-4 py-5">
           <section>
@@ -882,19 +974,23 @@ export default function VocabularyPage() {
           <section className="mt-5 space-y-3">
             <button
               type="button"
-              disabled={learnedWords.length === 0}
-              onClick={() => startLearningQueue(learnedWords, 'review')}
+              disabled={dueWords.length === 0 || sessionBusy}
+              onClick={() => void startReviewSession(selectedSet.id)}
               className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-4 text-left disabled:opacity-50"
             >
               <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-950/40 text-orange-500 dark:text-orange-400 flex items-center justify-center shrink-0">
-                <RotateCcw size={21} />
+                {sessionBusy ? (
+                  <CircleReload size={21} />
+                ) : (
+                  <RotateCcw size={21} />
+                )}
               </div>
               <div className="flex-1">
                 <p className="font-bold text-gray-900 dark:text-white">Ôn tập ngay</p>
                 <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                  {learnedWords.length > 0
-                    ? `Ôn lại ${learnedWords.length} từ đã học trong bộ này`
-                    : 'Hãy học từ mới trước khi ôn tập'}
+                  {dueWords.length > 0
+                    ? `Ôn lại ${dueWords.length} từ đến hạn trong bộ này`
+                    : 'Chưa có từ đến hạn. Học thêm từ mới rồi ôn sau'}
                 </p>
               </div>
               <ChevronRight size={18} className="text-gray-400 dark:text-gray-500" />
@@ -902,8 +998,8 @@ export default function VocabularyPage() {
 
             <button
               type="button"
-              disabled={nextFiveWords.length === 0}
-              onClick={() => startLearningQueue(nextFiveWords)}
+              disabled={nextFiveWords.length === 0 || sessionBusy}
+              onClick={() => void startLearnSession(selectedSet.id)}
               className="w-full bg-white dark:bg-neutral-900 rounded-2xl card-shadow p-4 flex items-center gap-4 text-left disabled:opacity-50"
             >
               <div className="w-12 h-12 rounded-2xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center shrink-0">
@@ -1095,7 +1191,7 @@ export default function VocabularyPage() {
                     )}
                     {busyId === set.id && (
                       <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 text-white backdrop-blur-[1px]">
-                        <RotateCcw size={21} className="animate-spin" />
+                        <CircleReload size={21} />
                       </div>
                     )}
                   </div>
@@ -1182,23 +1278,15 @@ export default function VocabularyPage() {
   }
 
   function startPracticeMode(mode: 'flashcard' | 'quiz' | 'listen') {
-    if (!isAuthenticated) {
-      navigate('/dang-nhap', {
-        state: {
-          from: '/tu-vung',
-          message: 'Vui lòng đăng nhập để luyện từ vựng.',
-        },
-      });
-      return;
-    }
+    if (!requireAuth('Vui lòng đăng nhập để luyện từ vựng.')) return;
 
     if (mode === 'listen' || mode === 'quiz' || mode === 'flashcard') {
       if (dueCount > 0) {
-        startLearningQueue(overview?.dueWords ?? [], 'review');
+        void startReviewSession();
         return;
       }
       const target = overview?.mySets[0] ?? overview?.sets[0];
-      if (target) void openSet(target, 'dashboard');
+      if (target) void startLearnSession(target.id);
     }
   }
 
@@ -1357,7 +1445,7 @@ export default function VocabularyPage() {
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:bg-indigo-100 dark:hover:bg-indigo-950/60 transition-colors disabled:opacity-70"
               >
                 {continueLoading && (
-                  <Loader2 size={13} className="animate-spin" />
+                  <CircleReload size={13} />
                 )}
                 Học tiếp
               </button>
@@ -1384,13 +1472,11 @@ export default function VocabularyPage() {
               </div>
               <button
                 type="button"
-                disabled={!dueCount}
-                onClick={() =>
-                  startLearningQueue(overview?.dueWords ?? [], 'review')
-                }
+                disabled={!dueCount || sessionBusy}
+                onClick={() => void startReviewSession()}
                 className="shrink-0 px-4 py-2.5 rounded-full bg-indigo-500 text-white text-xs font-bold shadow-[0_8px_18px_rgba(99,102,241,0.35)] disabled:bg-gray-200 dark:disabled:bg-neutral-700 disabled:text-gray-400 dark:disabled:text-gray-500 disabled:shadow-none"
               >
-                Ôn tập
+                {sessionBusy ? 'Đang tải' : 'Ôn tập'}
               </button>
             </div>
           </section>
@@ -1492,7 +1578,7 @@ export default function VocabularyPage() {
                         )}
                         {busyId === set.id && (
                           <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 text-white backdrop-blur-[1px]">
-                            <RotateCcw size={20} className="animate-spin" />
+                            <CircleReload size={20} />
                           </div>
                         )}
                       </div>

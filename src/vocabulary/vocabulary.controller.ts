@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -25,6 +26,32 @@ export class VocabularyController {
   @UseGuards(OptionalJwtAuthGuard)
   getOverview(@CurrentUser() user: { id: string } | null) {
     return this.vocabularyService.getOverview(user?.id);
+  }
+
+  @Get('sessions/learn')
+  @UseGuards(JwtAuthGuard)
+  getLearnSession(
+    @CurrentUser() user: { id: string },
+    @Query('setId') setId?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.vocabularyService.getLearnSession(user.id, {
+      setId: setId?.trim() || undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
+  }
+
+  @Get('sessions/review')
+  @UseGuards(JwtAuthGuard)
+  getReviewSession(
+    @CurrentUser() user: { id: string },
+    @Query('setId') setId?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.vocabularyService.getReviewSession(user.id, {
+      setId: setId?.trim() || undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
   }
 
   @Get('sets')
@@ -57,7 +84,11 @@ export class VocabularyController {
     @CurrentUser() user: { id: string },
     @Body() dto: LearnVocabularyWordDto,
   ) {
-    return this.vocabularyService.learnWord(user.id, dto.wordId);
+    return this.vocabularyService.learnWord(
+      user.id,
+      dto.wordId,
+      dto.correct ?? true,
+    );
   }
 
   @Post('words/lookup')

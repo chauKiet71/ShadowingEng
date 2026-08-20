@@ -26,6 +26,41 @@ export const FREE_SPEAKING_TURNS_PER_DAY = 3;
 export const MAX_SPEAKING_AUDIO_BYTES = 3.8 * 1024 * 1024;
 export const MAX_SPEAKING_DURATION_MS = 60_000;
 
+function normalizeSpokenText(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9'\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export function resolveGrammarCorrection(
+  transcript: string | null | undefined,
+  correction: string | null | undefined,
+) {
+  const cleaned = correction?.trim() ?? '';
+  if (!cleaned || !transcript?.trim()) return null;
+  if (normalizeSpokenText(cleaned) === normalizeSpokenText(transcript)) {
+    return null;
+  }
+  return cleaned;
+}
+
+export function suggestionCopiesCorrection(
+  suggestion: string,
+  correction: string | null | undefined,
+) {
+  const normalizedSuggestion = normalizeSpokenText(suggestion);
+  const normalizedCorrection = normalizeSpokenText(correction ?? '');
+  if (!normalizedSuggestion || !normalizedCorrection) return false;
+  const correctionWords = normalizedCorrection.split(' ');
+  if (correctionWords.length < 2) return false;
+  return (
+    normalizedSuggestion === normalizedCorrection ||
+    normalizedSuggestion.startsWith(`${normalizedCorrection} `)
+  );
+}
+
 const LEVEL_GUIDANCE: Record<CefrLevel, string> = {
   A1: 'Use only A1 vocabulary and very short present-tense sentences.',
   A2: 'Use A2 vocabulary and simple past/present. Keep sentences short and clear.',
@@ -266,6 +301,7 @@ export class SpeakingService {
           aiReply: opening.aiReply,
           suggestion: opening.suggestion,
           feedback: opening.feedback,
+          correction: opening.correction,
         },
       });
 
@@ -410,6 +446,7 @@ export class SpeakingService {
           transcript: transcription.transcript,
           suggestion: ai.suggestion,
           feedback: ai.feedback,
+          correction: ai.correction,
           aiReply: ai.aiReply,
           durationMs: durationMs ?? null,
           processingRaw: {
@@ -986,13 +1023,18 @@ export class SpeakingService {
       `Scenario: ${input.scenarioTitle}.`,
       `Objective: ${input.objective}.`,
       `Learner CEFR level: ${input.level}. ${LEVEL_GUIDANCE[input.level]}`,
-      'Return ONLY valid JSON with keys: aiReply, feedback, suggestion.',
+      'Return ONLY valid JSON with keys: aiReply, feedback, suggestion, correction.',
       'aiReply: your next spoken line in English (1-3 short sentences), stay in role, ask one clear follow-up when natural.',
-      'feedback: short Vietnamese feedback about the learner utterance.',
+      'feedback: short Vietnamese feedback about the learner utterance. Mention the grammar issue briefly when you provide a correction.',
       'suggestion: one short, natural English reply the learner can say NEXT to answer aiReply.',
       'The suggestion must directly fit the latest aiReply, match the learner CEFR level, and be easy to read aloud.',
+      'suggestion is a NEW role-play reply, not a rewrite of what the learner just said.',
+      'Never copy, extend, or start with the correction. Never reuse distinctive words from the learner transcript or correction unless they are required to answer aiReply.',
+      'Bad example: learner said "I was lies", correction "I lied", aiReply asks them to order food → suggestion must NOT be "I lied about my order."',
+      'Good example: same case → suggestion "I would like a pizza, please."',
       'If the suggestion needs the learner name, use "Nam" directly. Never use placeholders such as [Your Name] or "your name".',
       'Do not repeat the learner transcript as the suggestion.',
+      'correction: rewrite the learner transcript into ONE grammatical English sentence that keeps their intended meaning. Fix grammar, missing words, and redundant phrases. Example: "I went to go to work" → "I went to work". If the transcript is already correct and natural, return an empty string. Do not add new ideas. Do not copy aiReply or suggestion.',
       'No markdown. No extra keys.',
     ].join('\n');
 
@@ -1000,7 +1042,7 @@ export class SpeakingService {
       ? `Start the role-play. Opening hint: ${input.openingHint}`
       : [
           `Learner said: ${input.learnerTranscript}`,
-          'Respond in character and give concise coaching feedback.',
+          'Respond in character, correct the learner sentence if needed, and give concise coaching feedback.',
         ]
           .filter(Boolean)
           .join('\n');
@@ -1010,7 +1052,7 @@ export class SpeakingService {
       response = await this.openai!.chat.completions.create({
         model: 'gpt-4o-mini',
         temperature: 0.7,
-        max_tokens: 250,
+        max_tokens: 320,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: system },
@@ -1048,6 +1090,7 @@ export class SpeakingService {
       aiReply?: string;
       feedback?: string;
       suggestion?: string;
+      correction?: string;
     };
     try {
       parsed = JSON.parse(text) as typeof parsed;
@@ -1067,12 +1110,77 @@ export class SpeakingService {
       /\[\s*your\s+name\s*\]|\(\s*your\s+name\s*\)|<\s*your\s+name\s*>|\byour\s+name\b/gi,
       'Nam',
     );
+    const correction = resolveGrammarCorrection(
+      input.learnerTranscript,
+      parsed.correction,
+    );
 
     return {
       aiReply,
       feedback: parsed.feedback?.trim() || null,
-      suggestion,
+      suggestion: await this.ensureNextTurnSuggestion({
+        suggestion,
+        correction,
+        aiReply,
+        scenarioTitle: input.scenarioTitle,
+        level: input.level,
+      }),
+      correction,
     };
+  }
+
+  private async ensureNextTurnSuggestion(input: {
+    suggestion: string;
+    correction: string | null;
+    aiReply: string;
+    scenarioTitle: string;
+    level: CefrLevel;
+  }) {
+    if (!suggestionCopiesCorrection(input.suggestion, input.correction)) {
+      return input.suggestion;
+    }
+
+    try {
+      const response = await this.openai!.chat.completions.create({
+        model: 'gpt-4o-mini',
+        temperature: 0.4,
+        max_tokens: 80,
+        response_format: { type: 'json_object' },
+        messages: [
+          {
+            role: 'system',
+            content: [
+              'Write one short English sentence a learner can say next in a speaking role-play.',
+              `Scenario: ${input.scenarioTitle}.`,
+              `Learner CEFR level: ${input.level}. ${LEVEL_GUIDANCE[input.level]}`,
+              'Return ONLY JSON with key suggestion.',
+              'The sentence must answer the partner line below.',
+              'Do not rewrite, continue, or mention the learner\'s previous sentence.',
+            ].join(' '),
+          },
+          {
+            role: 'user',
+            content: `Partner said: ${input.aiReply}`,
+          },
+        ],
+      });
+      const text = response.choices[0]?.message?.content?.trim();
+      if (!text) return input.suggestion;
+      const parsed = JSON.parse(text) as { suggestion?: string };
+      const nextSuggestion = parsed.suggestion?.trim();
+      if (
+        !nextSuggestion ||
+        suggestionCopiesCorrection(nextSuggestion, input.correction)
+      ) {
+        return input.suggestion;
+      }
+      return nextSuggestion.replace(
+        /\[\s*your\s+name\s*\]|\(\s*your\s+name\s*\)|<\s*your\s+name\s*>|\byour\s+name\b/gi,
+        'Nam',
+      );
+    } catch {
+      return input.suggestion;
+    }
   }
 
   private parseSpeakingAssessment(
@@ -1166,6 +1274,7 @@ export class SpeakingService {
     suggestion: string | null;
     feedback: string | null;
     aiReply: string | null;
+    correction: string | null;
     pronunciation: number | null;
     fluency: number | null;
     grammar: number | null;
@@ -1184,6 +1293,7 @@ export class SpeakingService {
       transcript: turn.transcript,
       suggestion: turn.suggestion,
       feedback: turn.feedback,
+      correction: turn.correction,
       aiReply: turn.aiReply,
       scores: {
         pronunciation: turn.pronunciation,

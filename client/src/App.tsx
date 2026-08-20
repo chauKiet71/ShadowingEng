@@ -8,6 +8,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestRoute from './components/GuestRoute';
 import ScrollToTop from './components/ScrollToTop';
+import DesktopGate from './components/DesktopGate';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
 import LessonPage from './pages/LessonPage';
@@ -31,6 +32,7 @@ import LevelPage from './pages/LevelPage';
 import VocabularyPage from './pages/VocabularyPage';
 import SpeakingPage from './pages/SpeakingPage';
 import SpeakingHistoryPage from './pages/SpeakingHistoryPage';
+import SpeakingConversationHistoryPage from './pages/SpeakingConversationHistoryPage';
 import VideoTranslatePage from './pages/VideoTranslatePage';
 import MyVideosPage from './pages/MyVideosPage';
 
@@ -48,6 +50,7 @@ export default function App() {
             <HistoryProvider>
               <LevelProvider>
                 <BrowserRouter>
+                  <DesktopGate />
                   <ScrollToTop />
                   <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -116,6 +119,10 @@ export default function App() {
                     <Route
                       path="/luyen-noi/lich-su"
                       element={<SpeakingHistoryPage />}
+                    />
+                    <Route
+                      path="/luyen-noi/lich-su/:sessionId"
+                      element={<SpeakingConversationHistoryPage />}
                     />
                     <Route
                       path="/dich-video"

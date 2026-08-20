@@ -7,18 +7,16 @@ import {
   ChevronRight,
   Grid3X3,
   History,
-  Languages,
-  Lightbulb,
   Loader2,
   Mic,
   Plane,
   Sun,
-  UserRound,
-  Volume2,
 } from 'lucide-react';
 import MobileLayout from '../components/MobileLayout';
+import SpeakingConversationThread, {
+  AiAvatar,
+} from '../components/SpeakingConversationThread';
 import SpeakingSummaryView from '../components/SpeakingSummaryView';
-import UserAvatar from '../components/UserAvatar';
 import { useAuth } from '../contexts/AuthContext';
 import {
   ApiError,
@@ -44,6 +42,11 @@ import {
   fetchSpeakingQuota,
   fetchSpeakingScenarios,
 } from '../lib/prefetchFeatures';
+import {
+  buildSpeakingConversationRecord,
+  getSpeakingConversationOwnerId,
+  upsertSpeakingConversation,
+} from '../lib/speakingConversationStorage';
 
 const CEFR_LEVELS: CefrLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 const AI_REPLY_DELAY_MS = 2_000;
@@ -287,58 +290,6 @@ function getScenarioOrder(slug: string) {
   return index === -1 ? SCENARIO_ORDER.length : index;
 }
 
-function formatSpeakingSuggestion(text: string) {
-  return text.replace(
-    /\[\s*your\s+name\s*\]|\(\s*your\s+name\s*\)|<\s*your\s+name\s*>|\byour\s+name\b/gi,
-    'Nam',
-  );
-}
-
-function AiAvatar() {
-  return (
-    <div
-      className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-white shadow-sm dark:border-white/15 dark:bg-neutral-900"
-      aria-label="Trợ lý AI"
-    >
-      <img
-        src="/images/speaking/ai-robot-avatar.png"
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        className="h-full w-full scale-[1.65] select-none object-cover object-center"
-      />
-    </div>
-  );
-}
-
-function LearnerAvatar({
-  name,
-  src,
-}: {
-  name?: string | null;
-  src?: string | null;
-}) {
-  if (name) {
-    return (
-      <UserAvatar
-        name={name}
-        src={src}
-        size="xs"
-        className="!h-7 !w-7 ring-1 ring-white/10"
-      />
-    );
-  }
-
-  return (
-    <div
-      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-gray-300 ring-1 ring-white/10"
-      aria-label="Khách"
-    >
-      <UserRound size={17} />
-    </div>
-  );
-}
-
 export default function SpeakingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -374,14 +325,6 @@ export default function SpeakingPage() {
   const [sessionActivity, setSessionActivity] =
     useState<SessionActivity>('idle');
   const [error, setError] = useState('');
-  const [translations, setTranslations] = useState<Record<string, string>>({});
-  const [visibleTranslationKeys, setVisibleTranslationKeys] = useState<
-    Set<string>
-  >(() => new Set());
-  const [translatingKey, setTranslatingKey] = useState<string | null>(null);
-  const translationRequestsRef = useRef<
-    Partial<Record<string, Promise<string>>>
-  >({});
   const [recorder] = useState(() => new SpeakingRecorder());
   const audioUrlsRef = useRef<Record<string, string>>({});
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -469,31 +412,18 @@ export default function SpeakingPage() {
   }, [step, turns, processing]);
 
   useEffect(() => {
-    if (step !== 'session') return;
-
-    turns.forEach((turn) => {
-      const key = `ai-${turn.id}`;
-      if (turn.aiReply && !translations[key]) {
-        void requestTranslation(key, turn.aiReply).catch(() => undefined);
-      }
-    });
-
-    const latestTurnWithSuggestion = turns.at(-1);
-    const suggestionKey = latestTurnWithSuggestion
-      ? `suggestion-${latestTurnWithSuggestion.id}`
-      : null;
-    if (
-      !processing &&
-      suggestionKey &&
-      latestTurnWithSuggestion?.suggestion &&
-      !translations[suggestionKey]
-    ) {
-      void requestTranslation(
-        suggestionKey,
-        formatSpeakingSuggestion(latestTurnWithSuggestion.suggestion),
-      ).catch(() => undefined);
-    }
-  }, [processing, step, translations, turns]);
+    if (!session) return;
+    upsertSpeakingConversation(
+      getSpeakingConversationOwnerId(user?.id),
+      buildSpeakingConversationRecord(session, turns, {
+        averageOverall: summary?.averageOverall ?? undefined,
+        durationMs: turns.reduce(
+          (total, turn) => total + (turn.durationMs ?? 0),
+          0,
+        ),
+      }),
+    );
+  }, [session, summary?.averageOverall, turns, user?.id]);
 
   function goToSpeakingUpgrade() {
     void navigate('/nang-cap', {
@@ -514,8 +444,6 @@ export default function SpeakingPage() {
     setSelectedScenarioId(scenarioId);
     setStarting(true);
     setError('');
-    setTranslations({});
-    setVisibleTranslationKeys(new Set());
     setStep('starting');
     startAbortControllerRef.current?.abort();
     const controller = new AbortController();
@@ -705,8 +633,6 @@ export default function SpeakingPage() {
       cancelPendingAiTurn(session.id);
     }
     clearSessionAudio();
-    setTranslations({});
-    setVisibleTranslationKeys(new Set());
     setStep('select');
     setSession(null);
     setTurns([]);
@@ -724,51 +650,15 @@ export default function SpeakingPage() {
     speakEnglish(turn.transcript ?? '');
   }
 
-  function requestTranslation(key: string, text: string) {
-    const pending = translationRequestsRef.current[key];
-    if (pending !== undefined) return pending;
-
-    const request = api
-      .translateSpeakingText(text)
-      .then((result) => {
-        setTranslations((current) => ({
-          ...current,
-          [key]: result.translation,
-        }));
-        return result.translation;
-      })
-      .finally(() => {
-        delete translationRequestsRef.current[key];
-      });
-
-    translationRequestsRef.current[key] = request;
-    return request;
-  }
-
-  async function toggleTranslation(key: string, text: string) {
-    if (visibleTranslationKeys.has(key)) {
-      setVisibleTranslationKeys((current) => {
-        const next = new Set(current);
-        next.delete(key);
-        return next;
-      });
-      return;
-    }
-
-    if (translations[key]) {
-      setVisibleTranslationKeys((current) => new Set(current).add(key));
-      return;
-    }
-
-    setTranslatingKey(key);
-    try {
-      await requestTranslation(key, text);
-      setVisibleTranslationKeys((current) => new Set(current).add(key));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Không dịch được nội dung');
-    } finally {
-      setTranslatingKey(null);
-    }
+  function persistConversation(
+    activeSession: SpeakingSession,
+    activeTurns: SpeakingTurn[],
+    extras?: { averageOverall?: number | null; durationMs?: number },
+  ) {
+    upsertSpeakingConversation(
+      getSpeakingConversationOwnerId(user?.id),
+      buildSpeakingConversationRecord(activeSession, activeTurns, extras),
+    );
   }
 
   function finishSession(returnToSelection = false) {
@@ -782,6 +672,7 @@ export default function SpeakingPage() {
       : 'summary';
 
     if (returnToSelection) {
+      persistConversation(activeSession, turns);
       resetSessionView();
     } else {
       stopSpeakingAudio();
@@ -814,6 +705,9 @@ export default function SpeakingPage() {
         const result = await api.completeSpeakingSession(activeSession.id);
         setQuota(result.quota);
         setCache(PrefetchKeys.speakingQuota, result.quota);
+        persistConversation(result.session, result.turns, {
+          averageOverall: result.summary.averageOverall,
+        });
         prefetchSpeakingHistorySilently(true);
 
         if (finishDestinationRef.current[activeSession.id] === 'summary') {
@@ -937,13 +831,13 @@ export default function SpeakingPage() {
   if (step === 'starting' && startingScenario) {
     return (
       <MobileLayout showPlayer={false} showNav={false}>
-        <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 dark:bg-black dark:text-white">
-          <div className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 pb-3 pt-4 backdrop-blur dark:border-white/10 dark:bg-black/95">
+        <div className="flex min-h-screen flex-col bg-[#F8F9FB] text-gray-900 dark:bg-[#1A1A1A] dark:text-white">
+          <div className="sticky top-0 z-40 border-b border-[#ECECF2] bg-[#F8F9FB]/95 px-4 pb-3 pt-4 backdrop-blur dark:border-white/10 dark:bg-[#1A1A1A]/95">
             <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={cancelStartingSession}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-900 dark:bg-neutral-900 dark:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-900 shadow-sm dark:bg-[#2C2C2E] dark:text-white"
                 aria-label="Quay lại"
               >
                 <ArrowLeft size={18} />
@@ -953,23 +847,15 @@ export default function SpeakingPage() {
                   {startingScenario.title}
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={cancelStartingSession}
-                className="text-xs font-semibold text-violet-600 dark:text-violet-400"
-              >
-                Kết thúc
-              </button>
+              <span className="w-10" />
             </div>
           </div>
 
-          <div className="flex-1 px-3 py-5">
+          <div className="flex-1 px-4 py-5">
             <div className="flex items-end gap-2">
-              <div className="mb-1">
-                <AiAvatar />
-              </div>
-              <div className="flex items-center gap-2 rounded-[20px] rounded-bl-md border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm dark:border-transparent dark:bg-neutral-800 dark:text-gray-300">
-                <Loader2 size={17} className="animate-spin text-violet-400" />
+              <AiAvatar />
+              <div className="flex max-w-[80%] items-center gap-2 rounded-2xl bg-[#F0F0FA] px-4 py-3 text-sm text-[#333333] dark:bg-[#2C2C2E] dark:text-gray-200">
+                <Loader2 size={17} className="animate-spin text-[#5C7CFA]" />
                 Đang chuẩn bị cuộc trò chuyện...
               </div>
             </div>
@@ -982,14 +868,14 @@ export default function SpeakingPage() {
   if (step === 'session' && session && latestTurn) {
     return (
       <MobileLayout showPlayer={false} showNav={false}>
-        <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900 dark:bg-black dark:text-white">
-          <div className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 pb-3 pt-4 backdrop-blur dark:border-white/10 dark:bg-black/95">
+        <div className="flex min-h-screen flex-col bg-[#F8F9FB] text-gray-900 dark:bg-[#1A1A1A] dark:text-white">
+          <div className="sticky top-0 z-40 border-b border-[#ECECF2] bg-[#F8F9FB]/95 px-4 pb-3 pt-4 backdrop-blur dark:border-white/10 dark:bg-[#1A1A1A]/95">
             <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => void finishSession(true)}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-900 dark:bg-neutral-900 dark:text-white"
-                aria-label="Kết thúc, tính điểm và quay lại"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-900 shadow-sm dark:bg-[#2C2C2E] dark:text-white"
+                aria-label="Quay lại"
               >
                 <ArrowLeft size={18} />
               </button>
@@ -998,194 +884,23 @@ export default function SpeakingPage() {
                   {session.scenario.title}
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() => void finishSession()}
-                className="text-xs font-semibold text-violet-600 dark:text-violet-400"
-              >
-                Kết thúc
-              </button>
+              <span className="w-10" />
             </div>
           </div>
 
-          <div className="flex-1 px-3 py-5 space-y-3">
-            {turns.map((turn) => (
-              <div key={turn.id} className="space-y-3">
-                {turn.transcript && (
-                  <>
-                    <div className="flex items-end justify-end gap-2">
-                      <div className="max-w-[80%] rounded-[20px] rounded-br-md bg-violet-600 px-4 py-2.5">
-                        <p className="text-[15px] leading-snug text-white">
-                          {turn.transcript}
-                        </p>
-                        {visibleTranslationKeys.has(`user-${turn.id}`) &&
-                          translations[`user-${turn.id}`] && (
-                            <p className="mt-2 pt-2 border-t border-white/20 text-xs leading-relaxed text-violet-100">
-                              {translations[`user-${turn.id}`]}
-                            </p>
-                          )}
-                        <div className="mt-1.5 flex justify-end gap-1">
-                          <button
-                            type="button"
-                            onClick={() => playUserMessage(turn)}
-                            className="w-7 h-7 rounded-full flex items-center justify-center text-violet-100 hover:bg-white/10"
-                            aria-label="Nghe lại lời của bạn"
-                          >
-                            <Volume2 size={14} />
-                          </button>
-                          <button
-                            type="button"
-                            disabled={translatingKey === `user-${turn.id}`}
-                            onClick={() =>
-                              void toggleTranslation(
-                                `user-${turn.id}`,
-                                turn.transcript ?? '',
-                              )
-                            }
-                            className="w-7 h-7 rounded-full flex items-center justify-center text-violet-100 hover:bg-white/10 disabled:opacity-50"
-                            aria-label="Dịch sang tiếng Việt"
-                          >
-                            {translatingKey === `user-${turn.id}` ? (
-                              <Loader2 size={13} className="animate-spin" />
-                            ) : (
-                              <Languages size={14} />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                      <div className="mb-1 shrink-0">
-                        <LearnerAvatar
-                          name={user?.fullName}
-                          src={user?.avatarUrl}
-                        />
-                      </div>
-                    </div>
-                    {turn.feedback && (
-                      <div className="ml-auto mr-9 max-w-[84%] rounded-2xl bg-violet-50 px-3 py-2 text-xs dark:bg-violet-950/35">
-                        <p className="text-gray-700 dark:text-gray-300">
-                          {turn.feedback}
-                        </p>
-                        {turn.scores.overall != null && (
-                          <p className="mt-1.5 text-gray-500">
-                            Điểm: {Math.round(turn.scores.overall)}/100
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </>
-                )}
-
-                {turn.aiReply && (
-                  <div className="flex items-end gap-2">
-                    <div className="mb-1">
-                      <AiAvatar />
-                    </div>
-                    <div className="max-w-[80%] rounded-[20px] rounded-bl-md border border-gray-200 bg-white px-4 py-2.5 shadow-sm dark:border-transparent dark:bg-neutral-800 dark:shadow-none">
-                      <p className="text-[15px] leading-snug text-gray-900 dark:text-white">
-                        {turn.aiReply}
-                      </p>
-                      {visibleTranslationKeys.has(`ai-${turn.id}`) &&
-                        translations[`ai-${turn.id}`] && (
-                          <p className="mt-2 border-t border-gray-200 pt-2 text-xs leading-relaxed text-gray-600 dark:border-white/10 dark:text-gray-300">
-                            {translations[`ai-${turn.id}`]}
-                          </p>
-                        )}
-                      <div className="mt-1.5 flex gap-1">
-                        <button
-                          type="button"
-                          onClick={() => speakEnglish(turn.aiReply ?? '')}
-                          className="flex h-7 w-7 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
-                          aria-label="Nghe lại lời AI"
-                        >
-                          <Volume2 size={14} />
-                        </button>
-                        <button
-                          type="button"
-                          disabled={translatingKey === `ai-${turn.id}`}
-                          onClick={() =>
-                            void toggleTranslation(
-                              `ai-${turn.id}`,
-                              turn.aiReply ?? '',
-                            )
-                          }
-                          className="flex h-7 w-7 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 disabled:opacity-50 dark:text-gray-400 dark:hover:bg-white/10"
-                          aria-label="Dịch sang tiếng Việt"
-                        >
-                          {translatingKey === `ai-${turn.id}` ? (
-                            <Loader2 size={13} className="animate-spin" />
-                          ) : (
-                            <Languages size={14} />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {turn.suggestion &&
-                  turn.id === latestTurn.id &&
-                  !sessionBusy && (
-                    <div className="ml-auto max-w-[88%] rounded-2xl border border-violet-200 bg-violet-50 px-3.5 py-3 dark:border-violet-500/25 dark:bg-violet-950/25">
-                      <div className="flex items-center gap-1.5 text-violet-700 dark:text-violet-300">
-                        <Lightbulb size={15} />
-                        <p className="text-xs font-semibold">
-                          Gợi ý bạn có thể nói
-                        </p>
-                      </div>
-                      <p className="mt-2 text-[15px] leading-snug text-gray-900 dark:text-white">
-                        “{formatSpeakingSuggestion(turn.suggestion)}”
-                      </p>
-                      {visibleTranslationKeys.has(`suggestion-${turn.id}`) &&
-                        translations[`suggestion-${turn.id}`] && (
-                          <p className="mt-2 border-t border-violet-200 pt-2 text-xs leading-relaxed text-gray-600 dark:border-white/10 dark:text-gray-300">
-                            {translations[`suggestion-${turn.id}`]}
-                          </p>
-                        )}
-                      <div className="mt-2 flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            speakEnglish(
-                              formatSpeakingSuggestion(turn.suggestion ?? ''),
-                            )
-                          }
-                          className="inline-flex items-center gap-1.5 rounded-full border border-violet-100 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-violet-100 dark:border-transparent dark:bg-white/10 dark:text-gray-200 dark:shadow-none dark:hover:bg-white/15"
-                        >
-                          <Volume2 size={13} />
-                          Nghe mẫu
-                        </button>
-                        <button
-                          type="button"
-                          disabled={translatingKey === `suggestion-${turn.id}`}
-                          onClick={() =>
-                            void toggleTranslation(
-                              `suggestion-${turn.id}`,
-                              formatSpeakingSuggestion(turn.suggestion ?? ''),
-                            )
-                          }
-                          className="inline-flex items-center gap-1.5 rounded-full border border-violet-100 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-violet-100 disabled:opacity-50 dark:border-transparent dark:bg-white/10 dark:text-gray-200 dark:shadow-none dark:hover:bg-white/15"
-                        >
-                          {translatingKey === `suggestion-${turn.id}` ? (
-                            <Loader2 size={13} className="animate-spin" />
-                          ) : (
-                            <Languages size={13} />
-                          )}
-                          Dịch nghĩa
-                        </button>
-                      </div>
-                      <p className="mt-2 text-[11px] text-gray-500">
-                        Bấm micro để đọc câu này hoặc tự trả lời theo cách của
-                        bạn.
-                      </p>
-                    </div>
-                  )}
-              </div>
-            ))}
-
+          <div className="flex-1 space-y-4 px-4 py-5">
+            <SpeakingConversationThread
+              turns={turns}
+              userName={user?.fullName}
+              userAvatarUrl={user?.avatarUrl}
+              showLiveSuggestion
+              sessionBusy={sessionBusy}
+              playUserMessage={playUserMessage}
+            />
             <div ref={chatEndRef} />
           </div>
 
-          <div className="sticky bottom-0 flex flex-col items-center border-t border-gray-200 bg-white/95 px-4 pb-5 pt-3 backdrop-blur dark:border-white/10 dark:bg-black/95">
+          <div className="sticky bottom-0 flex flex-col items-center border-t border-[#ECECF2] bg-[#F8F9FB]/95 px-4 pb-5 pt-3 backdrop-blur dark:border-white/10 dark:bg-[#1A1A1A]/95">
             <div className="relative">
               {!sessionBusy && (
                 <>

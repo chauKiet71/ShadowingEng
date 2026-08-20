@@ -1,3 +1,5 @@
+import { speakEnglishText } from './speech';
+
 export type SpeakingRecorderStatus =
   'idle' | 'recording' | 'stopping' | 'error';
 
@@ -88,11 +90,7 @@ export class SpeakingRecorder {
 
 export function speakEnglish(text: string) {
   stopSpeakingAudio();
-  if (!('speechSynthesis' in window) || !text.trim()) return;
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.95;
-  window.speechSynthesis.speak(utterance);
+  speakEnglishText(text, 0.95);
 }
 
 export function stopSpeakingAudio() {

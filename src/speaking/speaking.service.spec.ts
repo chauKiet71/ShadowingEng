@@ -6,6 +6,8 @@ import {
 } from '@prisma/client';
 import {
   FREE_SPEAKING_TURNS_PER_DAY,
+  resolveGrammarCorrection,
+  suggestionCopiesCorrection,
   SpeakingService,
 } from './speaking.service';
 
@@ -637,5 +639,154 @@ describe('SpeakingService quota', () => {
     ];
     expect(request.response_format).toEqual({ type: 'json_object' });
     expect(request.messages[0]?.content).toContain('the learner can say NEXT');
+    expect(request.messages[0]?.content).toContain('correction:');
+  });
+
+  it('returns a grammar correction for the learner transcript', async () => {
+    const { service } = createService();
+    const create = jest.fn().mockResolvedValue({
+      choices: [
+        {
+          message: {
+            content: JSON.stringify({
+              aiReply: 'What time do you start?',
+              feedback: 'Câu còn thừa từ, hãy nói gọn hơn.',
+              suggestion: 'I start at eight.',
+              correction: 'I went to work.',
+            }),
+          },
+        },
+      ],
+    });
+    (
+      service as unknown as {
+        openai: { chat: { completions: { create: typeof create } } };
+      }
+    ).openai = { chat: { completions: { create } } };
+
+    const result = await (
+      service as unknown as {
+        generateAiReply: (input: {
+          scenarioTitle: string;
+          learnerRole: string;
+          aiRole: string;
+          objective: string;
+          openingHint: string;
+          level: CefrLevel;
+          history: Array<{ role: 'user' | 'assistant'; content: string }>;
+          learnerTranscript: string | null;
+          isOpening: boolean;
+        }) => Promise<{ correction: string | null }>;
+      }
+    ).generateAiReply({
+      scenarioTitle: 'Công việc',
+      learnerRole: 'Nhân viên',
+      aiRole: 'Đồng nghiệp',
+      objective: 'Nói về buổi sáng đi làm',
+      openingHint: 'Hỏi người học vừa làm gì.',
+      level: CefrLevel.A2,
+      history: [],
+      learnerTranscript: 'I went to go to work',
+      isOpening: false,
+    });
+
+    expect(result.correction).toBe('I went to work.');
+  });
+
+  it('regenerates a next-turn suggestion that copied the grammar correction', async () => {
+    const { service } = createService();
+    const create = jest
+      .fn()
+      .mockResolvedValueOnce({
+        choices: [
+          {
+            message: {
+              content: JSON.stringify({
+                aiReply: 'I see! But could you say that again?',
+                feedback: 'Câu của bạn có lỗi về động từ.',
+                suggestion: 'I lied about my order.',
+                correction: 'I lied.',
+              }),
+            },
+          },
+        ],
+      })
+      .mockResolvedValueOnce({
+        choices: [
+          {
+            message: {
+              content: JSON.stringify({
+                suggestion: 'I would like a pizza, please.',
+              }),
+            },
+          },
+        ],
+      });
+    (
+      service as unknown as {
+        openai: { chat: { completions: { create: typeof create } } };
+      }
+    ).openai = { chat: { completions: { create } } };
+
+    const result = await (
+      service as unknown as {
+        generateAiReply: (input: {
+          scenarioTitle: string;
+          learnerRole: string;
+          aiRole: string;
+          objective: string;
+          openingHint: string;
+          level: CefrLevel;
+          history: Array<{ role: 'user' | 'assistant'; content: string }>;
+          learnerTranscript: string | null;
+          isOpening: boolean;
+        }) => Promise<{ suggestion: string }>;
+      }
+    ).generateAiReply({
+      scenarioTitle: 'Nhà hàng',
+      learnerRole: 'Khách hàng',
+      aiRole: 'Nhân viên',
+      objective: 'Gọi món',
+      openingHint: 'Hỏi người học muốn gọi gì.',
+      level: CefrLevel.A2,
+      history: [],
+      learnerTranscript: 'I was lies',
+      isOpening: false,
+    });
+
+    expect(result.suggestion).toBe('I would like a pizza, please.');
+    expect(create).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('resolveGrammarCorrection', () => {
+  it('keeps a rewritten sentence that fixes grammar', () => {
+    expect(
+      resolveGrammarCorrection('I went to go to work', 'I went to work'),
+    ).toBe('I went to work');
+  });
+
+  it('hides a correction that matches the transcript', () => {
+    expect(
+      resolveGrammarCorrection('I went to work.', 'I went to work'),
+    ).toBeNull();
+  });
+
+  it('hides an empty correction', () => {
+    expect(resolveGrammarCorrection('I went to work', '')).toBeNull();
+  });
+});
+
+describe('suggestionCopiesCorrection', () => {
+  it('detects a next-turn suggestion that extends the correction', () => {
+    expect(
+      suggestionCopiesCorrection('I lied about my order.', 'I lied.'),
+    ).toBe(true);
+  });
+
+  it('allows a suggestion that answers the next prompt', () => {
+    expect(
+      suggestionCopiesCorrection('I would like a pizza, please.', 'I lied.'),
+    ).toBe(false);
   });
 });

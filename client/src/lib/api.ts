@@ -364,6 +364,26 @@ export const api = {
     return request<VocabularyOverview>('/vocabulary/overview');
   },
 
+  getVocabularyLearnSession(params?: { setId?: string; limit?: number }) {
+    const query = new URLSearchParams();
+    if (params?.setId) query.set('setId', params.setId);
+    if (params?.limit) query.set('limit', String(params.limit));
+    const qs = query.toString();
+    return request<VocabularySession>(
+      `/vocabulary/sessions/learn${qs ? `?${qs}` : ''}`,
+    );
+  },
+
+  getVocabularyReviewSession(params?: { setId?: string; limit?: number }) {
+    const query = new URLSearchParams();
+    if (params?.setId) query.set('setId', params.setId);
+    if (params?.limit) query.set('limit', String(params.limit));
+    const qs = query.toString();
+    return request<VocabularySession>(
+      `/vocabulary/sessions/review${qs ? `?${qs}` : ''}`,
+    );
+  },
+
   getVocabularySet(id: string) {
     return request<VocabularySetDetail>(
       `/vocabulary/sets/${encodeURIComponent(id)}`,
@@ -395,10 +415,10 @@ export const api = {
     );
   },
 
-  learnVocabularyWord(wordId: string) {
+  learnVocabularyWord(wordId: string, correct = true) {
     return request<VocabularyProgress>('/vocabulary/words/learn', {
       method: 'POST',
-      body: JSON.stringify({ wordId }),
+      body: JSON.stringify({ wordId, correct }),
     });
   },
 
@@ -822,11 +842,15 @@ export interface LessonHistoryStats {
 export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 
 export interface VocabularyProgress {
-  id: string;
+  id?: string;
   status: 'LEARNING' | 'MASTERED';
   reviewCount: number;
   correctCount: number;
+  streak?: number;
+  lapses?: number;
   intervalDays: number;
+  easeFactor?: number;
+  lastReviewedAt?: string | null;
   nextReviewAt: string;
 }
 
@@ -886,6 +910,15 @@ export interface VocabularyOverview {
   dueWords: VocabularyWord[];
 }
 
+export interface VocabularySession {
+  type: 'learn' | 'review';
+  setId: string | null;
+  setTitle: string | null;
+  remainingNewCount: number;
+  dueCount: number;
+  words: VocabularyWord[];
+}
+
 export type SpeakingDialect = 'EN_US' | 'EN_GB';
 
 export interface SpeakingQuota {
@@ -929,6 +962,7 @@ export interface SpeakingTurn {
   transcript: string | null;
   suggestion: string | null;
   feedback: string | null;
+  correction: string | null;
   aiReply: string | null;
   scores: SpeakingScores;
   durationMs: number | null;

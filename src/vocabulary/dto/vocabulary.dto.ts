@@ -1,5 +1,6 @@
 import {
   IsBoolean,
+  IsOptional,
   IsString,
   IsUUID,
   MaxLength,
@@ -25,6 +26,10 @@ export class LookupVocabularyWordDto {
 export class LearnVocabularyWordDto {
   @IsUUID()
   wordId!: string;
+
+  @IsOptional()
+  @IsBoolean()
+  correct?: boolean;
 }
 
 export class ReviewVocabularyWordDto {

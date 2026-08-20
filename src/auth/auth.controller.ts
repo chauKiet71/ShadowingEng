@@ -66,8 +66,26 @@ export class AuthController {
   @UseFilters(GoogleOAuthExceptionFilter)
   googleAuthCallback(@Req() req: GoogleAuthRequest, @Res() res: Response) {
     const token = req.user.accessToken;
+    const state = typeof req.query?.state === 'string' ? req.query.state : '';
+    let redirect = '/xac-thuc-google';
+    if (state) {
+      try {
+        const decoded = Buffer.from(state, 'base64url').toString('utf8');
+        const url = new URL(decoded);
+        const hostOk =
+          url.hostname === 'localhost' ||
+          url.hostname === '127.0.0.1' ||
+          url.hostname.endsWith('hihienglish.com');
+        if (hostOk && url.pathname.startsWith('/xac-thuc-google')) {
+          redirect = decoded;
+        }
+      } catch {
+        // Keep the default web callback when state is invalid.
+      }
+    }
+    const separator = redirect.includes('?') ? '&' : '?';
     return res.redirect(
-      `/xac-thuc-google?token=${encodeURIComponent(token)}`,
+      `${redirect}${separator}token=${encodeURIComponent(token)}`,
     );
   }
 

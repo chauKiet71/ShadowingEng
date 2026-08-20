@@ -11,6 +11,14 @@ import OpenAI from 'openai';
 import { PrismaService } from '../prisma/prisma.service';
 import type { LookupVocabularyWordDto } from './dto/vocabulary.dto';
 import {
+  LEARN_SESSION_LIMIT,
+  OVERVIEW_DUE_PREVIEW,
+  REVIEW_SESSION_LIMIT,
+  clampSessionLimit,
+  scheduleLearn,
+  scheduleReview,
+} from './vocabulary-srs';
+import {
   TECH_VOCABULARY_SETS,
   type VocabularySeedSet,
 } from './vocabulary-tech-sets';
@@ -53,6 +61,32 @@ type GeneratedWordDetail = {
   relatedWords: Array<{ word: string; note: string }>;
 };
 
+type ProgressWithWord = {
+  id: string;
+  status: VocabularyProgressStatus;
+  reviewCount: number;
+  correctCount: number;
+  streak: number;
+  lapses: number;
+  intervalDays: number;
+  easeFactor: number;
+  nextReviewAt: Date;
+  lastReviewedAt: Date | null;
+  word: {
+    id: string;
+    setId: string;
+    word: string;
+    phonetic: string | null;
+    meaning: string;
+    example: string;
+    exampleTranslation: string;
+    audioUrl: string | null;
+    sortOrder: number;
+    createdAt: Date;
+    set: { title: string };
+  };
+};
+
 @Injectable()
 export class VocabularyService {
   private readonly logger = new Logger(VocabularyService.name);
@@ -72,10 +106,39 @@ export class VocabularyService {
     if (apiKey) this.openai = new OpenAI({ apiKey });
   }
 
-  private addDays(date: Date, days: number) {
-    const next = new Date(date);
-    next.setDate(next.getDate() + days);
-    return next;
+  private publicProgress(progress: {
+    id?: string;
+    status: VocabularyProgressStatus;
+    reviewCount: number;
+    correctCount: number;
+    streak: number;
+    lapses: number;
+    intervalDays: number;
+    easeFactor: number;
+    nextReviewAt: Date;
+    lastReviewedAt: Date | null;
+  }) {
+    return {
+      id: progress.id,
+      status: progress.status,
+      reviewCount: progress.reviewCount,
+      correctCount: progress.correctCount,
+      streak: progress.streak,
+      lapses: progress.lapses,
+      intervalDays: progress.intervalDays,
+      easeFactor: progress.easeFactor,
+      lastReviewedAt: progress.lastReviewedAt,
+      nextReviewAt: progress.nextReviewAt,
+    };
+  }
+
+  private mapDueWord(progress: ProgressWithWord) {
+    const { set, ...word } = progress.word;
+    return {
+      ...word,
+      setTitle: set.title,
+      progress: this.publicProgress(progress),
+    };
   }
 
   private normalizeLookupWord(value: string) {
@@ -285,7 +348,7 @@ export class VocabularyService {
       this.prisma.userVocabularyProgress.findMany({
         where: { userId, nextReviewAt: { lte: now } },
         orderBy: { nextReviewAt: 'asc' },
-        take: 20,
+        take: OVERVIEW_DUE_PREVIEW,
         include: { word: { include: { set: true } } },
       }),
       this.prisma.userVocabularyProgress.findMany({
@@ -335,16 +398,7 @@ export class VocabularyService {
         learnedCount: learnedCountBySet.get(set.id) ?? 0,
         saved: true,
       })),
-      dueWords: dueWords.map((progress) => ({
-        ...progress.word,
-        setTitle: progress.word.set.title,
-        progress: {
-          status: progress.status,
-          reviewCount: progress.reviewCount,
-          correctCount: progress.correctCount,
-          nextReviewAt: progress.nextReviewAt,
-        },
-      })),
+      dueWords: dueWords.map((progress) => this.mapDueWord(progress)),
     };
   }
 
@@ -659,18 +713,26 @@ export class VocabularyService {
     return { saved: false };
   }
 
-  async learnWord(userId: string, wordId: string) {
+  async learnWord(userId: string, wordId: string, correct = true) {
     await this.prisma.vocabularyWord.findUniqueOrThrow({
       where: { id: wordId },
     });
     const now = new Date();
+    const schedule = scheduleLearn(now, correct);
     return this.prisma.userVocabularyProgress.upsert({
       where: { userId_wordId: { userId, wordId } },
       create: {
         userId,
         wordId,
         learnedAt: now,
-        nextReviewAt: this.addDays(now, 1),
+        status: VocabularyProgressStatus.LEARNING,
+        reviewCount: schedule.reviewCount,
+        correctCount: schedule.correctCount,
+        streak: schedule.streak,
+        lapses: schedule.lapses,
+        intervalDays: schedule.intervalDays,
+        easeFactor: schedule.easeFactor,
+        nextReviewAt: schedule.nextReviewAt,
       },
       update: {},
     });
@@ -681,31 +743,170 @@ export class VocabularyService {
       where: { userId_wordId: { userId, wordId } },
     });
     if (!progress) {
-      progress = await this.learnWord(userId, wordId);
+      progress = await this.learnWord(userId, wordId, correct);
     }
 
-    const reviewCount = progress.reviewCount + 1;
-    const correctCount = progress.correctCount + (correct ? 1 : 0);
-    const intervals = [1, 3, 7, 14, 30, 60];
-    const intervalDays = correct
-      ? intervals[Math.min(correctCount, intervals.length - 1)]
-      : 1;
-    const status =
-      correctCount >= 4
-        ? VocabularyProgressStatus.MASTERED
-        : VocabularyProgressStatus.LEARNING;
-    const now = new Date();
+    const schedule = scheduleReview(
+      {
+        reviewCount: progress.reviewCount,
+        correctCount: progress.correctCount,
+        streak: progress.streak,
+        lapses: progress.lapses,
+        intervalDays: progress.intervalDays,
+        easeFactor: progress.easeFactor,
+        status: progress.status,
+      },
+      correct,
+      new Date(),
+    );
 
     return this.prisma.userVocabularyProgress.update({
       where: { id: progress.id },
       data: {
-        reviewCount,
-        correctCount,
-        intervalDays,
-        status,
-        lastReviewedAt: now,
-        nextReviewAt: this.addDays(now, intervalDays),
+        reviewCount: schedule.reviewCount,
+        correctCount: schedule.correctCount,
+        streak: schedule.streak,
+        lapses: schedule.lapses,
+        intervalDays: schedule.intervalDays,
+        easeFactor: schedule.easeFactor,
+        status:
+          schedule.status === 'MASTERED'
+            ? VocabularyProgressStatus.MASTERED
+            : VocabularyProgressStatus.LEARNING,
+        lastReviewedAt: schedule.lastReviewedAt,
+        nextReviewAt: schedule.nextReviewAt,
       },
     });
+  }
+
+  async getLearnSession(
+    userId: string,
+    query: { setId?: string; limit?: number } = {},
+  ) {
+    await this.ensureCatalog();
+    const take = clampSessionLimit(query.limit, LEARN_SESSION_LIMIT);
+    const set = query.setId
+      ? await this.prisma.vocabularySet.findUnique({
+          where: { id: query.setId },
+        })
+      : await this.pickSetWithNewWords(userId);
+
+    if (query.setId && !set) {
+      throw new NotFoundException('Không tìm thấy bộ từ vựng');
+    }
+    if (!set) {
+      return {
+        type: 'learn' as const,
+        setId: null,
+        setTitle: null,
+        remainingNewCount: 0,
+        dueCount: 0,
+        words: [],
+      };
+    }
+
+    const now = new Date();
+    const [remainingNewCount, dueCount, words] = await Promise.all([
+      this.prisma.vocabularyWord.count({
+        where: { setId: set.id, progress: { none: { userId } } },
+      }),
+      this.prisma.userVocabularyProgress.count({
+        where: {
+          userId,
+          nextReviewAt: { lte: now },
+          word: { setId: set.id },
+        },
+      }),
+      this.prisma.vocabularyWord.findMany({
+        where: { setId: set.id, progress: { none: { userId } } },
+        orderBy: { sortOrder: 'asc' },
+        take,
+        include: { set: { select: { title: true } } },
+      }),
+    ]);
+
+    return {
+      type: 'learn' as const,
+      setId: set.id,
+      setTitle: set.title,
+      remainingNewCount,
+      dueCount,
+      words: words.map((word) => {
+        const { set: wordSet, ...rest } = word;
+        return {
+          ...rest,
+          setTitle: wordSet.title,
+          progress: null,
+        };
+      }),
+    };
+  }
+
+  async getReviewSession(
+    userId: string,
+    query: { setId?: string; limit?: number } = {},
+  ) {
+    await this.ensureCatalog();
+    const take = clampSessionLimit(query.limit, REVIEW_SESSION_LIMIT);
+    if (query.setId) {
+      const set = await this.prisma.vocabularySet.findUnique({
+        where: { id: query.setId },
+        select: { id: true },
+      });
+      if (!set) throw new NotFoundException('Không tìm thấy bộ từ vựng');
+    }
+
+    const now = new Date();
+    const where = {
+      userId,
+      nextReviewAt: { lte: now },
+      ...(query.setId ? { word: { setId: query.setId } } : {}),
+    };
+
+    const [dueCount, dueWords] = await Promise.all([
+      this.prisma.userVocabularyProgress.count({ where }),
+      this.prisma.userVocabularyProgress.findMany({
+        where,
+        orderBy: { nextReviewAt: 'asc' },
+        take,
+        include: { word: { include: { set: true } } },
+      }),
+    ]);
+
+    return {
+      type: 'review' as const,
+      setId: query.setId ?? null,
+      setTitle: dueWords[0]?.word.set.title ?? null,
+      remainingNewCount: 0,
+      dueCount,
+      words: dueWords.map((progress) => this.mapDueWord(progress)),
+    };
+  }
+
+  private async pickSetWithNewWords(userId: string) {
+    const sets = await this.prisma.vocabularySet.findMany({
+      orderBy: { sortOrder: 'asc' },
+      select: {
+        id: true,
+        title: true,
+        words: {
+          where: { progress: { none: { userId } } },
+          take: 1,
+          select: { id: true },
+        },
+        savedBy: {
+          where: { userId },
+          select: { createdAt: true },
+        },
+      },
+    });
+    const withNewWords = sets.filter((set) => set.words.length > 0);
+    const savedFirst = withNewWords
+      .filter((set) => set.savedBy.length > 0)
+      .sort(
+        (a, b) =>
+          b.savedBy[0].createdAt.getTime() - a.savedBy[0].createdAt.getTime(),
+      );
+    return savedFirst[0] ?? withNewWords[0] ?? sets[0] ?? null;
   }
 }

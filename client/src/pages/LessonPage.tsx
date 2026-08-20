@@ -31,6 +31,7 @@ import { useCanAccessLesson } from '../contexts/LessonAccessContext';
 import { useShadowing } from '../hooks/useShadowing';
 import { ApiError, api, type VocabularyLookupDetail } from '../lib/api';
 import { resolveLessonPhonetics } from '../lib/phonetic';
+import { speakEnglishText } from '../lib/speech';
 
 const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 const VIDEO_CONTROLS_VISIBLE_MS = 2000;
@@ -131,12 +132,7 @@ function formatSentenceEndTime(sentence: LessonSentence) {
 }
 
 function speakSentence(text: string, playbackRate: PlaybackRate) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = playbackRate;
-  window.speechSynthesis.speak(utterance);
+  speakEnglishText(text, playbackRate);
 }
 
 /** Cố định câu active ở đầu vùng transcript — chừa vài px để không cắt border trên */

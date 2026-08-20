@@ -32,6 +32,7 @@ import {
   type VideoTranslateSegment,
 } from '../lib/api';
 import { resolveLessonPhonetics } from '../lib/phonetic';
+import { speakEnglishText } from '../lib/speech';
 
 const DELETED_RECENT_VIDEO_IDS_KEY = 'video_translate_deleted_recent_job_ids';
 const ACCEPT_MEDIA =
@@ -131,12 +132,7 @@ function cleanVocabularyToken(value: string) {
 }
 
 function speakVocabularyText(text: string) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'en-US';
-  utterance.rate = 0.75;
-  window.speechSynthesis.speak(utterance);
+  speakEnglishText(text, 0.75);
 }
 
 function getDeletedRecentVideoIds() {

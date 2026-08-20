@@ -33,6 +33,31 @@
     fbq('track', 'PageView');
   </script>
   <!-- End Meta Pixel Code -->
+  <style>
+    #desktop-unsupported {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 50%, #ede9fe 100%);
+      color: #111827;
+    }
+    .dark #desktop-unsupported {
+      background: linear-gradient(180deg, #111827 0%, #0a0a0a 50%, #1e1b4b 100%);
+      color: #f3f4f6;
+    }
+    @media (min-width: 768px) {
+      html:not(.allow-desktop) #desktop-unsupported {
+        display: flex !important;
+      }
+      html:not(.allow-desktop) body {
+        overflow: hidden;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -40,6 +65,23 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=28053317610928728&ev=PageView&noscript=1" alt="" /></noscript>
   <div id="root"></div>
+  <div id="desktop-unsupported" role="alertdialog" aria-labelledby="desktop-unsupported-title" aria-modal="true">
+    <div class="desktop-unsupported-card">
+      <div class="desktop-unsupported-logo">
+        <img src="/brand/hihi-icon.png" alt="" />
+      </div>
+      <p class="desktop-unsupported-brand">HiHiEnglish</p>
+      <div class="desktop-unsupported-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+          <path d="M12 18h.01" />
+        </svg>
+      </div>
+      <h1 id="desktop-unsupported-title">Ứng dụng chỉ hỗ trợ ở thiết bị di động</h1>
+      <p>Vui lòng mở trang này trên điện thoại để tiếp tục sử dụng.</p>
+    </div>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

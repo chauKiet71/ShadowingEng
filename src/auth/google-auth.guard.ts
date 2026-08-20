@@ -23,4 +23,18 @@ export class GoogleAuthGuard extends AuthGuard('google') {
 
     return super.canActivate(context);
   }
+
+  getAuthenticateOptions(context: ExecutionContext) {
+    const req = context.switchToHttp().getRequest<{
+      query?: { redirect?: string };
+    }>();
+    const redirect = req.query?.redirect;
+    if (typeof redirect === 'string' && redirect.length > 0) {
+      return {
+        scope: ['email', 'profile'],
+        state: Buffer.from(redirect).toString('base64url'),
+      };
+    }
+    return { scope: ['email', 'profile'] };
+  }
 }

@@ -373,7 +373,10 @@ model UserVocabularyProgress {
   status         VocabularyProgressStatus @default(LEARNING)
   reviewCount    Int                      @default(0) @map("review_count")
   correctCount   Int                      @default(0) @map("correct_count")
-  intervalDays   Int                      @default(1) @map("interval_days")
+  streak         Int                      @default(0)
+  lapses         Int                      @default(0)
+  intervalDays   Int                      @default(0) @map("interval_days")
+  easeFactor     Float                    @default(2.5) @map("ease_factor")
   learnedAt      DateTime                 @default(now()) @map("learned_at")
   lastReviewedAt DateTime?                @map("last_reviewed_at")
   nextReviewAt   DateTime                 @map("next_review_at")
@@ -460,6 +463,7 @@ model SpeakingTurn {
   overall          Float?
   relevance        String?
   cefrOverall      String?         @map("cefr_overall")
+  correction       String?
   durationMs       Int?            @map("duration_ms")
   processingRaw    Json?           @map("speechace_raw")
   createdAt        DateTime        @default(now()) @map("created_at")
